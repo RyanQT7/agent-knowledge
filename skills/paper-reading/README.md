@@ -33,4 +33,4 @@ notes/                   个人问题、想法和学习记录
 templates/               固定输出模板
 ```
 
-原始 PDF 不放在 `papers/` 根目录。所有检查通过且确有变更时，默认自动创建一个清晰的 Git commit；不会自动 push。
+原始 PDF 不放在 `papers/` 根目录。所有检查通过且确有变更时，默认自动创建一个清晰的 Git commit，并执行 `git push origin main`；不会 force push，也不会上传原始 PDF。

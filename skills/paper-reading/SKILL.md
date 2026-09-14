@@ -20,7 +20,7 @@ Locate source
 → Record open questions
 → Update the learning log and INDEX
 → Run quality and Git checks
-→ Commit the completed knowledge task when all checks pass
+→ Commit and push the completed knowledge task when all checks pass
 ```
 
 Work inside the current knowledge-base root. Do not read a second paper, download unrelated material, install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
@@ -236,9 +236,9 @@ find papers sources/papers -maxdepth 2 -type f | sort
 
 The diff is for self-checking only; follow the Git commit behavior below after all checks pass. Do not dump the complete paper note in the user-facing response.
 
-## Git commit behavior
+## Git commit and push behavior
 
-After the paper note, Concept updates, cross-links, questions, learning log, INDEX, and source-grounding checks all pass, save the completed knowledge task automatically:
+After the paper note, Concept updates, cross-links, questions, learning log, INDEX, and source-grounding checks all pass, save and synchronize the completed knowledge task automatically:
 
 1. Run `git diff --check` before staging.
 2. Run `git add .`.
@@ -249,9 +249,11 @@ After the paper note, Concept updates, cross-links, questions, learning log, IND
    Add Toolformer paper notes and related concepts
    ```
 
-4. Run `git status` and confirm the commit result.
+4. Confirm the current branch is `main` and `origin` points to the configured knowledge-base repository.
+5. Run `git push origin main`.
+6. Run `git status` and confirm the commit and push result.
 
-Do not create an empty commit when there are no actual changes. Do not automatically push. Do not commit when the task failed, Source Grounding is `NEEDS REVIEW`, the knowledge base has an unresolved conflict, or the user explicitly asked not to commit. The source PDF must remain governed by the focused `.gitignore` rules and must not be staged.
+Do not create an empty commit when there are no actual changes. Do not force push, rewrite history, or push to an unexpected remote. Do not commit or push when the task failed, Source Grounding is `NEEDS REVIEW`, the knowledge base has an unresolved conflict, GitHub authentication or remote checks fail before synchronization, or the user explicitly asked not to commit or push. If a local commit has already been created and the push fails, preserve the commit and report the synchronization failure. The source PDF must remain governed by the focused `.gitignore` rules and must not be staged.
 
 ## User-facing completion format
 
