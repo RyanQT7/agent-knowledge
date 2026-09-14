@@ -23,6 +23,7 @@
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](papers/reflexion/notes.md)
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
+- [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

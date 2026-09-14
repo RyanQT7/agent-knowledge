@@ -10,6 +10,8 @@ LLM+P 补充了一个重要边界：系统可以包含显式的 classical planne
 
 RAP 论文把 LLM 称为 reasoning agent，并让它在 MCTS 中提出 action；但其核心任务主要在模型内部用 world model 模拟 state transition，没有因此定义一个必须面向真实 environment 的通用 Agent。这个角色命名应与系统边界分开记录。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 1; Sec. 3.1）
 
+ReWOO 的 Planner、Worker 和 Solver 形成了一个有目标的 augmented LM workflow，但论文的核心是模块化 reasoning、tool execution、solving 与效率，而不是给出通用 Agent 定义。是否把一个具体 ReWOO 部署称为 Agent，仍取决于它是否有持续的 environment state、执行反馈和后续决策循环。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1; Sec. 4）
+
 Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory 由 Evaluator 评估，Self-Reflection 把结果转成语言经验，下一次 Actor 再读取这段 experience。这个外层反馈机制是可选的 Agent 组成部分，不是 Agent 定义本身。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
 ## System Boundary
@@ -61,6 +63,16 @@ Task → State → MCTS
 
 这是一种 inference-time planning loop；如果没有真实执行器和环境 Observation，它不等同于完整的 environment-facing Agent loop。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 3）
 
+ReWOO 的模块化流程可以表示为：
+
+~~~text
+Task → Planner blueprint → Worker tools
+                         ↓
+                   Evidence → Solver → Answer
+~~~
+
+它有计划、工具和求解步骤，但 Planner 在主流程中不依赖逐步 Observation 重新生成 blueprint；因此它是 Agentic workflow 的一个候选组织方式，而不是仅凭模块名字即可判定为完整 Agent。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1）
+
 若加入 Reflexion 的跨尝试机制，功能结构可扩展为：
 
 ~~~text
@@ -88,6 +100,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 在单次 trajectory 之外加入 evaluator、verbal reflection 和跨 attempt memory。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 作为 explicit planner / executor pipeline 的边界案例；论文没有据此给出通用 Agent 定义。
 - [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 作为 LLM reasoning agent、world model 和 MCTS 的推理时规划案例；不自动等同于完整环境 Agent。
+- [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 作为 Planner–Worker–Solver 的 augmented LM workflow；不自动等同于持续环境 Agent。
 
 ## Representative Systems / Code
 
@@ -117,6 +130,7 @@ ReAct 让我把 Agent 理解为一个闭环 policy，而不是“带有一个 pr
 - Toolformer 的 learned API-use behavior 与 ReAct 的 runtime interaction loop 属于不同层次。
 - 拥有外部 planner 或 executor 也不自动使整个系统成为 Agent；仍需检查目标驱动的状态交互和持续决策边界。
 - 论文把模型称为 reasoning agent，不等于该模型已经具备真实环境感知、执行反馈或持久记忆。
+- Planner–Worker–Solver 的模块化和工具调用不自动证明存在跨状态的 Agent loop；要检查是否支持执行后 Observation、replanning 和终止控制。
 
 ## Open Questions
 

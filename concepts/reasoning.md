@@ -36,6 +36,8 @@ ReAct 中的 Thought 可以分解任务、提取观察事实、进行 commonsens
 
 RAP 进一步把 reasoning path 放入搜索树：LLM 生成候选 action，world model 预测 imagined state，reward 和 MCTS 选择后续分支。这里的“state”是任务相关的显式或半结构化表示，不是模型 hidden state 的直接暴露；搜索获得的是 inference-time candidate selection。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 3.1–3.3）
 
+ReWOO 又把 reasoning 分成 foreseeable reasoning 与 evidence-dependent solving：Planner 先生成自然语言 blueprint，Worker 后续执行工具，Solver 读取 plans 和 evidence。这里的计划不是模型隐藏状态，也不是已经验证的 formal plan；它是供后续模块使用的显式语言中间表示。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1）
+
 ## Typical Architecture
 
 ```text
@@ -62,6 +64,7 @@ Context → Thought → External Action → Observation → Updated Context → 
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 研究如何把 trajectory feedback 变成下一次 reasoning 可读取的 verbal experience。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 展示语言翻译与形式化计划搜索之间的解耦。
 - [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 展示通过 world model、reward 和 MCTS 搜索多个 reasoning path。
+- [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 展示把 foreseeable reasoning 与 evidence-dependent solving 分成不同模块。
 
 ## Representative Systems / Code
 
@@ -91,6 +94,7 @@ Reflexion 让我进一步区分“当前轨迹中的 reasoning”和“轨迹结
 - Reflection 不是把 reasoning 再生成一遍；它需要有 trajectory feedback，并以改变后续 attempt 为目标。
 - 生成多步动作或子目标只能说明可能存在 plan-like reasoning；是否为 explicit planning 还要检查是否有明确的计划表示、规划过程或独立 Planner / solver。
 - 搜索多个语言分支也不等于模型内部同时保留了多个真实 mental states；它是由外部推理流程组织的候选文本和预测状态。
+- Planner 提前生成多步 blueprint 不等于它已经看到或验证了未来 Observation；foreseeable reasoning 与 observation-grounded reasoning 需要分开分析。
 
 ## Open Questions
 

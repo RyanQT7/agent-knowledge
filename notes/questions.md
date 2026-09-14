@@ -15,7 +15,7 @@
 | Feedback 如何转化为有效 Reflection？ | Open | Evaluator 可靠性、错误归因、语言反馈的可执行性和迁移性仍未解释。 |
 | Memory 应该保存什么、保存多久、何时读取？ | Partially Answered | 已区分 current context、working-memory-like context 和 task-local episodic memory；persistent memory 的检索、压缩和冲突处理仍开放。 |
 | 如何避免错误 Observation / Reflection 累积？ | Open | 现有论文展示了部分失败恢复，但没有通用的验证、provenance、淘汰或安全更新机制。 |
-| Tool-use policy 应通过 prompt、training 还是 planning 获得？ | Partially Answered | ReAct、Toolformer、Reflexion 分别提供 runtime、training 和 feedback-driven 证据；成本、迁移和组合关系仍开放。 |
+| Tool-use policy 应通过 prompt、training 还是 planning 获得？ | Partially Answered | ReAct、Toolformer、Reflexion 分别提供 runtime、training 和 feedback-driven 证据；ReWOO 增加了 Planner blueprint 驱动 Worker 的模块化路径；成本、迁移和组合关系仍开放。 |
 | 如何可靠支持 chained tool use 和 interactive search？ | Open | Toolformer 和 ReAct 的笔记都暴露了这个缺口，当前资料没有统一解决方案。 |
 
 详细的跨论文推理见 [Knowledge Review v1](reviews/knowledge-review-v1.md)。
@@ -112,6 +112,26 @@
 - explicit planning 的最低要求是形式化状态、动作和目标，还是还需要独立搜索或验证过程？
 - Planner–Executor 解耦在开放环境、部分可观测状态和连续动作中应如何实现？
 - formal planner 的正确性保证如何与上游自然语言翻译错误和下游真实执行失败组合？
+
+## From the ReWOO reading
+
+### 已补充回答的问题
+
+- 对“ReAct 式 runtime interaction 与 plan-first 架构有什么区别？”：**得到部分回答**。ReAct 在每轮 Action 后读取 Observation，再决定下一步；ReWOO 先生成 foreseeable blueprint，再由 Worker 执行工具、由 Solver 整合 evidence。前者更适合 observation-dependent interaction，后者减少重复 context，但 Planner 不能直接利用后续 Observation。（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#12-relationship-to-existing-knowledge)）
+- 对“Planning 和 Tool Use 如何组合？”：**得到部分回答**。ReWOO 用 evidence variables 表达计划中的工具依赖，说明 tool invocation 可以作为计划模块的执行阶段；但它没有给出动态环境中的通用 Planner–Worker replanning 机制。（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#8-method)）
+
+### 论文明确留下的问题
+
+- 如何判断哪些 reasoning 是 foreseeable，哪些必须等待 Observation？（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#11-limitations)）
+- 如何处理错误、冲突或副作用 evidence，并在必要时触发 replanning？（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#14-questions)）
+- 如何学习工具表示、工具相似性和安全的 tool selection？（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#11-limitations)）
+- 如何在多模块或 DAG workflow 中管理依赖、并发和错误传播？（Source: [ReWOO 论文笔记](../papers/rewoo/notes.md#14-questions)）
+
+### 基于 ReWOO 进一步产生的问题
+
+- plan-first、search-based planning 和 runtime observation-first 是否应根据环境可预测性自动切换？
+- evidence placeholder 能否编译成结构化 tool call、依赖图和可验证执行计划？
+- Solver 的语言补偿何时足够，何时必须加入独立的 evidence verifier 或 critic？
 
 ## From the RAP reading
 

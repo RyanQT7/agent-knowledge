@@ -38,6 +38,8 @@ Reflexion 可以把使用 ReAct 或 Wikipedia API 的 Actor 放进外层反馈�
 
 LLM+P 提供了一个外部规划器作为模块的边界案例：LLM 生成 PDDL problem，classical planner 执行结构化搜索，之后结果再被翻译或交给机器人 executor。把 planner 接到系统中属于外部能力调用，但它不是 Toolformer 式的 learned API-use policy，也不自动构成 Agent。（Source: [LLM+P paper note](../papers/llm-p/notes.md); Sec. III）
 
+ReWOO 把工具调用放在 Planner–Worker–Solver 流程中：Planner 先生成带 evidence placeholders 的请求，Worker 执行工具，Solver 最后整合 evidence。它说明 tool invocation、result integration 和 reasoning scheduling 可以由不同模块承担，但不代表 Planner 已经学习了通用 API-use policy，也没有自动提供验证或 replanning。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1–2.2）
+
 一个与具体论文无关的最小抽象是：
 
 ~~~
@@ -90,6 +92,8 @@ LM / Policy
 
 这个比较的结论是：ReAct 主要改变运行时的 reasoning/acting 组织方式；Toolformer 主要改变 LM 如何通过自监督微调学会插入和使用 API call。两者可以组合，但不应描述成同一种 Agent 架构。
 
+ReWOO 提供了第三种当前资料中的组织方式：它不在每次 tool call 后让 Planner 继续生成，而是先完成 foreseeable blueprint，再让 Worker 填充 evidence，最后由 Solver 统一读取。这样降低了重复 context 和工具失败对计划生成的即时影响，但也牺牲了 Planner 对实时 Observation 的直接适应能力。（Cross-paper synthesis; [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1–2.2）
+
 **Source:** [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md).
 
 ## Example
@@ -115,6 +119,7 @@ LM / Policy
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示通过候选调用、工具执行和 future-token loss filtering 自监督学习 API 使用。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示工具型 Actor 外层的反馈、reflection 和跨 attempt memory；核心不是工具调用策略学习。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 展示把 PDDL 与 classical planner 接入自然语言模型的 solver-backed 外部模块边界。
+- [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 展示 Planner–Worker–Solver 中的工具执行与 evidence integration。
 
 ## Representative Systems / Code
 

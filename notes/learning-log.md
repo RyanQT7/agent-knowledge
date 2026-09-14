@@ -65,3 +65,12 @@
 - New concepts: world model、search-based reasoning、inference-time planning。
 - Open questions: imagined state 如何由真实 Observation 校验，及搜索成本如何扩展到长任务。
 - Next step: 比较 plan-first、world-model search 与 runtime observation loop 的组合方式。
+
+## 2026-09-14
+
+- Date: 2026-09-14
+- Paper: ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models
+- Core takeaway: ReWOO 用 Planner–Worker–Solver 将 foreseeable reasoning、工具执行和 evidence solving 分开，以减少 observation-interleaved context 的重复。
+- New concepts: foreseeable reasoning、evidence placeholder、plan-first tool workflow、context efficiency。
+- Open questions: 如何在 Planner 看不到未来 Observation 时判断是否需要 replanning，以及如何验证 evidence。
+- Next step: 综合三篇 Planning 论文，明确 plan-like reasoning、explicit planning、search 和 replanning 的边界。
