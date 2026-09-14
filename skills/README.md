@@ -1,11 +1,11 @@
 # Skills
 
-这里未来会逐渐加入用于辅助知识库维护的 Skill，例如：
+这里逐渐加入用于辅助知识库维护的 Skill：
 
-- `paper-reading`
+- [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
 - `code-reading`
 - `literature-review`
 - `concept-updating`
 - `research-comparison`
 
-当前只建立目录说明，不实现复杂 Skill。等知识库结构稳定后再逐步增加。
+其他 Skill 当前只保留规划项，不实现复杂 Skill。
