@@ -7,6 +7,7 @@ Skill 层次：
 - paper-reading — single-paper workflow
 - knowledge-review — cross-paper consolidation
 - learning-batch — batch orchestration
+- knowledge-query — retrieve and teach from accumulated knowledge
 
 - [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
 - [knowledge-review](knowledge-review/SKILL.md) — 跨论文知识整合与阶段性复盘。`Status: v1 / validated with ReAct + Toolformer + Reflexion`
@@ -16,6 +17,8 @@ Skill 层次：
 - `research-comparison`
 
 其他 Skill 当前只保留规划项，不实现复杂 Skill。
+
+- [knowledge-query](knowledge-query/SKILL.md) — 基于已积累知识进行检索、教学、比较和来源追溯；默认只读。`Status: v1`
 
 - [learning-batch](learning-batch/SKILL.md) — 串行编排新论文批次，并调用 paper-reading 与 knowledge-review。`Status: v1 / validated from Planning Batch`
 
