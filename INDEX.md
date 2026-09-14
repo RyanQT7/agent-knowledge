@@ -13,6 +13,7 @@
 - [Planning](concepts/planning.md)
 - [Reasoning](concepts/reasoning.md)
 - [Reflection](concepts/reflection.md)
+- [World Model](concepts/world-model.md)
 - Multi-Agent（当前归入 [Agent](concepts/agent.md) 的相关概念中）
 
 ## Papers
@@ -21,6 +22,7 @@
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](papers/toolformer/notes.md)
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](papers/reflexion/notes.md)
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
+- [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

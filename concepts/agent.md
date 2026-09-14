@@ -8,6 +8,8 @@ Agent 是根据任务上下文接收 Observation、选择 Action 并与 environm
 
 LLM+P 补充了一个重要边界：系统可以包含显式的 classical planner 和机器人 executor，却仍主要是一条自然语言到结构化计划的求解 pipeline。是否称为 Agent 不能只看是否出现 planner 或工具，还要看系统是否在目标驱动的运行时循环中持续接收状态、执行行动并调整后续行为。（Source: [LLM+P paper note](../papers/llm-p/notes.md); Sec. III; Sec. V.D）
 
+RAP 论文把 LLM 称为 reasoning agent，并让它在 MCTS 中提出 action；但其核心任务主要在模型内部用 world model 模拟 state transition，没有因此定义一个必须面向真实 environment 的通用 Agent。这个角色命名应与系统边界分开记录。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 1; Sec. 3.1）
+
 Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory 由 Evaluator 评估，Self-Reflection 把结果转成语言经验，下一次 Actor 再读取这段 experience。这个外层反馈机制是可选的 Agent 组成部分，不是 Agent 定义本身。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
 ## System Boundary
@@ -45,6 +47,20 @@ Task / Observation → Thought → Action → Observation → ... → Finish
 
 论文没有把 Planner、Executor 和 Memory 实现为独立模块；这些功能主要由 LLM、trajectory context 和环境接口共同承担。
 
+RAP 可以用另一种推理时结构表示：
+
+~~~text
+Task → State → MCTS
+             ↙   ↘
+      Action / World Model
+             ↓
+        Reward / Search
+             ↓
+       Selected Reasoning Path
+~~~
+
+这是一种 inference-time planning loop；如果没有真实执行器和环境 Observation，它不等同于完整的 environment-facing Agent loop。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 3）
+
 若加入 Reflexion 的跨尝试机制，功能结构可扩展为：
 
 ~~~text
@@ -71,6 +87,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示 tool-augmented LM 的 learned API-use policy，但不自动等同于完整 Agent。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 在单次 trajectory 之外加入 evaluator、verbal reflection 和跨 attempt memory。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 作为 explicit planner / executor pipeline 的边界案例；论文没有据此给出通用 Agent 定义。
+- [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 作为 LLM reasoning agent、world model 和 MCTS 的推理时规划案例；不自动等同于完整环境 Agent。
 
 ## Representative Systems / Code
 
@@ -99,6 +116,7 @@ ReAct 让我把 Agent 理解为一个闭环 policy，而不是“带有一个 pr
 - Agent 也不必然包含独立 Planner、Memory 或多个模型；这些是架构选项，不是定义条件。
 - Toolformer 的 learned API-use behavior 与 ReAct 的 runtime interaction loop 属于不同层次。
 - 拥有外部 planner 或 executor 也不自动使整个系统成为 Agent；仍需检查目标驱动的状态交互和持续决策边界。
+- 论文把模型称为 reasoning agent，不等于该模型已经具备真实环境感知、执行反馈或持久记忆。
 
 ## Open Questions
 

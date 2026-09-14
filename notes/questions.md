@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | Agent 的边界是什么？ | Partially Answered | 需要目标驱动的持续决策和状态 / feedback loop；Tool Use 本身不是充分条件，Agentic workflow 的边界仍开放。 |
 | Tool-augmented LM 与 Agent 的边界是什么？ | Partially Answered | Toolformer 提供 LM-level tool-use evidence，ReAct 提供 runtime interaction evidence，但当前资料还不足以形成统一判据。 |
-| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分当前推导与多步行动组织；LLM+P 已提供 explicit planner / solver 的边界案例，但 plan-like reasoning、形式化规划和在线 replanning 的统一判据仍开放。 |
+| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分当前推导与多步行动组织；LLM+P 提供 explicit planner / solver，RAP 提供 search-based planning 的边界案例，但 plan-like reasoning、形式化规划和在线 replanning 的统一判据仍开放。 |
 | Reasoning 与 Reflection 有什么差别？ | Partially Answered | Reasoning 主要推进当前 step / attempt，Reflection 主要把评估结果转成下一次 attempt 的语言条件；与 critic 的边界仍开放。 |
 | Feedback 如何转化为有效 Reflection？ | Open | Evaluator 可靠性、错误归因、语言反馈的可执行性和迁移性仍未解释。 |
 | Memory 应该保存什么、保存多久、何时读取？ | Partially Answered | 已区分 current context、working-memory-like context 和 task-local episodic memory；persistent memory 的检索、压缩和冲突处理仍开放。 |
@@ -112,3 +112,23 @@
 - explicit planning 的最低要求是形式化状态、动作和目标，还是还需要独立搜索或验证过程？
 - Planner–Executor 解耦在开放环境、部分可观测状态和连续动作中应如何实现？
 - formal planner 的正确性保证如何与上游自然语言翻译错误和下游真实执行失败组合？
+
+## From the RAP reading
+
+### 已补充回答的问题
+
+- 对“ReAct 是否真正具有 planning？”：**得到更清晰的层次区分**。RAP 说明 planning 可以通过任务相关 state、world model、reward 和 MCTS 形成显式 search-based inference；ReAct 的 Thought 仍是 plan-like、runtime 的决策机制，不能简单与 RAP 的搜索树等同。（Source: [RAP 论文笔记](../papers/rap/notes.md#12-relationship-to-existing-knowledge)）
+- 对“Observation 在 planning 中扮演什么角色？”：**部分回答**。RAP 的核心实验使用 LLM 预测 imagined state 作为搜索条件，而不是外部执行后的真实 Observation；因此 model-based simulation 与 observation-grounded interaction 是不同反馈来源。（Source: [RAP 论文笔记](../papers/rap/notes.md#6-architecture--workflow)）
+
+### 论文明确留下的问题
+
+- 如何自动定义跨任务可靠的 state、action 和 reward？（Source: [RAP 论文笔记](../papers/rap/notes.md#11-limitations)）
+- 如何验证 world model 的 state transition prediction，并识别错误的 imagined state？（Source: [RAP 论文笔记](../papers/rap/notes.md#14-questions)）
+- MCTS 的分支、深度和 LLM 调用成本如何扩展到更长任务？（Source: [RAP 论文笔记](../papers/rap/notes.md#14-questions)）
+- 如何将真实 Observation、external tools 和 online replanning 与 RAP 结合？（Source: [RAP 论文笔记](../papers/rap/notes.md#14-questions)）
+
+### 基于 RAP 进一步产生的问题
+
+- Planning 是否一定需要 search，还是可以通过单一路径的可验证计划生成完成？
+- world model 预测的 imagined state 何时足以替代真实 Observation，何时必须由环境或 symbolic simulator 校验？
+- Planner 的 reward 与 Agent 任务真实效用不一致时，如何检测 search-induced error？

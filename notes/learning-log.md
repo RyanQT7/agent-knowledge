@@ -56,3 +56,12 @@
 - New concepts: solver-backed planning、PDDL problem representation、LLM–planner boundary。
 - Open questions: 如何验证 LLM 生成的 PDDL，以及如何把静态计划与执行中的 Observation 和 replanning 结合。
 - Next step: 比较搜索式 world model planning 与 planner–executor / plan-first 架构。
+
+## 2026-09-14
+
+- Date: 2026-09-14
+- Paper: RAP: Reasoning with Language Model is Planning with World Model
+- Core takeaway: RAP 将 reasoning trajectory 组织为 state/action 搜索，用 prompted LLM 预测 imagined state，并由 reward 与 MCTS 选择候选路径。
+- New concepts: world model、search-based reasoning、inference-time planning。
+- Open questions: imagined state 如何由真实 Observation 校验，及搜索成本如何扩展到长任务。
+- Next step: 比较 plan-first、world-model search 与 runtime observation loop 的组合方式。

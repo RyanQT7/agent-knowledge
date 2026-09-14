@@ -15,8 +15,9 @@ Reflexion 增加了 trajectory 之后的语言 feedback：模型或系统根据 
 | 对象 | 面向的时间尺度 | 主要作用 |
 | --- | --- | --- |
 | Reasoning trace / Thought | 当前 step 或当前 attempt | 解释 context、处理 Observation、分解任务并决定下一步。 |
-| Planning | 多个 step 的组织 | 安排子目标、顺序和重规划；既可能表现为 plan-like reasoning，也可能由显式表示和 solver 组织。 |
+| Planning | 多个 step 的组织 | 安排子目标、顺序和重规划；既可能表现为 plan-like reasoning，也可能由显式表示、solver 或 search 组织。 |
 | Reflection | 当前 attempt 结束后、下一次 attempt 之前 | 根据 Evaluator feedback 归纳错误和修正建议。 |
+| Search-based reasoning | 多个候选 trace 的比较 | 用预测状态、reward 和搜索过程选择 reasoning path；RAP 是当前资料中的一个实例。 |
 | Internal model state | 模型内部 | 不能从上述任一段语言文本直接等同推断。 |
 
 Reasoning 与 reflection 都可能是语言生成，但前者主要服务当前 trajectory 的推进，后者主要服务下一次 trajectory 的条件更新。（Source: [ReAct paper note](../papers/react/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
@@ -32,6 +33,8 @@ Reasoning 与 reflection 都可能是语言生成，但前者主要服务当前 
 ReAct 中的 Thought 可以分解任务、提取观察事实、进行 commonsense / arithmetic reasoning、改写查询、跟踪进度和综合答案。Thought 本身不改变 environment；外部 Action 的 Observation 会反过来约束和更新后续 Thought。
 
 在 LLM+P 中，部分 reasoning 任务被拆成语言到符号表示的翻译，部分计划求解则由外部 classical planner 完成。这个例子说明，文本中的推导、显式计划搜索和模型隐藏状态是不同层次，不能因为它们都支持最终行动就互相等同。（Source: [LLM+P paper note](../papers/llm-p/notes.md); Sec. II.A–III.C）
+
+RAP 进一步把 reasoning path 放入搜索树：LLM 生成候选 action，world model 预测 imagined state，reward 和 MCTS 选择后续分支。这里的“state”是任务相关的显式或半结构化表示，不是模型 hidden state 的直接暴露；搜索获得的是 inference-time candidate selection。（Source: [RAP paper note](../papers/rap/notes.md); Sec. 3.1–3.3）
 
 ## Typical Architecture
 
@@ -58,6 +61,7 @@ Context → Thought → External Action → Observation → Updated Context → 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 研究 reasoning trace 与 action-observation 交错的效果和代价。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 研究如何把 trajectory feedback 变成下一次 reasoning 可读取的 verbal experience。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 展示语言翻译与形式化计划搜索之间的解耦。
+- [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 展示通过 world model、reward 和 MCTS 搜索多个 reasoning path。
 
 ## Representative Systems / Code
 
@@ -86,6 +90,7 @@ Reflexion 让我进一步区分“当前轨迹中的 reasoning”和“轨迹结
 - 产生了计划性的 Thought 不等于使用了显式 Planner。
 - Reflection 不是把 reasoning 再生成一遍；它需要有 trajectory feedback，并以改变后续 attempt 为目标。
 - 生成多步动作或子目标只能说明可能存在 plan-like reasoning；是否为 explicit planning 还要检查是否有明确的计划表示、规划过程或独立 Planner / solver。
+- 搜索多个语言分支也不等于模型内部同时保留了多个真实 mental states；它是由外部推理流程组织的候选文本和预测状态。
 
 ## Open Questions
 
