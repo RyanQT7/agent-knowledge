@@ -256,34 +256,34 @@ Next attempt
 
 下面是本次 Review 的去重后状态；历史问题仍保留在 [notes/questions.md](../questions.md) 的原有阅读记录中。
 
-1. **Agent 的边界是什么？**  
+1. **Agent 的边界是什么？**
    Status: Partially Answered。当前可用的工作定义要求目标驱动的持续决策和状态 / 反馈闭环；但 Agentic workflow 与 Agent 的边界仍需要更多架构论文。
 
-2. **Tool-augmented LM 与 Agent 的边界是什么？**  
+2. **Tool-augmented LM 与 Agent 的边界是什么？**
    Status: Partially Answered。Tool use 不是充分条件；Toolformer 提供 LM-level evidence，ReAct 提供 runtime interaction evidence，但还没有统一判据。
 
-3. **Reasoning 与 Planning 如何区分？**  
+3. **Reasoning 与 Planning 如何区分？**
    Status: Partially Answered。当前可以区分“中间推导”与“步骤组织”，但三篇论文没有显式 Planner，因此需要 Planner 类论文进一步补充。
 
-4. **Reasoning 与 Reflection 有什么本质差别？**  
+4. **Reasoning 与 Reflection 有什么本质差别？**
    Status: Partially Answered。当前按时间尺度区分：reasoning 服务当前 step，reflection 服务下一次 attempt；与 critic、self-correction 的边界仍开放。
 
-5. **Feedback 如何转化为有效 Reflection？**  
+5. **Feedback 如何转化为有效 Reflection？**
    Status: Open。Evaluator 的可靠性、错误归因、语言反馈的可执行性和可迁移性还没有被独立解释。
 
-6. **Memory 应该保存什么、保存多久、何时读取？**  
+6. **Memory 应该保存什么、保存多久、何时读取？**
    Status: Partially Answered。当前已有 working context 与 task-local episodic memory 的区分，但 persistent / long-term memory 的检索、压缩和冲突处理仍开放。
 
-7. **Agent 如何避免错误 Observation / Reflection 累积？**  
+7. **Agent 如何避免错误 Observation / Reflection 累积？**
    Status: Open。现有论文展示了失败恢复，但没有给出通用的 provenance、验证、淘汰或安全更新机制。
 
-8. **Tool-use policy 应该通过 prompt、training 还是 planning 获得？**  
+8. **Tool-use policy 应该通过 prompt、training 还是 planning 获得？**
    Status: Partially Answered。ReAct 代表 runtime prompting / trajectory，Toolformer 代表 training-time learned policy，Reflexion 是反馈后的外层修正；三者的成本、迁移和组合关系仍未解决。
 
-9. **如何可靠支持 chained tool use 和 interactive search？**  
+9. **如何可靠支持 chained tool use 和 interactive search？**
    Status: Open。Toolformer 和 ReAct 的笔记都指出了相关边界，但当前资料没有给出统一解决方案。
 
-10. **如何评估一个 Agent 真正学到了什么？**  
+10. **如何评估一个 Agent 真正学到了什么？**
     Status: Open。需要把 Actor、tool policy、Evaluator、Reflection、Memory 和环境执行质量拆开评估，而不是只看最终成功率。
 
 ## 11. Next Learning Priorities
