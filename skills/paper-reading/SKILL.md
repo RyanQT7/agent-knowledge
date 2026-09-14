@@ -20,6 +20,7 @@ Locate source
 → Record open questions
 → Update the learning log and INDEX
 → Run quality and Git checks
+→ Commit the completed knowledge task when all checks pass
 ```
 
 Work inside the current knowledge-base root. Do not read a second paper, download unrelated material, install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
@@ -233,7 +234,24 @@ Also inspect a concise file list when useful:
 find papers sources/papers -maxdepth 2 -type f | sort
 ```
 
-The diff is for self-checking only. Do not automatically commit or push. Do not dump the complete paper note in the user-facing response.
+The diff is for self-checking only; follow the Git commit behavior below after all checks pass. Do not dump the complete paper note in the user-facing response.
+
+## Git commit behavior
+
+After the paper note, Concept updates, cross-links, questions, learning log, INDEX, and source-grounding checks all pass, save the completed knowledge task automatically:
+
+1. Run `git diff --check` before staging.
+2. Run `git add .`.
+3. Create a concise, paper-specific commit, for example:
+
+   ```text
+   Add Reflexion paper notes and memory concepts
+   Add Toolformer paper notes and related concepts
+   ```
+
+4. Run `git status` and confirm the commit result.
+
+Do not create an empty commit when there are no actual changes. Do not automatically push. Do not commit when the task failed, Source Grounding is `NEEDS REVIEW`, the knowledge base has an unresolved conflict, or the user explicitly asked not to commit. The source PDF must remain governed by the focused `.gitignore` rules and must not be staged.
 
 ## User-facing completion format
 

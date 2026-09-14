@@ -21,6 +21,8 @@ ReAct 和 Toolformer 共同说明，工具调用不一定是回答末尾的一�
 
 ## Core Mechanism
 
+Reflexion 可以把使用 ReAct 或 Wikipedia API 的 Actor 放进外层反馈循环；它的新增机制是 evaluator → reflection → episodic memory，而不是学习何时调用工具，因此与 Toolformer 的 learned call policy 属于正交层次。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3; Sec. 4.2）
+
 一个与具体论文无关的最小抽象是：
 
 ~~~
@@ -90,11 +92,13 @@ LM / Policy
 - [RAG](rag.md)
 - [MCP](mcp.md)
 - [Context Engineering](context-engineering.md)
+- [Reflection](reflection.md)
 
 ## Representative Papers
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示运行时 Thought、Action、Observation 的交错闭环。
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示通过候选调用、工具执行和 future-token loss filtering 自监督学习 API 使用。
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示工具型 Actor 外层的反馈、reflection 和跨 attempt memory；核心不是工具调用策略学习。
 
 ## Representative Systems / Code
 

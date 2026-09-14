@@ -48,3 +48,29 @@
 - Toolformer 的 inline API result 与 ReAct 的 Observation trajectory 能否组合成稳定的多步交互 Agent？
 
 关联笔记：[Toolformer 论文笔记](../papers/toolformer/notes.md#14-questions)。
+
+## From the Reflexion reading
+
+### 已补充回答的问题
+
+- 对“ReAct trajectory 中的历史信息与现代 Agent memory 有什么区别？”：**得到部分回答**。Reflexion 明确区分当前 trajectory 的 short-term memory 与跨 trial 保存的 self-reflection；其实际 memory 通常只保留最近 1–3 条，属于 task-local、bounded episodic memory，并没有证明跨会话的 persistent memory。（Source: [Reflexion 论文笔记](../papers/reflexion/notes.md#82-memory-lifecycle); Sec. 3.1; Sec. 5）
+- 对“错误、冲突或过时的 Observation 如何影响后续 Agent trajectory？”：**得到部分回答**。Evaluator 和 reflection 可以把失败转成下一次的错误诊断与修正建议，但错误反馈也可能被写入 memory；Reflexion 没有系统解决错误 evaluator、冲突 Observation 或错误 reflection 的检测与恢复。（Source: [Reflexion 论文笔记](../papers/reflexion/notes.md#83-task-specific-evaluators); Sec. 5）
+- 对“ReAct 是否真正具有 planning？”：**得到部分回答**。Reflexion 的 reflection 能提出替代动作顺序或策略，显示 plan-like correction；但论文没有定义独立 Planner 或可验证计划状态，因此仍不能把语言化分解直接等同于完整 planning architecture。（Source: [Reflexion 论文笔记](../papers/reflexion/notes.md#12-relationship-to-existing-knowledge)）
+- 对“Reasoning trace 是否等价于 Agent 的 internal state？”：**进一步确认否定**。Thought、trajectory 和 reflection 都是显式语言条件；它们能影响后续行为，但不能据此断言它们就是模型真实 hidden internal state。（Source: [Reflexion 论文笔记](../papers/reflexion/notes.md#12-relationship-to-existing-knowledge)）
+
+### 论文明确留下的问题
+
+- 自然语言 policy optimization 如何避免非最优 local minima？（Source: Sec. 5）
+- 如何把当前有限的 sliding-window memory 扩展为更大且可靠的可检索 memory？（Source: Sec. 5）
+- 如何在高多样性、需要探索的环境中让 reflection 真正提供有效指导？（Source: Appendix B.1）
+- 在非确定性、带副作用、依赖硬件或并发的代码任务中，如何获得可靠的 evaluator feedback？（Source: Sec. 5）
+
+### 基于 Reflexion 进一步产生的问题
+
+- 错误 reflection 是否会造成后续 trajectory 的反馈回路，使 Agent 越来越偏？
+- 为什么自然语言 reflection 能够在部分任务中充当有效的 credit-assignment signal？
+- Reflection 与 critic、self-correction 或其他 verbal feedback 方法有什么本质区别？
+- 长期运行的 Agent 应保存原始 trajectory、reflection summary，还是可验证的压缩结果？
+- 如何分别评估 Actor、Evaluator、Self-Reflection 和 Memory 的贡献？
+
+关联笔记：[Reflexion 论文笔记](../papers/reflexion/notes.md#14-questions)。

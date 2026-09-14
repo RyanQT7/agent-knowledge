@@ -43,6 +43,7 @@ Goal → Language Plan / Subgoals → Action → Observation
 ## Representative Papers
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示语言化的目标分解、子目标跟踪和动态调整。
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — reflection 可以跨 attempt 提议不同的动作顺序或策略，但论文没有定义独立的 Planner architecture。（Source: Sec. 3; Appendix B）
 
 ## Representative Systems / Code
 

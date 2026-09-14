@@ -6,11 +6,15 @@ Status: evolving
 
 Reasoning 是从当前信息、目标和约束出发形成中间推导，以支持结论或行动的过程。ReAct 关注的是可与外部 Action 交错的 language reasoning trace。
 
+Reflexion 增加了 trajectory 之后的语言 feedback：模型或系统根据 Evaluator 的结果生成对错误和修正方向的解释，再作为下一次 reasoning 的 context。这个显式 feedback 不是模型隐藏 internal state 的直接读出。
+
 ## Why It Matters
 
 如果 reasoning 能产生新的查询目标、解释 Observation 并修正下一步行动，它就不只是答案前的静态文字，而是 Agent 闭环中的控制信号。ReAct 的结果也说明 grounding 与 reasoning flexibility 之间存在实际 trade-off。
 
 ## Core Mechanism
+
+在跨 trial 的层次，Reflexion 让 Evaluator feedback 经由 Self-Reflection 变成可复用的语言经验。它可以提供错误归因、credit assignment 或下一次的修正建议，并通过 episodic memory 改变后续 reasoning；它不通过 gradient 更新模型参数。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
 ReAct 中的 Thought 可以分解任务、提取观察事实、进行 commonsense / arithmetic reasoning、改写查询、跟踪进度和综合答案。Thought 本身不改变 environment；外部 Action 的 Observation 会反过来约束和更新后续 Thought。
 
@@ -32,10 +36,12 @@ Context → Thought → External Action → Observation → Updated Context → 
 - [Tool Use](tool-use.md)
 - [Planning](planning.md)
 - [Memory](memory.md)
+- [Reflection](reflection.md)
 
 ## Representative Papers
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 研究 reasoning trace 与 action-observation 交错的效果和代价。
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 研究如何把 trajectory feedback 变成下一次 reasoning 可读取的 verbal experience。
 
 ## Representative Systems / Code
 
@@ -50,10 +56,13 @@ Context → Thought → External Action → Observation → Updated Context → 
 - 交错结构可能降低自由推理能力；ReAct 的实验也观察到 grounding 与 reasoning flexibility 之间的 trade-off。
 - Thought 仍可能 hallucinate 或重复生成，不能自动保证 faithful reasoning。
 - 无信息的 Observation、错误的工具返回和过长 context 会继续污染推理。
+- Reflection 可以帮助后续 reasoning，但其错误归因会被写入 context；Evaluator、reflection prompt 和 memory window 的质量会限制纠错效果。
 
 ## My Understanding
 
 ReAct 的关键变化是把 reasoning 放回行动循环：Thought 既是对已有上下文的推导，也是下一次 Action 的条件；Observation 则提供外部校验。它提高的是“可被反馈约束的推理”，不等于证明了自然语言 Thought 就是模型真实内部推理。
+
+Reflexion 让我进一步区分“当前轨迹中的 reasoning”和“轨迹结束后的 reasoning feedback”：前者直接服务于下一步 action，后者服务于下一次 attempt。两者都是语言条件，但都不能直接当成模型真实 internal state。
 
 ## Open Questions
 

@@ -31,3 +31,12 @@
 - New concepts: loss-based call filtering、inline textual API result、tool-augmented LM 与完整 Agent 的边界。
 - Open questions: 如何把 learned call policy 迁移到 structured tool calling / MCP，以及如何支持可靠的链式、交互式调用。
 - Next step: 比较更多 tool-use 方法，区分训练得到的调用策略与运行时 Agent trajectory。
+
+## 2026-09-14
+
+- Date: 2026-09-14
+- Paper: Reflexion: Language Agents with Verbal Reinforcement Learning
+- Core takeaway: Reflexion 用 Evaluator feedback 生成 verbal reflection，保存为受限的跨 attempt episodic memory；它改变下一次 context，而不是模型参数。
+- New concepts: verbal reinforcement、reflection loop、episodic memory、Evaluator–Actor separation。
+- Open questions: 错误 reflection 如何传播，以及 task-local memory 如何扩展为可靠的 persistent memory。
+- Next step: 比较 reflection、critic 和其他 self-correction 方法。
