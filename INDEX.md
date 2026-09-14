@@ -16,7 +16,8 @@
 
 ## Papers
 
-暂空，见 [papers/](papers/)。
+- [ReAct: Synergizing Reasoning and Acting in Language Models](papers/react/notes.md)
+- 更多论文笔记见 [papers/](papers/)。
 
 ## Code / Repositories
 
