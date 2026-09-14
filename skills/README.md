@@ -3,6 +3,7 @@
 这里逐渐加入用于辅助知识库维护的 Skill：
 
 - [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
+- [knowledge-review](knowledge-review/SKILL.md) — 跨论文知识整合与阶段性复盘。`Status: v1 / validated with ReAct + Toolformer + Reflexion`
 - `code-reading`
 - `literature-review`
 - `concept-updating`
