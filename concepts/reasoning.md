@@ -8,6 +8,19 @@ Reasoning 是从当前信息、目标和约束出发形成中间推导，以支�
 
 Reflexion 增加了 trajectory 之后的语言 feedback：模型或系统根据 Evaluator 的结果生成对错误和修正方向的解释，再作为下一次 reasoning 的 context。这个显式 feedback 不是模型隐藏 internal state 的直接读出。
 
+## Distinctions
+
+当前三篇论文支持的边界可以这样记录：
+
+| 对象 | 面向的时间尺度 | 主要作用 |
+| --- | --- | --- |
+| Reasoning trace / Thought | 当前 step 或当前 attempt | 解释 context、处理 Observation、分解任务并决定下一步。 |
+| Planning | 多个 step 的组织 | 安排子目标、顺序和重规划；当前资料只证明 plan-like behavior。 |
+| Reflection | 当前 attempt 结束后、下一次 attempt 之前 | 根据 Evaluator feedback 归纳错误和修正建议。 |
+| Internal model state | 模型内部 | 不能从上述任一段语言文本直接等同推断。 |
+
+Reasoning 与 reflection 都可能是语言生成，但前者主要服务当前 trajectory 的推进，后者主要服务下一次 trajectory 的条件更新。（Source: [ReAct paper note](../papers/react/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
+
 ## Why It Matters
 
 如果 reasoning 能产生新的查询目标、解释 Observation 并修正下一步行动，它就不只是答案前的静态文字，而是 Agent 闭环中的控制信号。ReAct 的结果也说明 grounding 与 reasoning flexibility 之间存在实际 trade-off。
@@ -63,6 +76,12 @@ Context → Thought → External Action → Observation → Updated Context → 
 ReAct 的关键变化是把 reasoning 放回行动循环：Thought 既是对已有上下文的推导，也是下一次 Action 的条件；Observation 则提供外部校验。它提高的是“可被反馈约束的推理”，不等于证明了自然语言 Thought 就是模型真实内部推理。
 
 Reflexion 让我进一步区分“当前轨迹中的 reasoning”和“轨迹结束后的 reasoning feedback”：前者直接服务于下一步 action，后者服务于下一次 attempt。两者都是语言条件，但都不能直接当成模型真实 internal state。
+
+## Common Confusions
+
+- reasoning trace 是显式语言产物，不是模型 hidden state 的透明窗口。
+- 产生了计划性的 Thought 不等于使用了显式 Planner。
+- Reflection 不是把 reasoning 再生成一遍；它需要有 trajectory feedback，并以改变后续 attempt 为目标。
 
 ## Open Questions
 

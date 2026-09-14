@@ -24,6 +24,15 @@ Attempt / Trajectory
 
 Reflection 的质量取决于三件事：Evaluator 是否识别了真正的问题，生成的反馈是否包含可操作的修正，以及下一次 Actor 是否在合适的位置读取并遵循该反馈。Reflexion 将 reflection 作为 Self-Reflection model 的输出，并把它追加到受限的 task memory 中。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
+## Feedback, Evaluation, and Critic
+
+- **Feedback** 是结果或环境给出的信号，例如 Observation、成功 / 失败、分数、测试结果或文本意见。
+- **Evaluation** 是对 trajectory 或输出进行判断、打分或分类的过程；它可以由规则、测试、LLM 或环境完成。
+- **Critic** 通常强调对输出质量、错误原因或改进方向进行评价；它可以是独立模块，也可以与 Evaluator / Reflection 角色重叠。
+- **Reflection** 是把反馈或评价转成供后续生成使用的语言经验。它关注的是下一次行为如何改变，而不只是给当前结果打分。
+
+这些名称在不同系统中可能重叠，但在当前知识库中应保留这个功能区分。Reflexion 的具体实现是 Evaluator 提供任务反馈，Self-Reflection 生成 language lesson，再由 memory 传给下一次 Actor。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
+
 ## Typical Architecture
 
 ~~~text

@@ -2,6 +2,24 @@
 
 记录学习过程中尚未解决、需要验证或值得进一步研究的问题。
 
+## Knowledge Review v1: Consolidated Status
+
+以下是前三篇论文复盘后的当前状态。历史阅读记录仍保留在本文件后续各节；本节作为去重后的导航，不把暂时理解误写成最终结论。
+
+| Question | Status | Current understanding |
+| --- | --- | --- |
+| Agent 的边界是什么？ | Partially Answered | 需要目标驱动的持续决策和状态 / feedback loop；Tool Use 本身不是充分条件，Agentic workflow 的边界仍开放。 |
+| Tool-augmented LM 与 Agent 的边界是什么？ | Partially Answered | Toolformer 提供 LM-level tool-use evidence，ReAct 提供 runtime interaction evidence，但当前资料还不足以形成统一判据。 |
+| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分中间推导与步骤组织；三篇论文都没有证明 explicit Planner architecture。 |
+| Reasoning 与 Reflection 有什么差别？ | Partially Answered | Reasoning 主要推进当前 step / attempt，Reflection 主要把评估结果转成下一次 attempt 的语言条件；与 critic 的边界仍开放。 |
+| Feedback 如何转化为有效 Reflection？ | Open | Evaluator 可靠性、错误归因、语言反馈的可执行性和迁移性仍未解释。 |
+| Memory 应该保存什么、保存多久、何时读取？ | Partially Answered | 已区分 current context、working-memory-like context 和 task-local episodic memory；persistent memory 的检索、压缩和冲突处理仍开放。 |
+| 如何避免错误 Observation / Reflection 累积？ | Open | 现有论文展示了部分失败恢复，但没有通用的验证、provenance、淘汰或安全更新机制。 |
+| Tool-use policy 应通过 prompt、training 还是 planning 获得？ | Partially Answered | ReAct、Toolformer、Reflexion 分别提供 runtime、training 和 feedback-driven 证据；成本、迁移和组合关系仍开放。 |
+| 如何可靠支持 chained tool use 和 interactive search？ | Open | Toolformer 和 ReAct 的笔记都暴露了这个缺口，当前资料没有统一解决方案。 |
+
+详细的跨论文推理见 [Knowledge Review v1](reviews/knowledge-review-v1.md)。
+
 ## From the ReAct reading
 
 ### 论文明确暴露或留下的问题

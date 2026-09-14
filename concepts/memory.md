@@ -74,6 +74,13 @@ Evaluator feedback → Reflection summary
 - bounded task memory 不提供跨任务持久化、自动检索、遗忘或冲突解决。
 - 过度保存原始 trajectory 会增加噪声，过度压缩又可能丢失错误发生的关键证据。
 
+## Common Confusions
+
+- 当前 context 或 trajectory history 只有在后续阶段被专门保留和读取时，才可称为跨 attempt memory；它不自动是 long-term memory。
+- Reflexion 的 long-term memory 是受限的 task-local episodic memory，不等于跨任务、跨会话的 durable memory architecture。
+- Environment state、context、episodic memory 和 hidden internal state 是不同对象；Action 改变环境不等于模型“记住”了改变。
+- 保存 reflection summary 不保证错误归因正确，也不代表原始 trajectory 的全部证据仍然可恢复。
+
 ## My Understanding
 
 ReAct 展示 memory 的最小形态：历史信息只要持续进入 context，就能形成单任务内的 working context。Reflexion 在其上增加了一个跨 attempt 的 episodic layer：保存的是由反馈产生的语言经验，并在下一次 Actor generation 时读取。它让“从失败中学习”成为 context-level adaptation，但不应被称为已经解决了 persistent long-term memory。

@@ -8,6 +8,17 @@ Agent 是根据任务上下文接收 Observation、选择 Action 并与 environm
 
 Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory 由 Evaluator 评估，Self-Reflection 把结果转成语言经验，下一次 Actor 再读取这段 experience。这个外层反馈机制是可选的 Agent 组成部分，不是 Agent 定义本身。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
+## System Boundary
+
+下面是本知识库当前的工作区分，不是三篇论文共同给出的正式 taxonomy：
+
+- **LLM：** 负责生成 token、Thought、Action、API call 或 reflection 的模型。模型本身不自动拥有环境、执行器或持久记忆。
+- **Tool-augmented LLM：** 能发出工具调用并消费结果，但不一定存在目标驱动的持续运行时闭环。Toolformer 是这个层次的重要例子；论文将其定位为 LM。
+- **Agent：** 围绕目标持续决策，能够根据可用状态行动，并在 Action / tool invocation 产生 Observation 或 feedback 时利用它，再决定继续、修正或结束的系统。
+- **Agentic workflow：** 由外部程序或人为编排多个模型、工具和检查器的工作流；只有在它能依据状态持续调整行为时，才更接近 Agent interaction loop。
+
+所以，Tool Use 是 Agent 可能拥有的能力，不是判定 Agent 的充分条件；是否存在目标、状态、持续决策和反馈闭环，比是否调用过 API 更关键。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
+
 ## Why It Matters
 
 ReAct 使 Agent 的基本闭环变得清晰：外部 Action 取得或改变环境状态，Observation 反馈给模型，Thought 在上下文中解释当前状态并决定下一步。Agent 不只是一次性生成答案，而是在轨迹中持续决策。
@@ -55,6 +66,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 ## Representative Papers
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 将 reasoning trace 与外部 action 交错放入 Agent 闭环。
+- [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示 tool-augmented LM 的 learned API-use policy，但不自动等同于完整 Agent。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 在单次 trajectory 之外加入 evaluator、verbal reflection 和跨 attempt memory。
 
 ## Representative Systems / Code
@@ -77,6 +89,12 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 ReAct 让我把 Agent 理解为一个闭环 policy，而不是“带有一个 prompt 的 LLM”。Thought 是用于组织 context 的显式语言动作，Action 是与外部世界交换信息或改变状态的动作；两者交替才形成 Agent 的任务执行能力。
 
 结合 Reflexion，我会把 Agent 的能力再分成两个时间尺度：单次 trajectory 内由 Observation 驱动的决策，以及跨 attempt 由 Evaluator、reflection 和 episodic memory 驱动的行为修正。后者是可选的外层机制，不能被简化成一个自动拥有长期记忆的 LLM。
+
+## Common Confusions
+
+- 只会调用 API 的模型不必然是 Agent；需要检查它是否有目标驱动的持续决策和状态 / feedback loop。
+- Agent 也不必然包含独立 Planner、Memory 或多个模型；这些是架构选项，不是定义条件。
+- Toolformer 的 learned API-use behavior 与 ReAct 的 runtime interaction loop 属于不同层次。
 
 ## Open Questions
 

@@ -40,3 +40,10 @@
 - New concepts: verbal reinforcement、reflection loop、episodic memory、Evaluator–Actor separation。
 - Open questions: 错误 reflection 如何传播，以及 task-local memory 如何扩展为可靠的 persistent memory。
 - Next step: 比较 reflection、critic 和其他 self-correction 方法。
+
+## 2026-09-14 — Knowledge Review v1
+
+- Scope: ReAct、Toolformer、Reflexion。
+- Main conceptual changes: 将三篇论文分别定位为 runtime interaction、learned tool-use policy 和 cross-attempt feedback adaptation；明确区分 reasoning、planning、reflection、context 与 memory。
+- Top open questions: Agent 与 tool-augmented LM 的边界；如何构造 explicit planning；如何让 feedback / memory 在错误累积下仍可靠。
+- Next learning priorities: Explicit Planning and Replanning、Memory Architectures、Structured Tool Calling、Reflection / Critic / Self-Correction、Context Engineering。

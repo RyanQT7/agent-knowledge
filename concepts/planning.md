@@ -6,6 +6,10 @@ Status: evolving
 
 Planning 是将目标分解为步骤或子目标、安排执行顺序，并在新信息出现时调整路径的过程。ReAct 把这种 planning 主要表达为语言 Thought，而不是独立的规划器。
 
+## Evidence Boundary
+
+当前资料能支持的是 plan-like reasoning、task decomposition、动作顺序选择和基于反馈的策略修正。ReAct 没有独立 Planner；Reflexion 的 reflection 可以提出下一次不同的动作顺序或策略，但也没有定义 Planner–Executor 接口、计划状态或计划验证器。Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
+
 ## Why It Matters
 
 长时程 Agent 不能只预测下一步动作，还需要知道当前完成到哪里、下一子目标是什么，以及失败后是否需要重规划。ReAct 的交互任务实验显示，稀疏但有针对性的计划性 Thought 可能改善动作执行。
@@ -68,3 +72,4 @@ ReAct 把 planning 变成一种由 LLM 生成、由环境反馈约束的过程�
 - 如何区分计划质量、推理质量和动作执行质量？
 - 什么时候应重新规划，什么时候只需重试或改写工具调用？
 - 能否把自然语言子目标编译成可验证的计划状态？
+- 哪些显式 Planner / Planner–Executor 机制能在长时程任务中稳定优于 plan-like language behavior？

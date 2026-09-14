@@ -19,6 +19,19 @@ Tool Use 是模型向外部能力发出任务相关请求、接收返回结果�
 
 ReAct 和 Toolformer 共同说明，工具调用不一定是回答末尾的一次固定检索：它可以受到当前 context 驱动，并影响后续生成。但两者也说明“会调用工具”仍然可能对应完全不同的训练方式和运行时架构。
 
+## Review Synthesis
+
+Tool Use 应拆成以下接口和决策层，而不是用“会调用工具”概括全部能力：
+
+1. **Tool selection：** 是否调用、何时调用、选择哪个工具。
+2. **Invocation / serialization：** 工具名、调用协议、结束标记和调用格式如何表示。
+3. **Argument generation and validation：** 参数如何生成、解析、校验和修正。
+4. **Tool execution：** 执行器、权限、超时、失败和副作用如何处理。
+5. **Observation / result integration：** 返回值如何规范化、验证并进入后续 context。
+6. **Continuation / termination：** 是否重试、链式调用、改写参数或结束任务。
+
+贯穿这些接口的是 **tool-use policy**：模型或系统通过 prompt、训练或更高层规划决定何时、如何调用工具。ReAct 主要提供 runtime interaction evidence，Toolformer 主要提供 training-time learned policy evidence，Reflexion 主要提供 feedback-driven adaptation evidence；三者不是一个统一算法。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
+
 ## Core Mechanism
 
 Reflexion 可以把使用 ReAct 或 Wikipedia API 的 Actor 放进外层反馈循环；它的新增机制是 evaluator → reflection → episodic memory，而不是学习何时调用工具，因此与 Toolformer 的 learned call policy 属于正交层次。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3; Sec. 4.2）
@@ -121,6 +134,13 @@ LM / Policy
 ## My Understanding
 
 Tool Use 不是一个单一组件，而是一条从“决定调用”到“把结果纳入下一次决策”的接口链。比较 ReAct 和 Toolformer 后，最重要的区分是：ReAct 把工具结果组织成运行时的 Observation feedback loop；Toolformer 把有用的 API call/result 模式学习进 LM 的 token prediction。前者强调可交互的任务轨迹，后者强调训练得到的调用策略；调用格式相似并不能抹平这个差异。
+
+## Common Confusions
+
+- Tool result 进入 context 不等于结果已经被验证，也不等于系统拥有 persistent memory。
+- Tool-use policy 不等于 Planner；前者决定调用行为，后者组织更长时程的目标和步骤。
+- Reflexion 的 reflection 是工具型 Actor 外层的反馈机制，不是新的 tool-selection 算法。
+- 文本 API、ReAct Action 和现代 structured function calling / MCP 不能仅凭名字视为同一种接口。
 
 ## Open Questions
 

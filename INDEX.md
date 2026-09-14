@@ -22,6 +22,10 @@
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](papers/reflexion/notes.md)
 - 更多论文笔记见 [papers/](papers/)。
 
+## Knowledge Reviews
+
+- [Knowledge Review v1 — ReAct, Toolformer, Reflexion](notes/reviews/knowledge-review-v1.md)
+
 ## Code / Repositories
 
 暂空，见 [code/](code/)。
