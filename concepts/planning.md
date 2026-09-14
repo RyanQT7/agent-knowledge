@@ -21,6 +21,20 @@ LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自�
 
 （Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
 
+## Cross-Paper Synthesis
+
+当前资料中的 planning 不是单一算法，而是几种不同强度的计划组织方式：
+
+| Method | Planning representation | Feedback source | Search / solver | Replanning evidence |
+| --- | --- | --- | --- | --- |
+| ReAct | Thought、subgoal 和 trajectory context | 执行中的环境 Observation | 没有独立 Planner 或搜索算法 | 下一轮 Thought 的隐式调整 |
+| LLM+P | PDDL state、action、goal 和 domain/problem files | 主要是已知的初始状态与问题表示 | classical planner | 开放环境中的在线 replanning 未系统展示 |
+| RAP | task-specific state/action 和 imagined state | LLM world model 的预测状态与 reward | MCTS | 搜索树内回溯；真实环境 replanning 未系统展示 |
+| ReWOO | language blueprint 与 evidence placeholders | Worker 执行后的 evidence | 没有 formal solver 或 MCTS | 主流程没有定义 Worker 后 Planner 重生成 |
+| Reflexion | 跨 attempt 的 reflection 与 episodic context | Evaluator feedback | 没有独立 Planner | 通过下一次 attempt 的策略改变体现 |
+
+这张表是跨论文综合，不是这些论文共同提出的标准 taxonomy。它说明“存在多步计划”至少要继续追问：计划以什么形式表示、谁负责搜索或验证、反馈何时可见，以及失败后是否能真正修改计划。
+
 ## Why It Matters
 
 长时程 Agent 不能只预测下一步动作，还需要知道当前完成到哪里、下一子目标是什么，以及失败后是否需要重规划。现有资料说明这些能力可以分布在不同组件中：ReAct 让模型在运行时结合 Observation 决定下一步，LLM+P 把结构化搜索交给 solver，后续的 planning 方法还可能引入搜索或 world model。它们不能被压缩为同一种架构。

@@ -25,6 +25,17 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 所以，Tool Use 是 Agent 可能拥有的能力，不是判定 Agent 的充分条件；是否存在目标、状态、持续决策和反馈闭环，比是否调用过 API 更关键。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
 
+## Planning Architectures in Current Scope
+
+当前资料中的 planning 组件并不自动决定系统是不是 Agent：
+
+- ReAct 更接近 environment-facing interaction loop，Thought、Action 和 Observation 在运行时交错。
+- LLM+P 把自然语言理解、formal planner 和 robot executor 串成 solver-backed pipeline；它没有在主实验中建立完整的反馈循环。
+- RAP 在模型内部用 world model 和 MCTS 搜索 reasoning path；论文中的 reasoning agent 角色不能直接等同于真实环境 Agent。
+- ReWOO 把 Planner、Worker 和 Solver 模块化，但主流程在 Planner 生成 blueprint 后并没有标准的 Observation-driven replanning。
+
+这些是当前 scope 下的跨论文边界判断，不是通用 Agent 的最终定义。（Source: [ReAct paper note](../papers/react/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
+
 ## Why It Matters
 
 ReAct 使 Agent 的基本闭环变得清晰：外部 Action 取得或改变环境状态，Observation 反馈给模型，Thought 在上下文中解释当前状态并决定下一步。Agent 不只是一次性生成答案，而是在轨迹中持续决策。

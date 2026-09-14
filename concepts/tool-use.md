@@ -40,6 +40,10 @@ LLM+P 提供了一个外部规划器作为模块的边界案例：LLM 生成 PDD
 
 ReWOO 把工具调用放在 Planner–Worker–Solver 流程中：Planner 先生成带 evidence placeholders 的请求，Worker 执行工具，Solver 最后整合 evidence。它说明 tool invocation、result integration 和 reasoning scheduling 可以由不同模块承担，但不代表 Planner 已经学习了通用 API-use policy，也没有自动提供验证或 replanning。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1–2.2）
 
+## Planning Boundary
+
+Tool Use 与 Planning 可以组合，但职责不同：Tool Use 关心是否调用、如何序列化参数、如何执行及如何整合结果；Planning 关心未来多个步骤、子目标、依赖和可能的修正。ReWOO 的 evidence placeholder 把工具请求嵌入计划，LLM+P 的 classical planner 也可以被系统视为外部求解模块，但两者都不因此自动获得 learned API-use policy 或完整 Agent loop。（Cross-paper synthesis; [LLM+P paper note](../papers/llm-p/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
+
 一个与具体论文无关的最小抽象是：
 
 ~~~

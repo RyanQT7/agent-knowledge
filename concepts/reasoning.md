@@ -22,6 +22,18 @@ Reflexion 增加了 trajectory 之后的语言 feedback：模型或系统根据 
 
 Reasoning 与 reflection 都可能是语言生成，但前者主要服务当前 trajectory 的推进，后者主要服务下一次 trajectory 的条件更新。（Source: [ReAct paper note](../papers/react/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
 
+## Planning Boundary
+
+当前知识库的 working distinction 是：reasoning 主要形成支持当前结论或动作的中间推导；planning 主要组织多个未来 step、子目标、依赖和可能的修正。两者可以由同一个模型共同生成，但不应因为一段 reasoning 提到了未来动作，就自动称为 explicit planning。
+
+三篇 Planning 论文展示了不同的中间层：
+
+- LLM+P 由 LLM 负责自然语言到 PDDL 的翻译，再由 classical planner 组织和搜索形式化动作序列。
+- RAP 用 task-specific state、world model、reward 和 MCTS 比较候选 reasoning paths。
+- ReWOO 用 Planner blueprint 表达 foreseeable reasoning，再由 Worker 和 Solver 处理 evidence。
+
+因此，显式计划、搜索树中的候选路径、自然语言 blueprint 和隐藏模型状态应分别分析。（Cross-paper synthesis; [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
+
 ## Why It Matters
 
 如果 reasoning 能产生新的查询目标、解释 Observation 并修正下一步行动，它就不只是答案前的静态文字，而是 Agent 闭环中的控制信号。ReAct 的结果也说明 grounding 与 reasoning flexibility 之间存在实际 trade-off。
@@ -95,6 +107,7 @@ Reflexion 让我进一步区分“当前轨迹中的 reasoning”和“轨迹结
 - 生成多步动作或子目标只能说明可能存在 plan-like reasoning；是否为 explicit planning 还要检查是否有明确的计划表示、规划过程或独立 Planner / solver。
 - 搜索多个语言分支也不等于模型内部同时保留了多个真实 mental states；它是由外部推理流程组织的候选文本和预测状态。
 - Planner 提前生成多步 blueprint 不等于它已经看到或验证了未来 Observation；foreseeable reasoning 与 observation-grounded reasoning 需要分开分析。
+- world model 预测的 state 是规划流程的中间表示，不是模型 hidden state 的透明读出，也不是已经发生的环境事实。
 
 ## Open Questions
 

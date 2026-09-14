@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | Agent 的边界是什么？ | Partially Answered | 需要目标驱动的持续决策和状态 / feedback loop；Tool Use 本身不是充分条件，Agentic workflow 的边界仍开放。 |
 | Tool-augmented LM 与 Agent 的边界是什么？ | Partially Answered | Toolformer 提供 LM-level tool-use evidence，ReAct 提供 runtime interaction evidence，但当前资料还不足以形成统一判据。 |
-| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分当前推导与多步行动组织；LLM+P 提供 explicit planner / solver，RAP 提供 search-based planning 的边界案例，但 plan-like reasoning、形式化规划和在线 replanning 的统一判据仍开放。 |
+| Reasoning 与 Planning 如何区分？ | Answered for Current Scope | 当前可以区分局部中间推导与多步行动组织；LLM+P、RAP、ReWOO 分别提供 formal solver、search-based 和 plan-first 边界案例，但这仍是可演化的 working distinction。 |
 | Reasoning 与 Reflection 有什么差别？ | Partially Answered | Reasoning 主要推进当前 step / attempt，Reflection 主要把评估结果转成下一次 attempt 的语言条件；与 critic 的边界仍开放。 |
 | Feedback 如何转化为有效 Reflection？ | Open | Evaluator 可靠性、错误归因、语言反馈的可执行性和迁移性仍未解释。 |
 | Memory 应该保存什么、保存多久、何时读取？ | Partially Answered | 已区分 current context、working-memory-like context 和 task-local episodic memory；persistent memory 的检索、压缩和冲突处理仍开放。 |
@@ -132,6 +132,29 @@
 - plan-first、search-based planning 和 runtime observation-first 是否应根据环境可预测性自动切换？
 - evidence placeholder 能否编译成结构化 tool call、依赖图和可验证执行计划？
 - Solver 的语言补偿何时足够，何时必须加入独立的 evidence verifier 或 critic？
+
+## Knowledge Review v2: Planning Batch
+
+以下状态是本次 Review 在当前 scope 下的判断，不删除此前的历史问题；未来论文可能继续改变这些结论。
+
+| Question | Status | Current understanding |
+| --- | --- | --- |
+| 什么是 plan-like reasoning？ | Answered for Current Scope | Thought、subgoal、未来步骤或 language blueprint 可以体现计划性，但不自动包含形式化状态、搜索、验证或执行保证。 |
+| 什么情况下才应称为 explicit planning？ | Partially Answered | 当前至少需要可区分的计划对象 / state / goal 与明确的计划组织、搜索、solver 或验证过程；LLM+P 和 RAP 是不同强度的例子，统一最低标准仍开放。 |
+| Planning 是否一定意味着 search？ | Answered for Current Scope | 不一定。RAP 使用 MCTS，LLM+P 使用 classical planner search，而 ReWOO 的 plan-first blueprint 没有 MCTS；是否称为完整 planning 仍要看计划表示和验证边界。 |
+| Planner 和 Executor 为什么要解耦？ | Partially Answered | 解耦有利于模块优化、成本控制、权限隔离和错误定位，但可能失去运行时 Observation；是否有益取决于环境的可预测性和 replanning 机制。 |
+| Search-based reasoning 与 Planning 有什么关系？ | Partially Answered | Search 可以把多个候选 reasoning path 外化为状态、分支和价值比较，从而支持 planning；但 search 不是 reasoning 或 planning 的同义词。 |
+| World Model 在 Planning 中扮演什么角色？ | Partially Answered | RAP 说明它可预测 action 后的 imagined state，供 lookahead 和 MCTS 使用；预测可靠性、校准和真实 Observation 的关系仍开放。 |
+| Observation 在 plan 前、执行中还是 plan revision 时发挥作用？ | Partially Answered | ReAct 主要在执行中使用，RAP 核心搜索使用 simulated state，ReWOO 在 Planner 后由 Worker 提供 evidence，LLM+P 的在线 revision 未系统说明。 |
+| Static plan 与 replanning 有什么区别？ | Partially Answered | 静态计划通常先生成后执行；replanning 要在新状态或失败后改变计划并重新验证。当前三篇新论文都没有完整展示开放环境中的统一 replanning loop。 |
+| Planning 与 Tool Use 的关系是什么？ | Partially Answered | 工具可以是计划中的执行或 evidence 阶段，但 tool invocation policy、计划组织、结果验证和 replanning 仍是不同职责。 |
+| 如何避免错误 Observation、evidence 或 imagined state 累积？ | Open | 现有资料分别暴露了错误反馈、工具失败和 world-model prediction error，但没有统一的 provenance、校准、淘汰和恢复机制。 |
+
+### 本次 Review 新增的具体后续问题
+
+- 如何根据环境可预测性自动在 plan-first、search-based 和 runtime observation-first 模式之间切换？
+- imagined state、formal state、evidence 和真实 Observation 不一致时，谁负责校准与重规划？
+- 如何独立评估 blueprint 的可执行性、MCTS path 的有效性和 ReAct trajectory 的适应性？
 
 ## From the RAP reading
 

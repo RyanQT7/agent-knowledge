@@ -29,6 +29,7 @@
 ## Knowledge Reviews
 
 - [Knowledge Review v1 — ReAct, Toolformer, Reflexion](notes/reviews/knowledge-review-v1.md)
+- [Knowledge Review v2 — Planning batch: LLM+P, RAP, ReWOO](notes/reviews/knowledge-review-v2.md)
 
 ## Code / Repositories
 

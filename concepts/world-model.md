@@ -55,6 +55,14 @@ world model 可以放在 planner 内部服务候选路径评估，也可以和�
 
 ## Representative Systems / Code
 
+## Relationship to Current Planning Papers
+
+- LLM+P 主要依赖 PDDL 对已知状态、动作和目标进行形式化表示，再交给 classical planner；这不是 RAP 式的语言模型 world model。
+- RAP 直接让 prompted LLM 预测 action 后的 imagined state，并用它服务 MCTS；这是当前资料中最直接的 world-model planning 例子。
+- ReWOO 的 Planner 生成 evidence blueprint，但没有把 Worker 工具结果抽象成通用 world model，也没有在主流程中搜索环境状态树。
+
+这些区别是跨论文综合，不能据此断言某一种表示在所有任务上更可靠。（Source: [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
+
 ## Advantages
 
 - 支持在执行前进行 lookahead 和候选路径比较。

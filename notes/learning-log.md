@@ -74,3 +74,10 @@
 - New concepts: foreseeable reasoning、evidence placeholder、plan-first tool workflow、context efficiency。
 - Open questions: 如何在 Planner 看不到未来 Observation 时判断是否需要 replanning，以及如何验证 evidence。
 - Next step: 综合三篇 Planning 论文，明确 plan-like reasoning、explicit planning、search 和 replanning 的边界。
+
+## 2026-09-14 — Knowledge Review v2
+
+- Scope: LLM+P、RAP、ReWOO；以 ReAct、Toolformer、Reflexion 和 Knowledge Review v1 为背景。
+- Main conceptual changes: 将 Planning 区分为 plan-like、formal solver-backed、search-based 和 plan-first workflow；明确 Observation、imagined state、evidence 与 replanning 的边界。
+- Top open questions: 如何校准 world model 和真实 Observation；何时在 plan-first 与 runtime interaction 间切换；如何验证并修正动态环境中的计划。
+- Next learning priorities: Replanning and feedback-grounded planning、Planner–Executor 与 structured plans、World Models、planning-aware tool use / context engineering、Planning evaluation。
