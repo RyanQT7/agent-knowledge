@@ -47,3 +47,12 @@
 - Main conceptual changes: 将三篇论文分别定位为 runtime interaction、learned tool-use policy 和 cross-attempt feedback adaptation；明确区分 reasoning、planning、reflection、context 与 memory。
 - Top open questions: Agent 与 tool-augmented LM 的边界；如何构造 explicit planning；如何让 feedback / memory 在错误累积下仍可靠。
 - Next learning priorities: Explicit Planning and Replanning、Memory Architectures、Structured Tool Calling、Reflection / Critic / Self-Correction、Context Engineering。
+
+## 2026-09-14
+
+- Date: 2026-09-14
+- Paper: LLM+P: Empowering Large Language Models with Optimal Planning Proficiency
+- Core takeaway: LLM+P 将自然语言到 PDDL 的翻译与 classical planner 的显式计划搜索分开，说明 explicit planning 不等同于语言 Thought 中的 plan-like reasoning。
+- New concepts: solver-backed planning、PDDL problem representation、LLM–planner boundary。
+- Open questions: 如何验证 LLM 生成的 PDDL，以及如何把静态计划与执行中的 Observation 和 replanning 结合。
+- Next step: 比较搜索式 world model planning 与 planner–executor / plan-first 架构。

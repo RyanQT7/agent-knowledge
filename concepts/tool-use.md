@@ -36,6 +36,8 @@ Tool Use 应拆成以下接口和决策层，而不是用“会调用工具”�
 
 Reflexion 可以把使用 ReAct 或 Wikipedia API 的 Actor 放进外层反馈循环；它的新增机制是 evaluator → reflection → episodic memory，而不是学习何时调用工具，因此与 Toolformer 的 learned call policy 属于正交层次。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3; Sec. 4.2）
 
+LLM+P 提供了一个外部规划器作为模块的边界案例：LLM 生成 PDDL problem，classical planner 执行结构化搜索，之后结果再被翻译或交给机器人 executor。把 planner 接到系统中属于外部能力调用，但它不是 Toolformer 式的 learned API-use policy，也不自动构成 Agent。（Source: [LLM+P paper note](../papers/llm-p/notes.md); Sec. III）
+
 一个与具体论文无关的最小抽象是：
 
 ~~~
@@ -112,6 +114,7 @@ LM / Policy
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示运行时 Thought、Action、Observation 的交错闭环。
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示通过候选调用、工具执行和 future-token loss filtering 自监督学习 API 使用。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示工具型 Actor 外层的反馈、reflection 和跨 attempt memory；核心不是工具调用策略学习。
+- [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 展示把 PDDL 与 classical planner 接入自然语言模型的 solver-backed 外部模块边界。
 
 ## Representative Systems / Code
 

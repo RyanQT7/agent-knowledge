@@ -20,6 +20,7 @@
 - [ReAct: Synergizing Reasoning and Acting in Language Models](papers/react/notes.md)
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](papers/toolformer/notes.md)
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](papers/reflexion/notes.md)
+- [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

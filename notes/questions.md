@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | Agent 的边界是什么？ | Partially Answered | 需要目标驱动的持续决策和状态 / feedback loop；Tool Use 本身不是充分条件，Agentic workflow 的边界仍开放。 |
 | Tool-augmented LM 与 Agent 的边界是什么？ | Partially Answered | Toolformer 提供 LM-level tool-use evidence，ReAct 提供 runtime interaction evidence，但当前资料还不足以形成统一判据。 |
-| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分中间推导与步骤组织；三篇论文都没有证明 explicit Planner architecture。 |
+| Reasoning 与 Planning 如何区分？ | Partially Answered | 可以区分当前推导与多步行动组织；LLM+P 已提供 explicit planner / solver 的边界案例，但 plan-like reasoning、形式化规划和在线 replanning 的统一判据仍开放。 |
 | Reasoning 与 Reflection 有什么差别？ | Partially Answered | Reasoning 主要推进当前 step / attempt，Reflection 主要把评估结果转成下一次 attempt 的语言条件；与 critic 的边界仍开放。 |
 | Feedback 如何转化为有效 Reflection？ | Open | Evaluator 可靠性、错误归因、语言反馈的可执行性和迁移性仍未解释。 |
 | Memory 应该保存什么、保存多久、何时读取？ | Partially Answered | 已区分 current context、working-memory-like context 和 task-local episodic memory；persistent memory 的检索、压缩和冲突处理仍开放。 |
@@ -92,3 +92,23 @@
 - 如何分别评估 Actor、Evaluator、Self-Reflection 和 Memory 的贡献？
 
 关联笔记：[Reflexion 论文笔记](../papers/reflexion/notes.md#14-questions)。
+
+## From the LLM+P reading
+
+### 已补充回答的问题
+
+- 对“ReAct 是否真正具有 planning？”：**得到更清晰的边界**。LLM+P 具有 PDDL 状态、动作、目标和 classical planner，因此是 explicit planning 的边界案例；ReAct 的 Thought 更谨慎地称为 plan-like reasoning，不能仅凭多步语言输出断言存在独立 Planner。（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#13-my-understanding)）
+- 对“Agent 的边界是什么？”：**得到部分回答**。存在外部 planner 或 executor 不足以单独定义 Agent；还要检查是否有目标驱动的持续状态交互、执行和反馈调整。（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#12-relationship-to-existing-knowledge)）
+
+### 论文明确留下的问题
+
+- 如何自动判断自然语言请求是否适合 LLM+P，并选择合适的 planning domain？（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#11-limitations)）
+- 如何降低对人工 domain PDDL 和 problem/PDDL demonstration 的依赖？（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#11-limitations)）
+- 如何验证 LLM 生成的 PDDL，避免遗漏初始条件或错误 predicate 进入 solver？（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#11-limitations)）
+- 如何把执行期间的 Observation、环境变化和 action failure 纳入静态计划的 revision / replanning？（Source: [LLM+P 论文笔记](../papers/llm-p/notes.md#14-questions)）
+
+### 基于 LLM+P 进一步产生的问题
+
+- explicit planning 的最低要求是形式化状态、动作和目标，还是还需要独立搜索或验证过程？
+- Planner–Executor 解耦在开放环境、部分可观测状态和连续动作中应如何实现？
+- formal planner 的正确性保证如何与上游自然语言翻译错误和下游真实执行失败组合？

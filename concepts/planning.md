@@ -4,15 +4,24 @@ Status: evolving
 
 ## Definition
 
-Planning 是将目标分解为步骤或子目标、安排执行顺序，并在新信息出现时调整路径的过程。ReAct 把这种 planning 主要表达为语言 Thought，而不是独立的规划器。
+Planning 是围绕目标组织未来行动序列、子目标和约束，并在必要时根据状态或反馈调整行动的过程。它可以由语言推理表现出来，也可以由显式的状态表示、搜索或 Planner 组件实现。
+
+LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自然语言问题翻译成 PDDL problem，独立的 classical planner 负责在形式化状态、动作和目标上搜索计划。因此，planning 不应仅由是否出现语言化 Thought 来定义。
 
 ## Evidence Boundary
 
-当前资料能支持的是 plan-like reasoning、task decomposition、动作顺序选择和基于反馈的策略修正。ReAct 没有独立 Planner；Reflexion 的 reflection 可以提出下一次不同的动作顺序或策略，但也没有定义 Planner–Executor 接口、计划状态或计划验证器。Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
+当前资料能支持几种不同强度的 planning 证据：
+
+- ReAct 支持 plan-like reasoning、task decomposition、动作顺序选择和基于 Observation 的策略修正，但没有独立 Planner。
+- Reflexion 可以根据反馈和 reflection 影响下一次 attempt 的策略，但没有定义 Planner–Executor 接口、计划状态或计划验证器。
+- LLM+P 具有明确的形式化规划后端：PDDL 表示状态、动作和目标，classical planner 负责搜索；这是 explicit planning 的实例。
+- Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。
+
+（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md); [LLM+P paper note](../papers/llm-p/notes.md)）
 
 ## Why It Matters
 
-长时程 Agent 不能只预测下一步动作，还需要知道当前完成到哪里、下一子目标是什么，以及失败后是否需要重规划。ReAct 的交互任务实验显示，稀疏但有针对性的计划性 Thought 可能改善动作执行。
+长时程 Agent 不能只预测下一步动作，还需要知道当前完成到哪里、下一子目标是什么，以及失败后是否需要重规划。现有资料说明这些能力可以分布在不同组件中：ReAct 让模型在运行时结合 Observation 决定下一步，LLM+P 把结构化搜索交给 solver，后续的 planning 方法还可能引入搜索或 world model。它们不能被压缩为同一种架构。
 
 ## Core Mechanism
 
@@ -23,7 +32,7 @@ ReAct 的 Thought 可以：
 - 跟踪子目标完成情况。
 - 根据 Observation 处理异常并修改计划。
 
-计划信息保存在当前 trajectory context 中，并通过后续 Action 实现；论文没有单独搜索、评分或验证计划的 Planner 算法。
+计划信息保存在当前 trajectory context 中，并通过后续 Action 实现；论文没有单独搜索、评分或验证计划的 Planner 算法。LLM+P 则把 domain/problem PDDL 和 classical planner 作为显式的计划表示与求解层，计划结果在交给执行器前已经由 solver 组织出来。（Source: [LLM+P paper note](../papers/llm-p/notes.md), Sec. II–III）
 
 ## Typical Architecture
 
@@ -34,6 +43,18 @@ Goal → Language Plan / Subgoals → Action → Observation
 ```
 
 ## Example
+
+在显式符号规划中，可以使用另一种结构：
+
+~~~text
+Natural-language task
+→ Problem representation
+→ Explicit planner / solver
+→ Plan
+→ Executor
+~~~
+
+这表示 explicit planner 的存在，但不自动说明系统具备持续感知、跨 attempt memory 或完整 Agent architecture。
 
 例如在“把处理好的物体放到指定位置”的长时程任务中，ReAct Thought 可以先规划“找到并拿取物体 → 完成处理 → 放置”，再在每个子目标完成后决定下一步。只保留 Action 的模型更容易丢失子目标顺序并陷入重复。
 
@@ -48,6 +69,7 @@ Goal → Language Plan / Subgoals → Action → Observation
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示语言化的目标分解、子目标跟踪和动态调整。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — reflection 可以跨 attempt 提议不同的动作顺序或策略，但论文没有定义独立的 Planner architecture。（Source: Sec. 3; Appendix B）
+- [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 以 PDDL 与 classical planner 展示 solver-backed explicit planning。（Source: Sec. II–III）
 
 ## Representative Systems / Code
 
@@ -60,12 +82,13 @@ Goal → Language Plan / Subgoals → Action → Observation
 ## Limitations
 
 - 语言 Thought 中出现计划，不等于计划一定稳定、可执行或被模型忠实遵循。
+- LLM+P 的显式 planner 也不消除自然语言到 PDDL 翻译错误；形式化 solver 的保证依赖输入表示正确。
 - 长轨迹会受到 context length、重复循环和错误 Observation 的影响。
 - 如果只看最终任务成功率，很难把 planning quality 与 reasoning、tool use 和执行质量完全分离。
 
 ## My Understanding
 
-ReAct 把 planning 变成一种由 LLM 生成、由环境反馈约束的过程。它证明了“在轨迹中说出下一步计划”有用，但没有证明这已经构成了形式化规划；更准确地说，这是 language-mediated, feedback-driven planning behavior。
+ReAct 把 planning 变成一种由 LLM 生成、由环境反馈约束的过程。它证明了“在轨迹中说出下一步计划”有用，但没有证明这已经构成了形式化规划；更准确地说，这是 language-mediated, feedback-driven planning behavior。LLM+P 则说明，当计划具有显式状态、动作、目标和 solver 时，planning 可以从语言 reasoning 中解耦出来；但其静态、已建模的任务假设与开放环境中的在线 replanning 仍有距离。
 
 ## Open Questions
 
@@ -73,3 +96,5 @@ ReAct 把 planning 变成一种由 LLM 生成、由环境反馈约束的过程�
 - 什么时候应重新规划，什么时候只需重试或改写工具调用？
 - 能否把自然语言子目标编译成可验证的计划状态？
 - 哪些显式 Planner / Planner–Executor 机制能在长时程任务中稳定优于 plan-like language behavior？
+- 当外部环境在执行中改变时，PDDL solver 产生的静态计划应如何与 Observation 和 replanning 结合？
+- explicit planning 的最低要求是形式化状态/动作/目标，还是也需要独立的搜索或验证机制？

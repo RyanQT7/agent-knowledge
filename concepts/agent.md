@@ -6,6 +6,8 @@ Status: evolving
 
 Agent 是根据任务上下文接收 Observation、选择 Action 并与 environment 交互以完成目标的系统。ReAct 增加的一个重要视角是：language thought 可以作为增强 action space 中的显式语言动作；它不改变环境，但会更新后续决策所使用的 context。
 
+LLM+P 补充了一个重要边界：系统可以包含显式的 classical planner 和机器人 executor，却仍主要是一条自然语言到结构化计划的求解 pipeline。是否称为 Agent 不能只看是否出现 planner 或工具，还要看系统是否在目标驱动的运行时循环中持续接收状态、执行行动并调整后续行为。（Source: [LLM+P paper note](../papers/llm-p/notes.md); Sec. III; Sec. V.D）
+
 Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory 由 Evaluator 评估，Self-Reflection 把结果转成语言经验，下一次 Actor 再读取这段 experience。这个外层反馈机制是可选的 Agent 组成部分，不是 Agent 定义本身。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3）
 
 ## System Boundary
@@ -68,6 +70,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 将 reasoning trace 与外部 action 交错放入 Agent 闭环。
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](../papers/toolformer/notes.md) — 展示 tool-augmented LM 的 learned API-use policy，但不自动等同于完整 Agent。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 在单次 trajectory 之外加入 evaluator、verbal reflection 和跨 attempt memory。
+- [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 作为 explicit planner / executor pipeline 的边界案例；论文没有据此给出通用 Agent 定义。
 
 ## Representative Systems / Code
 
@@ -95,6 +98,7 @@ ReAct 让我把 Agent 理解为一个闭环 policy，而不是“带有一个 pr
 - 只会调用 API 的模型不必然是 Agent；需要检查它是否有目标驱动的持续决策和状态 / feedback loop。
 - Agent 也不必然包含独立 Planner、Memory 或多个模型；这些是架构选项，不是定义条件。
 - Toolformer 的 learned API-use behavior 与 ReAct 的 runtime interaction loop 属于不同层次。
+- 拥有外部 planner 或 executor 也不自动使整个系统成为 Agent；仍需检查目标驱动的状态交互和持续决策边界。
 
 ## Open Questions
 
