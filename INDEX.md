@@ -17,6 +17,7 @@
 ## Papers
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](papers/react/notes.md)
+- [Toolformer: Language Models Can Teach Themselves to Use Tools](papers/toolformer/notes.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Code / Repositories
