@@ -5,3 +5,4 @@ __pycache__/
 .idea/
 sources/papers/*.pdf
 sources/papers/**/*.pdf
+sources/code/
