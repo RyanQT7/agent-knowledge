@@ -126,3 +126,10 @@
 - New concepts: operational knowledge lifecycle、graph-grounded context、production outcome versus RCA correctness。
 - Open questions: 如何把知识图谱连接到原始网络 telemetry 与物理 topology，并处理知识过期、冲突和安全验证。
 - Next step: 综合五篇论文，完成 AIOps Knowledge Review v1，形成 multimodal/topology/production RCA 的统一但谨慎的 mental model。
+
+## 2026-09-15 — AIOps Knowledge Review v1
+
+- Scope: RCAgentBench、StaR、CAUSALDX、LLMGuard、KAT。
+- Main conceptual changes: 将 AIOps RCA 拆成 detection、candidate generation、topology/dependency constraint、ranking/verification、localization、diagnosis、explanation 和 remediation；明确五类 graph/candidate semantics 并区分 production data、scale 与 deployment。
+- Top open questions: 网络多模态 telemetry 与 traffic/NetFlow 对齐、物理 topology 与 learned dependency 的关系、unknown/multi-root ground truth、LLM 相对 tools/knowledge 的独立价值。
+- Next learning priorities: network-specific multimodal RCA、dynamic physical topology、open-set/multi-root diagnosis、可靠 tool/knowledge-grounded Agent、production remediation safety。

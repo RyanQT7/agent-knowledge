@@ -25,6 +25,10 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 所以，Tool Use 是 Agent 可能拥有的能力，不是判定 Agent 的充分条件；是否存在目标、状态、持续决策和反馈闭环，比是否调用过 API 更关键。（Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md)）
 
+### AIOps examples
+
+当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
+
 ## Planning Architectures in Current Scope
 
 当前资料中的 planning 组件并不自动决定系统是不是 Agent：

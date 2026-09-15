@@ -45,6 +45,8 @@ Evidence may come from metrics, logs, traces, alerts, topology, tickets, knowled
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — multimodal tools and process-level agent RCA evaluation.
 - [StaR](../../papers/aiops/star/notes.md) — stateful dynamic-graph causal discovery and root ranking.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-graph reasoning for long-tail and cascading incidents.
+- [LLMGuard](../../papers/aiops/llmguard/notes.md) — guide-covered deterministic diagnosis with evidence verification.
+- [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting and solution generation.
 
 ## Advantages
 

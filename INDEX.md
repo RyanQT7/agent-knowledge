@@ -48,6 +48,10 @@
 - [LLMGuard — production LMaaS fault diagnosis](papers/aiops/llmguard/notes.md)
 - [KAT — evolving telecom troubleshooting](papers/aiops/kat/notes.md)
 
+### AIOps Knowledge Reviews
+
+- [AIOps Knowledge Review v1 — Multimodal / Topology-aware / Production RCA](notes/aiops/reviews/aiops-knowledge-review-v1.md)
+
 ## Code / Repositories
 
 暂空，见 [code/](code/)。

@@ -1,12 +1,12 @@
 # AIOps Paper Inventory
 
-Status: Preliminary
+Status: Preliminary triage plus Batch 1 full reading completed
 
 Scan date: 2026-09-15
 
 Scope: all PDF files currently under `sources/papers/AIOps_papers/`.
 
-This is a first-stage inventory and lightweight triage, not a set of formal paper-reading notes. The records below use the title page, PDF metadata, abstract, and only the introduction or overview material needed for classification. Any uncertain field is marked explicitly and must be verified during full-paper reading.
+This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records marked `Full Reading: Completed` also link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
 
 ## Overview
 
@@ -16,6 +16,7 @@ This is a first-stage inventory and lightweight triage, not a set of formal pape
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
 - Formal paper notes created in this pass: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
+- Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.

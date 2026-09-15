@@ -102,3 +102,12 @@ This file contains AIOps-specific questions raised during formal reading. Status
 
 29. **How should user satisfaction and resolution-time improvements be separated from true root-cause correctness?**
     Status: Open.
+
+## Status after AIOps Knowledge Review v1
+
+- **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.
+- **Topology semantics:** Partially Answered. The papers distinguish service/call graphs, learned dynamic graphs, anomaly dependency graphs, SOP procedures, and TBSS subsystem graphs. Whether each is causal, predictive, or operational remains a per-system question.
+- **Detection versus RCA:** Partially Answered. Several systems receive an incident, alert, or anomaly observation first; RCAgentBench and StaR make the downstream localization task explicit. A unified end-to-end protocol remains open.
+- **LLM contribution:** Open. The batch shows gains associated with tools, knowledge, verification, and orchestration, but does not isolate LLM reasoning from those factors in a common experiment.
+- **Production truth and evaluation:** Partially Answered. LLMGuard and KAT provide strong production evidence, while RCAgentBench and StaR provide controlled/public evaluation and CAUSALDX provides private production records; their labels and metrics remain non-comparable without task alignment.
+- **Network-specific evidence:** Open. No Batch 1 paper establishes a complete RCA protocol over physical topology plus syslog, metrics, traffic/NetFlow, and device/interface/link ground truth.

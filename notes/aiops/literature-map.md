@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Preliminary
+Status: Preliminary map with Batch 1 formal notes
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
