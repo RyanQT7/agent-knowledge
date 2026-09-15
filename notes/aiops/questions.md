@@ -145,6 +145,23 @@ This file contains AIOps-specific questions raised during formal reading. Status
 41. **Can typed query plugins and DAG constraints improve open-set network RCA without freezing the system to outdated procedures?**
     Status: Open. StepFly reduces query-generation and control-flow errors, while its guide coverage and update boundaries remain a limitation (Source: [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 4.2–4.4, Sec. 6).
 
+## Questions from TSGen
+
+42. **How can a generated TSG distinguish a historically frequent pattern from a genuinely causal and currently valid root-cause path?**
+    Status: Open. TSGen evaluates incident-discussion coverage, guide retrieval, human quality, and acceptance, but does not establish physical causal correctness for a new incident (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 5–6).
+
+43. **How should network metrics, syslog, traces, traffic/NetFlow, topology, and incident text be aligned before generating troubleshooting knowledge?**
+    Status: Open. TSGen currently processes text-centric incident records and identifies multimodal telemetry as future work; network-specific temporal and entity alignment is not addressed (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 6, Sec. 8.4).
+
+44. **How should generated troubleshooting knowledge detect out-of-coverage or stale procedures after topology, configuration, or firmware changes?**
+    Status: Open. The paper identifies stale medoid selection and external-validity risks, but does not provide a general coverage or freshness detector (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 4.5, Sec. 8.1, Sec. 8.4).
+
+45. **What validation and provenance are required before a generated TSG is compiled into an executable Agent Skill or network remediation workflow?**
+    Status: Open. Agent Skills are proposed as a downstream adaptation, while the reported system uses engineering review and publication rather than autonomous action validation (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 7.2–7.3).
+
+46. **How should TSG versions, conflicting incident evidence, retention, and retirement be managed as operational knowledge rather than Agent memory?**
+    Status: Open. TSGen updates guides incrementally and uses caches, but does not define a complete versioning, conflict-resolution, forgetting, or memory-read policy (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 4.5, Sec. 8.4).
+
 ## Status after AIOps Knowledge Review v1
 
 - **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.

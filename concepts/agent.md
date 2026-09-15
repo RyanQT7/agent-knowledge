@@ -27,7 +27,7 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 ### AIOps examples
 
-当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；AIM 增加了显式的 Plan→Act 与受限代码执行，但没有展示持续的在线 replanning；StepFly 通过 DAG、Scheduler、Executor、插件和结构化数据存储形成了受约束的在线诊断 workflow；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [AIM note](../papers/aiops/aim/notes.md); [StepFly note](../papers/aiops/stepfly/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
+当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；AIM 增加了显式的 Plan→Act 与受限代码执行，但没有展示持续的在线 replanning；StepFly 通过 DAG、Scheduler、Executor、插件和结构化数据存储形成了受约束的在线诊断 workflow；TSGen 则使用 LLM 从历史事件生成和维护 TSG，是 operational-knowledge curation pipeline，不是已验证的运行时 Agent；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [AIM note](../papers/aiops/aim/notes.md); [StepFly note](../papers/aiops/stepfly/notes.md); [TSGen note](../papers/aiops/tsgen/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
 
 ## Planning Architectures in Current Scope
 
@@ -37,6 +37,7 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 - LLM+P 把自然语言理解、formal planner 和 robot executor 串成 solver-backed pipeline；它没有在主实验中建立完整的反馈循环。
 - RAP 在模型内部用 world model 和 MCTS 搜索 reasoning path；论文中的 reasoning agent 角色不能直接等同于真实环境 Agent。
 - ReWOO 把 Planner、Worker 和 Solver 模块化，但主流程在 Planner 生成 blueprint 后并没有标准的 Observation-driven replanning。
+- TSGen 生成包含分支和行动顺序的 TSG/DAG，但这是持久化的 operational-knowledge artifact；它没有展示运行时 Planner 根据环境 Observation 自主选择下一步。
 
 这些是当前 scope 下的跨论文边界判断，不是通用 Agent 的最终定义。（Source: [ReAct paper note](../papers/react/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
 
@@ -118,6 +119,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 作为 Planner–Worker–Solver 的 augmented LM workflow；不自动等同于持续环境 Agent。
 - [AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../papers/aiops/aim/notes.md) — 作为显式 Plan→Act 与受限代码执行的 AIOps workflow；不自动等同于生产自治 Agent。
 - [Comfey](../papers/aiops/comfey/notes.md) — 生产环境中以团队为边界的事件 triage agent；其目标是 ownership routing，不是完整 physical RCA。
+- [TSGen](../papers/aiops/tsgen/notes.md) — LLM-assisted TSG generation and maintenance；Agent Skills 是后续建议，不是本论文已验证的 Agent。
 
 ## Representative Systems / Code
 

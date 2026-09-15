@@ -24,6 +24,8 @@ Agent 需要记住已经观察到的事实、已完成的子目标、失败原�
 
 StepFly provides a narrower memory boundary: its metric/log plugins write typed values such as lists, dictionaries, DataFrames, or ndarrays to a key-value store, and later steps retrieve them by key. This is external structured working memory for one TSG execution; the paper does not establish cross-incident episodic learning, memory selection, forgetting, or long-term Agent adaptation (Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.4.4).
 
+TSGen shows a different durable-storage boundary: historical incident records, clustering caches, and generated TSG/DAG artifacts persist so that operational knowledge can be generated, retrieved, and updated. They are useful knowledge infrastructure, but the paper does not define a runtime Agent memory read/write policy, episodic attempt memory, forgetting mechanism, or cross-task memory semantics (Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.1–4.5, Sec. 7.2).
+
 ### Persistent / durable long-term memory
 
 如果 memory 跨任务、跨会话保存，并由文件、数据库或其他外部存储保证其生命周期，才更接近 persistent / durable long-term memory。Reflexion 论文使用 long-term memory 描述 self-reflections，但其实际实现是 task-local、bounded 的跨 attempt memory；论文没有证明跨会话持久化系统。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3.1; Sec. 5）
@@ -65,6 +67,7 @@ Evaluator feedback → Reflection summary
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示当前 trajectory context 作为任务内 working context。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示把 verbal reflection 保存为受限的跨 attempt episodic memory。
 - [StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis](../papers/aiops/stepfly/notes.md) — 展示外部 key-value structured working memory 在工具之间传递大数据 payload，而不是跨事件经验学习。
+- [TSGen: Automated Troubleshooting Guide Generation](../papers/aiops/tsgen/notes.md) — 展示把历史事件持久化为可更新的 operational knowledge；不应把 TSG/缓存自动称为 Agent episodic memory。
 
 ## Representative Systems / Code
 

@@ -43,6 +43,8 @@ AIM 补充了 prompt-level multimodal context 的实例：先按时间戳和 ser
 
 StepFly 展示了另一种 context boundary：大体量插件结果写入外部结构化 key-value store，后续步骤通过 key、schema 和样本读取，而不是把完整 payload 反复塞入对话。这是 context budgeting 与数据接口设计，同时也说明外部存储不自动等于跨任务 memory。（Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.4.4, Sec. 5.6.2）
 
+TSGen 把 context engineering 前移到知识生成阶段：规则过滤、语义标签、聚类和 medoid 选择决定哪些历史事件进入 LLM 的 distillation/generation context，固定三段式 incident workflow 则进一步压缩和规范化输入。这个选择过程服务于持久化 TSG 生成，不等于在线 Agent 的 memory retrieval，也不包含多模态 telemetry fusion。（Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.1–4.4）
+
 ## Related Concepts
 
 - [Agent](agent.md)

@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 formal notes plus Batch 2 full reading in progress
+Status: Batch 1 formal notes plus Batch 2 full reading in progress (4 of 5)
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -23,7 +23,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 ## Incident Management / Triage / Operational Knowledge
 
 - [Comfey](<../../sources/papers/AIOps_papers/FSE26-An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure.pdf>) — decentralized incident triage and routing.
-- [TSGen](<../../sources/papers/AIOps_papers/FSE26-TSGen- Automated Troubleshooting Guide Generation.pdf>) — generation and maintenance of troubleshooting guides.
+- [TSGen](../../papers/aiops/tsgen/notes.md) — filtering, distillation, structured generation, and iterative maintenance of troubleshooting guides.
 - [StepFly](../../papers/aiops/stepfly/notes.md) — executable troubleshooting-guide workflows with DAG-constrained scheduling, QPPs, and structured working memory.
 - [Cloud Intelligence / AIOps 2.0](<../../sources/papers/AIOps_papers/FSE26-Cloud Intelligence_AIOps 2.0- Knowledge-Anchored Agentic AIOps.pdf>) — knowledge-anchored agentic AIOps proposal.
 
@@ -44,7 +44,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
 - **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning.
-- **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage).
+- **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage). TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work.
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
 
@@ -53,7 +53,7 @@ The presence of an LLM does not by itself establish an Agent architecture. The f
 - **Metrics / time series:** AIM (prompt-level aligned context), RCAgentBench, Cloud-OpsBench, StaR, TFC, TFT-GCN; several cloud papers mention operational signals without a complete modality breakdown.
 - **Logs:** AIM, RCAgentBench, Cloud-OpsBench, and agent-system trace papers; exact use in LLMGuard and CAUSALDX needs full-paper verification.
 - **Traces / spans:** AIM and RCAgentBench explicitly; agent trajectory traces occur in FlowFixer, HARNESSFIX, and hierarchical failure attribution.
-- **Alerts / events / tickets:** LLMGuard, Comfey, AIM, KAT, TSGen, and the incident-management papers.
+- **Alerts / events / tickets:** LLMGuard, Comfey, AIM, KAT, TSGen, and the incident-management papers. TSGen's “logs” are primarily incident discussions/records, not confirmed raw telemetry logs.
 - **Topology / architecture / dependencies:** StaR, CAUSALDX, ChatRCA, Cloud Intelligence, and Cloud-OpsBench.
 - **Configuration / runtime state / tools:** Cloud-OpsBench, FlowFixer, HARNESSFIX, StepFly, and LLMGuard.
 - **Traffic / NetFlow / packets:** not confirmed by the first-stage scan.
@@ -72,3 +72,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, and statistical cross-team routing in Azure production.
 - [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal context, adaptive exemplar retrieval, and plan-to-code execution.
 - [StepFly](../../papers/aiops/stepfly/notes.md) — guide-derived DAG control, typed query plugins, executor scheduling, and structured evidence exchange.
+- [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, diversity-aware distillation, structured TSG/DAG generation, and human-reviewed iterative updates.

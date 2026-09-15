@@ -31,6 +31,7 @@ Different systems implement different parts:
 - **Anomaly/causal graph:** observations and candidate causes are organized for search and verification.
 - **Knowledge graph + context graph:** entity-level cases and subsystem dependencies are retrieved into an LLM prompt.
 - **Executable TSG metadata:** a guide can be compiled into a control-flow DAG and typed query plugins while the original human-readable document remains authoritative.
+- **Historical-incident synthesis:** incident filtering, semantic labeling, diversity-aware sampling, and structured generation can turn scattered resolution narratives into a TSG/DAG that is reviewed and updated over time.
 
 ## Typical Architecture
 
@@ -47,6 +48,8 @@ operational documents / incident records / expert labels
 
 LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks. KAT stores error/context/solution paths and a TBSS subsystem graph, then updates cases using expert feedback. Comfey adds a production triage variant: historical incidents, team-authored TSGs, local enrichment, and a shared routing table guide ownership decisions, while transfer evidence and engineer outcomes feed later routing. These are knowledge-grounded, but they emphasize different interfaces—deterministic checks, interpretable retrieval/evolution, or decentralized team routing (Sources: [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [KAT note](../../papers/aiops/kat/notes.md), Sec. IV–VI; [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 3.3–3.7).
 
+TSGen illustrates the upstream curation stage: historical incidents are filtered, clustered, distilled, and organized into a structured guide, then accepted and published by engineers. The resulting TSG is operational knowledge that can later be retrieved or compiled for execution; it is not automatically Agent memory or a verified causal model (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 4–7).
+
 ## Related Concepts
 
 - [Root Cause Analysis](root-cause-analysis.md)
@@ -62,6 +65,7 @@ LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks
 - [KAT](../../papers/aiops/kat/notes.md) — troubleshooting knowledge graph, subsystem context, and continuous improvement.
 - [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, shared routing statistics, and human feedback for production incident triage.
 - [StepFly](../../papers/aiops/stepfly/notes.md) — TSG quality improvement, execution-DAG extraction, query-preparation plugins, and structured evidence exchange.
+- [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, distillation, TSG/DAG generation, iterative updates, and human-reviewed publication.
 
 ## Advantages
 

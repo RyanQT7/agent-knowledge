@@ -1,12 +1,12 @@
 # AIOps Paper Inventory
 
-Status: Batch 1 full reading completed; Batch 2 in progress
+Status: Batch 1 full reading completed; Batch 2 in progress (4 of 5)
 
 Scan date: 2026-09-15
 
 Scope: all PDF files currently under `sources/papers/AIOps_papers/`.
 
-This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records marked `Full Reading: Completed` also link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
+This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records and four completed Batch 2 records marked `Full Reading: Completed` also link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
 
 ## Overview
 
@@ -15,9 +15,9 @@ This remains a first-stage inventory for the unprocessed papers. The five Batch 
 - Unreadable: 0
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
-- Formal paper notes created in this pass: 8 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly)
+- Formal paper notes created in this pass: 9 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly, TSGen)
 - Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
-- Formal full-paper Batch 2 completed: 3 of 5 (Comfey, AIM, StepFly)
+- Formal full-paper Batch 2 completed: 4 of 5 (Comfey, AIM, StepFly, TSGen)
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.
@@ -33,7 +33,7 @@ The batch spans the AIOps chain from detection to root-cause analysis, diagnosis
 | 5 | Freezing the Crime Scene: A State Snapshot Paradigm for Reproducible Agentic SRE Evaluation | [PDF](<../../sources/papers/AIOps_papers/FSE26-Freezing the Crime Scene- A State Snapshot Paradigm for Reproducible Agentic SRE Evaluation.pdf>) | Guangba Yu, Yilun Wang, Michael R. Lyu | 2026 / FSE Companion | Agentic SRE evaluation; RCA/evidence workflow evaluation | Metrics, logs, Kubernetes configuration, runtime state, mocked interfaces; multimodal | Deterministic state snapshots / digital twins; process-oriented benchmark | LLM: Yes; Agent: Yes, evaluation target | Prototype/testbed; incidents are simulated or injected; data/scale unclear | High | P1 | Batch 3 |
 | 6 | [AIM — Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../../papers/aiops/aim/notes.md) | [PDF](<../../sources/papers/AIOps_papers/FSE26-Leveraging LLMs for Alert Summarization and Mitigation Plan Generation.pdf>) | Komal Sarda et al. | 2026 / FSE Companion | Alert summarization, RCA-category alignment, mitigation/remediation | Metrics, logs, traces, alerts; prompt-level multimodal context | Adaptive ICL; explicit Plan→Act; Ansible code generation/execution | LLM: Yes; Agent: agentic workflow / bounded Plan→Act, continuous Agent loop unproven | Public/curated datasets plus Robot Shop fault-injection testbed; no live production deployment; 100-sample evaluation | High | P1 | Batch 2; **Full Reading: Completed** |
 | 7 | [StepFly — Agentic Troubleshooting Guide Automation for Incident Diagnosis](../../papers/aiops/stepfly/notes.md) | [PDF](<../../sources/papers/AIOps_papers/FSE26-StepFly- Agentic Troubleshooting Guide Automation for Incident Diagnosis.pdf>) | Jiayi Mao et al. | 2026 / FSE | Incident diagnosis, TSG execution, triage support | Logs, metrics, DevOps/change data, TSGs, plugin outputs; multi-source procedural evidence | TSG quality improvement; execution-DAG/QPP preprocessing; scheduler/executor; structured working memory; parallel execution | LLM: Yes; Agent: bounded agentic scheduler–executor workflow, not free-form multi-agent negotiation | 92 real-world TSGs; 80-incident evaluation; public code/synthesized data; operational prototype reported | High | P1 | Batch 2; **Full Reading: Completed** |
-| 8 | TSGen: Automated Troubleshooting Guide Generation | [PDF](<../../sources/papers/AIOps_papers/FSE26-TSGen- Automated Troubleshooting Guide Generation.pdf>) | Yi Xiao et al. | 2026 / FSE Companion | TSG generation and maintenance; incident management support | Incident tickets/reports/conversations and operational text; text-centric multi-source | LLM pipeline for filtering, classification, and structured guide generation | LLM: Yes; Agent: No / unclear | Historical incidents likely; production/data/open-source status unclear | High | P2 | Batch 2 |
+| 8 | [TSGen: Automated Troubleshooting Guide Generation](../../papers/aiops/tsgen/notes.md) | [PDF](<../../sources/papers/AIOps_papers/FSE26-TSGen- Automated Troubleshooting Guide Generation.pdf>) | Yi Xiao et al. | 2026 / FSE Companion | TSG generation and maintenance; incident-management knowledge curation | Incident tickets/reports/conversations and operational text; text-centric multi-source | LLM filtering, classification, distillation, structured guide generation, and iterative update | LLM: Yes; Agent: No; downstream Agent Skills proposed | Private Microsoft incidents; operational deployment; 53 generated / 38 accepted; public data/code unclear | High | P2 | Batch 2; **Full Reading: Completed** |
 | 9 | From Failed Trajectories to Reliable LLM Agents: Diagnosing and Repairing Harness Flaws | [PDF](<../../sources/papers/AIOps_papers/From_Failed_Trajectories_to_Reliable_LLM_Agents_Diagnosing_and_Repairing_Harness_Flaws.pdf>) | Mengzhuo Chen et al. | 2026 / arXiv | Agent failure attribution, diagnosis, repair | Agent trajectories/traces, prompts, tool specifications, configuration, verification artifacts; multi-source | Harness Trace and Inference Record; failure attribution; scoped repair operators | LLM: Yes; Agent: target agent harness; exact framework role unclear | Production/real incidents/data/scale unclear; open source unclear | Medium | P2 | Batch 3 |
 | 10 | From Flat Logs to Causal Graphs: Hierarchical Failure Attribution for LLM-based Multi-Agent Systems | [PDF](<../../sources/papers/AIOps_papers/From_flat_logs_to_causal_graphs_Hierarchical_failure_attribution_for_llm-based_multi-agent_systems.pdf>) | Yawen Wang et al. | 2026 / arXiv | Failure attribution and RCA for multi-agent systems | MAS logs/trajectories, thoughts, actions, observations, tool results, inter-agent messages; multi-source | Causal graph construction and hierarchical attribution | LLM: Yes; Agent: Yes, multi-agent system | Production/real incidents/scale unclear; code link shown, dataset status unclear | Medium | P2 | Batch 3 |
 | 11 | [KAT](../../papers/aiops/kat/notes.md) | [PDF](<../../sources/papers/AIOps_papers/INFOCOM26-KAT_Knowledge-Context_Augmentation_for_Evolving_LLM-Based_Telecom_Troubleshooting.pdf>) | Kai Qian et al. | 2026 / INFOCOM | Telecom troubleshooting, fault diagnosis, remediation support | Error descriptions/events, cross-subsystem runtime state, structured knowledge/docs; multi-source, classical telemetry detail unclear | Knowledge/context augmentation and continual adaptation | LLM: Yes; Agent: No / unclear | Commercial telecom deployment; real errors; private data; large scale | High | P0 | Batch 1; **Full Reading: Completed** |
@@ -126,12 +126,13 @@ The records below capture the minimum research interpretation needed for priorit
 ### 8. TSGen (`tsgen`)
 
 - **Research problem:** Generate and maintain structured troubleshooting guides from historical incident reports when guides are missing, stale, or unstructured.
-- **Method family:** An LLM pipeline filters and classifies historical tickets and generates structured TSG content.
+- **Method family:** An LLM pipeline filters and classifies historical tickets, distills diverse representative incidents, and generates/upgrades structured TSG decision-tree/DAG content.
 - **AIOps category:** Operational knowledge curation and incident-management support.
-- **Data and evidence status:** Incident tickets, reports, conversations, and operational text; text-centric and multi-source. Historical real incidents are suggested, but production deployment, scale, and openness are unclear.
-- **Potentially useful idea:** Converting historical resolution narratives into maintainable operational artifacts may improve later diagnosis workflows.
-- **Assumption that may not transfer:** Ticket quality and historical resolution bias can be inherited by generated guides; direct telemetry reasoning is not established.
-- **Source / uncertainty:** Title page, Abstract, and Sec. 1; dataset and validation details need full-paper verification.
+- **Data and evidence status:** Private Microsoft incident records from about 80 services and nearly 50,000 monitors in the empirical study; the main evaluation uses more than 20,000 incidents across about 30 monitors, with a chronological 60/20/20 split. The paper reports deployment where 53 generated TSGs led to 38 accepted/published guides; no public code/data release is established.
+- **Potentially useful idea:** Converting noisy historical resolution narratives into diverse, structured, and incrementally maintainable operational artifacts may improve later diagnosis workflows.
+- **Assumption that may not transfer:** Ticket/discussion quality and historical resolution bias can be inherited by generated guides; direct multimodal telemetry reasoning and physical topology are not established.
+- **Source / uncertainty:** Full reading completed; see [formal AIOps note](../../papers/aiops/tsgen/notes.md), Sec. 1–8. The note distinguishes guide coverage/retrieval/acceptance from physical RCA correctness.
+- **Full reading status:** Completed. Filtering, distillation, DAG generation, ablations, human evaluation, deployment, and limitations are grounded in Sec. 3–8 and Tables 4–5.
 
 ### 9. HARNESSFIX (`harnessfix`)
 

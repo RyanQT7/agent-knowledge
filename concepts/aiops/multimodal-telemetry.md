@@ -47,6 +47,7 @@ RCAgentBench exposes separate tools for Prometheus metrics, Elasticsearch logs, 
 
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — explicit metrics/logs/traces tool integration.
 - [AIM](../../papers/aiops/aim/notes.md) — timestamp/service-aligned metrics, logs, traces, and alerts integrated at prompt level with selective KPI context.
+- [TSGen](../../papers/aiops/tsgen/notes.md) — text-centric incident metadata and discussion processing; metrics, traces, and images are future directions rather than evaluated modalities.
 
 ## Advantages
 

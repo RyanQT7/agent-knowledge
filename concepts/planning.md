@@ -19,6 +19,7 @@ LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自�
 - ReWOO 具有 plan-first 的 Planner–Worker–Solver 解耦：Planner 先生成带 evidence placeholders 的自然语言 blueprint，Worker 执行工具，Solver 再整合结果；它是显式的计划组织，但不是 formal classical planner。
 - AIM 生成逐步 mitigation plan，再交给独立的代码生成/执行阶段；这是 AIOps 中的显式 Plan→Act 编排，但论文没有展示基于在线 Observation 的持续 replanning。（Source: [AIM paper note](../papers/aiops/aim/notes.md), Sec. 3.2–3.4）
 - StepFly 把 TSG 预处理为显式执行 DAG，由 Scheduler 根据节点状态和工具结果安排 Executor；这是受约束的 workflow planning / scheduling，不是在线自由生成或搜索新计划。（Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.2, Sec. 4.4.1）
+- TSGen 生成带有症状、检查、分支和缓解路径的决策树/DAG，但它是离线的 operational-knowledge artifact；不能仅因 guide 具有行动顺序就称为运行时 Planner。（Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.4–4.5）
 - Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。
 
 （Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
@@ -34,6 +35,7 @@ LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自�
 | RAP | task-specific state/action 和 imagined state | LLM world model 的预测状态与 reward | MCTS | 搜索树内回溯；真实环境 replanning 未系统展示 |
 | ReWOO | language blueprint 与 evidence placeholders | Worker 执行后的 evidence | 没有 formal solver 或 MCTS | 主流程没有定义 Worker 后 Planner 重生成 |
 | StepFly | TSG execution DAG、节点/边状态 | 插件结果、成功/失败和条件分支 | Scheduler；无在线搜索规划器 | DAG 内分支与重试，不是自由 replanning |
+| TSGen | 持久化的 TSG 决策树/DAG | 历史事件与工程审核/更新 | LLM 生成；无运行时 Planner | 新事件触发 guide update，不是同一任务内 replanning |
 | Reflexion | 跨 attempt 的 reflection 与 episodic context | Evaluator feedback | 没有独立 Planner | 通过下一次 attempt 的策略改变体现 |
 
 这张表是跨论文综合，不是这些论文共同提出的标准 taxonomy。它说明“存在多步计划”至少要继续追问：计划以什么形式表示、谁负责搜索或验证、反馈何时可见，以及失败后是否能真正修改计划。
@@ -120,6 +122,7 @@ ReWOO 的主流程到 Solver 为止，并没有定义 Worker 结果返回后由 
 - [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 以 prompting 的 world model、reward 和 MCTS 展示 search-based inference-time planning。（Source: Sec. 3; Appendix A）
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 以 Planner–Worker–Solver 组织 plan-first 的 foreseeable reasoning 和 evidence integration。（Source: Sec. 2.1）
 - [StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis](../papers/aiops/stepfly/notes.md) — 以预处理的执行 DAG 和 Scheduler–Executor 约束在线步骤选择。（Source: Sec. 4.2, Sec. 4.4）
+- [TSGen: Automated Troubleshooting Guide Generation](../papers/aiops/tsgen/notes.md) — 生成和迭代维护决策树/DAG 形式的 operational guide；这是知识组织，不是已验证的运行时规划器。（Source: Sec. 4.4–4.5）
 
 ## Representative Systems / Code
 

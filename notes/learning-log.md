@@ -160,3 +160,12 @@
 - New concepts: executable operational knowledge; DAG-constrained Agent workflow; structured tool-data memory.
 - Open questions: how to detect out-of-coverage faults, update procedures under system drift, and retain/forget memory across incidents.
 - Next step: read TSGen to compare generating operational guides with executing them.
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: TSGen: Automated Troubleshooting Guide Generation
+- Core takeaway: TSGen filters and distills historical incident discussions into structured, human-reviewed TSG/DAG knowledge; it generates operational guidance but does not itself perform runtime RCA or remediation.
+- New concepts: historical-incident knowledge curation; guide coverage versus RCA correctness; persistent operational knowledge versus Agent memory.
+- Open questions: how to combine network multimodal telemetry, detect stale/out-of-coverage guides, and validate a generated guide before execution.
+- Next step: read ChatRCA and compare generated operational knowledge with a human-in-the-loop multi-agent RCA workflow.
