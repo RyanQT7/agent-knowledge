@@ -35,5 +35,6 @@ For the current inventory and preliminary taxonomy, see [AIOps paper inventory](
 - [Operational Knowledge](operational-knowledge.md)
 - [Agentic Incident Management](agentic-incident-management.md)
 - [Evidence Provenance](evidence-provenance.md)
+- [Candidate Space](candidate-space.md)
 
 The first five-paper formal batch is recorded in [AIOps Knowledge Review v1](../../notes/aiops/reviews/aiops-knowledge-review-v1.md). Concepts remain evolving and should be updated only when later sources add durable cross-paper evidence. Batch 2 adds [Comfey](../../papers/aiops/comfey/notes.md) for production incident triage, [AIM](../../papers/aiops/aim/notes.md) for prompt-level multimodal alert interpretation and plan-to-act, [StepFly](../../papers/aiops/stepfly/notes.md) for bounded TSG execution, [TSGen](../../papers/aiops/tsgen/notes.md) for historical-incident knowledge curation, and [ChatRCA](../../papers/aiops/chatrca/notes.md) for role-specialized human-gated RCA. Their cross-paper boundaries are consolidated in [AIOps Knowledge Review v2](../../notes/aiops/reviews/aiops-knowledge-review-v2.md); these systems should not be generalized into a single physical-RCA or autonomous-Agent architecture without further evidence.

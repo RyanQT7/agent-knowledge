@@ -246,3 +246,17 @@ The following statuses summarize what Batch 2 answers for the current scope. His
 
 57. **What regression and drift tests are sufficient to retire or revise an operational procedure after topology, configuration, or firmware changes?**
     Status: Open. Versioning, validation status, drift signals, and regression checks are proposed governance requirements, not a measured protocol (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.3, Sec. 4.1–4.3).
+
+## Questions from CHIEF
+
+58. **How should a Network RCA candidate hierarchy combine device/interface/module ownership with link/path relationships?**
+    Status: Open. CHIEF demonstrates subtask → Agent → step narrowing for execution traces, but its hierarchy is not a physical network candidate space (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 4.1–4.2).
+
+59. **How can open-set and multi-root network faults be represented when no single observed candidate explains the incident?**
+    Status: Open. CHIEF defines an earliest single decisive error and lists cumulative deviations as future work; it does not establish open-set or multi-root attribution (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 3, Sec. 7).
+
+60. **What is a safe network analogue of counterfactual correction for testing whether a candidate is causally decisive?**
+    Status: Open. CHIEF uses counterfactual trajectory correction in an Agent benchmark, while applying an intervention to a live network fault may be unsafe or unavailable (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 3, Sec. 4.3).
+
+61. **How can hallucinated graph edges or virtual-oracle expectations be detected before they affect RCA ranking?**
+    Status: Open. CHIEF explicitly identifies HCG/oracle fidelity as a limitation; deterministic topology and independent telemetry checks are not supplied by the paper (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 7).

@@ -54,6 +54,7 @@
 - [ChatRCA — multi-agent RCA with human-in-the-loop](papers/aiops/chatrca/notes.md)
 - [Cloud-OpsBench — deterministic Agentic SRE process evaluation](papers/aiops/cloud-opsbench/notes.md)
 - [Cloud Intelligence/AIOps 2.0 — knowledge-anchored agentic AIOps](papers/aiops/cloud-intelligence/notes.md)
+- [CHIEF — hierarchical failure attribution for LLM-based multi-agent systems](papers/aiops/chief/notes.md)
 
 ### AIOps Knowledge Reviews
 

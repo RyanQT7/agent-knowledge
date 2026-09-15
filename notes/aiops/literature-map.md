@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 and Batch 2 plus Cloud-OpsBench and Cloud Intelligence formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1 and Batch 2 plus Cloud-OpsBench, Cloud Intelligence, and CHIEF formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -20,6 +20,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [Comfey](../../papers/aiops/comfey/notes.md) — production team-ownership triage; not direct physical RCA.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — role-specialized multimodal RCA with RAG and human verification/adjudication.
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — deterministic snapshot and mocked-tool process evaluation for Agentic SRE diagnosis; not a production RCA system.
+- [CHIEF](../../papers/aiops/chief/notes.md) — hierarchical subtask/Agent/step failure attribution with virtual oracles and counterfactual checks; not physical infrastructure RCA.
 
 ## Incident Management / Triage / Operational Knowledge
 
@@ -45,8 +46,8 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
 - **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, ChatRCA, and Cloud Intelligence/AIOps 2.0. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation. Cloud-OpsBench evaluates interaction through a deterministic mock, while Cloud Intelligence proposes a knowledge-anchored architecture without standalone validation.
-- **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage). TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work.
-- **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
+- **LLM with Agent status unclear or not established:** KAT and TSGen. TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work. Cloud Intelligence/AIOps 2.0 is listed above as a proposed agentic architecture, but it is not a fully validated standalone system.
+- **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and CHIEF’s Agent-trace attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
 
 ## Data Modality Map
@@ -77,6 +78,7 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — specialized multi-agent evidence collection, domain hypotheses, RAG, and two-stage human verification.
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — immutable operational state, native-shaped mocked tools, and process-level trajectory auditing.
 - [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — OKA identity, anchoring, bounded actions, escalation, and knowledge lifecycle governance.
+- [CHIEF](../../papers/aiops/chief/notes.md) — execution-graph construction, hierarchical candidate narrowing, virtual oracles, and counterfactual attribution.
 
 ## Cross-paper Review
 

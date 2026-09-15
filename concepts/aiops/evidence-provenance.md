@@ -46,6 +46,8 @@ ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentB
 
 Cloud Intelligence/AIOps 2.0 adds provenance for the *knowledge side* of an operational decision: an OKA has identity, owner, scope, version, validation status, drift signals, and an anchor to a monitor or control point. This lets an audit ask which operational procedure guided an action. It does not replace telemetry provenance—source, entity, timestamp, query, freshness, and conflict status are still needed to verify the evidence itself (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.1–2.3).
 
+CHIEF shows a parallel requirement for Agent traces: OTAR fields, subtask/Agent/step edges, oracle expectations, and concrete data-flow relations make it possible to ask which recorded observation supported or corrupted a candidate. This is trace provenance, not a network telemetry schema, and its LLM-generated graph/oracle can still be wrong (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 4.1–4.3; Sec. 7).
+
 ## Related Concepts
 
 - [Root Cause Analysis](root-cause-analysis.md)

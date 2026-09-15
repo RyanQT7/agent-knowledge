@@ -210,3 +210,12 @@
 - New concepts: Operational Knowledge Artifact contract; knowledge anchor and drift/governance boundary.
 - Open questions: how to bind an OKA to physical network entities, validate its evidence preconditions, detect staleness, and connect its version to remediation audit/recovery.
 - Next step: read CHIEF for hierarchical candidate construction and attribution.
+
+## 2026-09-15 — CHIEF
+
+- Date: 2026-09-15
+- Paper: From Flat Logs to Causal Graphs: Hierarchical Failure Attribution for LLM-based Multi-Agent Systems
+- Core takeaway: defining the candidate as an Agent-step pair and narrowing subtask → Agent → step makes failure attribution more explicit; its execution graph and counterfactual checks are not physical network causality.
+- New concepts: candidate-space contract; hierarchical attribution; trace-level counterfactual verification.
+- Open questions: how to represent network hierarchy, open-set/multi-root causes, safe counterfactuals, and independent checks for LLM-generated graphs/oracles.
+- Next step: read FlowFixer for symbolic verification and repair validation.

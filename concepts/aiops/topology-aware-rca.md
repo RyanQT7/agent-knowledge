@@ -74,6 +74,8 @@ KAT shows a fourth role: a directed graph of business-support subsystems retriev
 
 ChatRCA shows a fifth role: the Architecture Agent supplies static service dependencies and dynamic node/container/pod details to other agents as context. This can guide hypothesis formation, but the paper does not use a formal topology algorithm to rank roots or establish physical network causality (Source: [ChatRCA paper note](../../papers/aiops/chatrca/notes.md), Sec. 4.2, Sec. 5.2).
 
+CHIEF adds a structural graph that is neither service topology nor physical topology: its subtask, Agent, and step/data-flow edges organize execution responsibility and candidate backtracking. Its “causal” attribution is supported by trajectory structure, virtual-oracle expectations, and counterfactual correction within an Agent benchmark; it should not be treated as evidence of physical network causality (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 3–4).
+
 ## Open Questions
 
 - How can physical network topology and dynamic traffic paths be represented together?
