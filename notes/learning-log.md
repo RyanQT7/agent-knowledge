@@ -219,3 +219,12 @@
 - New concepts: candidate-space contract; hierarchical attribution; trace-level counterfactual verification.
 - Open questions: how to represent network hierarchy, open-set/multi-root causes, safe counterfactuals, and independent checks for LLM-generated graphs/oracles.
 - Next step: read FlowFixer for symbolic verification and repair validation.
+
+## 2026-09-15 — FlowFixer
+
+- Date: 2026-09-15
+- Paper: Diagnosis-Driven Automatic Repair for Agentic Workflow via Symbolic Inference
+- Core takeaway: FlowFixer separates workflow diagnosis, scoped patch generation, pre-execution checks, dynamic execution, and retry; passing workflow tests is not the same as safe network recovery.
+- New concepts: layered verification; workflow repair versus operational remediation.
+- Open questions: how to add rollback, human approval, independent recovery signals, and topology/permission-aware validation to network actions.
+- Next step: compare the four Batch 3 papers in AIOps Knowledge Review v3.

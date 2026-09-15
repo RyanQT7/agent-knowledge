@@ -50,8 +50,9 @@ The current papers show that candidate space is domain-specific:
 - CAUSALDX selects and expands anomaly-node hypotheses.
 - LLMGuard prunes a guide-covered SOP tree toward root leaves.
 - CHIEF narrows from subtask to Agent to exact step and outputs one Agent-step pair, with counterfactual attribution.
+- FlowFixer attributes a failed agentic workflow to a workflow node and a finite failure taxonomy.
 
-These are structurally related but not one common candidate protocol (Sources: [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. III–V; [CAUSALDX note](../../papers/aiops/causaldx/notes.md), Sec. 4; [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 3–4).
+These are structurally related but not one common candidate protocol (Sources: [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. III–V; [CAUSALDX note](../../papers/aiops/causaldx/notes.md), Sec. 4; [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 3–4; [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. III–IV).
 
 ## Related Concepts
 
@@ -63,6 +64,7 @@ These are structurally related but not one common candidate protocol (Sources: [
 ## Representative Papers
 
 - [CHIEF](../../papers/aiops/chief/notes.md) — hierarchical subtask/Agent/step candidate reduction and counterfactual attribution.
+- [FlowFixer](../../papers/aiops/flowfixer/notes.md) — workflow-node attribution with a finite failure taxonomy.
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — component/fault-type localization with hierarchy context.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-node selection, expansion, and verification.
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — SOP-tree candidate pruning.

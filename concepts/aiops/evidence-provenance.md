@@ -48,6 +48,8 @@ Cloud Intelligence/AIOps 2.0 adds provenance for the *knowledge side* of an oper
 
 CHIEF shows a parallel requirement for Agent traces: OTAR fields, subtask/Agent/step edges, oracle expectations, and concrete data-flow relations make it possible to ask which recorded observation supported or corrupted a candidate. This is trace provenance, not a network telemetry schema, and its LLM-generated graph/oracle can still be wrong (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 4.1–4.3; Sec. 7).
 
+FlowFixer supplies another trace-provenance pattern: symbolic records retain node identity, type, input/output, status, configuration, and parameters, while inferred assertions connect observations to temporal and downstream effects. This improves auditability of workflow diagnosis and repair, but the paper does not address network entity/time alignment or prove that an inferred specification is correct (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. III-A–III-B).
+
 ## Related Concepts
 
 - [Root Cause Analysis](root-cause-analysis.md)

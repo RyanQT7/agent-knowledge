@@ -260,3 +260,17 @@ The following statuses summarize what Batch 2 answers for the current scope. His
 
 61. **How can hallucinated graph edges or virtual-oracle expectations be detected before they affect RCA ranking?**
     Status: Open. CHIEF explicitly identifies HCG/oracle fidelity as a limitation; deterministic topology and independent telemetry checks are not supplied by the paper (Source: [CHIEF note](../../papers/aiops/chief/notes.md), Sec. 7).
+
+## Questions from FlowFixer
+
+62. **What network behavioral specification is precise enough to validate a configuration change without pretending to model every physical effect?**
+    Status: Open. FlowFixer uses inferred workflow assertions and semantic/structural checks, but does not model physical network behavior or vendor-specific safety constraints (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. III).
+
+63. **What independent recovery signal should determine whether an executed network remediation succeeded?**
+    Status: Open. FlowFixer dynamically reruns a workflow on test inputs, but does not provide post-action network recovery verification or rollback (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. III-D–III-E; Sec. VIII).
+
+64. **How should repair experience be invalidated when topology, firmware, configuration, or tool semantics change?**
+    Status: Open. FlowFixer’s ExperiencePool retrieves historical repair experience, but a complete freshness, conflict, and retirement policy is not established (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. III-E).
+
+65. **How should a repair verifier handle open-set, multi-root, or partial-repair failures?**
+    Status: Open. FlowFixer evaluates a finite workflow taxonomy and responsible node, without establishing unknown-cause or multi-root repair attribution (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. IV).

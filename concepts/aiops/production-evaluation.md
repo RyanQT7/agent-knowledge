@@ -51,6 +51,7 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 - [Comfey](../../papers/aiops/comfey/notes.md) — 22-month Azure deployment with triage ownership labels, latency, mitigation, cost, and fallback measurements; not a direct physical-RCA evaluation.
 - [AIM](../../papers/aiops/aim/notes.md) — controlled 100-sample, fault-injected/testbed evaluation with human judgments and plan-to-code execution; no live production deployment.
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — proposed/prototype state-snapshot benchmark with process metrics; no production deployment evidence.
+- [FlowFixer](../../papers/aiops/flowfixer/notes.md) — 443 workflow-failure cases and controlled dynamic repair verification; no production Network AIOps deployment or recovery evaluation.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — production incident corpus and operational deployment of a human-reviewed guide-generation aid; not autonomous RCA or remediation deployment.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — private enterprise incidents plus public benchmarks, human-in-the-loop evaluation, and deployment feedback; no autonomous remediation evaluation.
 

@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 and Batch 2 plus Cloud-OpsBench, Cloud Intelligence, and CHIEF formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1 and Batch 2 plus Cloud-OpsBench, Cloud Intelligence, CHIEF, and FlowFixer formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -21,6 +21,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — role-specialized multimodal RCA with RAG and human verification/adjudication.
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — deterministic snapshot and mocked-tool process evaluation for Agentic SRE diagnosis; not a production RCA system.
 - [CHIEF](../../papers/aiops/chief/notes.md) — hierarchical subtask/Agent/step failure attribution with virtual oracles and counterfactual checks; not physical infrastructure RCA.
+- [FlowFixer](../../papers/aiops/flowfixer/notes.md) — symbolic workflow-node attribution, patch generation, pre-checks, and dynamic workflow verification; not network remediation.
 
 ## Incident Management / Triage / Operational Knowledge
 
@@ -33,7 +34,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 - [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal alert interpretation, mitigation planning, and constrained Ansible execution.
 - [StepFly](<../../sources/papers/AIOps_papers/FSE26-StepFly- Agentic Troubleshooting Guide Automation for Incident Diagnosis.pdf>) — TSG execution that can support mitigation.
-- [FlowFixer](<../../sources/papers/AIOps_papers/Diagnosis-Driven_Automatic_Repair_for_Agentic_Workflow_via_Symbolic_Inference.pdf>) — symbolic diagnosis and repair of agentic workflows.
+- [FlowFixer](../../papers/aiops/flowfixer/notes.md) — symbolic diagnosis, scoped repair patches, pre-execution assessment, and dynamic verification of agentic workflows.
 - [HARNESSFIX](<../../sources/papers/AIOps_papers/From_Failed_Trajectories_to_Reliable_LLM_Agents_Diagnosing_and_Repairing_Harness_Flaws.pdf>) — diagnosis and repair of agent harness flaws.
 
 ## Evaluation / Reproducibility
@@ -79,6 +80,7 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — immutable operational state, native-shaped mocked tools, and process-level trajectory auditing.
 - [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — OKA identity, anchoring, bounded actions, escalation, and knowledge lifecycle governance.
 - [CHIEF](../../papers/aiops/chief/notes.md) — execution-graph construction, hierarchical candidate narrowing, virtual oracles, and counterfactual attribution.
+- [FlowFixer](../../papers/aiops/flowfixer/notes.md) — symbolic trace/specification inference, node-level diagnosis, repair operators, and dynamic validation.
 
 ## Cross-paper Review
 
