@@ -74,6 +74,10 @@
 - [Paper–Code Repository Index](code/repository-index.md)
 - [Paper–Code Discovery Summary](notes/code/paper-code-discovery-summary.md)
 
+## Learning Guides
+
+- [Agent / LLM / Skill / AIOps Overview](notes/guides/agent-llm-skill-aiops-overview.md)
+
 ## Documents / Blogs
 
 暂空，见 [docs/](docs/)。
