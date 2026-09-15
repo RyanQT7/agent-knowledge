@@ -42,7 +42,7 @@ raw telemetry or document
 
 ## Example
 
-ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentBench exposes metrics, logs, and traces through separate diagnostic tools. LLMGuard preserves evidence chains through deterministic SOP checks, while CAUSALDX verifies candidate observations with tools. These are different implementations of a related provenance requirement, not one shared protocol (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2; [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. IV-B; [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [CAUSALDX note](../../papers/aiops/causaldx/notes.md), Sec. 4.3).
+ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentBench exposes metrics, logs, and traces through separate diagnostic tools. LLMGuard preserves evidence chains through deterministic SOP checks, while CAUSALDX verifies candidate observations with tools. Cloud-OpsBench adds a related reproducibility boundary: historical telemetry, control-plane configuration, and runtime state are frozen, and commands return deterministic snapshot responses. That preserves state/query provenance for replay, but does not by itself establish that entity mapping, clock alignment, or causal interpretation is correct. These are different implementations of a related provenance requirement, not one shared protocol (Sources: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2; [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. IV-B; [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [CAUSALDX note](../../papers/aiops/causaldx/notes.md), Sec. 4.3; [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.2–2.4).
 
 ## Related Concepts
 
@@ -59,6 +59,7 @@ ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentB
 - [LLMGuard](../../papers/aiops/llmguard/notes.md)
 - [ChatRCA](../../papers/aiops/chatrca/notes.md)
 - [AIM](../../papers/aiops/aim/notes.md)
+- [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md)
 
 ## Advantages
 

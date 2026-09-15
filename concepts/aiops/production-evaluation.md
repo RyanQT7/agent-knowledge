@@ -50,6 +50,7 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 - [KAT](../../papers/aiops/kat/notes.md) — commercial telecom deployment and operational outcome metrics.
 - [Comfey](../../papers/aiops/comfey/notes.md) — 22-month Azure deployment with triage ownership labels, latency, mitigation, cost, and fallback measurements; not a direct physical-RCA evaluation.
 - [AIM](../../papers/aiops/aim/notes.md) — controlled 100-sample, fault-injected/testbed evaluation with human judgments and plan-to-code execution; no live production deployment.
+- [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — proposed/prototype state-snapshot benchmark with process metrics; no production deployment evidence.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — production incident corpus and operational deployment of a human-reviewed guide-generation aid; not autonomous RCA or remediation deployment.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — private enterprise incidents plus public benchmarks, human-in-the-loop evaluation, and deployment feedback; no autonomous remediation evaluation.
 
@@ -71,7 +72,7 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 
 The first five-paper batch demonstrates the distinction: RCAgentBench is a public injected-fault testbed; StaR uses synthetic/public benchmark data; CAUSALDX uses private production records with human feedback; LLMGuard reports production deployment and real incidents; KAT reports commercial deployment and longitudinal operational outcomes. These claims are not interchangeable.
 
-TSGen adds a separate case: its private historical corpus and deployment of a human-reviewed guide-generation aid support production-data and operational-use claims, but not autonomous diagnosis or remediation claims (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 5, Sec. 7.2).
+TSGen adds a separate case: its private historical corpus and deployment of a human-reviewed guide-generation aid support production-data and operational-use claims, but not autonomous diagnosis or remediation claims (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 5, Sec. 7.2). Cloud-OpsBench supplies the complementary controlled-evaluation case: immutable state and deterministic mocked tools improve reproducibility and process auditing, but its injected prototype/testbed setting is not production data, production-scale evaluation, or production deployment (Source: [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2–4).
 
 ## Open Questions
 

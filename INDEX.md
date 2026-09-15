@@ -52,6 +52,7 @@
 - [StepFly — DAG-guided troubleshooting-guide execution](papers/aiops/stepfly/notes.md)
 - [TSGen — historical-incident troubleshooting-guide generation](papers/aiops/tsgen/notes.md)
 - [ChatRCA — multi-agent RCA with human-in-the-loop](papers/aiops/chatrca/notes.md)
+- [Cloud-OpsBench — deterministic Agentic SRE process evaluation](papers/aiops/cloud-opsbench/notes.md)
 
 ### AIOps Knowledge Reviews
 

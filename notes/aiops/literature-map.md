@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 and Batch 2 formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1 and Batch 2 plus Cloud-OpsBench formal note completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -19,6 +19,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [KAT](../../papers/aiops/kat/notes.md) — evolving telecom troubleshooting and diagnosis.
 - [Comfey](../../papers/aiops/comfey/notes.md) — production team-ownership triage; not direct physical RCA.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — role-specialized multimodal RCA with RAG and human verification/adjudication.
+- [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — deterministic snapshot and mocked-tool process evaluation for Agentic SRE diagnosis; not a production RCA system.
 
 ## Incident Management / Triage / Operational Knowledge
 
@@ -43,7 +44,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
-- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation.
+- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation. Cloud-OpsBench evaluates the interaction process through a deterministic mock rather than deploying an Agent.
 - **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage). TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work.
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
@@ -74,6 +75,7 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [StepFly](../../papers/aiops/stepfly/notes.md) — guide-derived DAG control, typed query plugins, executor scheduling, and structured evidence exchange.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, diversity-aware distillation, structured TSG/DAG generation, and human-reviewed iterative updates.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — specialized multi-agent evidence collection, domain hypotheses, RAG, and two-stage human verification.
+- [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — immutable operational state, native-shaped mocked tools, and process-level trajectory auditing.
 
 ## Cross-paper Review
 

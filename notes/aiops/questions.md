@@ -224,3 +224,14 @@ The following statuses summarize what Batch 2 answers for the current scope. His
   Status: **Partially Answered**. Observation-dependent tool choice, hypothesis testing, retry, escalation, or bounded replanning justify an Agent loop; one-shot normalized evidence does not. A reliable threshold remains open (Source: [Agentic Incident Management concept](../../concepts/aiops/agentic-incident-management.md), [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 9).
 - **How should RCA verification differ from remediation and recovery verification?**
   Status: **Partially Answered**. Candidate/evidence/topology checks are appropriate for RCA; permissions, rollback, execution feedback, and post-action telemetry are additionally required for remediation. A complete production protocol remains open (Source: [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 11–13).
+
+## Questions from Cloud-OpsBench
+
+52. **How should a frozen network snapshot preserve entity, timestamp, freshness, and conflict provenance without making replay unrealistically clean?**
+    Status: Open. Cloud-OpsBench freezes telemetry, configuration, and runtime state and returns deterministic tool observations, but does not define a physical-network provenance schema or live delay/permission model (Source: [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.2–2.3).
+
+53. **How should process-centric Agent evaluation handle multiple valid expert investigation paths?**
+    Status: Open. Cloud-OpsBench proposes exact, in-order, and any-order trajectory measures, but a single expert-derived path may not represent all safe network investigations (Source: [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.4).
+
+54. **What controlled execution evidence is needed before a deterministic snapshot benchmark predicts production Agent behavior?**
+    Status: Open. The paper establishes reproducible read-only evaluation, not production deployment, state-changing actions, or recovery outcomes (Source: [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.3, Sec. 3–4).

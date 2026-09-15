@@ -192,3 +192,12 @@
 - Main conceptual change: formed a cautious hybrid RCA architecture in which deterministic/statistical/graph modules handle alignment, candidate space, topology, and safety; LLM/Agents handle bounded evidence synthesis and investigation; verification and human gates remain explicit.
 - Most important open questions: network Evidence Provenance, physical plus dynamic topology, open-set/multi-root candidate pruning, and safe recovery evaluation.
 - Next step: read a focused network multimodal or topology-aware RCA batch; do not assume the synthesis is an implemented system.
+
+## 2026-09-15 — Cloud-OpsBench
+
+- Date: 2026-09-15
+- Paper: Freezing the Crime Scene: A State Snapshot Paradigm for Reproducible Agentic SRE Evaluation
+- Core takeaway: deterministic snapshots and native-shaped mocked tools can make Agent investigation reproducible and expose process failures that final-answer metrics hide; this is an evaluation paradigm, not a production RCA or remediation system.
+- New concepts: state-snapshot evaluation; process-centric Agent diagnosis metrics.
+- Open questions: how to preserve network entity/time provenance and valid alternative investigation paths in replay, and how to connect snapshot results to live safety and recovery.
+- Next step: read Cloud Intelligence/AIOps 2.0 for knowledge anchoring and bounded operational execution.
