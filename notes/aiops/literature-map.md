@@ -2,7 +2,7 @@
 
 Status: Preliminary
 
-This map is a navigation skeleton for the first-stage AIOps inventory. It is organized by problem and system role, not by presumed algorithmic similarity. Links currently point to source PDFs because formal paper notes will be created only during full-paper reading.
+This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
 ## Detection / Anomaly Detection
 
@@ -14,8 +14,7 @@ This map is a navigation skeleton for the first-stage AIOps inventory. It is org
 
 - [StaR](<../../sources/papers/AIOps_papers/KDD26-StaR- Stateful Dynamic-Graph Root Cause Analysis throughMemory-Enhanced Causality Discovery.pdf>) — dynamic topology and stateful causal discovery.
 - [CAUSALDX](<../../sources/papers/AIOps_papers/TKDE26-CAUSALDX- Diagnosing Long-Tail and Cascading Cloud Incidents with LLM-Guided Causal Reasoning.pdf>) — long-tail and cascading cloud incidents with LLM-guided causal reasoning.
-- [RCAgentBench](<../../sources/papers/AIOps_papers/IWQOS26-RCAgentBench_An_Agent-Oriented_Benchmark_for_Multimodal_Root_Cause_Analysis_in_Microservices.pdf>) — multimodal RCA and agent-oriented evaluation.
-- [LLMGuard](<../../sources/papers/AIOps_papers/DSN26-LLMGuard_Multi-Agent_Fault_Diagnosis_for_Reliable_Language-Model-as-a-Service.pdf>) — production LMaaS diagnosis with SOPs and evidence verification.
+- [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — multimodal RCA and agent-oriented evaluation.
 - [KAT](<../../sources/papers/AIOps_papers/INFOCOM26-KAT_Knowledge-Context_Augmentation_for_Evolving_LLM-Based_Telecom_Troubleshooting.pdf>) — evolving telecom troubleshooting and diagnosis.
 - [ChatRCA](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) — multi-agent RCA with human-in-the-loop.
 
@@ -60,3 +59,7 @@ The presence of an LLM does not by itself establish an Agent architecture. The f
 ## Relation to the Current Research Direction
 
 The most direct path is to connect a conventional telemetry layer (metrics, logs, traces, topology, and possibly traffic) to an RCA/diagnosis layer and then study whether LLMs or agents add value in evidence organization, explanation, or safe remediation. The current inventory contains strong candidates for each part, but not yet a demonstrated unified network-specific pipeline.
+
+## Formal Notes Completed
+
+- [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — explicit multimodal metrics/logs/traces and agent-process evaluation; a service-topology context rather than a physical causal graph.

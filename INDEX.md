@@ -40,6 +40,10 @@
 - [AIOps concepts](concepts/aiops/README.md)
 - [AIOps paper template](templates/aiops-paper-note.md)
 
+### AIOps formal paper notes
+
+- [RCAgentBench — multimodal agent-oriented RCA benchmark](papers/aiops/rcagentbench/notes.md)
+
 ## Code / Repositories
 
 暂空，见 [code/](code/)。

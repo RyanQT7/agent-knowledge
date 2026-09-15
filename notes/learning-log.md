@@ -81,3 +81,12 @@
 - Main conceptual changes: 将 Planning 区分为 plan-like、formal solver-backed、search-based 和 plan-first workflow；明确 Observation、imagined state、evidence 与 replanning 的边界。
 - Top open questions: 如何校准 world model 和真实 Observation；何时在 plan-first 与 runtime interaction 间切换；如何验证并修正动态环境中的计划。
 - Next learning priorities: Replanning and feedback-grounded planning、Planner–Executor 与 structured plans、World Models、planning-aware tool use / context engineering、Planning evaluation。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: RCAgentBench: An Agent-Oriented Benchmark for Multimodal Root Cause Analysis in Microservices
+- Core takeaway: RCA 应把 metrics/logs/traces 的证据获取、组件定位、故障类型、解释覆盖和诊断路径成本分开评估；工具和层级结构本身会显著影响 Agent 结果。
+- New concepts: AIOps RCA task boundaries、multimodal telemetry、topology-aware RCA、process-level RCA evaluation。
+- Open questions: 网络场景的候选根因空间、跨模态时间对齐、物理拓扑与服务调用图的可迁移性。
+- Next step: 阅读 StaR，检查动态拓扑与 stateful causal RCA 如何定义候选根因和时间信息。
