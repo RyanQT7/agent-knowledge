@@ -67,6 +67,8 @@ StaR adds a caution that a model can rank root variables using predictive, state
 
 CAUSALDX adds a different candidate-space pattern: select among observed anomaly nodes, expand open-set hypotheses, and verify them with independent observations/tools before accepting a diagnosis. This makes candidate generation and verification explicit rather than treating RCA as a closed-set label lookup (Source: [CAUSALDX paper note](../../papers/aiops/causaldx/notes.md), Sec. 4.3).
 
+LLMGuard shows the complementary closed-world pattern: retrieval narrows the SOP set and deterministic checks prune a tree of guide-covered root leaves, with escalation when trusted coverage is missing. This is operationally reliable but not the same as open-set causal discovery (Source: [LLMGuard paper note](../../papers/aiops/llmguard/notes.md), Sec. IV).
+
 ## Open Questions
 
 - How should open-set and multi-root RCA be evaluated in network infrastructure?

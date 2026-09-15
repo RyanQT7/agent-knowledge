@@ -71,3 +71,17 @@ This file contains AIOps-specific questions raised during formal reading. Status
 
 20. **Can root-set precision/recall and hierarchical top-k localization be evaluated together?**
     Status: Open.
+
+## Questions from LLMGuard
+
+21. **How can deterministic SOP execution represent continuous, uncertain, or contradictory network evidence?**
+    Status: Open.
+
+22. **How should an RCA system recognize that its SOP/knowledge coverage is insufficient for an unknown root cause?**
+    Status: Partially Answered. LLMGuard escalates missing verified-tool coverage to a human, but a general unknown-cause detector remains open (Source: LLMGuard, Sec. IV-A–B).
+
+23. **Which production metrics should be reported together with RCA correctness?**
+    Status: Partially Answered. LLMGuard adds path length, latency, token cost, resource use, and human gating; a common network-AIOps protocol is still open (Source: LLMGuard, Sec. V).
+
+24. **Can an executable SOP tree and a learned dynamic causal graph cooperate safely?**
+    Status: Open.

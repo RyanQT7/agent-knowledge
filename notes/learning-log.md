@@ -108,3 +108,12 @@
 - New concepts: open-set RCA、anomaly dependency graph、verification-grounded diagnosis。
 - Open questions: 网络场景如何校准候选扩展、定义独立验证证据，以及统一 root-set 与层级 top-k 评价。
 - Next step: 阅读 LLMGuard，比较生产环境中 SOP tree、确定性执行和 Agentic RCA 的边界。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: LLMGuard: Multi-Agent Fault Diagnosis for Reliable Language-Model-as-a-Service
+- Core takeaway: LLMGuard 用 LLM 做 SOP 解析、检索、树规划和总结，但让在线检查沿确定性的 SOP Checking Tree 执行；生产 RCA 的关键约束是知识覆盖、工具验证、证据链、延迟和人工升级。
+- New concepts: production evaluation axes、SOP-based diagnosis、deterministic Agent workflow。
+- Open questions: 网络场景如何表达连续/不确定证据，以及如何发现 SOP 覆盖不足的未知根因。
+- Next step: 阅读 KAT，比较知识图谱、跨子系统上下文和持续更新在真实电信排障中的作用。

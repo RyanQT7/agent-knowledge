@@ -15,6 +15,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [StaR](../../papers/aiops/star/notes.md) — dynamic topology and stateful causal discovery.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — long-tail and cascading cloud incidents with LLM-guided causal reasoning.
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — multimodal RCA and agent-oriented evaluation.
+- [LLMGuard](../../papers/aiops/llmguard/notes.md) — production LMaaS diagnosis with SOPs and evidence verification.
 - [KAT](<../../sources/papers/AIOps_papers/INFOCOM26-KAT_Knowledge-Context_Augmentation_for_Evolving_LLM-Based_Telecom_Troubleshooting.pdf>) — evolving telecom troubleshooting and diagnosis.
 - [ChatRCA](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) — multi-agent RCA with human-in-the-loop.
 
@@ -65,3 +66,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — explicit multimodal metrics/logs/traces and agent-process evaluation; a service-topology context rather than a physical causal graph.
 - [StaR](../../papers/aiops/star/notes.md) — stateful dynamic-graph RCA over metric streams; predictive causal structure rather than proven physical causality.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-graph causal search with open-set expansion and tool verification.
+- [LLMGuard](../../papers/aiops/llmguard/notes.md) — SOP-tree diagnosis with deterministic checks, evidence chains, and production human gating.

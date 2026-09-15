@@ -45,6 +45,7 @@
 - [RCAgentBench — multimodal agent-oriented RCA benchmark](papers/aiops/rcagentbench/notes.md)
 - [StaR — stateful dynamic-graph RCA](papers/aiops/star/notes.md)
 - [CAUSALDX — LLM-guided causal RCA](papers/aiops/causaldx/notes.md)
+- [LLMGuard — production LMaaS fault diagnosis](papers/aiops/llmguard/notes.md)
 
 ## Code / Repositories
 

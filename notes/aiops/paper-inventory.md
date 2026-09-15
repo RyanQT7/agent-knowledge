@@ -15,7 +15,7 @@ This is a first-stage inventory and lightweight triage, not a set of formal pape
 - Unreadable: 0
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
-- Formal paper notes created in this pass: 3 (RCAgentBench, StaR, CAUSALDX)
+- Formal paper notes created in this pass: 4 (RCAgentBench, StaR, CAUSALDX, LLMGuard)
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.
@@ -24,7 +24,7 @@ The batch spans the AIOps chain from detection to root-cause analysis, diagnosis
 
 | # | Title | File | Authors | Year / Venue | Main task | Modalities / type | Method family | LLM / Agent | Production / data | Relevance | Priority | Batch |
 |---:|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | LLMGuard: Multi-Agent Fault Diagnosis for Reliable Language-Model-as-a-Service | [PDF](<../../sources/papers/AIOps_papers/DSN26-LLMGuard_Multi-Agent_Fault_Diagnosis_for_Reliable_Language-Model-as-a-Service.pdf>) | Yuedong Zhong et al. | 2026 / DSN | Diagnosis, RCA, mitigation support | Logs, alerts, SOP/TSG text, runtime state; multi-source | Deterministic multi-agent workflow; SOP checking tree; evidence verification | LLM: Yes; Agent: Yes, multi-agent | Production LMaaS; private industrial data; large scale | High | P0 | Batch 1 |
+| 1 | [LLMGuard](../../papers/aiops/llmguard/notes.md) | [PDF](<../../sources/papers/AIOps_papers/DSN26-LLMGuard_Multi-Agent_Fault_Diagnosis_for_Reliable_Language-Model-as-a-Service.pdf>) | Yuedong Zhong et al. | 2026 / DSN | Diagnosis, RCA, mitigation support | Logs, alerts, SOP/TSG text, runtime state; multi-source | Deterministic multi-agent workflow; SOP checking tree; evidence verification | LLM: Yes; Agent: Yes, multi-agent | Production LMaaS; private industrial data; large scale | High | P0 | Batch 1; **Full Reading: Completed** |
 | 2 | Diagnosis-Driven Automatic Repair for Agentic Workflow via Symbolic Inference | [PDF](<../../sources/papers/AIOps_papers/Diagnosis-Driven_Automatic_Repair_for_Agentic_Workflow_via_Symbolic_Inference.pdf>) | Xuyan Ma et al. | 2026 / arXiv | Failure attribution, RCA, diagnosis, repair | Agent traces, workflow/configuration, prompts, variables, tool interactions; multi-source | Symbolic execution traces/specifications; verification; repair patch generation | LLM: Yes; Agent: target is agentic workflow; standalone Agent status unclear | Production: unclear; data/scale: unclear; open source: unclear | Medium | P2 | Batch 3 |
 | 3 | An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure | [PDF](<../../sources/papers/AIOps_papers/FSE26-An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure.pdf>) | Yuhan Yao et al. | 2026 / FSE Companion | Incident triage, routing, diagnosis support | Incident reports, tickets, historical incidents, routing metadata; multi-source text-centric | Decentralized team-local agents; accept/reject/transfer negotiation | LLM: Yes; Agent: Yes, decentralized multi-agent | Production Azure; real incidents; private data; large scale | High | P1 | Batch 2 |
 | 4 | Cloud Intelligence/AIOps 2.0: Knowledge-Anchored Agentic AIOps | [PDF](<../../sources/papers/AIOps_papers/FSE26-Cloud Intelligence_AIOps 2.0- Knowledge-Anchored Agentic AIOps.pdf>) | Dongmei Zhang et al. | 2026 / FSE Companion | Incident management, RCA, remediation architecture | Logs, metrics, incidents, docs/TSGs, dependencies, operational signals; multi-source/multimodal | Operational Knowledge Artifacts; anchored retrieval; bounded execution and escalation | LLM: Yes; Agent: Yes, proposed architecture | Production validation: unclear; operational/private setting; scale unclear | High | P2 | Batch 3 |
@@ -56,6 +56,7 @@ The records below capture the minimum research interpretation needed for priorit
 - **Potentially useful idea:** Structured SOP execution and auditable evidence chains can constrain agent diagnosis.
 - **Assumption that may not transfer:** The approach may depend on high-quality SOP coverage and LMaaS-specific failure modes.
 - **Source / uncertainty:** Title page, Abstract, and Sec. I–II; exact modality breakdown and broader evaluation details need full-paper verification.
+- **Full reading status:** Completed. See [formal AIOps note](../../papers/aiops/llmguard/notes.md). Full-paper review confirms 84 real production incidents over three months in an LMaaS environment exceeding 10,000 accelerators, with SOPCT-based deterministic diagnosis and SRE human gating (Source: Sec. V, pp. 6–8).
 
 ### 2. FlowFixer (`flowfixer`)
 
