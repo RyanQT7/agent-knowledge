@@ -69,7 +69,10 @@
 
 ## Code / Repositories
 
-暂空，见 [code/](code/)。
+见 [code/](code/)。
+
+- [Paper–Code Repository Index](code/repository-index.md)
+- [Paper–Code Discovery Summary](notes/code/paper-code-discovery-summary.md)
 
 ## Documents / Blogs
 
