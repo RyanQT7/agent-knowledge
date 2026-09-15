@@ -18,6 +18,24 @@ Skill 层次：
 
 其他 Skill 当前只保留规划项，不实现复杂 Skill。
 
+- [aiops-paper-reading](aiops-paper-reading/SKILL.md) — AIOps / Infrastructure / Network Operations 单篇论文的专题全文分析。Status: v1 / validated through AIOps Batch 1 + Batch 2
+
+当前职责层次：
+
+~~~text
+paper-reading
+= generic research paper reading
+
+aiops-paper-reading
+= AIOps-focused full-paper analysis
+
+knowledge-review
+= generic cross-paper consolidation
+
+learning-batch
+= generic paper batch orchestration
+~~~
+
 - [knowledge-query](knowledge-query/SKILL.md) — 基于已积累知识进行检索、教学、比较和来源追溯；默认只读。`Status: v1`
 
 - [learning-batch](learning-batch/SKILL.md) — 串行编排新论文批次，并调用 paper-reading 与 knowledge-review。`Status: v1 / validated from Planning Batch`
