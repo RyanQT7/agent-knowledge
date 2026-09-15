@@ -90,3 +90,12 @@
 - New concepts: AIOps RCA task boundaries、multimodal telemetry、topology-aware RCA、process-level RCA evaluation。
 - Open questions: 网络场景的候选根因空间、跨模态时间对齐、物理拓扑与服务调用图的可迁移性。
 - Next step: 阅读 StaR，检查动态拓扑与 stateful causal RCA 如何定义候选根因和时间信息。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: StaR: Stateful Dynamic-Graph Root Cause Analysis through Memory-Enhanced Causality Discovery
+- Core takeaway: StaR 用时序模型状态和动态消息传递处理变化依赖与延迟传播；它的 memory 是模型 temporal state，不是 Agent memory，且 Granger-style predictive relation 不等于物理因果。
+- New concepts: stateful causal RCA、dynamic graph semantics、innovation-based root ranking。
+- Open questions: 学习到的动态图如何与网络物理拓扑对齐，metric-variable candidates 如何映射到设备/接口/链路。
+- Next step: 阅读 CAUSALDX，比较 anomaly graph、LLM causal reasoning 与 observation verification。
