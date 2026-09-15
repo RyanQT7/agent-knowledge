@@ -31,6 +31,15 @@
 - [Knowledge Review v1 — ReAct, Toolformer, Reflexion](notes/reviews/knowledge-review-v1.md)
 - [Knowledge Review v2 — Planning batch: LLM+P, RAP, ReWOO](notes/reviews/knowledge-review-v2.md)
 
+## AIOps Literature — First-stage Triage
+
+- [AIOps paper inventory](notes/aiops/paper-inventory.md)
+- [AIOps literature map](notes/aiops/literature-map.md)
+- [AIOps research gaps](notes/aiops/research-gaps.md)
+- [AIOps reading roadmap](notes/aiops/reading-roadmap.md)
+- [AIOps concepts](concepts/aiops/README.md)
+- [AIOps paper template](templates/aiops-paper-note.md)
+
 ## Code / Repositories
 
 暂空，见 [code/](code/)。
