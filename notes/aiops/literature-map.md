@@ -24,7 +24,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 - [Comfey](<../../sources/papers/AIOps_papers/FSE26-An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure.pdf>) — decentralized incident triage and routing.
 - [TSGen](<../../sources/papers/AIOps_papers/FSE26-TSGen- Automated Troubleshooting Guide Generation.pdf>) — generation and maintenance of troubleshooting guides.
-- [StepFly](<../../sources/papers/AIOps_papers/FSE26-StepFly- Agentic Troubleshooting Guide Automation for Incident Diagnosis.pdf>) — executable troubleshooting-guide workflows.
+- [StepFly](../../papers/aiops/stepfly/notes.md) — executable troubleshooting-guide workflows with DAG-constrained scheduling, QPPs, and structured working memory.
 - [Cloud Intelligence / AIOps 2.0](<../../sources/papers/AIOps_papers/FSE26-Cloud Intelligence_AIOps 2.0- Knowledge-Anchored Agentic AIOps.pdf>) — knowledge-anchored agentic AIOps proposal.
 
 ## Remediation / Automatic Repair
@@ -71,3 +71,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting with cross-subsystem context and feedback-driven updates.
 - [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, and statistical cross-team routing in Azure production.
 - [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal context, adaptive exemplar retrieval, and plan-to-code execution.
+- [StepFly](../../papers/aiops/stepfly/notes.md) — guide-derived DAG control, typed query plugins, executor scheduling, and structured evidence exchange.

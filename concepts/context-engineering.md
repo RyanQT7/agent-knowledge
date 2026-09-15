@@ -41,6 +41,8 @@ ReAct 把每轮 Thought、Action 和 Observation 追加到 trajectory context �
 
 AIM 补充了 prompt-level multimodal context 的实例：先按时间戳和 service ID 对齐 metrics、logs、traces，再用规则化 KPI severity 做选择，最后检索少量相关 prompt-summary-mitigation exemplars。它说明 context engineering 既包括内容选择和压缩，也包括把确定性告警语义放在 LLM 之前；这些 exemplars 是检索上下文，不应自动称为 Agent memory。（Source: [AIM paper note](../papers/aiops/aim/notes.md), Sec. 3.1–3.3）
 
+StepFly 展示了另一种 context boundary：大体量插件结果写入外部结构化 key-value store，后续步骤通过 key、schema 和样本读取，而不是把完整 payload 反复塞入对话。这是 context budgeting 与数据接口设计，同时也说明外部存储不自动等于跨任务 memory。（Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.4.4, Sec. 5.6.2）
+
 ## Related Concepts
 
 - [Agent](agent.md)

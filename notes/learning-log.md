@@ -151,3 +151,12 @@
 - New concepts: prompt-level multimodal fusion; plan-to-act boundary; remediation success versus plan quality.
 - Open questions: how to align imperfect network telemetry, verify generated actions, and measure physical RCA rather than category/text alignment.
 - Next step: read StepFly to compare executable TSG DAGs with AIM’s generated plan/code path.
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis
+- Core takeaway: StepFly compiles TSGs into DAGs and typed query plugins, then uses bounded scheduler/executors and external structured working memory to execute and parallelize documented diagnosis steps.
+- New concepts: executable operational knowledge; DAG-constrained Agent workflow; structured tool-data memory.
+- Open questions: how to detect out-of-coverage faults, update procedures under system drift, and retain/forget memory across incidents.
+- Next step: read TSGen to compare generating operational guides with executing them.

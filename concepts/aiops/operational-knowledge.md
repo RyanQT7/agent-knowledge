@@ -30,6 +30,7 @@ Different systems implement different parts:
 - **SOP tree:** guide-covered checks become deterministic branches and leaves.
 - **Anomaly/causal graph:** observations and candidate causes are organized for search and verification.
 - **Knowledge graph + context graph:** entity-level cases and subsystem dependencies are retrieved into an LLM prompt.
+- **Executable TSG metadata:** a guide can be compiled into a control-flow DAG and typed query plugins while the original human-readable document remains authoritative.
 
 ## Typical Architecture
 
@@ -60,6 +61,7 @@ LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — expert rules, product modules, anomaly graph, and verification.
 - [KAT](../../papers/aiops/kat/notes.md) — troubleshooting knowledge graph, subsystem context, and continuous improvement.
 - [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, shared routing statistics, and human feedback for production incident triage.
+- [StepFly](../../papers/aiops/stepfly/notes.md) — TSG quality improvement, execution-DAG extraction, query-preparation plugins, and structured evidence exchange.
 
 ## Advantages
 

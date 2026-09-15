@@ -131,6 +131,20 @@ This file contains AIOps-specific questions raised during formal reading. Status
 37. **How should plan quality, tool/code correctness, and actual remediation success be evaluated separately?**
     Status: Partially Answered. AIM reports language metrics, human judgments, TCR, data-collection success, and binary remediation success, but these remain difficult to compare across infrastructure domains (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 4.3–4.4.6).
 
+## Questions from StepFly
+
+38. **How can an executable TSG/DAG detect that it is out of coverage instead of reaching an inappropriate termination point?**
+    Status: Open. StepFly can terminate at guide-defined points and send conclusions to SREs, but it does not establish a general unknown-fault detector (Source: [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 2.2, Sec. 4.4).
+
+39. **How should structured working memory retain, compress, or forget large telemetry payloads across incident executions?**
+    Status: Open. StepFly specifies key-value exchange within an execution, but not cross-incident retention, selection, forgetting, or memory correctness policies (Source: [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 4.4.4).
+
+40. **When are TSG steps genuinely independent enough for parallel execution in changing network state?**
+    Status: Partially Answered. StepFly uses data/control dependencies and SRE expertise to identify independent branches, but network rate limits, asynchronous observations, and state changes require further validation (Source: [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 4.5, Sec. 7).
+
+41. **Can typed query plugins and DAG constraints improve open-set network RCA without freezing the system to outdated procedures?**
+    Status: Open. StepFly reduces query-generation and control-flow errors, while its guide coverage and update boundaries remain a limitation (Source: [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 4.2–4.4, Sec. 6).
+
 ## Status after AIOps Knowledge Review v1
 
 - **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.

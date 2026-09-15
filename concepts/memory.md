@@ -20,6 +20,10 @@ Agent 需要记住已经观察到的事实、已完成的子目标、失败原�
 
 一次 attempt 结束后，系统可以把 trajectory 和 feedback 总结成经验，并在后续 attempt 中读取。Reflexion 的 Self-Reflection 就是这种跨 trial 的语言化 episodic memory：保存的是 reflection summary，而不是要求完整保存所有原始 trajectory。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3.1）
 
+### External structured working memory
+
+StepFly provides a narrower memory boundary: its metric/log plugins write typed values such as lists, dictionaries, DataFrames, or ndarrays to a key-value store, and later steps retrieve them by key. This is external structured working memory for one TSG execution; the paper does not establish cross-incident episodic learning, memory selection, forgetting, or long-term Agent adaptation (Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.4.4).
+
 ### Persistent / durable long-term memory
 
 如果 memory 跨任务、跨会话保存，并由文件、数据库或其他外部存储保证其生命周期，才更接近 persistent / durable long-term memory。Reflexion 论文使用 long-term memory 描述 self-reflections，但其实际实现是 task-local、bounded 的跨 attempt memory；论文没有证明跨会话持久化系统。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3.1; Sec. 5）
@@ -60,6 +64,7 @@ Evaluator feedback → Reflection summary
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 展示当前 trajectory context 作为任务内 working context。
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示把 verbal reflection 保存为受限的跨 attempt episodic memory。
+- [StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis](../papers/aiops/stepfly/notes.md) — 展示外部 key-value structured working memory 在工具之间传递大数据 payload，而不是跨事件经验学习。
 
 ## Representative Systems / Code
 

@@ -49,6 +49,7 @@
 - [KAT — evolving telecom troubleshooting](papers/aiops/kat/notes.md)
 - [Comfey — production cloud incident triage and team routing](papers/aiops/comfey/notes.md)
 - [AIM — multimodal alert summarization and mitigation planning](papers/aiops/aim/notes.md)
+- [StepFly — DAG-guided troubleshooting-guide execution](papers/aiops/stepfly/notes.md)
 
 ### AIOps Knowledge Reviews
 

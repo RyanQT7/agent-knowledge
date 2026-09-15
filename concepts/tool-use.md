@@ -42,6 +42,8 @@ ReWOO 把工具调用放在 Planner–Worker–Solver 流程中：Planner 先生
 
 AIM 提供了 AIOps 中的另一种边界：历史 exemplar retrieval 是 context retrieval，Ansible playbook 执行才是具有副作用潜力的 action/tool path。它在 YAML 与 namespace 层面做轻量验证并在 Robot Shop 测试床执行，但没有展示 LLM 在生产环境中自主选择、校验和重试多种 telemetry 工具。因此，检索、脚本生成、脚本执行和 remediation success 仍应分别评估。（Source: [AIM paper note](../papers/aiops/aim/notes.md); Sec. 3.3–3.4; Sec. 4.4.6）
 
+StepFly 把工具接口进一步拆开：QPP 负责用参数填充既有查询模板，数据库/DevOps/指标插件负责执行，结果写入结构化 memory，Executor 只消费引用或摘要。它减少了复杂查询的自由生成错误，但仍不等于模型学会了通用工具选择或具备 unrestricted remediation。（Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.3–4.4.3）
+
 ## Planning Boundary
 
 Tool Use 与 Planning 可以组合，但职责不同：Tool Use 关心是否调用、如何序列化参数、如何执行及如何整合结果；Planning 关心未来多个步骤、子目标、依赖和可能的修正。ReWOO 的 evidence placeholder 把工具请求嵌入计划，LLM+P 的 classical planner 也可以被系统视为外部求解模块，但两者都不因此自动获得 learned API-use policy 或完整 Agent loop。（Cross-paper synthesis; [LLM+P paper note](../papers/llm-p/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）

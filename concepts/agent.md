@@ -27,7 +27,7 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 ### AIOps examples
 
-当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；AIM 增加了显式的 Plan→Act 与受限代码执行，但没有展示持续的在线 replanning；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [AIM note](../papers/aiops/aim/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
+当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；AIM 增加了显式的 Plan→Act 与受限代码执行，但没有展示持续的在线 replanning；StepFly 通过 DAG、Scheduler、Executor、插件和结构化数据存储形成了受约束的在线诊断 workflow；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [AIM note](../papers/aiops/aim/notes.md); [StepFly note](../papers/aiops/stepfly/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
 
 ## Planning Architectures in Current Scope
 
