@@ -48,6 +48,7 @@ Evidence may come from metrics, logs, traces, alerts, topology, tickets, knowled
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — guide-covered deterministic diagnosis with evidence verification.
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting and solution generation.
 - [AIM](../../papers/aiops/aim/notes.md) — separates root-cause-category alignment, summary/plan quality, and actual remediation execution; it does not establish physical root-node RCA.
+- [ChatRCA](../../papers/aiops/chatrca/notes.md) — separates service/component localization, root-cause category prediction, explanation, evidence consistency, and human adjudication.
 
 ## Advantages
 

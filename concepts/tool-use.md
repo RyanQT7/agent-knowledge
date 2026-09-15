@@ -46,6 +46,8 @@ StepFly 把工具接口进一步拆开：QPP 负责用参数填充既有查询�
 
 TSGen 中的 incident-record retrieval、embedding/clustering 和 vector-database retrieval evaluation 属于知识处理或检索基础设施，不是运行时排障工具执行。它没有证明 LLM 自主选择 telemetry query、读取 live Observation 或执行 remediation；因此应把“检索历史事件”和“调用改变环境的工具”分开记录。（Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4, Sec. 5.2–5.3）
 
+ChatRCA 将 tool use 分配给 Observation Agent 的 telemetry querying/processing、Architecture Agent 的依赖和节点信息检索，以及 Expert Agent 的历史案例 RAG。Observation 结果先形成数据 ticket 并由人验证；这些工具主要是 read-only evidence collection，论文没有状态改变型 remediation tool。（Source: [ChatRCA paper note](../papers/aiops/chatrca/notes.md), Sec. 4.2–4.3）
+
 ## Planning Boundary
 
 Tool Use 与 Planning 可以组合，但职责不同：Tool Use 关心是否调用、如何序列化参数、如何执行及如何整合结果；Planning 关心未来多个步骤、子目标、依赖和可能的修正。ReWOO 的 evidence placeholder 把工具请求嵌入计划，LLM+P 的 classical planner 也可以被系统视为外部求解模块，但两者都不因此自动获得 learned API-use policy 或完整 Agent loop。（Cross-paper synthesis; [LLM+P paper note](../papers/llm-p/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
@@ -132,6 +134,7 @@ ReWOO 提供了第三种当前资料中的组织方式：它不在每次 tool ca
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 展示 Planner–Worker–Solver 中的工具执行与 evidence integration。
 - [AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../papers/aiops/aim/notes.md) — 展示自适应 exemplar retrieval、计划生成与受限 Ansible 执行之间的边界。
 - [TSGen: Automated Troubleshooting Guide Generation](../papers/aiops/tsgen/notes.md) — 展示历史事件检索/聚类用于 operational-knowledge 生成，而不是在线 Agent tool execution。
+- [ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop](../papers/aiops/chatrca/notes.md) — 展示角色化 observability/architecture/RAG retrieval 与人工数据验证；不包含自动 remediation tool。
 
 ## Representative Systems / Code
 

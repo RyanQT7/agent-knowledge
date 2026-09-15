@@ -26,6 +26,8 @@ StepFly provides a narrower memory boundary: its metric/log plugins write typed 
 
 TSGen shows a different durable-storage boundary: historical incident records, clustering caches, and generated TSG/DAG artifacts persist so that operational knowledge can be generated, retrieved, and updated. They are useful knowledge infrastructure, but the paper does not define a runtime Agent memory read/write policy, episodic attempt memory, forgetting mechanism, or cross-task memory semantics (Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.1–4.5, Sec. 7.2).
 
+ChatRCA retrieves historical incident cases and postmortems through a RAG skill, while AutoGen shares the current GroupChat context. This is external operational knowledge plus working context: the paper does not define automatic episodic write-back, forgetting, stale-case retirement, or a persistent Agent memory policy across incidents (Source: [ChatRCA paper note](../papers/aiops/chatrca/notes.md), Sec. 4.2, Sec. 5.2).
+
 ### Persistent / durable long-term memory
 
 如果 memory 跨任务、跨会话保存，并由文件、数据库或其他外部存储保证其生命周期，才更接近 persistent / durable long-term memory。Reflexion 论文使用 long-term memory 描述 self-reflections，但其实际实现是 task-local、bounded 的跨 attempt memory；论文没有证明跨会话持久化系统。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3.1; Sec. 5）
@@ -68,6 +70,7 @@ Evaluator feedback → Reflection summary
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示把 verbal reflection 保存为受限的跨 attempt episodic memory。
 - [StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis](../papers/aiops/stepfly/notes.md) — 展示外部 key-value structured working memory 在工具之间传递大数据 payload，而不是跨事件经验学习。
 - [TSGen: Automated Troubleshooting Guide Generation](../papers/aiops/tsgen/notes.md) — 展示把历史事件持久化为可更新的 operational knowledge；不应把 TSG/缓存自动称为 Agent episodic memory。
+- [ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop](../papers/aiops/chatrca/notes.md) — 展示 RAG 历史案例和共享会话 context 支持 RCA；不等于完整 Agent memory。
 
 ## Representative Systems / Code
 

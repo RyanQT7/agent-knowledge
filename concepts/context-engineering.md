@@ -45,6 +45,8 @@ StepFly 展示了另一种 context boundary：大体量插件结果写入外部�
 
 TSGen 把 context engineering 前移到知识生成阶段：规则过滤、语义标签、聚类和 medoid 选择决定哪些历史事件进入 LLM 的 distillation/generation context，固定三段式 incident workflow 则进一步压缩和规范化输入。这个选择过程服务于持久化 TSG 生成，不等于在线 Agent 的 memory retrieval，也不包含多模态 telemetry fusion。（Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.1–4.4）
 
+ChatRCA 通过 OCRS role prompts、Observation Agent 生成的数据 ticket、Architecture Agent 提供的依赖上下文、Expert 的历史案例检索和共享 GroupChat 组织上下文。它把信息按角色和阶段分配，但共享会话不等于已经解决了 context provenance、压缩或 memory 生命周期问题。（Source: [ChatRCA paper note](../papers/aiops/chatrca/notes.md), Sec. 4.1–4.2）
+
 ## Related Concepts
 
 - [Agent](agent.md)
@@ -57,6 +59,7 @@ TSGen 把 context engineering 前移到知识生成阶段：规则过滤、语�
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](../papers/react/notes.md) — 运行时把 Thought、Action 和 Observation 组织成 trajectory context。
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 通过 Planner–Worker–Solver 分阶段组织 plans、tool evidence 和 solving context。
+- [ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop](../papers/aiops/chatrca/notes.md) — 通过 role-specific tickets、architecture context、RAG evidence 和共享 GroupChat 组织 RCA context。
 
 ## Representative Systems / Code
 

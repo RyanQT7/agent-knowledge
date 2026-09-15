@@ -162,6 +162,23 @@ This file contains AIOps-specific questions raised during formal reading. Status
 46. **How should TSG versions, conflicting incident evidence, retention, and retirement be managed as operational knowledge rather than Agent memory?**
     Status: Open. TSGen updates guides incrementally and uses caches, but does not define a complete versioning, conflict-resolution, forgetting, or memory-read policy (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 4.5, Sec. 8.4).
 
+## Questions from ChatRCA
+
+47. **What is the minimum evidence for calling a role-specialized AIOps workflow genuinely multi-agent rather than a multi-role prompt around one model?**
+    Status: Open. ChatRCA gives roles distinct prompts and capabilities and uses AutoGen communication, but the role ablations do not isolate independent-agent effects from added context and human intervention (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.1–4.2, Sec. 5.6).
+
+48. **How should a network RCA workflow create a verifiable data ticket across metrics, syslog, traces, traffic/NetFlow, topology, and configuration?**
+    Status: Open. ChatRCA validates a data ticket, but its D2 setting lacks traces and the paper does not define network-specific timestamp/entity alignment or provenance (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2, Sec. 5.2).
+
+49. **How can multi-agent RCA detect open-set or multi-root incidents instead of forcing a closed root-cause category?**
+    Status: Open. ChatRCA evaluates closed labeled categories and service/component candidates; it does not establish open-set or multi-root diagnosis (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 5.2–5.4).
+
+50. **When should human consensus or arbitration be triggered in high-volume network operations?**
+    Status: Partially Answered. ChatRCA places humans at data-ticket verification and root-cause adjudication and reports 14.38% arbitration across 146 cases, but it does not measure intervention time or define confidence/impact thresholds (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2, Sec. 5.8.3, Sec. 6).
+
+51. **Does multi-agent role specialization remain beneficial after matching single-agent context, tool calls, token cost, and human review effort?**
+    Status: Open. ChatRCA's role ablations show incremental task gains, but a compute-, context-, and intervention-matched comparison is not provided (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 5.6).
+
 ## Status after AIOps Knowledge Review v1
 
 - **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.

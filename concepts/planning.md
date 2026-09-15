@@ -20,6 +20,7 @@ LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自�
 - AIM 生成逐步 mitigation plan，再交给独立的代码生成/执行阶段；这是 AIOps 中的显式 Plan→Act 编排，但论文没有展示基于在线 Observation 的持续 replanning。（Source: [AIM paper note](../papers/aiops/aim/notes.md), Sec. 3.2–3.4）
 - StepFly 把 TSG 预处理为显式执行 DAG，由 Scheduler 根据节点状态和工具结果安排 Executor；这是受约束的 workflow planning / scheduling，不是在线自由生成或搜索新计划。（Source: [StepFly paper note](../papers/aiops/stepfly/notes.md), Sec. 4.2, Sec. 4.4.1）
 - TSGen 生成带有症状、检查、分支和缓解路径的决策树/DAG，但它是离线的 operational-knowledge artifact；不能仅因 guide 具有行动顺序就称为运行时 Planner。（Source: [TSGen paper note](../papers/aiops/tsgen/notes.md), Sec. 4.4–4.5）
+- ChatRCA 的 Manager 会根据当前上下文选择下一个发言角色，Expert 也会在假设不充分时请求更多证据；这属于 prompt-driven role orchestration 和有限的 hypothesis loop，不是独立的 formal Planner 或 planner–executor 架构。（Source: [ChatRCA paper note](../papers/aiops/chatrca/notes.md), Sec. 4.1–4.3）
 - Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。
 
 （Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
@@ -123,6 +124,7 @@ ReWOO 的主流程到 Solver 为止，并没有定义 Worker 结果返回后由 
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 以 Planner–Worker–Solver 组织 plan-first 的 foreseeable reasoning 和 evidence integration。（Source: Sec. 2.1）
 - [StepFly: Agentic Troubleshooting Guide Automation for Incident Diagnosis](../papers/aiops/stepfly/notes.md) — 以预处理的执行 DAG 和 Scheduler–Executor 约束在线步骤选择。（Source: Sec. 4.2, Sec. 4.4）
 - [TSGen: Automated Troubleshooting Guide Generation](../papers/aiops/tsgen/notes.md) — 生成和迭代维护决策树/DAG 形式的 operational guide；这是知识组织，不是已验证的运行时规划器。（Source: Sec. 4.4–4.5）
+- [ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop](../papers/aiops/chatrca/notes.md) — Manager 选择角色、Expert 迭代假设并请求证据；是受限的调查编排，不是独立 Planner。（Source: Sec. 4.1–4.3）
 
 ## Representative Systems / Code
 

@@ -169,3 +169,12 @@
 - New concepts: historical-incident knowledge curation; guide coverage versus RCA correctness; persistent operational knowledge versus Agent memory.
 - Open questions: how to combine network multimodal telemetry, detect stale/out-of-coverage guides, and validate a generated guide before execution.
 - Next step: read ChatRCA and compare generated operational knowledge with a human-in-the-loop multi-agent RCA workflow.
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop
+- Core takeaway: ChatRCA uses role-specialized agents to collect multimodal evidence, add architecture/domain context, iterate hypotheses, and place human checks at data-ticket and root-cause decisions; it is human-gated RCA, not autonomous remediation.
+- New concepts: agentic RCA with evidence work orders; multi-agent role specialization; human verification versus textual explanation quality.
+- Open questions: how to scale human arbitration, validate open-set network RCA, and isolate multi-agent value from added context and review.
+- Next step: complete AIOps Knowledge Review v2 for the Agentic Incident Management batch.

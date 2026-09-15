@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 formal notes plus Batch 2 full reading in progress (4 of 5)
+Status: Batch 1 and Batch 2 formal notes completed; AIOps Knowledge Review v2 pending
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -18,7 +18,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — production LMaaS diagnosis with SOPs and evidence verification.
 - [KAT](../../papers/aiops/kat/notes.md) — evolving telecom troubleshooting and diagnosis.
 - [Comfey](../../papers/aiops/comfey/notes.md) — production team-ownership triage; not direct physical RCA.
-- [ChatRCA](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) — multi-agent RCA with human-in-the-loop.
+- [ChatRCA](../../papers/aiops/chatrca/notes.md) — role-specialized multimodal RCA with RAG and human verification/adjudication.
 
 ## Incident Management / Triage / Operational Knowledge
 
@@ -43,7 +43,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
-- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning.
+- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation.
 - **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage). TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work.
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
@@ -51,10 +51,10 @@ The presence of an LLM does not by itself establish an Agent architecture. The f
 ## Data Modality Map
 
 - **Metrics / time series:** AIM (prompt-level aligned context), RCAgentBench, Cloud-OpsBench, StaR, TFC, TFT-GCN; several cloud papers mention operational signals without a complete modality breakdown.
-- **Logs:** AIM, RCAgentBench, Cloud-OpsBench, and agent-system trace papers; exact use in LLMGuard and CAUSALDX needs full-paper verification.
+- **Logs:** AIM, RCAgentBench, Cloud-OpsBench, ChatRCA, and agent-system trace papers; exact use in LLMGuard and CAUSALDX needs full-paper verification.
 - **Traces / spans:** AIM and RCAgentBench explicitly; agent trajectory traces occur in FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **Alerts / events / tickets:** LLMGuard, Comfey, AIM, KAT, TSGen, and the incident-management papers. TSGen's “logs” are primarily incident discussions/records, not confirmed raw telemetry logs.
-- **Topology / architecture / dependencies:** StaR, CAUSALDX, ChatRCA, Cloud Intelligence, and Cloud-OpsBench.
+- **Topology / architecture / dependencies:** StaR, CAUSALDX, ChatRCA, Cloud Intelligence, and Cloud-OpsBench. ChatRCA uses service/deployment dependencies as context, not a physical causal graph.
 - **Configuration / runtime state / tools:** Cloud-OpsBench, FlowFixer, HARNESSFIX, StepFly, and LLMGuard.
 - **Traffic / NetFlow / packets:** not confirmed by the first-stage scan.
 
@@ -73,3 +73,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal context, adaptive exemplar retrieval, and plan-to-code execution.
 - [StepFly](../../papers/aiops/stepfly/notes.md) — guide-derived DAG control, typed query plugins, executor scheduling, and structured evidence exchange.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, diversity-aware distillation, structured TSG/DAG generation, and human-reviewed iterative updates.
+- [ChatRCA](../../papers/aiops/chatrca/notes.md) — specialized multi-agent evidence collection, domain hypotheses, RAG, and two-stage human verification.

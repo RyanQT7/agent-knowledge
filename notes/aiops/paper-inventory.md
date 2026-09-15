@@ -1,12 +1,12 @@
 # AIOps Paper Inventory
 
-Status: Batch 1 full reading completed; Batch 2 in progress (4 of 5)
+Status: Batch 1 and Batch 2 full reading completed; AIOps Knowledge Review v2 pending
 
 Scan date: 2026-09-15
 
 Scope: all PDF files currently under `sources/papers/AIOps_papers/`.
 
-This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records and four completed Batch 2 records marked `Full Reading: Completed` also link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
+This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records and five Batch 2 records marked `Full Reading: Completed` link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
 
 ## Overview
 
@@ -15,9 +15,9 @@ This remains a first-stage inventory for the unprocessed papers. The five Batch 
 - Unreadable: 0
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
-- Formal paper notes created in this pass: 9 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly, TSGen)
+- Formal paper notes created in this pass: 10 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly, TSGen, ChatRCA)
 - Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
-- Formal full-paper Batch 2 completed: 4 of 5 (Comfey, AIM, StepFly, TSGen)
+- Formal full-paper Batch 2 completed: 5 of 5 (Comfey, AIM, StepFly, TSGen, ChatRCA)
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.
@@ -43,7 +43,7 @@ The batch spans the AIOps chain from detection to root-cause analysis, diagnosis
 | 15 | [StaR](../../papers/aiops/star/notes.md) | [PDF](<../../sources/papers/AIOps_papers/KDD26-StaR- Stateful Dynamic-Graph Root Cause Analysis throughMemory-Enhanced Causality Discovery.pdf>) | Haiyu Huang et al. | 2026 / KDD | RCA, fault localization, causal discovery | Multivariate time series plus dynamic topology/graph; multi-source | Dynamic-graph causal discovery with stateful, memory-enhanced effects | LLM: No; Agent: No; model memory is not Agent memory | Public code/datasets; production/real incident status unclear; scale unclear | High | P0 | Batch 1; **Full Reading: Completed** |
 | 16 | [CAUSALDX](../../papers/aiops/causaldx/notes.md) | [PDF](<../../sources/papers/AIOps_papers/TKDE26-CAUSALDX- Diagnosing Long-Tail and Cascading Cloud Incidents with LLM-Guided Causal Reasoning.pdf>) | Zhuo Chang et al. | 2026 / IEEE TKDE | RCA, fault diagnosis, explanation | Anomaly observations/records, causal graph, expert knowledge; exact telemetry breakdown unclear | Anomaly-granular causal graph; LLM-guided causal reasoning; observation verification | LLM: Yes; Agent: Yes, LLM-agent component | Tencent cloud incidents; real/private data; large/unclear scale | High | P0 | Batch 1; **Full Reading: Completed** |
 | 17 | TFT-GCN: A Time-Frequency Based Model for Time Series Anomaly Detection | [PDF](<../../sources/papers/AIOps_papers/TKDE26-TFT-GCN_A_Time-Frequency_Based_Model_for_Time_Series_Anomaly_Detection.pdf>) | Zhenchang Xia et al. | 2026 / IEEE TKDE | Anomaly detection | Multivariate time series; single-modal | Temporal/spectral modules, frequency attention, cross-variable GCN, multi-scale attention | LLM: No; Agent: No | Public benchmark datasets and code; no production evidence in triage; medium/unclear scale | Medium | P2 | Batch 4 |
-| 18 | ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop | [PDF](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) | Mingxuan Hui et al. | 2026 / ACM TOSEM | RCA, diagnosis, explanation | Operational signals plus architecture/operation knowledge and human feedback; exact telemetry breakdown unclear | Specialized multi-agent roles with human-in-the-loop and uncertainty handling | LLM: Yes; Agent: Yes, multi-agent | Enterprise context; production evaluation/data/scale unclear; likely private | High | P1 | Batch 2 |
+| 18 | [ChatRCA: A Root Cause Analysis Method via LLMs-based Multi-Agent with Human-in-the-Loop](../../papers/aiops/chatrca/notes.md) | [PDF](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) | Mingxuan Hui et al. | 2026 / ACM TOSEM | RCA, localization, diagnosis, explanation | Metrics, logs, traces where available, service dependencies, incident text, historical cases, human feedback; procedural multimodal | Specialized multi-agent roles, shared context, RAG, targeted human verification/adjudication | LLM: Yes; Agent: Yes, multi-agent; human-gated | D2 private enterprise cloud plus public D1/D3; deployment feedback reported; 60-case D2 evaluation | High | P1 | Batch 2; **Full Reading: Completed** |
 
 ## Detailed Triage Records
 
@@ -231,12 +231,13 @@ The records below capture the minimum research interpretation needed for priorit
 ### 18. ChatRCA (`chatrca`)
 
 - **Research problem:** Improve cloud RCA when a monolithic LLM misses structured workflow and automated reasoning lacks calibrated uncertainty or expert oversight.
-- **Method family:** Specialized Manager, Observation, Architecture, Operation, and Expert agents with human-in-the-loop feedback.
+- **Method family:** Specialized Manager, Observation, Architecture, Operation, and domain Expert agents with shared context, RAG, iterative evidence collection, and human-in-the-loop verification/adjudication.
 - **AIOps category:** LLM/multi-agent RCA, diagnosis, explanation, and human-assisted operations.
-- **Data and evidence status:** Anomalous operational signals, architecture/operation knowledge, and human feedback; exact metrics/logs/traces are not confirmed. Enterprise context is evident, but production evaluation, data access, and scale are unclear.
-- **Potentially useful idea:** Role decomposition plus human review gives explicit places to inject domain knowledge and uncertainty handling.
-- **Assumption that may not transfer:** Human availability and carefully separated operational roles may be difficult to maintain at high incident volume.
-- **Source / uncertainty:** Title page, Abstract, and Sec. 1–2; concrete telemetry and deployment details need full-paper verification. The filename says `CharRCA`, while the title page says `ChatRCA`.
+- **Data and evidence status:** D1 TrainTicket (45 fault instances, 41 microservices), D2 private CMCC enterprise cloud (120 candidate incidents, 60 retained; 43 master nodes, 140 services, 311 pods, 382 containers; no traces), and D3 GAIA (41 evaluated cases, 10 service instances, metrics/logs/traces). The method uses observation data, architecture context, historical incident cases, and human feedback.
+- **Potentially useful idea:** Role decomposition plus a verified data ticket and targeted human adjudication gives explicit places to inject domain knowledge and handle uncertainty.
+- **Assumption that may not transfer:** Human availability, closed root-cause categories, service-dependency abstractions, and carefully separated operational roles may be difficult to maintain at high-volume or open-set network incidents.
+- **Source / uncertainty:** Full reading completed; see [formal AIOps note](../../papers/aiops/chatrca/notes.md), Sec. 2–6. The filename says `CharRCA`, while the title page says `ChatRCA`. The paper's code/data availability statement should be verified against the linked repository.
+- **Full reading status:** Completed. Agent roles, tools/RAG, datasets, baselines, metrics, ablations, human checkpoints, disagreement analysis, deployment qualification, and limitations are grounded in Sec. 3–6 and Sec. 9.
 
 ## Taxonomy
 

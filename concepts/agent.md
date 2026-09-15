@@ -41,6 +41,8 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 这些是当前 scope 下的跨论文边界判断，不是通用 Agent 的最终定义。（Source: [ReAct paper note](../papers/react/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
 
+ChatRCA 是当前 AIOps 资料中更明确的多 Agent 例子：Manager、Observation、Architecture、Operation 和领域 Expert 角色有不同 prompt/skills，并通过共享会话、观测查询、假设分析和人工检查推进 RCA。它的自主性仍被预定义角色、只读工具和两个 Human-in-the-loop checkpoint 限制，不应扩展为自动 remediation。（Source: [ChatRCA paper note](../papers/aiops/chatrca/notes.md), Sec. 4–6）
+
 ## Why It Matters
 
 ReAct 使 Agent 的基本闭环变得清晰：外部 Action 取得或改变环境状态，Observation 反馈给模型，Thought 在上下文中解释当前状态并决定下一步。Agent 不只是一次性生成答案，而是在轨迹中持续决策。
@@ -120,6 +122,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../papers/aiops/aim/notes.md) — 作为显式 Plan→Act 与受限代码执行的 AIOps workflow；不自动等同于生产自治 Agent。
 - [Comfey](../papers/aiops/comfey/notes.md) — 生产环境中以团队为边界的事件 triage agent；其目标是 ownership routing，不是完整 physical RCA。
 - [TSGen](../papers/aiops/tsgen/notes.md) — LLM-assisted TSG generation and maintenance；Agent Skills 是后续建议，不是本论文已验证的 Agent。
+- [ChatRCA](../papers/aiops/chatrca/notes.md) — 角色专门化、工具/知识检索和人工检查组成的多 Agent RCA workflow；不包含自动修复。
 
 ## Representative Systems / Code
 
