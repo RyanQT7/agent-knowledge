@@ -353,3 +353,11 @@ The exact real-dataset root-label construction, one universal candidate count, a
 ## 27. Tags
 
 `AIOps` `RCA` `fault-localization` `time-series` `dynamic-graph` `causal-discovery` `Granger-causality` `stateful-model` `memory-not-Agent-memory` `network-transfer`
+
+## Code / Implementation
+
+- Repository: [huanghy95/StaR](https://github.com/huanghy95/StaR)
+- Official status: Confirmed Official
+- Read at commit: `b1f079f9aa5599f68bc079eb1045152404603a87`
+- Code notes: [StaR source-code notes](../../../code/aiops/star/notes.md)
+- Implementation coverage: StaRGC temporal memory/message passing, Granger layer, thresholds, root-cause metrics, and synthetic AIOps data.

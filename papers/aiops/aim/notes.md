@@ -292,3 +292,11 @@ I would therefore classify AIM as an agentic Plan→Act workflow or tool-augment
 ## 27. Tags
 
 `AIOps` `multimodal-telemetry` `alert-summarization` `RCA` `mitigation-planning` `plan-to-act` `adaptive-ICL` `tool-augmented-LLM` `Ansible` `human-in-the-loop` `network-transferability`
+
+## Code / Implementation
+
+- Repository: [aimframework-sudo/AIM](https://github.com/aimframework-sudo/AIM)
+- Official status: Author-Endorsed Implementation; the repository README contains placeholder/template wording.
+- Read at commit: `202bead6ee8a3ed0f0c367d4f235c647bebbc7a5`
+- Code notes: [AIM source-code notes](../../../code/aiops/aim/notes.md)
+- Implementation coverage: Alert prompt construction, LLM JSON generation, adaptive examples, QAGS/LLM evaluation, and hybrid safety scoring; no repair executor found.

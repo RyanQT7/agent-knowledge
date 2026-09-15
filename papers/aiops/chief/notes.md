@@ -412,3 +412,11 @@ The non-transferable shortcut would be to call the HCG a physical causal graph o
 ## 27. Tags
 
 `AIOps` `Agent-reliability` `failure-attribution` `candidate-space` `hierarchical-reasoning` `causal-graph` `counterfactual` `multi-agent` `RCA` `Network-AIOps`
+
+## Code / Implementation
+
+- Repository: [Mr-Capybara/CHIEF](https://github.com/Mr-Capybara/CHIEF)
+- Official status: Likely Official
+- Read at commit: `2b47170c41913c8bdea34397f7d52c65360dcef9`
+- Code notes: [CHIEF source-code notes](../../../code/aiops/chief/notes.md)
+- Implementation coverage: HCG reconstruction, subtask/agent/data-flow parsing, candidate error-step prediction, final attribution, and optional example RAG.

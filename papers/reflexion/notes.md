@@ -319,3 +319,11 @@ Trajectory + Feedback → Reflection → Episodic Memory → Next Attempt
 ## 17. Tags
 
 reflexion, verbal-reinforcement, reflection, episodic-memory, in-context-adaptation, agent, reasoning, feedback, error-recovery, tool-use
+
+## Code / Implementation
+
+- Repository: [noahshinn/reflexion](https://github.com/noahshinn/reflexion)
+- Official status: Confirmed Official
+- Read at commit: `218cf0ef1df84b05ce379dd4a8e47f17766733a0`
+- Code notes: [Reflexion source-code notes](../../code/reflexion/notes.md)
+- Implementation coverage: Programming and WebShop reflection loops; no parameter update occurs in the inspected run loop.

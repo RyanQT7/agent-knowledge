@@ -323,3 +323,11 @@ For Network AIOps, the useful transfer is not â€œuse a Kubernetes digital twin.â
 ## 27. Tags
 
 `AIOps` `Agentic-SRE` `benchmark` `state-snapshot` `digital-twin` `tool-use` `process-evaluation` `RCA` `reproducibility` `Network-AIOps`
+
+## Code / Implementation
+
+- Repository: [LLM4Ops/Cloud-OpsBench](https://github.com/LLM4Ops/Cloud-OpsBench)
+- Official status: Likely Official
+- Read at commit: `54bcec7c7faba390549bda833c175178a7513812`
+- Code notes: [Cloud-OpsBench source-code notes](../../../code/aiops/cloud-opsbench/notes.md)
+- Implementation coverage: Snapshot-backed tools, ReAct/Skill agent harnesses, strict diagnosis contracts, trace logging, and process/evidence evaluators.

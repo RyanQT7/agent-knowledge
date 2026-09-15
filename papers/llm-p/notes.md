@@ -203,3 +203,11 @@ Reflexion 关注 evaluator feedback、verbal reflection 和跨 attempt memory �
 ## 17. Tags
 
 planning, explicit-planning, classical-planner, PDDL, planner-solver, LLM, robotics, natural-language-interface, plan-first
+
+## Code / Implementation
+
+- Repository: [Cranial-XIX/llm-pddl](https://github.com/Cranial-XIX/llm-pddl)
+- Official status: Confirmed Official
+- Read at commit: `f5f897ccabfb19d5158e5a7ac4cb36517cd4c2e0`
+- Code notes: [LLM+P source-code notes](../../code/llm-p/notes.md)
+- Implementation coverage: LLM-to-PDDL translation, Fast Downward invocation, validation path, and comparison baselines.

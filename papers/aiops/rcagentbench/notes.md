@@ -328,3 +328,11 @@ The exact fixed size of the diagnostic candidate set, a production deployment cl
 ## 27. Tags
 
 `AIOps` `RCA` `fault-localization` `multimodal-telemetry` `metrics` `logs` `traces` `microservices` `topology-context` `LLM` `Agent-evaluation` `tool-use`
+
+## Code / Implementation
+
+- Repository: [CSTCloudOps/RCAgentBench](https://github.com/CSTCloudOps/RCAgentBench)
+- Official status: Confirmed Official
+- Read at commit: `ab14bba1948202416535803825e1d58cfab391bd`
+- Code notes: [RCAgentBench source-code notes](../../../code/aiops/rcagentbench/notes.md)
+- Implementation coverage: Multimodal data tools, several agent variants, the three-phase workflow, and shared evaluation infrastructure.

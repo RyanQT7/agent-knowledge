@@ -481,3 +481,11 @@ HotpotQA 使用 500 个 validation questions 的子集，ALFWorld 使用全部 1
 ## 17. Tags
 
 #react #agent #llm #reasoning #tool-use #planning #observation #closed-loop #few-shot #alfworld #webshop
+
+## Code / Implementation
+
+- Repository: [ysymyth/ReAct](https://github.com/ysymyth/ReAct)
+- Official status: Confirmed Official
+- Read at commit: `6bdb3a1fd38b8188fc7ba4102969fe483df8fdc9`
+- Code notes: [ReAct source-code notes](../../code/react/notes.md)
+- Implementation coverage: Task notebooks, text environment, history wrappers, and evaluation utilities; notebook internals were not exhaustively mapped.

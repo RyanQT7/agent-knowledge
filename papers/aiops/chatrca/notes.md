@@ -351,3 +351,11 @@ The note distinguishes paper-backed accuracy/consistency results from the cross-
 ## 27. Tags
 
 `#AIOps` `#RCA` `#FaultLocalization` `#FaultDiagnosis` `#MultimodalTelemetry` `#MultiAgent` `#HumanInTheLoop` `#RAG` `#TopologyContext` `#NetworkAIOps`
+
+## Code / Implementation
+
+- Repository: [leocache/ChatRCA](https://github.com/leocache/ChatRCA)
+- Official status: Author-Endorsed Implementation
+- Read at commit: `448c2714047a1cf05371937b811dfe75ca8394d6`
+- Code notes: [ChatRCA source-code notes](../../../code/aiops/chatrca/notes.md)
+- Implementation coverage: AutoGen role agents, registered telemetry functions, structured evidence/final-diagnosis schemas, and group-chat setup.

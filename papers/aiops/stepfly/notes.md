@@ -318,3 +318,11 @@ The memory system is important precisely because it is narrow. A metric query ca
 ## 27. Tags
 
 `AIOps` `incident-diagnosis` `TSG` `execution-DAG` `scheduler-executor` `QPP` `tool-use` `structured-working-memory` `parallel-execution` `human-in-the-loop` `network-transferability`
+
+## Code / Implementation
+
+- Repository: [microsoft/StepFly](https://github.com/microsoft/StepFly)
+- Official status: Confirmed Official
+- Read at commit: `a6229192a69dd2eebc58d9b8f754dbc396029c4e`
+- Code notes: [StepFly source-code notes](../../../code/aiops/stepfly/notes.md)
+- Implementation coverage: Scheduler/executor loops, TSG and PlanDAG loading, tools/plugins, MongoDB session memory, and status updates.

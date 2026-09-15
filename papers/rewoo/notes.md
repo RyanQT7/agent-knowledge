@@ -237,3 +237,11 @@ ReWOO 给 [Planning](../../concepts/planning.md) 增加了 plan-first、Planner�
 ## 17. Tags
 
 ReWOO, planning, foreseeable-reasoning, planner-worker-solver, tool-use, observation-decoupling, context-engineering, augmented-language-model, token-efficiency
+
+## Code / Implementation
+
+- Repository: [billxbf/ReWOO](https://github.com/billxbf/ReWOO)
+- Official status: Confirmed Official
+- Read at commit: `9cd0283043ff4be0c9d614fda2789d143ca6ffd1`
+- Code notes: [ReWOO source-code notes](../../code/rewoo/notes.md)
+- Implementation coverage: Plan–Worker–Solver pipeline, worker registry, evidence-variable substitution, and cost logging.

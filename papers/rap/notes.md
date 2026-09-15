@@ -260,3 +260,11 @@ RAP 的“world model”应谨慎理解为一个由 prompt 驱动的状态预测
 ## 17. Tags
 
 RAP, planning, reasoning, world-model, MCTS, search, inference-time-planning, model-based-planning, LLM, Blocksworld
+
+## Code / Implementation
+
+- Repository: [Ber666/RAP](https://github.com/Ber666/RAP)
+- Official status: Confirmed Official; the paper's older `Ber666/llm-reasoners` link was unavailable and is recorded as a URL/version discrepancy.
+- Read at commit: `774817c228b3d5ddfc18de2318f3476128ecf6eb`
+- Code notes: [RAP source-code notes](../../code/rap/notes.md)
+- Implementation coverage: MCTS, symbolic Blocksworld action/state transitions, LLM world-model scoring, and VAL validation.
