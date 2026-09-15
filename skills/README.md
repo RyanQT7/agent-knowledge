@@ -5,9 +5,11 @@
 Skill 层次：
 
 - paper-reading — single-paper workflow
-- knowledge-review — cross-paper consolidation
 - learning-batch — batch orchestration
-- knowledge-query — retrieve and teach from accumulated knowledge
+- aiops-paper-reading — AIOps single-paper research analysis
+- aiops-learning-batch — research-question-driven AIOps batch orchestration
+- knowledge-review — generic cross-paper consolidation
+- knowledge-query — retrieve / learn from accumulated knowledge
 
 - [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
 - [knowledge-review](knowledge-review/SKILL.md) — 跨论文知识整合与阶段性复盘。`Status: v1 / validated with ReAct + Toolformer + Reflexion`
@@ -18,7 +20,9 @@ Skill 层次：
 
 其他 Skill 当前只保留规划项，不实现复杂 Skill。
 
-- [aiops-paper-reading](aiops-paper-reading/SKILL.md) — AIOps / Infrastructure / Network Operations 单篇论文的专题全文分析。Status: v1 / validated through AIOps Batch 1 + Batch 2
+- [aiops-paper-reading](aiops-paper-reading/SKILL.md) — AIOps / Infrastructure / Network Operations 单篇论文的专题全文分析。`Status: v1 / validated through AIOps Batch 1 + Batch 2 + Batch 3`
+
+- [aiops-learning-batch](aiops-learning-batch/SKILL.md) — 研究问题驱动的 AIOps 批次选择、串行论文阅读与专题 Review 编排。`Status: v1 / validated from AIOps Batch 1–3`
 
 当前职责层次：
 
@@ -26,14 +30,20 @@ Skill 层次：
 paper-reading
 = generic research paper reading
 
+learning-batch
+= generic paper batch orchestration
+
 aiops-paper-reading
-= AIOps-focused full-paper analysis
+= AIOps single-paper research analysis
+
+aiops-learning-batch
+= research-question-driven AIOps batch orchestration
 
 knowledge-review
 = generic cross-paper consolidation
 
-learning-batch
-= generic paper batch orchestration
+knowledge-query
+= retrieve / learn from accumulated knowledge
 ~~~
 
 - [knowledge-query](knowledge-query/SKILL.md) — 基于已积累知识进行检索、教学、比较和来源追溯；默认只读。`Status: v1`
