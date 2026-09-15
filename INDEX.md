@@ -56,6 +56,7 @@
 ### AIOps Knowledge Reviews
 
 - [AIOps Knowledge Review v1 — Multimodal / Topology-aware / Production RCA](notes/aiops/reviews/aiops-knowledge-review-v1.md)
+- [AIOps Knowledge Review v2 — Agentic Incident Management](notes/aiops/reviews/aiops-knowledge-review-v2.md)
 
 ## Code / Repositories
 

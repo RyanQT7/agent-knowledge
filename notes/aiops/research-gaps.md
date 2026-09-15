@@ -1,8 +1,8 @@
 # Preliminary AIOps Research Gaps
 
-Status: Preliminary
+Status: Preliminary; informed by AIOps Batch 1 and Batch 2 formal reading
 
-These are first-stage observations from lightweight triage of 18 PDFs. They are hypotheses for prioritizing full-paper reading, not established literature conclusions.
+These began as first-stage observations from lightweight triage of 18 PDFs. The Batch 1 and Batch 2 reassessments below add formal-paper evidence, but the gaps remain hypotheses for research planning, not established novelty claims.
 
 | Possible gap | Why it may matter | Papers suggesting it | Needs full-paper verification |
 |---|---|---|---|
@@ -35,3 +35,20 @@ Status: Preliminary, informed by formal reading of RCAgentBench, StaR, CAUSALDX,
 | Separating model, orchestration, and tool failures | RCAgentBench tool/workflow ablations, CAUSALDX verification, and LLMGuard SOP/evidence ablations indicate that non-model components affect results. | Medium | Need controlled network ablations and failure attribution. |
 
 These reassessments are linked to the [AIOps Knowledge Review v1](reviews/aiops-knowledge-review-v1.md); remaining AIOps PDFs in the inventory are still triage-only and are not evidence for a completed gap claim.
+
+## Batch 2 Reassessment: Agentic Incident Management
+
+Status: Preliminary, informed by formal reading of Comfey, AIM, StepFly, TSGen, and ChatRCA and consolidated in [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md).
+
+| Gap | Batch 2 evidence | Confidence | Remaining verification |
+|---|---|---|---|
+| Agent boundary and autonomy evaluation | The batch spans LLM-assisted knowledge curation, fixed/plan-to-act workflows, bounded DAG execution, production routing, and human-gated multi-agent RCA; labels such as “agentic” do not imply the same loop or action authority. | High | Define and validate capability-based criteria on additional systems and matched experiments. |
+| Multi-agent necessity and cost | Comfey and ChatRCA use role/team specialization; StepFly uses homogeneous executors; AIM and TSGen use staged pipelines. Existing ablations do not match token, tool, latency, or human-review budgets. | High | Controlled single-agent versus multi-agent comparisons with equal context, tools, cost, and intervention. |
+| Verification and evidence correctness | ChatRCA separates category, reasoning, and evidence consistency; AIM uses code/testbed checks; StepFly and TSGen use guide/engineering checks. None supplies a common physical-causality verifier. | High | Network evidence provenance, independent checks, abstention, and root-node validation. |
+| Operational knowledge versus Agent memory | TSGs, SOPs, routing tables, RAG cases, caches, and StepFly key-value data have different lifecycles. Cross-incident write, selection, conflict, freshness, compression, and forgetting remain underspecified. | High | Formal memory/knowledge lifecycle and drift experiments. |
+| Safe remediation and recovery feedback | AIM executes constrained Ansible in a testbed; Comfey can connect to mitigation; StepFly and ChatRCA are read-oriented; no Batch 2 system demonstrates a complete production repair/rollback/recovery loop. | High | Permission, approval, rollback, recovery observation, and failure-cost evaluation in a realistic network environment. |
+| Open-set and multi-root Agentic RCA | The workflows use guide coverage, service/component candidates, ownership teams, or closed labels; out-of-coverage behavior and physical multi-root diagnosis are not established. | High | Network incidents with unknown, cascading, and multiple simultaneous roots. |
+| Network-specific multimodal Agent interfaces | The batch contains cloud/microservice telemetry and operational text, but no complete protocol for physical topology, syslog, traffic/NetFlow, configuration, and time/entity alignment. | High | Network-specific benchmark and evidence-ticket design. |
+| Production Agent evaluation | Comfey and StepFly provide operational deployment evidence, while AIM and ChatRCA provide controlled or private evaluations and TSGen deploys knowledge curation. There is no shared measure of correctness, cost, latency, safety, and human effort. | High | A common lifecycle evaluation across offline, shadow, and permissioned online modes. |
+
+These are strengthened gaps, not claims that no prior work exists. Later full-paper batches may narrow, merge, or invalidate them.

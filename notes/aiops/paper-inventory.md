@@ -1,6 +1,6 @@
 # AIOps Paper Inventory
 
-Status: Batch 1 and Batch 2 full reading completed; AIOps Knowledge Review v2 pending
+Status: Batch 1 and Batch 2 full reading and AIOps Knowledge Review v2 completed
 
 Scan date: 2026-09-15
 
@@ -18,6 +18,7 @@ This remains a first-stage inventory for the unprocessed papers. The five Batch 
 - Formal paper notes created in this pass: 10 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly, TSGen, ChatRCA)
 - Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
 - Formal full-paper Batch 2 completed: 5 of 5 (Comfey, AIM, StepFly, TSGen, ChatRCA)
+- AIOps Knowledge Review v2: completed; focus was Agentic Incident Management
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.

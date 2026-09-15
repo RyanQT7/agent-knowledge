@@ -178,3 +178,10 @@
 - New concepts: agentic RCA with evidence work orders; multi-agent role specialization; human verification versus textual explanation quality.
 - Open questions: how to scale human arbitration, validate open-set network RCA, and isolate multi-agent value from added context and review.
 - Next step: complete AIOps Knowledge Review v2 for the Agentic Incident Management batch.
+
+## 2026-09-15 — AIOps Knowledge Review v2
+
+- Scope: Comfey, AIM, StepFly, TSGen, ChatRCA.
+- Main conceptual change: separated operational-knowledge generation, incident routing, plan-to-act, DAG-constrained execution, and human-gated multi-agent RCA; established a cautious capability-based Agentic AIOps working model.
+- Most important open questions: network-specific multimodal evidence and physical topology, independent value/cost of multi-agent workflows, and safe verified remediation with a complete memory/knowledge lifecycle.
+- Next step: study network-specific multimodal/open-set RCA, Agent tool reliability and remediation safety, and production-oriented Agent evaluation.

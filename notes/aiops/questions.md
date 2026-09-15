@@ -188,3 +188,26 @@ This file contains AIOps-specific questions raised during formal reading. Status
 - **Production truth and evaluation:** Partially Answered. LLMGuard and KAT provide strong production evidence, while RCAgentBench and StaR provide controlled/public evaluation and CAUSALDX provides private production records; their labels and metrics remain non-comparable without task alignment.
 - **Network-specific evidence:** Open. No Batch 1 paper establishes a complete RCA protocol over physical topology plus syslog, metrics, traffic/NetFlow, and device/interface/link ground truth.
 - **Comfey triage boundary:** Partially Answered. Production incident ownership routing is a distinct upstream task; its strong triage and mitigation outcomes should not be reported as physical RCA correctness (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.3–4.5).
+
+## Status after AIOps Knowledge Review v2
+
+The following statuses summarize what Batch 2 answers for the current scope. Historical questions above are retained.
+
+- **What should count as Agentic AIOps?**
+  Status: **Partially Answered**. A working definition now requires a goal/task state, observations or feedback, bounded next-operation selection, and continuation, termination, or escalation; the threshold is not a field-wide standard (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 3).
+- **Does multi-role orchestration equal Multi-Agent?**
+  Status: **Partially Answered**. ChatRCA provides distinct role capabilities and communication, while StepFly’s Executors are homogeneous workers and AIM/TSGen are staged workflows; the independent benefit remains open (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.1–4.2; [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 9).
+- **Is planning in Agentic AIOps different from workflow orchestration?**
+  Status: **Partially Answered**. AIM has plan generation and StepFly has a guide-derived DAG, but Batch 2 does not demonstrate a general online Planner with robust replanning (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3; [StepFly note](../../papers/aiops/stepfly/notes.md), Sec. 4.2–4.4).
+- **What is the role of tools in incident investigation?**
+  Status: **Partially Answered**. Tools collect telemetry, architecture, historical cases, or execute bounded actions; retrieval, observation, diagnosis, and remediation remain separate capabilities (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 6–7).
+- **Are RAG and Knowledge Base the same as Agent Memory?**
+  Status: **Partially Answered**. Batch 2 distinguishes RAG/operational knowledge/current context from memory with an explicit write, read, update, retention, and forgetting lifecycle; the lifecycle itself remains underspecified (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 7–8; [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2; [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 6).
+- **Where should verification and human control appear?**
+  Status: **Partially Answered**. Data completeness, high-impact diagnosis, state-changing action, recovery, and knowledge publication are plausible control points; confidence/impact thresholds and operational cost remain open (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3.4; [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2, Sec. 5.7–5.8).
+- **Can these systems perform autonomous remediation?**
+  Status: **Open**. AIM has constrained testbed execution, while the other Batch 2 workflows are routing, knowledge generation, diagnosis, or read-oriented investigation; no complete production repair/rollback/recovery loop is established (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 4, Sec. 7–8).
+- **Do Agentic AIOps ideas transfer to physical Network AIOps?**
+  Status: **Open**. Typed tools, evidence tickets, topology constraints, guide execution, and human gates appear transferable, but physical topology, traffic/NetFlow, open-set faults, and link/interface ground truth remain unvalidated (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 17).
+- **How should Agentic AIOps be evaluated?**
+  Status: **Partially Answered**. Evaluation should separate diagnosis/evidence/tool correctness, latency, cost, safety, human effort, remediation, and recovery; a common protocol is still missing (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 10, Sec. 14).
