@@ -13,7 +13,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 ## Root Cause Analysis / Fault Localization / Diagnosis
 
 - [StaR](../../papers/aiops/star/notes.md) — dynamic topology and stateful causal discovery.
-- [CAUSALDX](<../../sources/papers/AIOps_papers/TKDE26-CAUSALDX- Diagnosing Long-Tail and Cascading Cloud Incidents with LLM-Guided Causal Reasoning.pdf>) — long-tail and cascading cloud incidents with LLM-guided causal reasoning.
+- [CAUSALDX](../../papers/aiops/causaldx/notes.md) — long-tail and cascading cloud incidents with LLM-guided causal reasoning.
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — multimodal RCA and agent-oriented evaluation.
 - [KAT](<../../sources/papers/AIOps_papers/INFOCOM26-KAT_Knowledge-Context_Augmentation_for_Evolving_LLM-Based_Telecom_Troubleshooting.pdf>) — evolving telecom troubleshooting and diagnosis.
 - [ChatRCA](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) — multi-agent RCA with human-in-the-loop.
@@ -64,3 +64,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — explicit multimodal metrics/logs/traces and agent-process evaluation; a service-topology context rather than a physical causal graph.
 - [StaR](../../papers/aiops/star/notes.md) — stateful dynamic-graph RCA over metric streams; predictive causal structure rather than proven physical causality.
+- [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-graph causal search with open-set expansion and tool verification.

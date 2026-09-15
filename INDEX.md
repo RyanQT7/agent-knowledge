@@ -44,6 +44,7 @@
 
 - [RCAgentBench — multimodal agent-oriented RCA benchmark](papers/aiops/rcagentbench/notes.md)
 - [StaR — stateful dynamic-graph RCA](papers/aiops/star/notes.md)
+- [CAUSALDX — LLM-guided causal RCA](papers/aiops/causaldx/notes.md)
 
 ## Code / Repositories
 

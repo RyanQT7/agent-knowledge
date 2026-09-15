@@ -65,6 +65,8 @@ In the current knowledge base, RCA is best treated as an evidence-grounded decis
 
 StaR adds a caution that a model can rank root variables using predictive, state-aware relationships without proving that those variables are physical causes. RCA claims should therefore name the semantics of the graph and evidence being used (Source: [StaR paper note](../../papers/aiops/star/notes.md), Sec. 5).
 
+CAUSALDX adds a different candidate-space pattern: select among observed anomaly nodes, expand open-set hypotheses, and verify them with independent observations/tools before accepting a diagnosis. This makes candidate generation and verification explicit rather than treating RCA as a closed-set label lookup (Source: [CAUSALDX paper note](../../papers/aiops/causaldx/notes.md), Sec. 4.3).
+
 ## Open Questions
 
 - How should open-set and multi-root RCA be evaluated in network infrastructure?

@@ -57,3 +57,17 @@ This file contains AIOps-specific questions raised during formal reading. Status
 
 16. **Can a metric-variable candidate space be mapped safely to device/interface/link/module candidates?**
     Status: Open.
+
+## Questions from CAUSALDX
+
+17. **How can open-set candidate expansion find unknown network faults without overwhelming operators with unsupported hypotheses?**
+    Status: Open.
+
+18. **What independent observation or tool evidence is sufficient to verify a network root cause?**
+    Status: Partially Answered. CAUSALDX makes verification a separate action and uses external/product tools, but its sufficiency criteria are domain-specific (Source: CAUSALDX, Sec. 4.3–4.4).
+
+19. **How should anomaly dependency graphs preserve temporal order and evidence provenance?**
+    Status: Open.
+
+20. **Can root-set precision/recall and hierarchical top-k localization be evaluated together?**
+    Status: Open.

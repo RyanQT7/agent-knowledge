@@ -47,7 +47,7 @@ RCAgentBench uses microservice call chains, service/pod relationships, and fault
 
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — service call-chain and hierarchy context.
 - [StaR](../../papers/aiops/star/notes.md) — dynamic graph and stateful causal discovery.
-- CAUSALDX — anomaly dependency/causal graph (formal note pending in this batch).
+- [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-level diagnostic dependency graph and causal search.
 
 ## Advantages
 
@@ -66,6 +66,8 @@ RCAgentBench uses microservice call chains, service/pod relationships, and fault
 Topology is a source of structure, not a guarantee of causality. In the current AIOps work, it is more useful to ask “what role does this graph play in candidate generation and evidence verification?” than to ask only whether a paper is topology-aware.
 
 StaR shows a stronger graph role than RCAgentBench: the dynamic graph participates in message passing and causal-coefficient estimation, while RCAgentBench uses service relationships and hierarchy mainly as diagnostic context and structural prior. StaR also explicitly distinguishes Granger-predictive usefulness from physical causality (Source: [StaR paper note](../../papers/aiops/star/notes.md), Sec. 3.3 and Sec. 5).
+
+CAUSALDX shows a third role: its graph is over anomaly observations and resolution dependencies. It organizes search and back-propagation, but should not automatically be read as a physical service or network topology (Source: [CAUSALDX paper note](../../papers/aiops/causaldx/notes.md), Sec. 3.1).
 
 ## Open Questions
 

@@ -99,3 +99,12 @@
 - New concepts: stateful causal RCA、dynamic graph semantics、innovation-based root ranking。
 - Open questions: 学习到的动态图如何与网络物理拓扑对齐，metric-variable candidates 如何映射到设备/接口/链路。
 - Next step: 阅读 CAUSALDX，比较 anomaly graph、LLM causal reasoning 与 observation verification。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: CAUSALDX: Diagnosing Long-Tail and Cascading Cloud Incidents with LLM-Guided Causal Reasoning
+- Core takeaway: CAUSALDX 将初始 anomaly observations 与 select→expand→verify 的开放候选搜索分开，并用外部工具验证根因；其 anomaly graph 是诊断依赖结构，不自动等于物理因果图。
+- New concepts: open-set RCA、anomaly dependency graph、verification-grounded diagnosis。
+- Open questions: 网络场景如何校准候选扩展、定义独立验证证据，以及统一 root-set 与层级 top-k 评价。
+- Next step: 阅读 LLMGuard，比较生产环境中 SOP tree、确定性执行和 Agentic RCA 的边界。
