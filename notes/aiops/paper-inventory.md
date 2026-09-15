@@ -195,7 +195,7 @@ The records below capture the minimum research interpretation needed for priorit
 - **Potentially useful idea:** Combining complementary temporal and frequency/shape evidence may help detect different telemetry anomaly types.
 - **Assumption that may not transfer:** Generic benchmark patterns and labels may not transfer to noisy, changing network telemetry.
 - **Source / uncertainty:** Title page, Abstract, and Sec. 1–2; detailed datasets and deployment properties need full-paper verification.
-- **Full reading status:** Completed. See [formal AIOps note](../../papers/aiops/rcagentbench/notes.md). Full-paper review confirms 400 Chaos-Mesh fault cases over metrics, logs, and traces; this is a controlled microservice benchmark rather than a production deployment study (Source: Sec. III, p. 3).
+- **Full reading status:** Pending. This entry remains lightweight triage; the six-benchmark result and detailed dataset properties require full-paper verification.
 
 ### 15. StaR (`star`)
 
