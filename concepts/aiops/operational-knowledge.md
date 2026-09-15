@@ -50,7 +50,7 @@ LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks
 
 TSGen illustrates the upstream curation stage: historical incidents are filtered, clustered, distilled, and organized into a structured guide, then accepted and published by engineers. The resulting TSG is operational knowledge that can later be retrieved or compiled for execution; it is not automatically Agent memory or a verified causal model (Source: [TSGen note](../../papers/aiops/tsgen/notes.md), Sec. 4–7).
 
-ChatRCA uses historical incident cases and postmortems as domain evidence retrieved by Expert Agents. This is a knowledge-grounded RCA path; the paper does not describe automatic case-base updating or treat the RAG store as episodic Agent memory (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2).
+ChatRCA uses historical incident cases and postmortems as domain evidence retrieved by Expert Agents. This is a knowledge-grounded RCA path; the paper does not describe automatic case-base updating or treat the RAG store as episodic Agent memory (Source: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2). Cloud Intelligence/AIOps 2.0 makes the governance boundary more explicit: an Operational Knowledge Artifact should have stable identity, ownership, scope, preconditions, evidence/decision points, bounded actions, safety constraints, validation status, and drift metadata, and should be anchored to a monitor or other operational control point. This is a proposed contract, not an empirically validated universal schema (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.1–2.3).
 
 ## Related Concepts
 
@@ -69,6 +69,7 @@ ChatRCA uses historical incident cases and postmortems as domain evidence retrie
 - [StepFly](../../papers/aiops/stepfly/notes.md) — TSG quality improvement, execution-DAG extraction, query-preparation plugins, and structured evidence exchange.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, distillation, TSG/DAG generation, iterative updates, and human-reviewed publication.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — role-specific evidence collection, historical-case RAG, cross-role hypothesis comparison, and human adjudication.
+- [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — Operational Knowledge Artifacts, signal anchoring, bounded execution, escalation, and lifecycle governance.
 
 ## Advantages
 

@@ -40,6 +40,7 @@ Incident / Alert
 - **StepFly** 用 TSG-derived DAG、Scheduler、Executor 和插件执行受约束的诊断步骤；工具结果可以触发分支、重试和下一步。
 - **Comfey** 让团队本地 agent 依据事件证据进行 enrich、accept/reject 和 transfer，形成有边界的生产路由循环。
 - **ChatRCA** 让角色化 agents 收集观察、提供架构/领域上下文、形成假设并请求更多证据，在数据工单和根因判断处加入人审。
+- **Cloud Intelligence/AIOps 2.0** 将 operational knowledge 组织为带身份、范围、前置条件、证据点、安全边界和生命周期元数据的 OKA，并要求知识不完整时显式暴露缺口、标注风险并升级；它是架构愿景，不是已验证的独立 Agent 系统。
 
 ## Typical Architecture
 
@@ -94,6 +95,7 @@ Outcome and knowledge update
 - [TSGen](../../papers/aiops/tsgen/notes.md) — the upstream knowledge-curation boundary; an LLM pipeline that should not automatically be classified as an Agent.
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — production SOP-grounded diagnosis with deterministic checks and human gating.
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — agent-oriented multimodal RCA process evaluation.
+- [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — knowledge-anchored, bounded, and governable Agentic AIOps proposal.
 
 ## Advantages
 

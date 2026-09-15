@@ -235,3 +235,14 @@ The following statuses summarize what Batch 2 answers for the current scope. His
 
 54. **What controlled execution evidence is needed before a deterministic snapshot benchmark predicts production Agent behavior?**
     Status: Open. The paper establishes reproducible read-only evaluation, not production deployment, state-changing actions, or recovery outcomes (Source: [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.3, Sec. 3–4).
+
+## Questions from Cloud Intelligence/AIOps 2.0
+
+55. **How should a Network Operational Knowledge Artifact anchor to a device, interface, link, path, or shared infrastructure alert?**
+    Status: Open. Cloud Intelligence/AIOps 2.0 defines anchors conceptually around monitors and operational control points, but does not specify physical-network identity or topology changes (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.2).
+
+56. **How can an OKA’s evidence preconditions be checked against delayed, missing, or contradictory network telemetry?**
+    Status: Open. The paper requires explicit evidence and decision points, but does not provide a telemetry alignment or conflict-resolution algorithm (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.3, Sec. 4.1).
+
+57. **What regression and drift tests are sufficient to retire or revise an operational procedure after topology, configuration, or firmware changes?**
+    Status: Open. Versioning, validation status, drift signals, and regression checks are proposed governance requirements, not a measured protocol (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.3, Sec. 4.1–4.3).

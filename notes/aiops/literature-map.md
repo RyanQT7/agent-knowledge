@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 and Batch 2 plus Cloud-OpsBench formal note completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1 and Batch 2 plus Cloud-OpsBench and Cloud Intelligence formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -26,7 +26,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [Comfey](<../../sources/papers/AIOps_papers/FSE26-An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure.pdf>) — decentralized incident triage and routing.
 - [TSGen](../../papers/aiops/tsgen/notes.md) — filtering, distillation, structured generation, and iterative maintenance of troubleshooting guides.
 - [StepFly](../../papers/aiops/stepfly/notes.md) — executable troubleshooting-guide workflows with DAG-constrained scheduling, QPPs, and structured working memory.
-- [Cloud Intelligence / AIOps 2.0](<../../sources/papers/AIOps_papers/FSE26-Cloud Intelligence_AIOps 2.0- Knowledge-Anchored Agentic AIOps.pdf>) — knowledge-anchored agentic AIOps proposal.
+- [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — knowledge-anchored agentic AIOps position paper based on versioned, anchored Operational Knowledge Artifacts; no standalone empirical validation.
 
 ## Remediation / Automatic Repair
 
@@ -44,7 +44,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
-- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation. Cloud-OpsBench evaluates the interaction process through a deterministic mock rather than deploying an Agent.
+- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, ChatRCA, and Cloud Intelligence/AIOps 2.0. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning; ChatRCA provides role-specialized evidence collection and human-gated RCA, without autonomous remediation. Cloud-OpsBench evaluates interaction through a deterministic mock, while Cloud Intelligence proposes a knowledge-anchored architecture without standalone validation.
 - **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage). TSGen is more specifically an LLM-assisted operational-knowledge curation pipeline; its proposed Agent Skills adaptation is downstream future work.
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
@@ -76,6 +76,7 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [TSGen](../../papers/aiops/tsgen/notes.md) — historical-incident filtering, diversity-aware distillation, structured TSG/DAG generation, and human-reviewed iterative updates.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — specialized multi-agent evidence collection, domain hypotheses, RAG, and two-stage human verification.
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) — immutable operational state, native-shaped mocked tools, and process-level trajectory auditing.
+- [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) — OKA identity, anchoring, bounded actions, escalation, and knowledge lifecycle governance.
 
 ## Cross-paper Review
 

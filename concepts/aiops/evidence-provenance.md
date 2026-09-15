@@ -44,6 +44,8 @@ raw telemetry or document
 
 ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentBench exposes metrics, logs, and traces through separate diagnostic tools. LLMGuard preserves evidence chains through deterministic SOP checks, while CAUSALDX verifies candidate observations with tools. Cloud-OpsBench adds a related reproducibility boundary: historical telemetry, control-plane configuration, and runtime state are frozen, and commands return deterministic snapshot responses. That preserves state/query provenance for replay, but does not by itself establish that entity mapping, clock alignment, or causal interpretation is correct. These are different implementations of a related provenance requirement, not one shared protocol (Sources: [ChatRCA note](../../papers/aiops/chatrca/notes.md), Sec. 4.2; [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. IV-B; [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [CAUSALDX note](../../papers/aiops/causaldx/notes.md), Sec. 4.3; [Cloud-OpsBench note](../../papers/aiops/cloud-opsbench/notes.md), Sec. 2.2–2.4).
 
+Cloud Intelligence/AIOps 2.0 adds provenance for the *knowledge side* of an operational decision: an OKA has identity, owner, scope, version, validation status, drift signals, and an anchor to a monitor or control point. This lets an audit ask which operational procedure guided an action. It does not replace telemetry provenance—source, entity, timestamp, query, freshness, and conflict status are still needed to verify the evidence itself (Source: [Cloud Intelligence note](../../papers/aiops/cloud-intelligence/notes.md), Sec. 2.1–2.3).
+
 ## Related Concepts
 
 - [Root Cause Analysis](root-cause-analysis.md)
@@ -60,6 +62,7 @@ ChatRCA makes a standardized data ticket and asks a human to verify it. RCAgentB
 - [ChatRCA](../../papers/aiops/chatrca/notes.md)
 - [AIM](../../papers/aiops/aim/notes.md)
 - [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md)
+- [Cloud Intelligence / AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md)
 
 ## Advantages
 

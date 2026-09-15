@@ -201,3 +201,12 @@
 - New concepts: state-snapshot evaluation; process-centric Agent diagnosis metrics.
 - Open questions: how to preserve network entity/time provenance and valid alternative investigation paths in replay, and how to connect snapshot results to live safety and recovery.
 - Next step: read Cloud Intelligence/AIOps 2.0 for knowledge anchoring and bounded operational execution.
+
+## 2026-09-15 — Cloud Intelligence/AIOps 2.0
+
+- Date: 2026-09-15
+- Paper: Cloud Intelligence/AIOps 2.0: Knowledge-Anchored Agentic AIOps
+- Core takeaway: operational knowledge should be a versioned, owned, anchored artifact with evidence points, safety boundaries, validation status, and an evolution loop; the paper is a vision, not a standalone empirical RCA result.
+- New concepts: Operational Knowledge Artifact contract; knowledge anchor and drift/governance boundary.
+- Open questions: how to bind an OKA to physical network entities, validate its evidence preconditions, detect staleness, and connect its version to remediation audit/recovery.
+- Next step: read CHIEF for hierarchical candidate construction and attribution.
