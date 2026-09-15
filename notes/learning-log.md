@@ -185,3 +185,10 @@
 - Main conceptual change: separated operational-knowledge generation, incident routing, plan-to-act, DAG-constrained execution, and human-gated multi-agent RCA; established a cautious capability-based Agentic AIOps working model.
 - Most important open questions: network-specific multimodal evidence and physical topology, independent value/cost of multi-agent workflows, and safe verified remediation with a complete memory/knowledge lifecycle.
 - Next step: study network-specific multimodal/open-set RCA, Agent tool reliability and remediation safety, and production-oriented Agent evaluation.
+
+## 2026-09-15 — Network AIOps Architecture Synthesis v1
+
+- Scope: Ten completed AIOps papers and Knowledge Reviews v1/v2.
+- Main conceptual change: formed a cautious hybrid RCA architecture in which deterministic/statistical/graph modules handle alignment, candidate space, topology, and safety; LLM/Agents handle bounded evidence synthesis and investigation; verification and human gates remain explicit.
+- Most important open questions: network Evidence Provenance, physical plus dynamic topology, open-set/multi-root candidate pruning, and safe recovery evaluation.
+- Next step: read a focused network multimodal or topology-aware RCA batch; do not assume the synthesis is an implemented system.

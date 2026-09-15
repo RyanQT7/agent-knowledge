@@ -211,3 +211,16 @@ The following statuses summarize what Batch 2 answers for the current scope. His
   Status: **Open**. Typed tools, evidence tickets, topology constraints, guide execution, and human gates appear transferable, but physical topology, traffic/NetFlow, open-set faults, and link/interface ground truth remain unvalidated (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 17).
 - **How should Agentic AIOps be evaluated?**
   Status: **Partially Answered**. Evaluation should separate diagnosis/evidence/tool correctness, latency, cost, safety, human effort, remediation, and recovery; a common protocol is still missing (Source: [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md), Sec. 10, Sec. 14).
+
+## Status after Network AIOps Architecture Synthesis v1
+
+- **What should the boundary be between telemetry algorithms and LLM/Agent RCA?**
+  Status: **Partially Answered**. Deterministic/statistical/graph modules should enumerate, align, constrain, and verify; LLM/Agent modules can synthesize evidence and investigate within bounded tools. The optimal division is not yet experimentally established (Source: [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 2–4).
+- **How should a provenance-bearing Evidence Ticket be defined for network telemetry?**
+  Status: **Open**. The current papers support data tickets, evidence chains, tool traces, and observation verification, but not a shared schema over physical network telemetry (Source: [Evidence Provenance concept](../../concepts/aiops/evidence-provenance.md), [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 7).
+- **Should physical topology be a hard constraint while dynamic dependency remains a soft prior?**
+  Status: **Partially Answered**. This is the current design hypothesis; StaR supports stateful dynamic dependency and the other papers support distinct graph/context roles, but physical-network validation is still open (Source: [Topology-aware RCA concept](../../concepts/aiops/topology-aware-rca.md), [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 6).
+- **When does an AIOps task require an Agent loop rather than a fixed hybrid pipeline?**
+  Status: **Partially Answered**. Observation-dependent tool choice, hypothesis testing, retry, escalation, or bounded replanning justify an Agent loop; one-shot normalized evidence does not. A reliable threshold remains open (Source: [Agentic Incident Management concept](../../concepts/aiops/agentic-incident-management.md), [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 9).
+- **How should RCA verification differ from remediation and recovery verification?**
+  Status: **Partially Answered**. Candidate/evidence/topology checks are appropriate for RCA; permissions, rollback, execution feedback, and post-action telemetry are additionally required for remediation. A complete production protocol remains open (Source: [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md), Sec. 11–13).

@@ -52,3 +52,17 @@ Status: Preliminary, informed by formal reading of Comfey, AIM, StepFly, TSGen, 
 | Production Agent evaluation | Comfey and StepFly provide operational deployment evidence, while AIM and ChatRCA provide controlled or private evaluations and TSGen deploys knowledge curation. There is no shared measure of correctness, cost, latency, safety, and human effort. | High | A common lifecycle evaluation across offline, shadow, and permissioned online modes. |
 
 These are strengthened gaps, not claims that no prior work exists. Later full-paper batches may narrow, merge, or invalidate them.
+
+## Architecture Synthesis Reassessment
+
+Status: Preliminary, informed by the ten completed AIOps papers and [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md).
+
+| Gap | What the synthesis clarifies | Confidence | Remaining verification |
+|---|---|---|---|
+| Missing interface between telemetry and RCA | The papers provide tools, tickets, evidence chains, and context paths, but no common provenance-bearing evidence object for network metrics, syslog, traffic/NetFlow, configuration, topology, and hardware state. | High | Define a network schema and test alignment, missingness, conflict, and re-query behavior. |
+| Candidate-space and topology semantics | Candidate entities and graph roles differ across service, metric, anomaly, SOP, knowledge, and organizational settings; physical topology plus dynamic dependency remains a design hypothesis. | High | Evaluate hierarchical, open-set, and multi-root network candidate pruning. |
+| Division of labor in hybrid RCA | The papers support deterministic checks, graph/model reasoning, bounded tools, LLM synthesis, and human gates, but do not validate one end-to-end optimal allocation. | Medium | Controlled ablations separating detector, graph, tool, LLM, Agent, and human contributions. |
+| Verification and recovery gap | Existing checks cover guide structure, evidence, labels, scripts, or human adjudication; a complete physical RCA verification and post-remediation recovery loop is absent. | High | Build independent RCA, action-safety, rollback, and recovery protocols. |
+| Production Agent evaluation | Production data/deployment, controlled execution, accuracy, cost, latency, human effort, and safety are measured on different axes. | High | Create matched offline, shadow, human-gated, and permissioned-online evaluation modes. |
+
+These architecture gaps guide design and experiments; they are not claims of novelty until the remaining AIOps papers and relevant prior work are fully checked.

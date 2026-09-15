@@ -40,6 +40,7 @@ RCAgentBench exposes separate tools for Prometheus metrics, Elasticsearch logs, 
 
 - [Root Cause Analysis](root-cause-analysis.md)
 - [Topology-aware RCA](topology-aware-rca.md)
+- [Evidence Provenance](evidence-provenance.md)
 - [Context Engineering](../../concepts/context-engineering.md)
 - [Tool Use](../../concepts/tool-use.md)
 
@@ -64,6 +65,8 @@ RCAgentBench exposes separate tools for Prometheus metrics, Elasticsearch logs, 
 ## My Understanding
 
 The important unit is not merely the list “metrics + logs + traces.” It is the handoff from each source to a candidate and a verifiable observation. For network AIOps, traffic/NetFlow, syslog, counters, topology, and configuration may need different tools and different temporal semantics.
+
+The current architecture synthesis makes this handoff explicit as an Evidence Ticket or evidence object containing source, modality, entity, time window, observation, confidence, freshness, provenance, and related candidates. This is a cross-paper design pattern informed by ChatRCA data tickets, RCAgentBench modality-specific tools, LLMGuard evidence chains, and CAUSALDX observation verification; it is not yet a standardized Network AIOps protocol (Source: [Evidence Provenance concept](evidence-provenance.md); [Network AIOps Architecture Synthesis v1](../../notes/aiops/reviews/network-aiops-architecture-synthesis-v1.md)).
 
 The Batch 1 papers make the label boundary clearer: RCAgentBench is explicitly multimodal over metrics, logs, and traces; StaR combines metric time series with graph structure but does not fuse heterogeneous telemetry; LLMGuard combines operational tools, logs, metrics, alerts, and SOPs procedurally; KAT combines text/entities and graphs. AIM adds prompt-level fusion of time-aligned metrics, logs, traces, and alerts, with rule-based KPI severity and selective inclusion before LLM generation. “Multi-source” or “graph-augmented” should therefore not automatically be rewritten as feature-level multimodal telemetry fusion (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3.1–3.2).
 

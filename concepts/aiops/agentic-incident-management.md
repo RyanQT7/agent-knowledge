@@ -78,6 +78,7 @@ Outcome and knowledge update
 - [Topology-aware RCA](topology-aware-rca.md)
 - [Operational Knowledge](operational-knowledge.md)
 - [Production Evaluation](production-evaluation.md)
+- [Evidence Provenance](evidence-provenance.md)
 - [Agent](../../concepts/agent.md)
 - [Planning](../../concepts/planning.md)
 - [Tool Use](../../concepts/tool-use.md)
@@ -112,6 +113,8 @@ Outcome and knowledge update
 ## My Understanding
 
 Agentic Incident Management 的核心不在“让一个更大的模型写出更长的 RCA 文本”，而在于把事件处理变成有目标、有状态、有证据、有边界的决策过程。当前资料最可靠地支持的是受约束的调查和人机协同：系统可以选择下一项查询、角色或分支，但仍需要独立验证、人工升级和明确的安全边界。
+
+跨 Batch 1 和 Batch 2 的进一步抽象是：Agent 的每次观察和决策都应尽量通过带来源、时间、实体和新鲜度的 Evidence Provenance 传递。这样可以把 Agent 的工具轨迹与 RCA candidate、verification 和 human gate 连接起来；它仍然是架构设计要求，不是现有论文共同实现的标准。
 
 因此，Agentic 程度与是否多 Agent、是否有 RAG、是否有 memory 并不等价。一个固定 DAG 可以是有用的 agentic workflow；一个使用 RAG 的一次性 LLM 也可能不是 Agent；一个能生成 remediation script 的系统仍可能只停留在 recommendation 或 testbed execution。
 

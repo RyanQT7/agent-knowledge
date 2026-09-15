@@ -58,6 +58,10 @@
 - [AIOps Knowledge Review v1 — Multimodal / Topology-aware / Production RCA](notes/aiops/reviews/aiops-knowledge-review-v1.md)
 - [AIOps Knowledge Review v2 — Agentic Incident Management](notes/aiops/reviews/aiops-knowledge-review-v2.md)
 
+### AIOps Architecture Synthesis
+
+- [Network AIOps Architecture Synthesis v1](notes/aiops/reviews/network-aiops-architecture-synthesis-v1.md)
+
 ## Code / Repositories
 
 暂空，见 [code/](code/)。

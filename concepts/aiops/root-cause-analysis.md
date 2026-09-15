@@ -49,6 +49,7 @@ Evidence may come from metrics, logs, traces, alerts, topology, tickets, knowled
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting and solution generation.
 - [AIM](../../papers/aiops/aim/notes.md) — separates root-cause-category alignment, summary/plan quality, and actual remediation execution; it does not establish physical root-node RCA.
 - [ChatRCA](../../papers/aiops/chatrca/notes.md) — separates service/component localization, root-cause category prediction, explanation, evidence consistency, and human adjudication.
+- [Evidence Provenance](evidence-provenance.md) — preserves source, time, entity, and query context for candidate reasoning and verification.
 
 ## Advantages
 
@@ -72,6 +73,8 @@ StaR adds a caution that a model can rank root variables using predictive, state
 CAUSALDX adds a different candidate-space pattern: select among observed anomaly nodes, expand open-set hypotheses, and verify them with independent observations/tools before accepting a diagnosis. This makes candidate generation and verification explicit rather than treating RCA as a closed-set label lookup (Source: [CAUSALDX paper note](../../papers/aiops/causaldx/notes.md), Sec. 4.3).
 
 LLMGuard shows the complementary closed-world pattern: retrieval narrows the SOP set and deterministic checks prune a tree of guide-covered root leaves, with escalation when trusted coverage is missing. This is operationally reliable but not the same as open-set causal discovery (Source: [LLMGuard paper note](../../papers/aiops/llmguard/notes.md), Sec. IV).
+
+The ten-paper architecture synthesis adds an interface requirement between telemetry and RCA: candidate decisions should carry an Evidence Ticket or provenance-bearing evidence object. This does not make the evidence true, but it allows an LLM, verifier, or operator to re-check source, entity, time, freshness, and conflicts before treating a candidate as a root cause (Source: [Evidence Provenance concept](evidence-provenance.md); [Network AIOps Architecture Synthesis v1](../../notes/aiops/reviews/network-aiops-architecture-synthesis-v1.md)).
 
 KAT adds a knowledge-grounded troubleshooting pattern: retrieve error/context/solution paths and relevant subsystem context, then generate a diagnosis and solution. This can improve operational diagnosis without establishing an explicit multi-step Agent loop or a physical root-node localization protocol (Source: [KAT paper note](../../papers/aiops/kat/notes.md), Sec. IV–VIII).
 
