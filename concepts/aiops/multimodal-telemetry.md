@@ -46,6 +46,7 @@ RCAgentBench exposes separate tools for Prometheus metrics, Elasticsearch logs, 
 ## Representative Papers
 
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — explicit metrics/logs/traces tool integration.
+- [AIM](../../papers/aiops/aim/notes.md) — timestamp/service-aligned metrics, logs, traces, and alerts integrated at prompt level with selective KPI context.
 
 ## Advantages
 
@@ -62,7 +63,7 @@ RCAgentBench exposes separate tools for Prometheus metrics, Elasticsearch logs, 
 
 The important unit is not merely the list “metrics + logs + traces.” It is the handoff from each source to a candidate and a verifiable observation. For network AIOps, traffic/NetFlow, syslog, counters, topology, and configuration may need different tools and different temporal semantics.
 
-The Batch 1 papers make the label boundary clearer: RCAgentBench is explicitly multimodal over metrics, logs, and traces; StaR combines metric time series with graph structure but does not fuse heterogeneous telemetry; LLMGuard combines operational tools, logs, metrics, alerts, and SOPs procedurally; KAT combines text/entities and graphs. “Multi-source” or “graph-augmented” should therefore not automatically be rewritten as feature-level multimodal telemetry fusion.
+The Batch 1 papers make the label boundary clearer: RCAgentBench is explicitly multimodal over metrics, logs, and traces; StaR combines metric time series with graph structure but does not fuse heterogeneous telemetry; LLMGuard combines operational tools, logs, metrics, alerts, and SOPs procedurally; KAT combines text/entities and graphs. AIM adds prompt-level fusion of time-aligned metrics, logs, traces, and alerts, with rule-based KPI severity and selective inclusion before LLM generation. “Multi-source” or “graph-augmented” should therefore not automatically be rewritten as feature-level multimodal telemetry fusion (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3.1–3.2).
 
 ## Open Questions
 

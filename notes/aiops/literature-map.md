@@ -29,7 +29,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 ## Remediation / Automatic Repair
 
-- [AIM](<../../sources/papers/AIOps_papers/FSE26-Leveraging LLMs for Alert Summarization and Mitigation Plan Generation.pdf>) — mitigation-plan generation and executable action.
+- [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal alert interpretation, mitigation planning, and constrained Ansible execution.
 - [StepFly](<../../sources/papers/AIOps_papers/FSE26-StepFly- Agentic Troubleshooting Guide Automation for Incident Diagnosis.pdf>) — TSG execution that can support mitigation.
 - [FlowFixer](<../../sources/papers/AIOps_papers/Diagnosis-Driven_Automatic_Repair_for_Agentic_Workflow_via_Symbolic_Inference.pdf>) — symbolic diagnosis and repair of agentic workflows.
 - [HARNESSFIX](<../../sources/papers/AIOps_papers/From_Failed_Trajectories_to_Reliable_LLM_Agents_Diagnosing_and_Repairing_Harness_Flaws.pdf>) — diagnosis and repair of agent harness flaws.
@@ -43,14 +43,14 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
-- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey is the first full-reading evidence here for a deployed, bounded team-routing loop.
+- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey provides a deployed bounded team-routing loop; AIM provides a plan-to-act workflow with controlled execution but no demonstrated live replanning.
 - **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage).
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
 
 ## Data Modality Map
 
-- **Metrics / time series:** AIM, RCAgentBench, Cloud-OpsBench, StaR, TFC, TFT-GCN; several cloud papers mention operational signals without a complete modality breakdown.
+- **Metrics / time series:** AIM (prompt-level aligned context), RCAgentBench, Cloud-OpsBench, StaR, TFC, TFT-GCN; several cloud papers mention operational signals without a complete modality breakdown.
 - **Logs:** AIM, RCAgentBench, Cloud-OpsBench, and agent-system trace papers; exact use in LLMGuard and CAUSALDX needs full-paper verification.
 - **Traces / spans:** AIM and RCAgentBench explicitly; agent trajectory traces occur in FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **Alerts / events / tickets:** LLMGuard, Comfey, AIM, KAT, TSGen, and the incident-management papers.
@@ -70,3 +70,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — SOP-tree diagnosis with deterministic checks, evidence chains, and production human gating.
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting with cross-subsystem context and feedback-driven updates.
 - [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, and statistical cross-team routing in Azure production.
+- [AIM](../../papers/aiops/aim/notes.md) — prompt-level multimodal context, adaptive exemplar retrieval, and plan-to-code execution.

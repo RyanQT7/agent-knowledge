@@ -39,6 +39,8 @@ Task / State / Memory
 
 ReAct 把每轮 Thought、Action 和 Observation 追加到 trajectory context 中，便于运行时 grounding，但会重复历史。ReWOO 把计划提前写出，把 evidence 延迟到 Solver，降低重复；代价是 Planner 在生成 blueprint 时看不到后续工具结果，不能自然地按每个 Observation 改写计划。（Source: [ReAct paper note](../papers/react/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
 
+AIM 补充了 prompt-level multimodal context 的实例：先按时间戳和 service ID 对齐 metrics、logs、traces，再用规则化 KPI severity 做选择，最后检索少量相关 prompt-summary-mitigation exemplars。它说明 context engineering 既包括内容选择和压缩，也包括把确定性告警语义放在 LLM 之前；这些 exemplars 是检索上下文，不应自动称为 Agent memory。（Source: [AIM paper note](../papers/aiops/aim/notes.md), Sec. 3.1–3.3）
+
 ## Related Concepts
 
 - [Agent](agent.md)

@@ -40,6 +40,8 @@ LLM+P 提供了一个外部规划器作为模块的边界案例：LLM 生成 PDD
 
 ReWOO 把工具调用放在 Planner–Worker–Solver 流程中：Planner 先生成带 evidence placeholders 的请求，Worker 执行工具，Solver 最后整合 evidence。它说明 tool invocation、result integration 和 reasoning scheduling 可以由不同模块承担，但不代表 Planner 已经学习了通用 API-use policy，也没有自动提供验证或 replanning。（Source: [ReWOO paper note](../papers/rewoo/notes.md); Sec. 2.1–2.2）
 
+AIM 提供了 AIOps 中的另一种边界：历史 exemplar retrieval 是 context retrieval，Ansible playbook 执行才是具有副作用潜力的 action/tool path。它在 YAML 与 namespace 层面做轻量验证并在 Robot Shop 测试床执行，但没有展示 LLM 在生产环境中自主选择、校验和重试多种 telemetry 工具。因此，检索、脚本生成、脚本执行和 remediation success 仍应分别评估。（Source: [AIM paper note](../papers/aiops/aim/notes.md); Sec. 3.3–3.4; Sec. 4.4.6）
+
 ## Planning Boundary
 
 Tool Use 与 Planning 可以组合，但职责不同：Tool Use 关心是否调用、如何序列化参数、如何执行及如何整合结果；Planning 关心未来多个步骤、子目标、依赖和可能的修正。ReWOO 的 evidence placeholder 把工具请求嵌入计划，LLM+P 的 classical planner 也可以被系统视为外部求解模块，但两者都不因此自动获得 learned API-use policy 或完整 Agent loop。（Cross-paper synthesis; [LLM+P paper note](../papers/llm-p/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）
@@ -124,6 +126,7 @@ ReWOO 提供了第三种当前资料中的组织方式：它不在每次 tool ca
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](../papers/reflexion/notes.md) — 展示工具型 Actor 外层的反馈、reflection 和跨 attempt memory；核心不是工具调用策略学习。
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 展示把 PDDL 与 classical planner 接入自然语言模型的 solver-backed 外部模块边界。
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 展示 Planner–Worker–Solver 中的工具执行与 evidence integration。
+- [AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../papers/aiops/aim/notes.md) — 展示自适应 exemplar retrieval、计划生成与受限 Ansible 执行之间的边界。
 
 ## Representative Systems / Code
 

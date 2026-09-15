@@ -117,6 +117,20 @@ This file contains AIOps-specific questions raised during formal reading. Status
 33. **How much of a production triage improvement comes from LLM reasoning versus rules, retrieval, statistical routing, and parallel execution?**
     Status: Open. The paper reports component ablations but does not isolate the LLM contribution against all other system factors (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.6–4.9).
 
+## Questions from AIM
+
+34. **Can prompt-level alignment of metrics, logs, traces, and alerts preserve provenance when network telemetry is missing, delayed, or contradictory?**
+    Status: Open. AIM filters missing timestamps and evaluates a controlled sample, but does not establish a network-specific alignment or conflict protocol (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3.1, Sec. 6).
+
+35. **Do root-cause category/text-alignment metrics measure physical RCA correctness?**
+    Status: Partially Answered. AIM’s PA/TA scores measure alignment with predefined category labels and terminology; the paper does not define a physical root-node candidate space or causal verification protocol (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 4.4.3).
+
+36. **What independent checks are needed before an LLM-generated mitigation plan becomes executable network action?**
+    Status: Open. AIM checks YAML correctness and namespace consistency and reports execution outcomes, but does not provide a production safety, permission, rollback, or human-approval protocol (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 3.4, Sec. 4.4.6).
+
+37. **How should plan quality, tool/code correctness, and actual remediation success be evaluated separately?**
+    Status: Partially Answered. AIM reports language metrics, human judgments, TCR, data-collection success, and binary remediation success, but these remain difficult to compare across infrastructure domains (Source: [AIM note](../../papers/aiops/aim/notes.md), Sec. 4.3–4.4.6).
+
 ## Status after AIOps Knowledge Review v1
 
 - **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.

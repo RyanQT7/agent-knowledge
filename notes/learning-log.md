@@ -142,3 +142,12 @@
 - New concepts: production incident triage as a separate AIOps layer; team-local evidence sovereignty; statistical routing memory.
 - Open questions: how to map ownership routing to network device/link RCA, detect stale routing knowledge, and isolate LLM value from rules and routing statistics.
 - Next step: read AIM and compare multimodal alert-to-mitigation planning with Comfey’s triage boundary.
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation
+- Core takeaway: AIM aligns multimodal telemetry at prompt level, retrieves relevant historical exemplars, and separates mitigation planning from constrained Ansible execution; language/category alignment is substantially easier than reliable remediation.
+- New concepts: prompt-level multimodal fusion; plan-to-act boundary; remediation success versus plan quality.
+- Open questions: how to align imperfect network telemetry, verify generated actions, and measure physical RCA rather than category/text alignment.
+- Next step: read StepFly to compare executable TSG DAGs with AIM’s generated plan/code path.

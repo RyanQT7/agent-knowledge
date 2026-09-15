@@ -49,6 +49,7 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — production records and human feedback, with deployment mode requiring qualification.
 - [KAT](../../papers/aiops/kat/notes.md) — commercial telecom deployment and operational outcome metrics.
 - [Comfey](../../papers/aiops/comfey/notes.md) — 22-month Azure deployment with triage ownership labels, latency, mitigation, cost, and fallback measurements; not a direct physical-RCA evaluation.
+- [AIM](../../papers/aiops/aim/notes.md) — controlled 100-sample, fault-injected/testbed evaluation with human judgments and plan-to-code execution; no live production deployment.
 
 ## Advantages
 

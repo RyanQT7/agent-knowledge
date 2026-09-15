@@ -27,7 +27,7 @@ Reflexion 进一步展示了一个跨 attempt 的 Agent loop：一次 trajectory
 
 ### AIOps examples
 
-当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
+当前 AIOps 批次进一步支持这个边界：RCAgentBench、CAUSALDX 和 LLMGuard 都描述了带有目标、工具/检查、观察与后续决策的诊断 workflow，其中 LLMGuard 还刻意让运行时检查保持确定性；Comfey 则把这种闭环用于生产事件的团队归属和转派，而不是直接完成物理根因定位；AIM 增加了显式的 Plan→Act 与受限代码执行，但没有展示持续的在线 replanning；StaR 是没有 LLM/Agent 的时序图模型；KAT 是知识图谱增强的 LLM troubleshooting system，但论文没有建立完整的多步 Agent loop。因此，使用 LLM、检索知识或调用检查工具本身都不足以判定 Agent。（Source: [RCAgentBench note](../papers/aiops/rcagentbench/notes.md); [CAUSALDX note](../papers/aiops/causaldx/notes.md); [LLMGuard note](../papers/aiops/llmguard/notes.md); [Comfey note](../papers/aiops/comfey/notes.md); [AIM note](../papers/aiops/aim/notes.md); [KAT note](../papers/aiops/kat/notes.md); [StaR note](../papers/aiops/star/notes.md)）
 
 ## Planning Architectures in Current Scope
 
@@ -116,6 +116,7 @@ Actor trajectory → Evaluator → Self-Reflection → Episodic Memory
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](../papers/llm-p/notes.md) — 作为 explicit planner / executor pipeline 的边界案例；论文没有据此给出通用 Agent 定义。
 - [RAP: Reasoning with Language Model is Planning with World Model](../papers/rap/notes.md) — 作为 LLM reasoning agent、world model 和 MCTS 的推理时规划案例；不自动等同于完整环境 Agent。
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](../papers/rewoo/notes.md) — 作为 Planner–Worker–Solver 的 augmented LM workflow；不自动等同于持续环境 Agent。
+- [AIM: Leveraging LLMs for Alert Summarization and Mitigation Plan Generation](../papers/aiops/aim/notes.md) — 作为显式 Plan→Act 与受限代码执行的 AIOps workflow；不自动等同于生产自治 Agent。
 - [Comfey](../papers/aiops/comfey/notes.md) — 生产环境中以团队为边界的事件 triage agent；其目标是 ownership routing，不是完整 physical RCA。
 
 ## Representative Systems / Code

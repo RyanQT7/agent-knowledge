@@ -17,6 +17,7 @@ LLM+P 提供了当前知识库中的一个更强边界案例：LLM 负责把自�
 - LLM+P 具有明确的形式化规划后端：PDDL 表示状态、动作和目标，classical planner 负责搜索；这是 explicit planning 的实例。
 - RAP 具有显式的 inference-time search：LLM 预测 imagined state，MCTS 使用 reward 在候选路径间探索；这是 search-based planning，但不等同于真实环境中的在线执行闭环。
 - ReWOO 具有 plan-first 的 Planner–Worker–Solver 解耦：Planner 先生成带 evidence placeholders 的自然语言 blueprint，Worker 执行工具，Solver 再整合结果；它是显式的计划组织，但不是 formal classical planner。
+- AIM 生成逐步 mitigation plan，再交给独立的代码生成/执行阶段；这是 AIOps 中的显式 Plan→Act 编排，但论文没有展示基于在线 Observation 的持续 replanning。（Source: [AIM paper note](../papers/aiops/aim/notes.md), Sec. 3.2–3.4）
 - Toolformer 的核心是 API-use policy learning，不提供本 Concept 所需的 planning evidence。
 
 （Source: [ReAct paper note](../papers/react/notes.md); [Toolformer paper note](../papers/toolformer/notes.md); [Reflexion paper note](../papers/reflexion/notes.md); [LLM+P paper note](../papers/llm-p/notes.md); [RAP paper note](../papers/rap/notes.md); [ReWOO paper note](../papers/rewoo/notes.md)）

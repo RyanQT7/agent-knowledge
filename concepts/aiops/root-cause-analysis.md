@@ -47,6 +47,7 @@ Evidence may come from metrics, logs, traces, alerts, topology, tickets, knowled
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-graph reasoning for long-tail and cascading incidents.
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — guide-covered deterministic diagnosis with evidence verification.
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting and solution generation.
+- [AIM](../../papers/aiops/aim/notes.md) — separates root-cause-category alignment, summary/plan quality, and actual remediation execution; it does not establish physical root-node RCA.
 
 ## Advantages
 

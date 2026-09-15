@@ -48,6 +48,7 @@
 - [LLMGuard — production LMaaS fault diagnosis](papers/aiops/llmguard/notes.md)
 - [KAT — evolving telecom troubleshooting](papers/aiops/kat/notes.md)
 - [Comfey — production cloud incident triage and team routing](papers/aiops/comfey/notes.md)
+- [AIM — multimodal alert summarization and mitigation planning](papers/aiops/aim/notes.md)
 
 ### AIOps Knowledge Reviews
 
