@@ -117,3 +117,12 @@
 - New concepts: production evaluation axes、SOP-based diagnosis、deterministic Agent workflow。
 - Open questions: 网络场景如何表达连续/不确定证据，以及如何发现 SOP 覆盖不足的未知根因。
 - Next step: 阅读 KAT，比较知识图谱、跨子系统上下文和持续更新在真实电信排障中的作用。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: KAT: Knowledge-Context Augmentation for Evolving LLM-Based Telecom Troubleshooting
+- Core takeaway: KAT 用 troubleshooting knowledge graph、跨子系统 context enhancement 和反馈驱动更新处理演化中的电信错误；真实部署很强，但它是知识增强 LLM troubleshooting，不足以直接称为完整 Agent 或物理拓扑 RCA。
+- New concepts: operational knowledge lifecycle、graph-grounded context、production outcome versus RCA correctness。
+- Open questions: 如何把知识图谱连接到原始网络 telemetry 与物理 topology，并处理知识过期、冲突和安全验证。
+- Next step: 综合五篇论文，完成 AIOps Knowledge Review v1，形成 multimodal/topology/production RCA 的统一但谨慎的 mental model。

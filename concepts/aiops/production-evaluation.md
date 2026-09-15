@@ -46,7 +46,8 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — production LMaaS deployment, latency, cost, and human gating.
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — controlled public benchmark and process metrics.
-- CAUSALDX — production records and human feedback, with deployment mode requiring qualification.
+- [CAUSALDX](../../papers/aiops/causaldx/notes.md) — production records and human feedback, with deployment mode requiring qualification.
+- [KAT](../../papers/aiops/kat/notes.md) — commercial telecom deployment and operational outcome metrics.
 
 ## Advantages
 
@@ -63,6 +64,8 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 ## My Understanding
 
 “Production” is a vector of evidence, not a binary badge. A strong AIOps paper should state which axis it supports and which remains unknown.
+
+The first five-paper batch demonstrates the distinction: RCAgentBench is a public injected-fault testbed; StaR uses synthetic/public benchmark data; CAUSALDX uses private production records with human feedback; LLMGuard reports production deployment and real incidents; KAT reports commercial deployment and longitudinal operational outcomes. These claims are not interchangeable.
 
 ## Open Questions
 

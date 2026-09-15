@@ -85,3 +85,20 @@ This file contains AIOps-specific questions raised during formal reading. Status
 
 24. **Can an executable SOP tree and a learned dynamic causal graph cooperate safely?**
     Status: Open.
+
+## Questions from KAT
+
+25. **How can a troubleshooting graph connect free-text errors with raw metrics, syslog, traces, traffic, and physical topology while preserving provenance?**
+    Status: Open.
+
+26. **How should stale or contradictory operational knowledge be detected before it changes an LLM diagnosis?**
+    Status: Open.
+
+27. **Can graph-grounded context retrieval improve root-node localization, not only semantic solution similarity?**
+    Status: Open.
+
+28. **What update and forgetting policy is appropriate when network error patterns or topology change?**
+    Status: Open.
+
+29. **How should user satisfaction and resolution-time improvements be separated from true root-cause correctness?**
+    Status: Open.

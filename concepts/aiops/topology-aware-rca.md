@@ -69,6 +69,8 @@ StaR shows a stronger graph role than RCAgentBench: the dynamic graph participat
 
 CAUSALDX shows a third role: its graph is over anomaly observations and resolution dependencies. It organizes search and back-propagation, but should not automatically be read as a physical service or network topology (Source: [CAUSALDX paper note](../../papers/aiops/causaldx/notes.md), Sec. 3.1).
 
+KAT shows a fourth role: a directed graph of business-support subsystems retrieves cross-system context. This is useful dependency context, but it is not a physical network topology and does not by itself prove a causal edge (Source: [KAT paper note](../../papers/aiops/kat/notes.md), Sec. V).
+
 ## Open Questions
 
 - How can physical network topology and dynamic traffic paths be represented together?

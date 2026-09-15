@@ -69,6 +69,8 @@ CAUSALDX adds a different candidate-space pattern: select among observed anomaly
 
 LLMGuard shows the complementary closed-world pattern: retrieval narrows the SOP set and deterministic checks prune a tree of guide-covered root leaves, with escalation when trusted coverage is missing. This is operationally reliable but not the same as open-set causal discovery (Source: [LLMGuard paper note](../../papers/aiops/llmguard/notes.md), Sec. IV).
 
+KAT adds a knowledge-grounded troubleshooting pattern: retrieve error/context/solution paths and relevant subsystem context, then generate a diagnosis and solution. This can improve operational diagnosis without establishing an explicit multi-step Agent loop or a physical root-node localization protocol (Source: [KAT paper note](../../papers/aiops/kat/notes.md), Sec. IV–VIII).
+
 ## Open Questions
 
 - How should open-set and multi-root RCA be evaluated in network infrastructure?
