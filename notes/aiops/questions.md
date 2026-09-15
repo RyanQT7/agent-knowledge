@@ -43,3 +43,17 @@ This file contains AIOps-specific questions raised during formal reading. Status
 
 12. **How should a network RCA system handle erroneous, missing, delayed, or contradictory telemetry without accumulating a misleading explanation?**
     Status: Open.
+
+## Questions from StaR
+
+13. **When does a stateful learned graph represent predictive dependency rather than physical network causality?**
+    Status: Partially Answered. StaR explicitly warns that Granger-style predictive usefulness is not proof of physical causality; a network-specific validation protocol is still open (Source: StaR, Sec. 5).
+
+14. **How should root ranking handle delayed faults and downstream propagation in network telemetry?**
+    Status: Partially Answered. StaR uses persistent temporal state and subtracts expected endogenous effects, but its assumptions need testing with network incidents (Source: StaR, Sec. 3.3–3.4).
+
+15. **How should graph state be updated when topology changes, telemetry is missing, or concept drift occurs?**
+    Status: Open.
+
+16. **Can a metric-variable candidate space be mapped safely to device/interface/link/module candidates?**
+    Status: Open.

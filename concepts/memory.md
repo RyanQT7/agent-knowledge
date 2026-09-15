@@ -24,6 +24,8 @@ Agent 需要记住已经观察到的事实、已完成的子目标、失败原�
 
 如果 memory 跨任务、跨会话保存，并由文件、数据库或其他外部存储保证其生命周期，才更接近 persistent / durable long-term memory。Reflexion 论文使用 long-term memory 描述 self-reflections，但其实际实现是 task-local、bounded 的跨 attempt memory；论文没有证明跨会话持久化系统。（Source: [Reflexion paper note](../papers/reflexion/notes.md); Sec. 3.1; Sec. 5）
 
+跨领域模型中的“memory”需要单独标注语义。StaR 的 per-variable persistent temporal state 是时序/图模型为预测和因果重构保存的隐状态，不是 Agent 读取的自然语言 episodic memory，也不自动构成外部 persistent memory architecture。（Source: [StaR paper note](../papers/aiops/star/notes.md); Sec. 3.3）
+
 ## Typical Architecture
 
 ~~~text

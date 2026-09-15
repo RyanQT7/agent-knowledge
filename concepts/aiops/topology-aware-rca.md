@@ -65,6 +65,8 @@ RCAgentBench uses microservice call chains, service/pod relationships, and fault
 
 Topology is a source of structure, not a guarantee of causality. In the current AIOps work, it is more useful to ask “what role does this graph play in candidate generation and evidence verification?” than to ask only whether a paper is topology-aware.
 
+StaR shows a stronger graph role than RCAgentBench: the dynamic graph participates in message passing and causal-coefficient estimation, while RCAgentBench uses service relationships and hierarchy mainly as diagnostic context and structural prior. StaR also explicitly distinguishes Granger-predictive usefulness from physical causality (Source: [StaR paper note](../../papers/aiops/star/notes.md), Sec. 3.3 and Sec. 5).
+
 ## Open Questions
 
 - How can physical network topology and dynamic traffic paths be represented together?

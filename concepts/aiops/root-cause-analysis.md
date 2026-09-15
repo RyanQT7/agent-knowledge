@@ -63,6 +63,8 @@ Evidence may come from metrics, logs, traces, alerts, topology, tickets, knowled
 
 In the current knowledge base, RCA is best treated as an evidence-grounded decision problem whose output should state both *where/what* the root cause is and *why* the evidence supports it. The papers also show that RCA quality depends on the observation interface, candidate space, and evaluation protocol—not only on the reasoning model.
 
+StaR adds a caution that a model can rank root variables using predictive, state-aware relationships without proving that those variables are physical causes. RCA claims should therefore name the semantics of the graph and evidence being used (Source: [StaR paper note](../../papers/aiops/star/notes.md), Sec. 5).
+
 ## Open Questions
 
 - How should open-set and multi-root RCA be evaluated in network infrastructure?

@@ -43,6 +43,7 @@
 ### AIOps formal paper notes
 
 - [RCAgentBench — multimodal agent-oriented RCA benchmark](papers/aiops/rcagentbench/notes.md)
+- [StaR — stateful dynamic-graph RCA](papers/aiops/star/notes.md)
 
 ## Code / Repositories
 
