@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Preliminary map with Batch 1 formal notes
+Status: Batch 1 formal notes plus Batch 2 full reading in progress
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -17,6 +17,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — multimodal RCA and agent-oriented evaluation.
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — production LMaaS diagnosis with SOPs and evidence verification.
 - [KAT](../../papers/aiops/kat/notes.md) — evolving telecom troubleshooting and diagnosis.
+- [Comfey](../../papers/aiops/comfey/notes.md) — production team-ownership triage; not direct physical RCA.
 - [ChatRCA](<../../sources/papers/AIOps_papers/TOSEM26-CharRCA-Wanglu.pdf>) — multi-agent RCA with human-in-the-loop.
 
 ## Incident Management / Triage / Operational Knowledge
@@ -42,7 +43,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 
 The presence of an LLM does not by itself establish an Agent architecture. The following are grouped by the first-stage evidence:
 
-- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA.
+- **Explicit or proposed agentic workflow:** LLMGuard, Comfey, AIM, StepFly, Cloud-OpsBench, RCAgentBench, CAUSALDX, and ChatRCA. Comfey is the first full-reading evidence here for a deployed, bounded team-routing loop.
 - **LLM with Agent status unclear or not established:** KAT, TSGen, and Cloud Intelligence/AIOps 2.0 (the latter is a proposed architecture, not a fully validated system in this triage).
 - **Agent-system reliability, not infrastructure AIOps:** FlowFixer, HARNESSFIX, and hierarchical failure attribution.
 - **LLM/foundation-model background without an Agent workflow:** Foundation Models for Time Series.
@@ -68,3 +69,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — anomaly-graph causal search with open-set expansion and tool verification.
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — SOP-tree diagnosis with deterministic checks, evidence chains, and production human gating.
 - [KAT](../../papers/aiops/kat/notes.md) — graph-grounded telecom troubleshooting with cross-subsystem context and feedback-driven updates.
+- [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, and statistical cross-team routing in Azure production.

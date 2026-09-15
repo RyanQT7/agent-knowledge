@@ -34,7 +34,7 @@ The stages may not all be present in one paper.
 
 ## Example
 
-LLMGuard reports 84 real LMaaS incidents and deployment in an environment with more than 10,000 accelerators, with SRE validation for high-stakes mitigation. RCAgentBench has public injected-fault cases in a microservice testbed but does not demonstrate production deployment. These should not receive the same “production” label (Sources: [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. V; [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. III).
+LLMGuard reports 84 real LMaaS incidents and deployment in an environment with more than 10,000 accelerators, with SRE validation for high-stakes mitigation. Comfey reports 22 months of live Azure operation and about 19,500 triaged incidents, so it provides stronger deployment evidence for triage than for causal RCA. RCAgentBench has public injected-fault cases in a microservice testbed but does not demonstrate production deployment. These should not receive the same “production” label (Sources: [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. V; [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.1–4.5; [RCAgentBench note](../../papers/aiops/rcagentbench/notes.md), Sec. III).
 
 ## Related Concepts
 
@@ -48,6 +48,7 @@ LLMGuard reports 84 real LMaaS incidents and deployment in an environment with m
 - [RCAgentBench](../../papers/aiops/rcagentbench/notes.md) — controlled public benchmark and process metrics.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — production records and human feedback, with deployment mode requiring qualification.
 - [KAT](../../papers/aiops/kat/notes.md) — commercial telecom deployment and operational outcome metrics.
+- [Comfey](../../papers/aiops/comfey/notes.md) — 22-month Azure deployment with triage ownership labels, latency, mitigation, cost, and fallback measurements; not a direct physical-RCA evaluation.
 
 ## Advantages
 

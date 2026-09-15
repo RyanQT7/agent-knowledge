@@ -34,4 +34,4 @@ For the current inventory and preliminary taxonomy, see [AIOps paper inventory](
 - [Production Evaluation](production-evaluation.md)
 - [Operational Knowledge](operational-knowledge.md)
 
-The first five-paper formal batch is recorded in [AIOps Knowledge Review v1](../../notes/aiops/reviews/aiops-knowledge-review-v1.md). Concepts remain evolving and should be updated only when later sources add durable cross-paper evidence.
+The first five-paper formal batch is recorded in [AIOps Knowledge Review v1](../../notes/aiops/reviews/aiops-knowledge-review-v1.md). Concepts remain evolving and should be updated only when later sources add durable cross-paper evidence. The first Batch 2 paper, [Comfey](../../papers/aiops/comfey/notes.md), adds a production incident-triage and team-routing perspective; it should not be generalized into physical RCA without further evidence.

@@ -44,7 +44,7 @@ operational documents / incident records / expert labels
 
 ## Example
 
-LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks. KAT stores error/context/solution paths and a TBSS subsystem graph, then updates cases using expert feedback. These are both knowledge-grounded, but one emphasizes executable deterministic checks and the other emphasizes interpretable retrieval and evolution (Sources: [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [KAT note](../../papers/aiops/kat/notes.md), Sec. IV–VI).
+LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks. KAT stores error/context/solution paths and a TBSS subsystem graph, then updates cases using expert feedback. Comfey adds a production triage variant: historical incidents, team-authored TSGs, local enrichment, and a shared routing table guide ownership decisions, while transfer evidence and engineer outcomes feed later routing. These are knowledge-grounded, but they emphasize different interfaces—deterministic checks, interpretable retrieval/evolution, or decentralized team routing (Sources: [LLMGuard note](../../papers/aiops/llmguard/notes.md), Sec. IV; [KAT note](../../papers/aiops/kat/notes.md), Sec. IV–VI; [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 3.3–3.7).
 
 ## Related Concepts
 
@@ -59,6 +59,7 @@ LLMGuard compiles TSGs into an SOP Checking Tree and uses verified binary checks
 - [LLMGuard](../../papers/aiops/llmguard/notes.md) — TSG/SOP digitization, verified tools, deterministic checking.
 - [CAUSALDX](../../papers/aiops/causaldx/notes.md) — expert rules, product modules, anomaly graph, and verification.
 - [KAT](../../papers/aiops/kat/notes.md) — troubleshooting knowledge graph, subsystem context, and continuous improvement.
+- [Comfey](../../papers/aiops/comfey/notes.md) — team-local enrichment, TSG/historical matching, shared routing statistics, and human feedback for production incident triage.
 
 ## Advantages
 

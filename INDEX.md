@@ -47,6 +47,7 @@
 - [CAUSALDX — LLM-guided causal RCA](papers/aiops/causaldx/notes.md)
 - [LLMGuard — production LMaaS fault diagnosis](papers/aiops/llmguard/notes.md)
 - [KAT — evolving telecom troubleshooting](papers/aiops/kat/notes.md)
+- [Comfey — production cloud incident triage and team routing](papers/aiops/comfey/notes.md)
 
 ### AIOps Knowledge Reviews
 

@@ -103,6 +103,20 @@ This file contains AIOps-specific questions raised during formal reading. Status
 29. **How should user satisfaction and resolution-time improvements be separated from true root-cause correctness?**
     Status: Open.
 
+## Questions from Comfey
+
+30. **How should team ownership routing be separated from physical root-cause localization in network incidents?**
+    Status: Partially Answered. Comfey makes team ownership its explicit target, while the existing RCA papers use component, metric-variable, anomaly-node, or SOP-leaf candidates; a network mapping remains open (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.5; [Root Cause Analysis concept](../../concepts/aiops/root-cause-analysis.md)).
+
+31. **How should decentralized local agents share evidence without violating data sovereignty or duplicating noisy context?**
+    Status: Open. Comfey passes structured enrichment and rejection rationale through the incident, but does not establish a general network telemetry provenance protocol (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 3.1–3.4).
+
+32. **When should a historical routing table be invalidated after service, ownership, or topology changes?**
+    Status: Open. Comfey refreshes historical data and permits TSG refinement, but a drift-detection or forgetting policy is not established (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 3.6–3.7).
+
+33. **How much of a production triage improvement comes from LLM reasoning versus rules, retrieval, statistical routing, and parallel execution?**
+    Status: Open. The paper reports component ablations but does not isolate the LLM contribution against all other system factors (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.6–4.9).
+
 ## Status after AIOps Knowledge Review v1
 
 - **Candidate-space semantics:** Partially Answered. The batch shows at least five patterns—component hierarchy, metric variables, anomaly nodes, SOP leaves, and retrieved knowledge cases—but there is no common network candidate protocol.
@@ -111,3 +125,4 @@ This file contains AIOps-specific questions raised during formal reading. Status
 - **LLM contribution:** Open. The batch shows gains associated with tools, knowledge, verification, and orchestration, but does not isolate LLM reasoning from those factors in a common experiment.
 - **Production truth and evaluation:** Partially Answered. LLMGuard and KAT provide strong production evidence, while RCAgentBench and StaR provide controlled/public evaluation and CAUSALDX provides private production records; their labels and metrics remain non-comparable without task alignment.
 - **Network-specific evidence:** Open. No Batch 1 paper establishes a complete RCA protocol over physical topology plus syslog, metrics, traffic/NetFlow, and device/interface/link ground truth.
+- **Comfey triage boundary:** Partially Answered. Production incident ownership routing is a distinct upstream task; its strong triage and mitigation outcomes should not be reported as physical RCA correctness (Source: [Comfey note](../../papers/aiops/comfey/notes.md), Sec. 4.3–4.5).

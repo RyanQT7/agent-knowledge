@@ -1,6 +1,6 @@
 # AIOps Paper Inventory
 
-Status: Preliminary triage plus Batch 1 full reading completed
+Status: Batch 1 full reading completed; Batch 2 in progress
 
 Scan date: 2026-09-15
 
@@ -15,8 +15,9 @@ This remains a first-stage inventory for the unprocessed papers. The five Batch 
 - Unreadable: 0
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
-- Formal paper notes created in this pass: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
+- Formal paper notes created in this pass: 6 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey)
 - Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
+- Formal full-paper Batch 2 completed: 1 of 5 (Comfey)
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.
@@ -69,15 +70,16 @@ The records below capture the minimum research interpretation needed for priorit
 - **Assumption that may not transfer:** Workflow graphs and repair operators may not map directly to distributed infrastructure faults.
 - **Source / uncertainty:** Title page, Abstract, and Sec. I; dataset openness, scale, and production realism need full-paper verification.
 
-### 3. Comfey (`comfey`)
+### 3. [Comfey](../../papers/aiops/comfey/notes.md) (`comfey`)
 
 - **Research problem:** Route incomplete and fragmented production cloud incident reports to the right team when team maturity and observability differ.
 - **Method family:** Decentralized team-local agents accept, reject, or transfer incidents and use a shared routing table through a stigmergic negotiation process.
 - **AIOps category:** Production incident triage and routing; diagnosis/mitigation support rather than a complete RCA system.
-- **Data and evidence status:** Incident reports, tickets, historical incidents, and routing metadata are central; the exact use of raw logs, metrics, or traces is not confirmed. The paper reports more than one year and roughly 19,500 Azure production incidents with private data.
+- **Data and evidence status:** Incident reports, tickets, historical incidents, stack traces, error logs, time-series metrics, change records, resource/node health, engineer discussions, and TSGs are described; this is multi-source rather than feature-level multimodal fusion. The paper reports 22 months and roughly 19,500 Azure production incidents with private data.
 - **Potentially useful idea:** Team-local agents can support incremental adoption and preserve local operational knowledge.
 - **Assumption that may not transfer:** Routing accuracy and organizational ownership may be more central than root-cause correctness in this setting.
-- **Source / uncertainty:** Title page, Abstract, and Sec. I; production statistics are reported in the introduction; detailed observability inputs need full-paper verification.
+- **Source / uncertainty:** Full reading completed; see [formal AIOps note](../../papers/aiops/comfey/notes.md), Sec. 3–4. The paper’s evaluated label is team ownership, not physical root cause.
+- **Full reading status:** Completed. See [formal AIOps note](../../papers/aiops/comfey/notes.md). Production deployment, routing, ablations, human ground truth, cost, and failure fallback are grounded in Sec. 3–4.9.
 
 ### 4. Cloud Intelligence / AIOps 2.0 (`aiops-2`)
 

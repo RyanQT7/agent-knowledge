@@ -133,3 +133,12 @@
 - Main conceptual changes: 将 AIOps RCA 拆成 detection、candidate generation、topology/dependency constraint、ranking/verification、localization、diagnosis、explanation 和 remediation；明确五类 graph/candidate semantics 并区分 production data、scale 与 deployment。
 - Top open questions: 网络多模态 telemetry 与 traffic/NetFlow 对齐、物理 topology 与 learned dependency 的关系、unknown/multi-root ground truth、LLM 相对 tools/knowledge 的独立价值。
 - Next learning priorities: network-specific multimodal RCA、dynamic physical topology、open-set/multi-root diagnosis、可靠 tool/knowledge-grounded Agent、production remediation safety。
+
+## 2026-09-15
+
+- Date: 2026-09-15
+- Paper: Comfey: An Agentic Framework for Triaging Incidents in Production Cloud Infrastructure
+- Core takeaway: Comfey demonstrates a production, decentralized team-routing loop: local agents enrich and accept/reject incidents, while TSGs, historical cases, and a shared routing table guide transfer; its labels measure team ownership, not physical root cause.
+- New concepts: production incident triage as a separate AIOps layer; team-local evidence sovereignty; statistical routing memory.
+- Open questions: how to map ownership routing to network device/link RCA, detect stale routing knowledge, and isolate LLM value from rules and routing statistics.
+- Next step: read AIM and compare multimodal alert-to-mitigation planning with Comfey’s triage boundary.
