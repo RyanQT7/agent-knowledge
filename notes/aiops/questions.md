@@ -274,3 +274,15 @@ The following statuses summarize what Batch 2 answers for the current scope. His
 
 65. **How should a repair verifier handle open-set, multi-root, or partial-repair failures?**
     Status: Open. FlowFixer evaluates a finite workflow taxonomy and responsible node, without establishing unknown-cause or multi-root repair attribution (Source: [FlowFixer note](../../papers/aiops/flowfixer/notes.md), Sec. IV).
+
+## Status after AIOps Knowledge Review v3
+
+The following summary updates the current state without deleting the paper-specific question history above:
+
+- **What is auditable RCA evidence?** Status: **Partially Answered.** Snapshots, OKA identity, Agent traces, workflow traces, data tickets, and evidence chains provide related pieces, but no shared network Evidence Ticket covers source, entity, time, transformation, conflict, candidate relation, and re-query semantics.
+- **How should Network RCA candidate space be defined?** Status: **Partially Answered.** CHIEF demonstrates explicit hierarchical candidate reduction and FlowFixer demonstrates node/category alignment; physical network hierarchy, pruning recall, and ground-truth mapping remain open.
+- **Can current methods handle open-set and multi-root RCA?** Status: **Open.** CHIEF focuses an earliest single decisive root and FlowFixer uses a finite workflow taxonomy; neither establishes network unknown/multi-root handling.
+- **What does verification verify?** Status: **Partially Answered.** Current papers verify process behavior, graph/oracle consistency, candidate observations, workflow patches, and human decisions at different layers; a unified physical RCA-to-recovery protocol is absent.
+- **Is repair validation the same as recovery verification?** Status: **Partially Answered.** FlowFixer separates pre-checks and dynamic workflow execution, strengthening the distinction; independent post-action network recovery and rollback remain open.
+- **Which Hybrid RCA layer is weakest?** Status: **Partially Answered.** The missing end-to-end interface from provenance-bearing physical-network evidence through candidate-constrained diagnosis to safe, human-gated, independently verified recovery is now the clearest gap for the current scope.
+- **How should benchmark success be measured?** Status: **Partially Answered.** Process, candidate, evidence, tool, diagnosis, action, cost, human, and recovery dimensions are identifiable, but no common Network AIOps protocol has been established.

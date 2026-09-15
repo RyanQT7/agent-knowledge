@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1 and Batch 2 plus Cloud-OpsBench, Cloud Intelligence, CHIEF, and FlowFixer formal notes completed; AIOps Knowledge Review v2 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1, Batch 2, and research-driven Batch 3 formal notes completed; AIOps Knowledge Reviews v1–v3 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -40,7 +40,7 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 ## Evaluation / Reproducibility
 
 - [RCAgentBench](<../../sources/papers/AIOps_papers/IWQOS26-RCAgentBench_An_Agent-Oriented_Benchmark_for_Multimodal_Root_Cause_Analysis_in_Microservices.pdf>) — benchmark with multimodal evidence, diagnostic tools, and process evaluation.
-- [Cloud-OpsBench / State Snapshot](<../../sources/papers/AIOps_papers/FSE26-Freezing the Crime Scene- A State Snapshot Paradigm for Reproducible Agentic SRE Evaluation.pdf>) — reproducible state-snapshot evaluation for agentic SRE.
+- [Cloud-OpsBench / State Snapshot](../../papers/aiops/cloud-opsbench/notes.md) — reproducible state-snapshot evaluation for agentic SRE.
 
 ## LLM / Agent for AIOps
 
@@ -86,3 +86,4 @@ The most direct path is to connect a conventional telemetry layer (metrics, logs
 
 - [AIOps Knowledge Review v2](reviews/aiops-knowledge-review-v2.md) — Agentic Incident Management across operational-knowledge generation, incident routing, plan-to-act, guide-constrained execution, and human-gated RCA.
 - [Network AIOps Architecture Synthesis v1](reviews/network-aiops-architecture-synthesis-v1.md) — hybrid division of labor among deterministic/graph modules, LLM/Agent investigation, verification, and human-gated remediation.
+- [AIOps Knowledge Review v3](reviews/aiops-knowledge-review-v3.md) — evidence provenance, candidate-space semantics, target-specific verification, and the strengthened/remaining Hybrid RCA boundaries.

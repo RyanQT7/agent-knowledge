@@ -1,12 +1,12 @@
 # AIOps Paper Inventory
 
-Status: Batch 1 and Batch 2 full reading and AIOps Knowledge Review v2 completed
+Status: Batch 1, Batch 2, and research-driven Batch 3 full reading completed; AIOps Knowledge Review v3 completed
 
 Scan date: 2026-09-15
 
 Scope: all PDF files currently under `sources/papers/AIOps_papers/`.
 
-This remains a first-stage inventory for the unprocessed papers. The five Batch 1 records and five Batch 2 records marked `Full Reading: Completed` link to formal AIOps paper notes; all other records remain lightweight triage and must be verified during later full-paper reading.
+This remains an inventory for the remaining unprocessed papers. The five Batch 1, five Batch 2, and four research-driven Batch 3 records marked `Full Reading: Completed` link to formal AIOps paper notes; the remaining records remain lightweight triage and must be verified during later full-paper reading.
 
 ## Overview
 
@@ -15,10 +15,12 @@ This remains a first-stage inventory for the unprocessed papers. The five Batch 
 - Unreadable: 0
 - Duplicate content: 0 (all 18 files had distinct hashes)
 - Suspicious files: 0
-- Formal paper notes created in this pass: 10 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT, Comfey, AIM, StepFly, TSGen, ChatRCA)
+- Formal paper notes created in this pass: 14 (the ten Batch 1/2 notes plus Cloud-OpsBench, Cloud Intelligence, CHIEF, and FlowFixer)
 - Formal full-paper Batch 1 completed: 5 (RCAgentBench, StaR, CAUSALDX, LLMGuard, KAT)
 - Formal full-paper Batch 2 completed: 5 of 5 (Comfey, AIM, StepFly, TSGen, ChatRCA)
+- Formal full-paper research-driven Batch 3 completed: 4 of 4 (Cloud-OpsBench, Cloud Intelligence, CHIEF, FlowFixer)
 - AIOps Knowledge Review v2: completed; focus was Agentic Incident Management
+- AIOps Knowledge Review v3: completed; focus was evidence-grounded, candidate-constrained, verifiable RCA
 - Original PDFs: retained under `sources/papers/AIOps_papers/` and ignored by Git
 
 The batch spans the AIOps chain from detection to root-cause analysis, diagnosis, incident management, and remediation. It also contains a separate group of agent reliability and evaluation papers. The most direct gaps for the current research are multimodal telemetry, topology-aware RCA, production diagnosis, and the connection between detection evidence and LLM/agent-based diagnosis.
@@ -83,7 +85,7 @@ The records below capture the minimum research interpretation needed for priorit
 - **Source / uncertainty:** Full reading completed; see [formal AIOps note](../../papers/aiops/comfey/notes.md), Sec. 3–4. The paper’s evaluated label is team ownership, not physical root cause.
 - **Full reading status:** Completed. See [formal AIOps note](../../papers/aiops/comfey/notes.md). Production deployment, routing, ablations, human ground truth, cost, and failure fallback are grounded in Sec. 3–4.9.
 
-### 4. Cloud Intelligence / AIOps 2.0 (`aiops-2`)
+### 4. Cloud Intelligence / AIOps 2.0 (`cloud-intelligence`)
 
 - **Research problem:** Operational knowledge is scattered, fragile, and inconsistent, making agentic AIOps difficult to ground and evolve safely.
 - **Method family:** Proposes Operational Knowledge Artifacts anchored to operational signals and control points, with curation, knowledge-grounded execution, risk boundaries, and escalation.

@@ -1,6 +1,6 @@
 # Preliminary AIOps Research Gaps
 
-Status: Preliminary; informed by AIOps Batch 1 and Batch 2 formal reading
+Status: Preliminary; informed by AIOps Batch 1, Batch 2, and research-driven Batch 3 formal reading
 
 These began as first-stage observations from lightweight triage of 18 PDFs. The Batch 1 and Batch 2 reassessments below add formal-paper evidence, but the gaps remain hypotheses for research planning, not established novelty claims.
 
@@ -52,6 +52,23 @@ Status: Preliminary, informed by formal reading of Comfey, AIM, StepFly, TSGen, 
 | Production Agent evaluation | Comfey and StepFly provide operational deployment evidence, while AIM and ChatRCA provide controlled or private evaluations and TSGen deploys knowledge curation. There is no shared measure of correctness, cost, latency, safety, and human effort. | High | A common lifecycle evaluation across offline, shadow, and permissioned online modes. |
 
 These are strengthened gaps, not claims that no prior work exists. Later full-paper batches may narrow, merge, or invalidate them.
+
+## Batch 3 Reassessment: Evidence, Candidates, and Verification
+
+Status: Preliminary, informed by formal reading of Cloud-OpsBench, Cloud Intelligence/AIOps 2.0, CHIEF, and FlowFixer and consolidated in [AIOps Knowledge Review v3](reviews/aiops-knowledge-review-v3.md). These observations are not novelty claims.
+
+| Gap | Batch 3 evidence | Confidence | Remaining verification |
+|---|---|---|---|
+| Evidence identity and time/entity alignment | Cloud-OpsBench makes replayable state/query identity explicit; Cloud Intelligence adds OKA anchor/version/owner identity; CHIEF and FlowFixer preserve Agent/workflow trace identity. None defines a shared network schema for metrics, syslog, traffic/NetFlow, configuration, and physical topology. | High | Implement and evaluate a provenance-bearing network Evidence Ticket under delay, missingness, conflict, and topology drift. |
+| Candidate hierarchy and evaluation contract | CHIEF narrows subtask → Agent → step; FlowFixer uses workflow node + finite category; both make candidate units explicit but neither models physical network candidates. | High | Test device/interface/module/link/path hierarchies, pruning recall, granularity mapping, unknown candidates, and multi-root labels. |
+| Open-set and multi-root RCA | CHIEF defines one earliest decisive root; FlowFixer evaluates a finite taxonomy and responsible node. Cloud-OpsBench and Cloud Intelligence do not supply a root protocol. | High | Build network cases with unknown, cascading, and simultaneous causes and evaluate abstention/sets rather than only top-1. |
+| Verification strength and target separation | Cloud-OpsBench verifies process/tool behavior; CHIEF verifies offline attribution; FlowFixer verifies workflow patches before/during test execution; Cloud Intelligence proposes governance checks. No paper completes independent physical RCA, repair, rollback, and recovery verification. | High | Compare deterministic checks, fresh re-query, controlled action feedback, recovery signals, and human gates. |
+| Remediation safety and recovery | FlowFixer demonstrates dynamic workflow patch validation but no rollback or live recovery; Cloud Intelligence proposes bounded actions, approvals, and provenance without standalone evaluation. | High | Evaluate network action permissions, blast radius, human approval, rollback, wrong-remediation cost, and post-action recovery. |
+| Benchmark realism and process validity | Cloud-OpsBench addresses interaction/reproducibility and CHIEF provides trace attribution metrics, but both are non-production Agent-system settings and do not cover physical Network AIOps. | Medium | Compare snapshot, replay, shadow, human-gated, and permissioned-live network evaluation with matched process/cost/safety metrics. |
+| LLM-generated graph/specification trust | CHIEF identifies HCG/oracle fidelity as a limitation; FlowFixer relies on inferred behavioral specifications. | Medium | Add authoritative topology/configuration checks and independent validation of generated graphs/specifications. |
+| Knowledge and repair-experience lifecycle | Cloud Intelligence proposes OKA versioning, drift, ownership, validation, and evolution; FlowFixer stores repair experience. Neither establishes complete conflict, freshness, forgetting, or network-scope invalidation policies. | Medium | Test lifecycle policies across topology, firmware, configuration, and command-semantics changes. |
+
+Batch 3 therefore strengthens the architecture-level gaps while narrowing their meaning: the issue is not merely “more Agent intelligence,” but the missing interface among provenance, candidate semantics, independent verification, and safe recovery.
 
 ## Architecture Synthesis Reassessment
 

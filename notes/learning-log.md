@@ -228,3 +228,10 @@
 - New concepts: layered verification; workflow repair versus operational remediation.
 - Open questions: how to add rollback, human approval, independent recovery signals, and topology/permission-aware validation to network actions.
 - Next step: compare the four Batch 3 papers in AIOps Knowledge Review v3.
+
+## 2026-09-15 — AIOps Knowledge Review v3
+
+- Scope: Cloud-OpsBench, Cloud Intelligence/AIOps 2.0, CHIEF, and FlowFixer, with earlier AIOps batches as background.
+- Main conceptual change: separated evidence provenance, candidate-space semantics, target-specific verification, workflow repair, and physical recovery; strengthened the Hybrid RCA architecture while marking network hierarchy, open-set/multi-root handling, rollback, and recovery as hypotheses or gaps.
+- Most important open questions: a network Evidence Ticket, hierarchical/open-set/multi-root candidate evaluation, and independent recovery verification for human-gated remediation.
+- Next step: pursue the research-question-driven network batch; do not treat this synthesis as a proven end-to-end system.
