@@ -38,6 +38,24 @@ the status of our static reading.
 | [Cloud Intelligence / AIOps 2.0](../papers/aiops/cloud-intelligence/notes.md) | AIOps | No sufficiently reliable repository found | No Repository Found | No exact paper-linked repository identified in the scoped public search | — | — | Not performed | — |
 | [FlowFixer](../papers/aiops/flowfixer/notes.md) | AIOps | No sufficiently reliable repository found | No Repository Found | No exact paper-linked repository identified in the scoped public search | — | — | Not performed | — |
 
+## Independent Agent Framework Inventory
+
+These are framework-learning targets rather than paper implementations. The
+requested URLs are the repository identity evidence; no paper is required.
+
+| Framework | Category | Repository | URL | Branch | Read at commit | License | Local path | Static reading |
+|---|---|---|---|---|---|---|---|---|
+| [smolagents](agent-frameworks/smolagents.md) | Minimal / tool-calling / code agent framework | `huggingface/smolagents` | [GitHub](https://github.com/huggingface/smolagents) | `main` | `30bb1161095dbae2271e6bc3cc4c219cc3897a57` | Present | `sources/code/agent-frameworks/smolagents` | Completed |
+| [LangGraph ReAct](agent-frameworks/langgraph-react-agent.md) | Graph-based ReAct agent | `langchain-ai/react-agent` | [GitHub](https://github.com/langchain-ai/react-agent) | `main` | `9bbd82d84905acc37f527b1f372dae841016f3b4` | Present | `sources/code/agent-frameworks/react-agent` | Completed |
+| [OpenAI Agents SDK](agent-frameworks/openai-agents-sdk.md) | Production-oriented Agent SDK | `openai/openai-agents-python` | [GitHub](https://github.com/openai/openai-agents-python) | `main` | `d59fdb8a789a54aff77ce61e503a04797355fc03` | Present | `sources/code/agent-frameworks/openai-agents-python` | Completed |
+| [Microsoft Agent Framework](agent-frameworks/microsoft-agent-framework.md) | Agent runtime / typed workflow / orchestration | `microsoft/agent-framework` | [GitHub](https://github.com/microsoft/agent-framework) | `main` | `999dda7970fe969c0901d524365ce34ecbda6227` | Present | `sources/code/agent-frameworks/agent-framework` | Completed; shallow clone |
+
+The configured tool list did not expose a dedicated GitHub MCP search method in
+this run. Because the four URLs were explicit, identity and source evidence
+were verified from each clone's Git metadata, README, and source tree. A later
+run with GitHub MCP available can add API-level metadata without changing these
+fixed source SHAs.
+
 ## Cloned Repository Metadata
 
 The following values are recorded from the local clone. Stars and forks are

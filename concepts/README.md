@@ -19,6 +19,8 @@ Concept 不是单篇论文摘要，也不应把整篇论文内容复制到这里
 ## 初始 Concept
 
 - [Agent](agent.md)
+- [Agent Runtime](agent-runtime.md)
+- [Agent Loop](agent-loop.md)
 - [LLM](llm.md)
 - [Skill](skill.md)
 - [Tool Use](tool-use.md)

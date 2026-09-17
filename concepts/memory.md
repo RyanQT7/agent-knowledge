@@ -104,3 +104,14 @@ ReAct 展示 memory 的最小形态：历史信息只要持续进入 context，�
 - 应该优先保存原始 trajectory、错误摘要、可验证事实，还是它们的组合？
 - 如何检测和纠正错误、冲突、过时或被污染的 memory？
 - task-local episodic memory 如何安全扩展到跨任务、跨会话的 persistent memory？
+
+## Framework Code Boundary
+
+四个源码项目进一步说明了几种容易混淆的对象：
+
+- smolagents 的 `AgentMemory.steps` 是结构化任务轨迹，并由 `to_messages()` 重新放入模型 context。
+- LangGraph ReAct 的 `State.messages` 是图运行状态；当前小仓库没有观察到独立语义 memory store。
+- OpenAI Agents SDK 的 `Session`/`SQLiteSession` 可以保存 conversation history；持久化 history 不自动等于语义 memory。
+- Microsoft Agent Framework 的 `AgentSession`、ContextProvider 和 Workflow checkpoint 可以持久化不同类型的控制/上下文状态，但仍需应用定义 retrieval、selection、compression 和 forgetting。
+
+因此，源码中的 `memory`、`session`、`state`、`checkpoint` 不能只按名字归为同一个 Memory 概念。参见 [framework comparison](../code/agent-frameworks/comparison.md)。

@@ -1023,3 +1023,88 @@ candidate space、RQ3 verified human-gated remediation 选专题批次，优先�
 5. Context、trajectory、RAG、persistent memory 不能混成一个概念。
 6. AIOps 中 Detection、RCA、Diagnosis、Recommendation、Execution、Recovery 是不同阶段。
 7. Network AIOps 更可能需要 Hybrid：确定性结构和验证 + 有边界的 LLM/Agent + 人工控制高风险动作。
+# Part 16 — Agent Framework Source Learning Addendum
+
+本节是在原有学习 Guide 基础上增加的源码学习结果。源码均以固定 commit 做只读静态分析；完整项目笔记见 [Agent Framework Source Learning](../../code/agent-frameworks/README.md)。
+
+## 1. 四个项目分别展示什么
+
+- **smolagents：**最适合先学习最小但完整的 Agent loop。'src/smolagents/agents.py' 中 'MultiStepAgent.run()' 初始化任务，'_run_stream()' 有界循环，'ToolCallingAgent._step_stream()' 调模型并生成 tool calls，'process_tool_calls()'/'execute_tool_call()' 执行工具；'memory.py:AgentMemory' 保存轨迹，'ActionStep.to_messages()' 将结果放回 context。'CodeAgent' 还展示了代码作为 action 的高风险边界。
+- **LangGraph ReAct：**在 'src/react_agent/graph.py' 中用 'StateGraph'、'call_model()'、'ToolNode(TOOLS)'、'route_model_output()' 和 'builder.compile()' 表达 'START → model → tools → model'；没有 tool call 就到 'END'。'state.py' 的 messages 是 graph state。
+- **OpenAI Agents SDK：**'src/agents/agent.py' 的 'Agent' 主要保存 instructions、model、tools、handoffs 和 guardrails；'src/agents/run.py:Runner.run()' 与 'run_internal/run_loop.py' 推进 turn；'turn_resolution.py:execute_tools_and_side_effects()' 执行工具；'FunctionTool'、approval、guardrail、Session 和 tracing 组成工程化 control plane。
+- **Microsoft Agent Framework：**Python core 中 '_agents.py:Agent.run()' 处在 Agent/client/provider boundary；'_tools.py:FunctionTool.invoke()' 负责工具参数和结果；'_workflows/_workflow_builder.py:WorkflowBuilder' 连接 Executors；'_workflows/_workflow.py:Workflow.run()' 由 'RunnerImpl' 调度 events；'_checkpoint.py' 提供可选 checkpoint；'_mcp.py:MCPTool' 负责 MCP tool 适配。
+
+这些是 **Code-backed observations**。它们不表示四个项目都拥有同样的 Memory、Planning 或 Agent 定义。
+
+## 2. Paper/Prompt 中的 Agent，代码里通常是什么
+
+源码把抽象概念落成少数边界：
+
+~~~text
+Agent configuration
+  → context / state preparation
+  → model turn
+  → final / tool / handoff / interruption
+  → executor
+  → observation / result
+  → state update
+  → next turn or stop
+~~~
+
+不同项目的控制权不同：
+
+| 项目 | 谁拥有主要控制流 | 主要状态 | 停止方式 |
+|---|---|---|---|
+| smolagents | 'MultiStepAgent' | 'AgentMemory.steps' + mutable state | final answer、error、'max_steps' |
+| LangGraph ReAct | graph nodes/edges | 'State.messages' + last-step state | no tool call → 'END'、recursion limit |
+| OpenAI Agents SDK | 'Runner' / run loop | current Agent、run context、Session、next-step state | final output、handoff completion、interrupt、guardrail、'max_turns' |
+| Microsoft Agent Framework | Agent/client + Workflow/'RunnerImpl' | sessions/providers、Executor events、workflow state/checkpoint | response、workflow idle/complete/error/request、'max_iterations' |
+
+## 3. Skill、Tool、Runtime 的工程边界
+
+当前知识库中的 Skill 是可复用的 instructions、SOP、输入输出约定和 quality checks；源码中的 Runtime 则负责真正调用模型、执行 Tool、更新 State、限制循环、处理错误和记录 tracing。
+
+~~~text
+Skill = 应该遵循什么流程和约束
+Tool = 可以调用什么外部能力
+Runtime = 如何控制执行、状态和转移
+Agent = 面向目标使用这些能力的系统
+~~~
+
+MCP 是把远程 tools/resources/prompts 接入 Runtime 的协议/适配层。它不是 Agent、Skill、Memory 或 Knowledge Base。当前源码中的 'ToolCollection'/MCP client、OpenAI 'AgentBase.mcp_servers' 和 Microsoft 'MCPTool' 都支持这一边界。
+
+## 4. 源码学习后的 AIOps 结论
+
+对 Network AIOps，最适合迁移的不是某个框架的全部 API，而是这些控制边界：
+
+- 将 detection、数值计算、entity/time alignment、candidate enumeration 和 physical topology constraint 保持在 deterministic/graph 层。
+- 将 metrics、syslog、traffic/NetFlow、topology 和 configuration 封装为 schema/permission/timeout 明确的 read-only tools。
+- 让 bounded Agent loop 在有限 candidate 中做 evidence gathering、hypothesis synthesis 和解释。
+- 将 evidence ticket、tool call、observation、candidate relation、verification result 写入 state，而不是只保存无结构聊天文本。
+- 对 configuration change 或其他副作用 tool 使用 approval、guardrail、checkpoint、rollback 和 recovery verification。
+- 用 'max_steps'、recursion limit、'max_turns' 或 'max_iterations' 限制循环，并记录 tool calls、latency、token/cost 和 trace。
+
+这是一项 **Cross-paper synthesis / research architecture hypothesis**。开源框架提供 runtime 设计启发，但没有证明某个框架已解决 Network AIOps 的 multimodal provenance、open-set/multi-root RCA 或真实生产验证问题。
+
+## 5. 推荐学习顺序
+
+1. 先读 [smolagents 源码笔记](../../code/agent-frameworks/smolagents.md)，理解最小 while-loop。
+2. 再读 [ReAct-Agent-Implementation](ReAct-Agent-Implementation.md)，比较文本协议、structured tool call 和 graph loop。
+3. 然后读 [OpenAI Agents SDK](../../code/agent-frameworks/openai-agents-sdk.md)，理解 Agent/Runner、handoff、guardrail、approval、Session 和 tracing。
+4. 最后读 [Microsoft Agent Framework](../../code/agent-frameworks/microsoft-agent-framework.md)，理解 typed Workflow、Executor、checkpoint、provider 和 MCP 如何扩展 control plane。
+5. 再回到 [AIOps Agent Architecture](AIOps-Agent-Architecture-From-OpenSource.md)，把这些 runtime 模式映射到 Network RCA。
+
+## Framework terms to add to the glossary
+
+- **System Prompt：**告诉模型整体角色、规则和边界的高优先级指令。
+- **State：**运行时保存当前任务进度、消息、工具结果或控制信息的数据。
+- **Short-term Memory：**当前任务或当前 trajectory 中临时可用的历史信息。
+- **Long-term Memory：**跨任务或跨会话保存、以后还会检索使用的信息；不能把普通 context 自动称为 long-term memory。
+- **ReAct：**把 reasoning、action 和 observation 交错组织起来的运行时模式。
+- **Planner：**负责组织未来多个步骤或子目标的组件；出现规划文字不等于存在独立 Planner。
+- **Executor：**真正执行工具、代码、工作流节点或外部动作的组件。
+- **Handoff：**把当前任务控制权转交给另一个 Agent 或专门角色的机制。
+- **Sub-Agent：**被主 Agent 调用来处理子任务的 Agent；是否独立取决于真实执行边界。
+- **Multi-Agent：**多个具有角色、状态或决策边界的 Agent 协同完成任务。
+- **Guardrail：**在模型或工具边界检查输入/输出并阻止不安全继续的规则或代码。
+- **Tracing：**记录模型 turn、工具调用、状态转移和耗时等运行过程，便于调试和审计。

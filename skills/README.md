@@ -28,8 +28,8 @@ Skill 层次：
 - [aiops-learning-batch](aiops-learning-batch/SKILL.md) — 研究问题驱动的 AIOps 批次选择、串行论文阅读与专题 Review 编排。`Status: v1 / validated from AIOps Batch 1–3`
 
 - [paper-code-discovery](paper-code-discovery/SKILL.md) — 验证论文对应的官方、作者背书或第三方源码仓库，并记录版本证据。`Status: v1 / validated on the current 20-paper inventory`
-- [code-reading](code-reading/SKILL.md) — 对论文实现仓库进行只读静态分析，建立 Paper ↔ Code 映射。`Status: v1 / validated on 12 static repository analyses`
-- [agent-framework-learning](agent-framework-learning/SKILL.md) — 从开源 Agent Framework、SDK 和 Runtime 源码中提取真实执行路径与可复用设计模式。`Status: v1 / initial capability`
+- [code-reading](code-reading/SKILL.md) — 对论文实现或独立框架仓库进行只读静态分析，建立 Paper/Framework ↔ Code 映射。`Status: v1 / validated on 12 paper repositories and framework mode`
+- [agent-framework-learning](agent-framework-learning/SKILL.md) — 从开源 Agent Framework、SDK 和 Runtime 源码中提取真实执行路径与可复用设计模式。`Status: v1 / validated on smolagents, LangGraph ReAct, OpenAI Agents SDK, Microsoft Agent Framework`
 
 当前职责层次：
 

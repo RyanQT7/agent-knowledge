@@ -158,3 +158,14 @@ ReAct 让我把 Agent 理解为一个闭环 policy，而不是“带有一个 pr
 
 - 如何分别测量 Agent 的 reasoning、planning、tool use 和 environment recovery 能力？
 - Thought 是否是可控的内部状态接口，还是仅仅是生成出来的语言轨迹？
+
+## Agent Runtime and Loop
+
+源码学习补充了一个跨项目仍然成立的实现区分：**Agent** 描述目标、模型、指令和能力，**Agent Runtime** 负责把模型输出变成合法的下一步，并执行工具、更新状态、处理 handoff/interrupt、限制步数和记录 tracing。二者可以在同一个类中，也可以由不同对象拥有。
+
+- smolagents 的 `MultiStepAgent` 把多数职责集中在 `run()`、`_run_stream()`、`AgentMemory` 和工具执行中。
+- LangGraph ReAct 把 loop 外显为 `StateGraph` 的节点与边。
+- OpenAI Agents SDK 让 `Agent` 保存配置，让 `Runner`/`run_loop.py` 管理 turn、tool、handoff、guardrail 和 max turns。
+- Microsoft Agent Framework 则进一步把 Agent/client/provider、Workflow/Executor、event 和 checkpoint 分层。
+
+这些是 **Code-backed observations**，不是对所有 Agent 的唯一架构定义。见 [Agent Runtime](agent-runtime.md)、[Agent Loop](agent-loop.md) 与 [Agent Framework Source Code Comparison](../code/agent-frameworks/comparison.md)。

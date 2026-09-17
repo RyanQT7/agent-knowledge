@@ -3,6 +3,8 @@
 ## Core Concepts
 
 - [Agent](concepts/agent.md)
+- [Agent Runtime](concepts/agent-runtime.md)
+- [Agent Loop](concepts/agent-loop.md)
 - [LLM](concepts/llm.md)
 - [Skill](concepts/skill.md)
 - [Tool Use](concepts/tool-use.md)
@@ -73,6 +75,14 @@
 
 - [Paper–Code Repository Index](code/repository-index.md)
 - [Paper–Code Discovery Summary](notes/code/paper-code-discovery-summary.md)
+- [Agent Framework Source Notes](code/agent-frameworks/README.md)
+- [Agent Framework Source Code Comparison](code/agent-frameworks/comparison.md)
+
+## Agent Framework Learning
+
+- [Agent Framework Learning Skill](skills/agent-framework-learning/SKILL.md)
+- [ReAct Agent Implementation](notes/guides/ReAct-Agent-Implementation.md)
+- [AIOps Agent Architecture from Open Source](notes/guides/AIOps-Agent-Architecture-From-OpenSource.md)
 
 ## Learning Guides
 

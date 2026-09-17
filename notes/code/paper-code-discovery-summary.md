@@ -107,3 +107,26 @@ benchmark、可复现交互、轨迹归因等不同层面。
 2. 对 Cloud-OpsBench、RCAgentBench 和 ChatRCA 进一步比较工具调用、候选约束、ground truth 与 verification 的可测量接口。
 3. 对 StepFly、ReWOO、LLM+P 和 RAP 比较固定 DAG、plan-first、formal planner 与 search 在动态 Network environment 中的适用边界。
 4. 只有在需要复现实验或解决关键歧义时，才考虑依赖安装和受控运行；那将是独立任务，不属于本次静态阅读。
+
+## Independent Agent Framework Learning
+
+本次另外对四个不依赖具体论文的 Agent framework / SDK / runtime 做了源码学习：
+
+| Repository | Category | Status | Read at commit | Code notes |
+|---|---|---|---|---|
+| `huggingface/smolagents` | minimal tool-calling/code Agent framework | Cloned and statically read | `30bb1161095dbae2271e6bc3cc4c219cc3897a57` | [smolagents](../../code/agent-frameworks/smolagents.md) |
+| `langchain-ai/react-agent` | graph-based ReAct example | Cloned and statically read | `9bbd82d84905acc37f527b1f372dae841016f3b4` | [LangGraph ReAct](../../code/agent-frameworks/langgraph-react-agent.md) |
+| `openai/openai-agents-python` | Agent SDK/runtime | Cloned and statically read | `d59fdb8a789a54aff77ce61e503a04797355fc03` | [OpenAI Agents SDK](../../code/agent-frameworks/openai-agents-sdk.md) |
+| `microsoft/agent-framework` | Agent runtime/typed workflow | Shallow-cloned and statically read | `999dda7970fe969c0901d524365ce34ecbda6227` | [Microsoft Agent Framework](../../code/agent-frameworks/microsoft-agent-framework.md) |
+
+四个外部源码目录均在 `sources/code/`，没有进入知识库 Git history。配置的工具列表在本次运行中没有暴露专用 GitHub MCP 搜索方法；由于用户给出了明确仓库 URL，身份和版本使用 clone 的 remote、Git metadata、README 和源码树核对，并保留了这一限制。
+
+### Framework code patterns observed
+
+1. Agent loop 可以是 smolagents 的 while-loop、LangGraph 的 state graph、OpenAI SDK 的 Runner state machine，或 Microsoft 的 typed workflow runner。
+2. Agent object 和 runtime 可以分离；OpenAI SDK 的 `Agent` 主要保存配置，`Runner` 才推进 turns、tools、handoffs 和 interruptions。
+3. `memory`、`session`、`state` 和 `checkpoint` 都可能保存信息，但不自动等于 semantic long-term memory。
+4. Tool 的可靠边界包括 schema、参数验证、执行、结果规范化、错误、approval 和 tracing；MCP 是一种接入外部 tool 的协议/适配层。
+5. 代码执行是高风险 action；smolagents 的 `CodeAgent` 明确经过 interpreter/executor 边界，不能和 read-only telemetry query 使用相同安全假设。
+
+更完整的横向比较见 [Agent Framework Source Code Comparison](../../code/agent-frameworks/comparison.md)。

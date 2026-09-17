@@ -158,3 +158,19 @@ git diff
 Stage only knowledge files. A complete task may commit and push one scoped framework
 learning change, or a small number of clearly separated batches, using `origin main`.
 Never force-push, rewrite history, create an empty commit, or stage external source.
+
+When the framework notes, source manifest, cross-project comparison, and any
+requested learning guides pass review, save the knowledge-base changes with one
+scoped commit and push it to `origin main`:
+
+```bash
+git diff --check
+git add <knowledge files only>
+git commit -m "Add agent framework source learning notes"
+git push origin main
+git status
+```
+
+If source identity, static path tracing, Markdown links, or safety checks remain
+unresolved, do not commit incomplete conclusions. Do not push or modify the
+external repositories.

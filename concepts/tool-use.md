@@ -173,3 +173,14 @@ Tool Use 不是一个单一组件，而是一条从“决定调用”到“把�
 - 如何让模型可靠地进行工具链式调用、交互式查询和失败后的重试？
 - Toolformer 的 learned call policy 如何迁移到新 API、structured tool calling 或 MCP？
 - ReAct 的 runtime trajectory 与 Toolformer 的训练增强语料能否组合成既会选择工具又能稳定多步交互的 Agent？
+
+## Framework Implementation Insight
+
+源码显示，Tool 不只是一个 Python function：它通常还包括名称、描述、输入 schema、参数校验、执行器、结果规范化、权限/approval、错误处理和 tracing。
+
+- smolagents 的 `Tool` 与 `execute_tool_call()` 展示了轻量 schema/validation/execution 边界。
+- LangGraph 的 `bind_tools()` + `ToolNode` 将模型决策与执行节点分开，并把 `ToolMessage` 写回 state。
+- OpenAI Agents SDK 的 `FunctionTool` 与 `execute_tools_and_side_effects()` 增加了 strict schema、guardrail、approval 和 side-effect handling。
+- Microsoft Agent Framework 的 `FunctionTool.invoke()`、middleware、安全状态和 `MCPTool` 进一步把协议适配与结果 `Content` 化。
+
+这是跨项目的工程综合：Tool Use 仍不等于 Agent；但可靠 Agent Runtime 必须明确谁选 tool、谁校验参数、谁执行、谁把结果作为 observation 返回以及何时允许副作用。

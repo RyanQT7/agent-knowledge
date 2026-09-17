@@ -22,6 +22,8 @@ User Task → Agent/Runner → Model → Decision/Tool → Observation → State
 
 外部源码放在被忽略的 `sources/code/agent-frameworks/`，只做静态阅读，不安装依赖、不运行代码、不提交源码。
 
+完成源码身份、固定 commit、执行路径和知识文档检查后，知识库变更默认自动 commit 并 push 到 `origin main`；外部源码永远不进入知识库 Git history。
+
 ## Example
 
 ```text
