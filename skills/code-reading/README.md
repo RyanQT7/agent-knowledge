@@ -2,17 +2,18 @@
 
 ## Purpose
 
-Read a pinned paper repository as static evidence and explain how the paper’s method is implemented, including entry points, data flow, prompts, tools, algorithms, evaluation, and paper–code differences.
+Read a pinned paper repository or independent Agent framework as static evidence and explain its real implementation, including entry points, data flow, prompts, tools, algorithms, evaluation, and paper/documentation–code differences.
 
 ## When to use
 
-Use after [paper-code-discovery](../paper-code-discovery/SKILL.md) has established a trustworthy repository identity and full commit SHA.
+Use after [paper-code-discovery](../paper-code-discovery/SKILL.md), or after an explicit framework URL has been verified and pinned to a full commit SHA.
 
 ## Output
 
 - Agent/LLM notes: code/<paper-id>/notes.md
 - AIOps notes: code/aiops/<paper-id>/notes.md
-- Relative Paper ↔ Code links.
+- Framework notes: code/agent-frameworks/<framework-id>.md
+- Relative Paper ↔ Code or Framework ↔ Code links.
 - Updated code/repository-index.md.
 
 ## Safety

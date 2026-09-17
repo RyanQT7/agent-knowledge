@@ -10,6 +10,7 @@ Skill 层次：
 - aiops-learning-batch — research-question-driven AIOps batch orchestration
 - paper-code-discovery — paper-to-repository provenance and implementation discovery
 - code-reading — read-only paper implementation analysis
+- agent-framework-learning — source-first learning of open-source Agent frameworks and runtimes
 - knowledge-review — generic cross-paper consolidation
 - knowledge-query — retrieve / learn from accumulated knowledge
 
@@ -28,6 +29,7 @@ Skill 层次：
 
 - [paper-code-discovery](paper-code-discovery/SKILL.md) — 验证论文对应的官方、作者背书或第三方源码仓库，并记录版本证据。`Status: v1 / validated on the current 20-paper inventory`
 - [code-reading](code-reading/SKILL.md) — 对论文实现仓库进行只读静态分析，建立 Paper ↔ Code 映射。`Status: v1 / validated on 12 static repository analyses`
+- [agent-framework-learning](agent-framework-learning/SKILL.md) — 从开源 Agent Framework、SDK 和 Runtime 源码中提取真实执行路径与可复用设计模式。`Status: v1 / initial capability`
 
 当前职责层次：
 
@@ -49,6 +51,9 @@ paper-code-discovery
 
 code-reading
 = static paper-implementation analysis
+
+agent-framework-learning
+= source-first Agent framework / SDK / runtime learning
 
 knowledge-review
 = generic cross-paper consolidation

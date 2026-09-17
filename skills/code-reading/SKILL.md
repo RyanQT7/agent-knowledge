@@ -1,13 +1,13 @@
 ---
 name: code-reading
-description: Perform read-only static analysis of a paper implementation, map claims to repository paths and symbols, and record what the source code actually implements without running untrusted code.
+description: Perform read-only static analysis of a paper implementation or Agent framework, map behavior to repository paths and symbols, and record what the source code actually implements without running untrusted code.
 ---
 
 # Code Reading
 
 ## Purpose and boundary
 
-Use this Skill after paper-code-discovery has identified a trustworthy repository and pinned the checkout to a full commit SHA. The task is to understand how a paper’s method becomes executable code:
+Use this Skill after a trustworthy repository has been identified and pinned to a full commit SHA. For a paper, the task is to understand how its method becomes executable code; for an independent framework, the task is to understand how its documented runtime becomes actual source behavior:
 
 ~~~text
 Paper claim
@@ -41,7 +41,13 @@ Output:
 ~~~text
 code/<paper-id>/notes.md
 code/aiops/<paper-id>/notes.md
+code/agent-frameworks/<framework-id>.md
 ~~~
+
+For framework mode there may be no paper note. Record `Framework ↔ Code` mappings
+instead of inventing a Paper ↔ Code relationship, and cover the Agent/Runner/Workflow
+entry point, model abstraction, tool protocol, state or memory, loop, stop condition,
+errors, handoffs, tracing, and examples.
 
 For multiple repositories belonging to one paper, keep one code note and separate the repository identity and mapping subsections. A code note must link back to the paper note; the paper note should link to the code note when the user has requested paper-code integration.
 
@@ -187,6 +193,17 @@ implementation simplification / engineering choice / version difference / unclea
 ~~~
 
 Do not repair a missing module with speculation. If the repository is a benchmark harness, partial release, or evaluation-only code, say so.
+
+For a framework without a paper, apply the same discipline to documentation versus
+implementation:
+
+~~~text
+Documentation says X
+Code implements Y
+~~~
+
+Record the exact path and symbol, then classify the difference as version difference,
+engineering choice, partial implementation, or unclear.
 
 After a passing code analysis:
 
