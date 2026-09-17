@@ -81,8 +81,16 @@
 ## Agent Framework Learning
 
 - [Agent Framework Learning Skill](skills/agent-framework-learning/SKILL.md)
+- [Source Code Annotation Skill](skills/source-code-annotation/SKILL.md)
 - [ReAct Agent Implementation](notes/guides/ReAct-Agent-Implementation.md)
+- [How to Read an Agent from Source](notes/guides/How-to-Read-An-Agent-From-Source.md)
 - [AIOps Agent Architecture from Open Source](notes/guides/AIOps-Agent-Architecture-From-OpenSource.md)
+
+## Source Annotations
+
+- [Annotation index](annotations/README.md)
+- [smolagents execution path](annotations/smolagents/30bb1161095dbae2271e6bc3cc4c219cc3897a57/EXECUTION_PATH.md)
+- [smolagents code guide](annotations/smolagents/30bb1161095dbae2271e6bc3cc4c219cc3897a57/CODE_GUIDE.md)
 
 ## Learning Guides
 

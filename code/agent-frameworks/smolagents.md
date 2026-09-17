@@ -22,6 +22,10 @@ The project is useful for learning a complete Agent loop because the model,
 memory, action step, tool execution, observation, and stop condition are all
 visible in one package.
 
+For a Chinese teaching version of the traced core path, see the [versioned
+source annotation](../../annotations/smolagents/30bb1161095dbae2271e6bc3cc4c219cc3897a57/CODE_GUIDE.md)
+and its [execution path](../../annotations/smolagents/30bb1161095dbae2271e6bc3cc4c219cc3897a57/EXECUTION_PATH.md).
+
 ## What the Repository Implements
 
 The core implementation is in `src/smolagents/`. The repository supports:

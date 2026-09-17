@@ -30,6 +30,7 @@ Skill 层次：
 - [paper-code-discovery](paper-code-discovery/SKILL.md) — 验证论文对应的官方、作者背书或第三方源码仓库，并记录版本证据。`Status: v1 / validated on the current 20-paper inventory`
 - [code-reading](code-reading/SKILL.md) — 对论文实现或独立框架仓库进行只读静态分析，建立 Paper/Framework ↔ Code 映射。`Status: v1 / validated on 12 paper repositories and framework mode`
 - [agent-framework-learning](agent-framework-learning/SKILL.md) — 从开源 Agent Framework、SDK 和 Runtime 源码中提取真实执行路径与可复用设计模式。`Status: v1 / validated on smolagents, LangGraph ReAct, OpenAI Agents SDK, Microsoft Agent Framework`
+- [source-code-annotation](source-code-annotation/SKILL.md) — 将源码追踪后的核心执行路径转换为中文教学注释版，并可建立 Paper ↔ Code 对应关系。`Status: v1 / validated on smolagents`
 
 当前职责层次：
 
@@ -54,6 +55,9 @@ code-reading
 
 agent-framework-learning
 = source-first Agent framework / SDK / runtime learning
+
+source-code-annotation
+= Chinese teaching annotations of traced core source paths
 
 knowledge-review
 = generic cross-paper consolidation
