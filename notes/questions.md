@@ -275,6 +275,23 @@
 详细分析见 [Knowledge Review v4](reviews/knowledge-review-v4.md)。
 
 
+## Knowledge Review v5: TSAD batch 3 status update
+
+本节基于 CAPMix、When Model Meets New Normals、CAROTS、CrossAD、Fortifying Time Series、MACE、Graph-MoE、CCM-TAD、TFC 九篇已完成精读；后续 24 篇可能更新结论。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 已有按服务静态频率子空间、测试时模型适应、跨窗原型、latent memory、训练期相关 profile clustering 等不同粒度；尚未证明可解释 workload / release 状态建模。 |
+| 正常业务波动与故障如何区分？ | Partially Answered | 形态、趋势、因果 / 相关依赖、尺度、频谱、曲率、顺序证据均已提出；尚无外部业务状态核验或负载—故障并发矩阵。 |
+| 是否使用 Metric、Trace、workload、release 上下文？ | Open | 生产数据源不等于多模态输入；九篇算法主要使用时序本身、服务身份或相关统计，未见成套 Trace / workload / release 条件验证。 |
+| 异常分数是否解释波动来源？ | Partially Answered | Graph / causal / scale / frequency / curvature 让检测参照更结构化，但没有形成业务变更—指标变化—根因事件链。 |
+| 正常负载变化和真实故障同时发生怎么办？ | Open | 九篇没有系统并发测试；在线更新、latent memory / prototype 写入和静态参照在此情形的风险尚未量化。 |
+| 哪些机制已经提出？ | Partially Answered | 在线 normal adaptation、跨服务 / 跨窗多模式、关系建模、因果 TSAD、曲率异常、顺序告警均有具体论文，不应笼统称为全新空白。 |
+| 哪些实验结果不宜直接外推？ | Partially Answered | Best-F1 的 test-label 阈值选择、窗口 AUROC、SWaT split、TFC 中心差分前视、表格数值差异及跨论文指标不统一需要保留。 |
+
+详细比较见 [Knowledge Review v5](reviews/knowledge-review-v5.md)。
+
+
 ## Knowledge Review v3: TSAD batch 1
 
 本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。

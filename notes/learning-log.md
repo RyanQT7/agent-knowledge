@@ -340,3 +340,11 @@
 - New concepts: discrete curvature evidence；multi-span masked attention；frequency–curvature calibration；temporal / pattern expert routing；Event-F1。
 - Open questions: 逐点 score / loss 的精确公式、中心差分的在线前视、无标签 threshold 结果、正常业务周期切换与故障并发、Table 1 / 2 TODS 数值差异。
 - Next step: 将 Graph-MoE、CCM-TAD、TFC 与前六篇整合为 batch 3 Knowledge Review，并据主题安排后续阅读。
+
+
+## 2026-10-23 — Knowledge Review v5: TSAD batch 3
+
+- Scope: Graph-MoE、CCM-TAD、TFC，与首两批六篇交叉比较。
+- Main synthesis: 区分潜在历史图层路由、静态相关 profile 分组 + 顺序证据、以及单变量曲率 / 频带证据；三者均比原始点值提供更多结构，但仍不等于业务状态识别或波动成因解释。
+- Most important open questions: workload / release / Trace 条件化、正常负载与故障并发、在线 memory / prototype / model 更新污染、测试标签 oracle threshold 与无标签运行点、流式前视延迟。
+- Next step: 批次 4 阅读 GCAD、Structured Temporal Causality、SARAD，比较图因果、结构化时间因果与空间关联诊断。
