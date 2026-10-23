@@ -506,3 +506,27 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - IGAD 的高斯频域采样是否破坏相位 / 谱相关；无需逐模型调参时能否保留收益？（IGAD §3.1; Appendix E.3）
 - tightness / 平滑先验是否排斥稀有但合法的业务状态？需按状态组报告误报率，并注入同时发生的故障。（IGAD §3.2; KAN-AD §3; IMPACT Appendix I）
 - 三篇能否在统一 validation-only threshold、固定 FPR、event delay 和真实负载变化 / 故障并发矩阵下比较？（Knowledge Review v11 §5–6）
+
+
+## Knowledge Review v12: TSAD batch 10 status update
+
+当前共完成 30/33 篇 PDF 精读；第 10 批跨论文差异和证据边界见 [Knowledge Review v12](reviews/knowledge-review-v12.md)。
+
+| Question | Status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 多中心 / memory、context、统计趋势、动态适配、变量角色和 residual noise null 已提出；业务状态语义与安全迁移缺少统一实证。 |
+| 正常业务波动和真实故障如何区分？ | Partially Answered | scattering、NIS、ERI 和 reconstruction score 提供 statistical departure evidence，但不能说明波动来自负载还是故障。 |
+| 方法是否只抑噪，是否解释来源？ | Partially Answered | 结构化分数、通道作用和统计检验增强检测依据；尚无与 Trace / release / 注入根因的忠实性验证。 |
+| 是否使用 Metric、Trace、workload、release？ | Open | 30 篇 TSAD 论文主要用数值时间序列，真实运行上下文 / Trace conditioned comparison 仍不足。 |
+| 正常状态变化和故障并发如何处理？ | Open | 无完整真实控制矩阵；静态 ERI、全局散布中心、fixed R / NIS 对状态切换的行为需测。 |
+| anomaly onset 和持续区间是否同一优化目标？ | Partially Answered | COGNOS 明确偏 onset；ScatterAD Aff-F 对小偏移敏感；需统一 delay、coverage、boundary tolerance、固定 FPR。 |
+| 图、变量角色是否能解释因果？ | Open | ScatterAD 图节点是时间步、TeamWork ERI 是统计依赖；二者都不直接证明 service topology / causal driver。 |
+
+### From ScatterAD / COGNOS / TeamWork
+
+- ScatterAD Eq. (10) 的 reciprocal distance 在代码中如何定义 / 归一化；随机 center 和 EMA seed 是否可复现？（ScatterAD §§3.3–3.4）
+- ScatterAD 强噪声下的异常散布反转是否在其他高维 / rare-normal 数据出现？如何避免把正常群体判为异常？（Appendix D, Table 7）
+- COGNOS NIS circuit breaker 对合法 workload / release transition 是否报警；持续状态的分数衰减会不会漏掉后续故障？（COGNOS §4.2; Limitations）
+- COGNOS 在 heteroscedastic、相关通道噪声下需要何种 covariance-aware filter；global quantile calibration 如何无标签选择？（Appendix A.2; D.2）
+- TeamWork ERI rankings 在不同 operating stages 是否稳定；若变量角色随状态变化，在线更新如何避免异常污染？（TeamWork Limitations, p.14）
+- 三篇在“仅正常状态切换 / 仅故障 / 并发 / 未见合法状态”协议下的 event delay、区间覆盖和 group-wise FPR 如何比较？（Knowledge Review v12 §§4–7）

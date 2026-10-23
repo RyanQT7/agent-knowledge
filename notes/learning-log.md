@@ -548,3 +548,36 @@
 - Evidence gaps: 状态变化与故障并发、rare-normal safety、统一鲁棒性 protocol、固定 FPR / 延迟和可复现 score 细节。
 - Progress: 27/33 完成；3 篇精读笔记 / 知识卡片、Review v11、INDEX 与问题进度已更新。
 - Next batch (28–30): ScatterAD、COGNOS、TeamWork。
+
+
+## 2026-10-23 — ScatterAD
+
+- Paper: *ScatterAD: Temporal-Topological Scattering Mechanism for Time Series Anomaly Detection* (NeurIPS 2025).
+- Core takeaway: 每个时刻作图节点，因果卷积 + GAT，结合 latent scattering、时间一致性和 EMA 双 encoder；score 合并中心偏离及邻时刻变化。
+- Evidence: 24 个主表设置中作者报告 15 项第一；SWAN Aff-F 对 1 timestep 偏移极敏感，WADI 强 Gaussian noise 下散布比反转；Eq. (10) score 方向需核代码。
+- Progress: 完成第 28/33 篇实际 PDF 精读和笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — COGNOS
+
+- Paper: *COGNOS: Universal Enhancement for Time Series Anomaly Detection via Constrained Gaussian-Noise Optimization and Smoothing* (ICML 2026).
+- Core takeaway: GWNR 让 MSE residual 近似 Gaussian white noise；ARKS 用 per-channel calibration 与 NIS circuit breaker 抑噪并快速响应突变。
+- Evidence: 多 backbone / 数据总体提升，但 KAN-AD PSM 的 range / VUS 指标有回退；作者明确固定 noise R、MSE residual 适用范围和 onset-vs-coverage 限制。
+- Progress: 完成第 29/33 篇实际 PDF 精读和笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — TeamWork
+
+- Paper: *TeamWork: Multivariate Time Series Anomaly Detection via Asymmetric Role-aware Channel Modeling* (ICML 2026).
+- Core takeaway: ERI 选 dominant / auxiliary channels，前三周期分别做 point / segment / period masking，role-aware gate 融合后重建。
+- Evidence: 8 个 benchmark 和 16 个基线；移除角色、交互或不同粒度 masking 都有消融下降。作者指出静态角色和全局 FFT 对动态 / 弱周期信号的边界。
+- Progress: 完成第 30/33 篇实际 PDF 精读和笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — Knowledge Review v12: TSAD batch 10
+
+- Scope: ScatterAD、COGNOS、TeamWork，与此前 27 篇综述 evidence 交叉比较。
+- Main synthesis: 区分 latent scattering、Gaussian residual null + filtering、ERI channel-role modeling；数值关系 / statistical reference 不自动构成业务拓扑、因果或状态语义。
+- Evidence gaps: 动态状态与故障并发、异常起点和区间覆盖、异方差 / 跨变量噪声、rare-normal safety、业务上下文 source attribution。
+- Progress: 30/33 完成；3 篇笔记 / 卡片、Review v12、INDEX 与问题列表已更新。
+- Next batch (31–33): AnoMamba; Multi-View Ensemble via Coupling Flows; Conditional Normalizing Flows。
