@@ -483,3 +483,26 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - validation influence 是否能区分 contamination 与 rare but valid normal group；组别 / workload 条件化 validation 是否降低错误翻标？（PDF Appendix I）
 - 如果不允许从 test anomaly 抽样构造污染，或 validation 标签不完备，影响排序与 label flipping 还能否成立？（PDF §4.1; Appendix E, H.3）
 - feature-space synthetic anomalies 能否映射到可解释的 temporal / causal fault patterns；AUC 结论在 fixed false-alarm thresholds 下是否保留？（PDF §§3.2–3.3, Appendix H.4）
+
+
+## Knowledge Review v11: TSAD batch 9 status update
+
+本节汇总 27 篇已完成 PDF 精读；第 9 批跨论文机制与证据边界见 [Knowledge Review v11](reviews/knowledge-review-v11.md)。
+
+| Question | Status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 除多原型、频谱、适配和上下文参照外，已有 Fourier 平滑函数、统计趋势恢复及 fixed-point manifold；均未充分证明有业务状态语义和安全切换。 |
+| 正常业务波动与真实故障如何区分？ | Partially Answered | 平滑、趋势、重建、关系、视觉、影响分数提供不同证据；三篇未用 workload / release 真值与并发矩阵验证来源区分。 |
+| 方法是否只抑噪，是否解释波动来源？ | Partially Answered | 检测机制已超出简单抑噪，但分数 / attention / fixed-point 仍不等于业务来源归因。 |
+| 是否使用 Metric、Trace、workload、release？ | Open | 27 篇 TSAD 以数值序列为主；尚无系统真实 Trace / release-conditioned 比较。 |
+| 正常负载变化与故障并发时如何处理？ | Open | 训练污染、Gaussian noise、非平稳 benchmark 分别覆盖有限情形，不能替代并发控制测试。 |
+| 哪些机制已经提出？ | Partially Answered | 多模式 prototypes / memory、频谱 normality、TTA、context-relative scoring、open-set influence、平滑预测、趋势重建、幂等流形均已有具体方案。 |
+| 哪些研究空白有论文依据？ | Partially Answered | rare-normal 错分、模块回退、各类鲁棒 protocol 不可比、score / normalization 细节、固定 FPR 与延迟在所读论文中均有证据边界。 |
+
+### From KAN-AD / RTdetector / IGAD
+
+- Fourier 截断在局部真实故障与随机噪声并存时的召回 / 误报如何变化？（KAN-AD §§3–4, Fig. 7）
+- RTdetector 的 Eq. (3) 反归一化括号在官方代码中如何实现；非重叠窗口下的事件边界和延迟是什么？（RTdetector §3.2, Eq. 3; §4）
+- IGAD 的高斯频域采样是否破坏相位 / 谱相关；无需逐模型调参时能否保留收益？（IGAD §3.1; Appendix E.3）
+- tightness / 平滑先验是否排斥稀有但合法的业务状态？需按状态组报告误报率，并注入同时发生的故障。（IGAD §3.2; KAN-AD §3; IMPACT Appendix I）
+- 三篇能否在统一 validation-only threshold、固定 FPR、event delay 和真实负载变化 / 故障并发矩阵下比较？（Knowledge Review v11 §5–6）

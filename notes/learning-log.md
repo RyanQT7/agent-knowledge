@@ -515,3 +515,36 @@
 - Evidence gaps: 真实 workload / release / Trace context、状态变化与故障并发、rare-normal group robustness、generator-held-out validation、rationale fidelity 和固定告警预算。
 - Progress: 24/33 完成；3 篇笔记 / 卡片、Review v10、INDEX、questions 已更新。逐篇提交并 push；PDF 仍被 `.gitignore` 排除。
 - Next batch (25–27): KAN-AD; RTdetector; Idempotent Reconstruction。
+
+
+## 2026-10-23 — KAN-AD
+
+- Paper: *KAN-AD: Time Series Anomaly Detection with Kolmogorov-Arnold Networks* (ICML 2025).
+- Core takeaway: 有限 Fourier 平滑函数替换局部 B-spline，配合一阶差分、周期索引和轻量卷积进行下一点预测。
+- Evidence: 四个单变量集平均 Event F1 .7798；CTE / Fourier / 组合输入均有消融。TODS 10–40% 污染仅为有限合成协议；主文未明确最终 anomaly-score 方程。
+- Progress: 完成第 25/33 篇实际 PDF 精读，已生成详细笔记和知识卡片；未运行代码或训练。
+
+
+## 2026-10-23 — RTdetector
+
+- Paper: *RTdetector: Deep Transformer Networks for Time Series Anomaly Detection Based on Reconstruction Trend* (IJCAI 2025).
+- Core takeaway: 首轮重建误差作为第二路 decoder 的 focus，RTE 恢复原始统计趋势，RT-Attention 注入均值 / 方差信息。
+- Evidence: UCR / MBA / SMD 表现强但 SMAP 低于 DCdetector；去掉 RTE / RT-Attention 后 UCR F1 下降。Eq. (3) 反归一化括号与常见形式不同，需核对实现。
+- Progress: 完成第 26/33 篇实际 PDF 精读，已生成详细笔记和知识卡片；未运行代码或训练。
+
+
+## 2026-10-23 — Idempotent Reconstruction / IGAD
+
+- Paper: *Multivariate Time Series Anomaly Detection with Idempotent Reconstruction* (NeurIPS 2025).
+- Core takeaway: 频域扰动正常样本，以冻结副本构造幂等和 manifold tightness 目标，推理沿用原重建分数。
+- Evidence: 15×4 model-dataset 组合中 52/60 VUS-PR 提升、8 个回退；Gaussian 测试噪声和 loss ablation 提供支持，但按数据集调参且作者报告方差 / 成本限制。
+- Progress: 完成第 27/33 篇实际 PDF 精读，已生成详细笔记和知识卡片；未运行代码或训练。
+
+
+## 2026-10-23 — Knowledge Review v11: TSAD batch 9
+
+- Scope: KAN-AD、RTdetector、IGAD，与此前 24 篇综述证据交叉对照。
+- Main synthesis: 区分函数表达平滑、原分布趋势恢复、自条件残差放大和训练期 fixed-point manifold 约束；这些改善拟合 / 重建证据，但不自动识别业务状态语义或波动来源。
+- Evidence gaps: 状态变化与故障并发、rare-normal safety、统一鲁棒性 protocol、固定 FPR / 延迟和可复现 score 细节。
+- Progress: 27/33 完成；3 篇精读笔记 / 知识卡片、Review v11、INDEX 与问题进度已更新。
+- Next batch (28–30): ScatterAD、COGNOS、TeamWork。

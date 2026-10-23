@@ -27,7 +27,7 @@
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
-- **TSAD 精读进度：24/33**；最近完成第 8 批 zero-shot / VLM / open-set 论文，进度与问题见 [learning log](notes/learning-log.md) 和 [Knowledge Review v10](notes/reviews/knowledge-review-v10.md)。
+- **TSAD 精读进度：27/33**；最近完成第 9 批平滑预测 / 重建趋势 / 幂等重建论文，进度与问题见 [learning log](notes/learning-log.md) 和 [Knowledge Review v11](notes/reviews/knowledge-review-v11.md)。
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
 - [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - [CAROTS — causality-aware contrastive MTSAD](papers/carots/notes.md) · [知识卡片](papers/carots/knowledge-card.md)
@@ -52,6 +52,9 @@
 - [Harnessing VLMs for TSAD — visual screening and global verification](papers/vlm4ts/notes.md) · [知识卡片](papers/vlm4ts/knowledge-card.md)
 - [TimeRCD — zero-shot relative context discrepancy](papers/time-rcd/notes.md) · [知识卡片](papers/time-rcd/knowledge-card.md)
 - [IMPACT — influence-based open-set TSAD](papers/impact/notes.md) · [知识卡片](papers/impact/knowledge-card.md)
+- [KAN-AD — Fourier-smooth forecasting](papers/kan-ad/notes.md) · [知识卡片](papers/kan-ad/knowledge-card.md)
+- [RTdetector — reconstruction trend and self-conditioning](papers/rtdetector/notes.md) · [知识卡片](papers/rtdetector/knowledge-card.md)
+- [Idempotent Reconstruction / IGAD — fixed-point manifold regularization](papers/idempotent-reconstruction/notes.md) · [知识卡片](papers/idempotent-reconstruction/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
@@ -66,6 +69,7 @@
 - [Knowledge Review v8 — TSAD batch 6: perturbation contrast, tri-domain localization, and sub-adjacent reconstruction](notes/reviews/knowledge-review-v8.md)
 - [Knowledge Review v9 — TSAD batch 7: LLM distillation, zero-shot prompting, and evidence-grounded reasoning](notes/reviews/knowledge-review-v9.md)
 - [Knowledge Review v10 — TSAD batch 8: visual verification, relative context, and open-set influence](notes/reviews/knowledge-review-v10.md)
+- [Knowledge Review v11 — TSAD batch 9: smooth forecasting, reconstruction trends, and idempotent manifolds](notes/reviews/knowledge-review-v11.md)
 
 ## AIOps Literature — First-stage Triage
 
