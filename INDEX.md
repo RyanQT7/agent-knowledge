@@ -42,6 +42,9 @@
 - [Quo Vadis — unsupervised TSAD baselines and evaluation protocols](papers/quo-vadis/notes.md) · [知识卡片](papers/quo-vadis/knowledge-card.md)
 - [The Elephant in the Room / TSB-AD — reliable TSAD benchmark](papers/tsb-ad/notes.md) · [知识卡片](papers/tsb-ad/knowledge-card.md)
 - [TFMAE — temporal-frequency masked autoencoders](papers/tfmae/notes.md) · [知识卡片](papers/tfmae/knowledge-card.md)
+- [TriAD — self-supervised tri-domain anomaly detection](papers/triad/notes.md) · [知识卡片](papers/triad/knowledge-card.md)
+- [PCRTA — perturbation-guided contrastive representation learning](papers/pcrta/notes.md) · [知识卡片](papers/pcrta/knowledge-card.md)
+- [Sub-Adjacent Transformer — reconstruction from non-adjacent neighborhoods](papers/sub-adjacent-transformer/notes.md) · [知识卡片](papers/sub-adjacent-transformer/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
@@ -53,6 +56,7 @@
 - [Knowledge Review v5 — TSAD batch 3: latent history, channel grouping, and dynamical evidence](notes/reviews/knowledge-review-v5.md)
 - [Knowledge Review v6 — TSAD batch 4: three kinds of relational anomaly evidence](notes/reviews/knowledge-review-v6.md)
 - [Knowledge Review v7 — TSAD batch 5: evaluation reliability and temporal-frequency evidence](notes/reviews/knowledge-review-v7.md)
+- [Knowledge Review v8 — TSAD batch 6: perturbation contrast, tri-domain localization, and sub-adjacent reconstruction](notes/reviews/knowledge-review-v8.md)
 
 ## AIOps Literature — First-stage Triage
 

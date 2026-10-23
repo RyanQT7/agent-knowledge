@@ -381,3 +381,36 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - 局部 high-CV 的合法业务峰谷和真实故障如何区别；频域低幅值 mask 是否可能遮盖弱但关键的周期模式？（PDF Eqs. 1–10; Table V）
 - adversarial symmetric-KL 是否跨随机种子和不同正常状态稳定？新状态与故障并发时 discrepancy 的变化是什么？（PDF Eqs. 14–16; Fig. 9）
 - anomaly-rate threshold 错配、无标签正常 calibration、非 PA interval metric 和事件延迟下的表现如何？（PDF §V-A, Table III）
+
+
+## Knowledge Review v8: TSAD batch 6 status update
+
+本节整合 18 篇已完成全文精读；后续 15 篇仍可能改变结论。TriAD、PCRTA、Sub-Adjacent Transformer 的逐篇问题见下文，交叉比较见 [Knowledge Review v8](reviews/knowledge-review-v8.md)。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 已有 periodic residual / 多域表示、perturbation pseudo-label、sub-adjacent temporal context、test-time adaptation、频谱和 memory 等，但未按业务运行状态语义建模并验证状态迁移。 |
+| 正常业务波动与真实故障如何区分？ | Partially Answered | 已有频域、局部扰动、窗口离群、关系与重建上下文等 statistical evidence；没有状态变化 / 故障 / 并发 / 未见状态的统一控制实验。 |
+| 是否使用 Metric、Trace、workload、release context？ | Open | TriAD、PCRTA、Sub-Adjacent 均从数值时序及变换视图构造分数，没有引入业务上下文或 Trace。 |
+| 方法是否解释波动来源？ | Partially Answered | TriAD 定位候选时窗、PCRTA 学扰动类别、Sub-Adjacent 显示低 attention contribution；这些证据不等于业务原因或根因归因。 |
+| 如何处理正常负载变化与真实故障并发？ | Open | 18 篇没有系统并发矩阵；单事件 top-1 window、fixed perturbation family、fixed sub-adjacent band 均需检验。 |
+| 哪些方向已有先行机制？ | Partially Answered | 多域 contrast、synthetic anomaly perturbations、LOF representation scoring、局部上下文 attention constraint、variable-length discord search 均已有具体实现。 |
+| 哪些结果不可直接外推？ | Partially Answered | TriAD 假设每条 test series 一个 anomaly event；PCRTA 和 Sub-Adjacent 用 test-best F1；Sub-Adjacent 还用 point adjustment 与 pooled/per-entity 混合比较。 |
+
+### From TriAD reading
+
+- 每条测试序列 $Z=1$、top-1 candidate window 对多事件 / 持续故障 / 状态切换的表现如何？（PDF §§III-D, IV-A）
+- periodic residual 的估计实现和 period estimation error 会怎样影响频率 / residual ranking？（PDF §III-B, code）
+- vote threshold、MERLIN candidate intervals 和异常窗口 fallback 如何在固定误报预算、无 PA event metric 下校准？（PDF §III-D, IV-B, IV-G）
+
+### From PCRTA reading
+
+- 六种固定 synthetic perturbation 是否覆盖真实领域异常？能否将其和正常业务峰值、release、慢漂移作受控对照？（PDF §III-C, Table 1）
+- pseudo-label 分类混淆是否跨 seed 稳定；若合法的新正常类别也难判，contrastive objective 是否放大误分？（PDF §§III-C–D, Table 3）
+- validation-only threshold 与 test-best F1 的差距、七个 LOF view 的端到端时延和边界对齐怎样报告？（PDF §§III.1, IV）
+
+### From Sub-Adjacent Transformer reading
+
+- sub-adjacent distance band 能否随采样率、period、运行负载状态自适应？循环窗口边界是否带来不真实的首尾关系？（PDF §3.2, Eqs. 1–4）
+- 局部状态切换和长持续异常是否同样无法从 sub-adjacent neighborhood 重建？怎样与真实故障区分？（PDF §§3.2–3.3）
+- test-best threshold / point adjustment / pooled-vs-per-entity protocol 对主表增益影响多大？（PDF §§4.2–4.4, Tables 2–8）

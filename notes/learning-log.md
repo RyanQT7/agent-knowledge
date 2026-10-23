@@ -417,3 +417,35 @@
 - Current gaps in 15-paper scope: workload / Trace / release 条件化、正常状态切换与故障并发、固定告警运行点、benchmark curation selection effect、双视图机制在业务高波动下的稳定性。
 - Progress: 15/33 完成，三篇各自笔记 / 卡片和 Review 已更新知识索引及问题列表。
 - Next batch (16–18): Unraveling the “Anomaly” (tri-domain); Perturbation Guiding Contrastive Representation; Sub-Adjacent Transformer.
+
+
+## 2026-10-23 — TriAD
+
+- Paper: *Unraveling the “Anomaly” in Time Series Anomaly Detection: A Self-supervised Tri-domain Solution* (ICDE 2024).
+- Core takeaway: temporal / frequency / periodic-residual embedding 加入域内与域间 contrastive loss；每域 top-1 window 缩小搜索区域，再由 MERLIN 做多长度 discord 定位。
+- Evidence: 250 个 UCR 单事件数据集、PA%K / affiliation；62 个最短数据上的 MERLIN++ 对比有更高准确度和更低时间。主假设是单 test event；vote 权重未校准，residual extraction 需核对代码。
+- Progress: 完成第 16/33 篇全文精读、详细笔记和知识卡片；已 commit/push `d1d689a`。
+
+
+## 2026-10-23 — PCRTA
+
+- Paper: *Perturbation Guiding Contrastive Representation Learning for Time Series Anomaly Detection* (IJCAI 2024).
+- Core takeaway: 以六种 point / contextual / collective perturbations 训练扰动识别器，用其 pseudo-label 选同类 top-k positives / 异类 negatives，训练后对七类 view 的 embedding 做 LOF average。
+- Evidence: 六集 F1 / AUC-PR 上五集第一、ASD 第二；三集 ablation 支持 classifier / contrastive 模块。best F1 通过 threshold enumeration 获得，需按 test-oracle protocol 理解。
+- Progress: 完成第 17/33 篇全文精读、详细笔记和知识卡片；已 commit/push `3c2d094`。
+
+
+## 2026-10-23 — Sub-Adjacent Transformer
+
+- Paper: *Sub-Adjacent Transformer: Improving Time Series Anomaly Detection with Reconstruction Error from Sub-Adjacent Neighborhoods* (IJCAI 2024).
+- Core takeaway: attention 只聚合离目标时间点 $[k_1,k_2]$ 距离的 sub-adjacent contexts，使紧邻复制更难；score 结合低 contribution 和高重建误差。
+- Evidence: 六真实集 + NeurIPS-TS；mapping、band、window 和 loss ablation。主 F1 使用 point adjustment 且 threshold 为 test best-F1；multi-entity comparison 有 pooled / per-entity protocol 差异。
+- Progress: 完成第 18/33 篇全文精读、详细笔记和知识卡片；已 commit/push `2cd50c1`。
+
+
+## 2026-10-23 — Knowledge Review v8: TSAD batch 6
+
+- Scope: TriAD、PCRTA、Sub-Adjacent Transformer，与前 15 篇综合对照。
+- Main synthesis: 区分 augmentation hard negatives、扰动分类伪标签 + LOF、非紧邻 reconstruction constraint；同时标出 triad single-event、best-F1 threshold、point adjustment 和运行 context 缺口。
+- Progress: 18/33 完成；三篇笔记 / 卡片、Review、INDEX、questions 均更新并同步。
+- Next batch (19–21): Large Language Model Guided Knowledge Distillation; Delving into Large Language Models for Effective TSAD; AnomSeer.
