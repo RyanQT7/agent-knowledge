@@ -232,6 +232,23 @@
 - 负载变化和故障同时发生时，静态服务正常谱基如何避免把短期故障并入常见模式？论文尚无该并发场景实验。（PDF §§IV–V）
 
 
+## Knowledge Review v4: TSAD batch 2 status update
+
+本节基于 CAPMix、When Model Meets New Normals、CAROTS、CrossAD、Fortifying Time Series、MACE 六篇已完成笔记；更多 TSAD 论文尚待读，结论可继续变化。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | MACE 学习跨服务频率子空间，CAROTS 通过 SOC 保留共享因果关系下的多样正例，CrossAD 用跨窗原型，WMMNN 在线跟随分布；尚未证实能识别并命名同一服务的动态业务状态。 |
+| 正常波动和真实故障如何区分？ | Partially Answered | 已有形态、趋势、因果依赖、跨尺度映射、服务频谱等证据，但尚无 workload / release 外部核验和负载—故障并发实验。 |
+| 是否利用 Metric、Trace、业务负载与运行上下文？ | Open | 六篇均以时序为主；MACE 用服务身份作静态条件，CAROTS 将外生变量列为未来方向，未见成套 Trace / workload / release 条件化验证。 |
+| 检测机制能否解释波动来源？ | Partially Answered | CAROTS、CrossAD、MACE 引入变量关系、尺度关系或频率模式，但没有业务事件根因解释链。 |
+| 如何处理正常负载变化与真实故障并发？ | Open | 六篇没有系统构造这类测试；更新污染、静态正常参考失配、因果结构切换和窗口原型安全性仍待研究。 |
+| 哪些技术方向已有先行工作？ | Partially Answered | 多服务 normality、online drift adaptation、multi-scale、causal TSAD、DTW attacks / smoothing 均已出现；创新性需定位到明确机制与新增实验。 |
+| 哪些实验结论需谨慎解释？ | Partially Answered | 阈值、point adjustment、WADI / SWAN 表文差异、MACE 未见模式基来源、DTW certificate coverage 与在线成本都有限制。 |
+
+详细分析见 [Knowledge Review v4](reviews/knowledge-review-v4.md)。
+
+
 ## Knowledge Review v3: TSAD batch 1
 
 本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。

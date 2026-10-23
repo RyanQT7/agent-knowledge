@@ -40,6 +40,7 @@
 - [Knowledge Review v1 — ReAct, Toolformer, Reflexion](notes/reviews/knowledge-review-v1.md)
 - [Knowledge Review v2 — Planning batch: LLM+P, RAP, ReWOO](notes/reviews/knowledge-review-v2.md)
 - [Knowledge Review v3 — TSAD batch 1: normal variation, adaptation, and causal structure](notes/reviews/knowledge-review-v3.md)
+- [Knowledge Review v4 — TSAD batch 2: multi-pattern normality, scale relations, and DTW certification](notes/reviews/knowledge-review-v4.md)
 
 ## AIOps Literature — First-stage Triage
 

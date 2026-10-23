@@ -302,3 +302,11 @@
 - New concepts: service-conditioned normal frequency subspace；context-aware DFT / IDFT；time / frequency dualistic convolution；sparse Fourier basis KL gap。
 - Open questions: unseen service 的 basis 来源；业务上下文与多运行态；异常频谱假设范围；表格 F1 的阈值可复现性；负载变化与故障并发。
 - Next step: 完成第二批三篇 TSAD Knowledge Review；随后进入第三批，按主题安排剩余论文。
+
+
+## 2026-10-23 — Knowledge Review v4: TSAD batch 2
+
+- Scope: CrossAD, Fortifying Time Series, MACE，与首批三篇作对照。
+- Main synthesis: 区分服务频谱先验、跨尺度 / 跨窗统计模式和 DTW 对抗决策证书；确认这些分别处理跨服务异质性、重构关联和攻击不变性，不等于识别业务运行语义。
+- Most important open questions: 同服务动态多状态、业务上下文 / Trace、负载与故障并发、异常安全更新、无标签阈值及鲁棒性成本。
+- Next step: 阅读下一批主题论文；完成其余 33 篇后再判断全库研究空白并生成综合报告。
