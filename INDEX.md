@@ -30,6 +30,7 @@
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
 - [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - [CAROTS — causality-aware contrastive MTSAD](papers/carots/notes.md) · [知识卡片](papers/carots/knowledge-card.md)
+- [CrossAD — cross-scale associations and cross-window modeling](papers/crossad/notes.md) · [知识卡片](papers/crossad/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

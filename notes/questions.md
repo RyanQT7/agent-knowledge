@@ -205,6 +205,15 @@
 - 业务负载、发布、Trace 等外生上下文能否改善因果图在多种正常工作模式间的迁移？（Appendix §D）
 
 
+## From CrossAD reading
+
+- query 库和全局多尺度原型是否对应稳定、可解释的正常运行状态，还是仅为统计子序列聚类？（PDF pp.6–7, 22–25）
+- 负载 / 发布变化导致跨尺度映射改变时，如何识别合法的新正常；若异常同时发生，如何防止原型更新吸收故障？（PDF §§3.2–3.3; Appendix A）
+- 原型上下文是否在测试阶段更新？正文聚焦训练更新，而 Algorithm 1 写“每个新窗口”，需核实代码及具体推理流程。（PDF p.7; p.21）
+- 主文声称全数据集 VUS 指标领先，但 SWAN VUS-ROC 表格低于 TimesNet；Table 3 消融增幅文字与表值计算也不完全一致，差异来源是什么？（PDF pp.8–10, Tables 1, 3）
+- 跨尺度重构与 CAROTS 跨变量预测关系能否联合，以区分局部—全局形态变化和变量联动变化？目前尚无组合实验。（CrossAD §§3–4; CAROTS note）
+
+
 ## Knowledge Review v3: TSAD batch 1
 
 本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。

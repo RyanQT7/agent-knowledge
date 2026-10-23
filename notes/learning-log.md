@@ -272,3 +272,13 @@
 - Main conceptual change: 将正常性证据分为窗口形态、测试时分布状态、跨变量预测关系；训练期增强、在线适应和因果建模互补但假设不同。
 - Most important open questions: 负载变化与故障并发、上下文/Trace 使用、因果图正确性、在线伪标签污染和无标签阈值校准。
 - Next themes: CrossAD、Fortifying Time Series、以及多模式正常性建模。
+
+
+## 2026-10-23 — CrossAD
+
+- Date: 2026-10-23
+- Paper: CrossAD: Time Series Anomaly Detection with Cross-scale Associations and Cross-window Modeling
+- Core takeaway: 通过粗尺度条件下的细尺度重建检测尺度映射失配，并将周期路由的子序列表示聚合到窗口间原型上下文；该上下文表示统计模式，不提供业务状态语义或波动归因。
+- New concepts: cross-scale reconstruction；scale-independent / cross-scale attention masks；period-aware sub-series query；EMA global multi-scale prototypes。
+- Open questions: 多种业务正常状态与故障并发时的状态识别；原型推理期是否更新；业务上下文是否能解释原型；SWAN VUS-ROC 与消融增益表文不一致。
+- Next step: 阅读 Fortifying Time Series，比较 DTW 鲁棒性认证的威胁模型、扰动范围和业务时序变化。
