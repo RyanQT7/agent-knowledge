@@ -195,3 +195,11 @@
 - 负载跃迁、发布与故障同时出现时，如何让趋势状态只吸收合法的新正常？本文没有使用 workload 或运维上下文。（PDF pp.3–4；[精读笔记](../papers/when-model-meets-new-normals/notes.md#11-limitations-and-reproduction-value)）
 - 在线阈值如何在不查看测试标签时兼顾逐点检出与事件级误报成本？（PDF pp.5, 7）
 - Appendix 对 WADI 的 FP/TP 数值与变化方向为何不一致；Table 12 的计数使用什么阈值口径？（PDF pp.10, 15）
+
+
+## From CAROTS reading
+
+- 因果保持的正常负载变化、故障和因果机制切换如何区分？静态训练图在运维模式变化后何时过期？（PDF pp.1, 4, 17；[CAROTS 笔记](../papers/carots/notes.md#13-questions)）
+- 如何验证 CUTS+ 得到的因果图与 CPA/CDA 的语义保真度，而不只看图相似度和下游分数？（PDF pp.15–18）
+- 为什么 (A_{CD}) 在 WADI 与 SWaT 等数据集贡献不同；是否需要上下文门控或独立校准？（PDF pp.8, 17）
+- 业务负载、发布、Trace 等外生上下文能否改善因果图在多种正常工作模式间的迁移？（Appendix §D）

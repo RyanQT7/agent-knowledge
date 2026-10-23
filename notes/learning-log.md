@@ -254,3 +254,13 @@
 - New concepts: new normal problem；趋势估计 + 预测正常掩码的测试时适应。
 - Open questions: 业务负载与故障并发如何安全适应；不同数据集的阈值/EMA/学习率能否自动确定；WADI 附录的 TP/FP 报告数字为何不一致。
 - Next step: 阅读 CAROTS，比较在线适应与上下文/因果增强。
+
+
+## 2026-10-23 — CAROTS
+
+- Date: 2026-10-23
+- Paper: Causality-Aware Contrastive Learning for Robust Multivariate Time-Series Anomaly Detection (CAROTS)
+- Core takeaway: CPA/CDA 按估计 Granger 图生成因果保持正常与因果破坏伪异常，SOC 保留多种正常语义模式；固定因果机制是假设，WADI 上双分数融合弱于对比分数单项。
+- New concepts: causality-preserving / causality-disturbing augmentation；similarity-filtered one-class contrastive loss；causal forecast + latent centroid ensemble。
+- Open questions: 因果结构变化的正常切换如何处理；如何验证估计因果图真实可靠；业务上下文和外生变量如何接入。
+- Next step: 完成前三篇的跨论文 Review；继续 CrossAD。
