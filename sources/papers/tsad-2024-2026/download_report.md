@@ -59,6 +59,8 @@
 
 ## Index consistency notes
 
+- CAPMix 本地 PDF 扉页包含未替换的 ACM 模板字段（“Conference acronym XX”、2018、空 DOI）；题名和正文与论文对应，但出版元数据以清单所列 ASE 2026 / DOI 为准。PDF 未改动。
+
 - The referenced summary Markdown and CSV are absent, so their entries, original URLs, and internal consistency could not be compared. Neither was altered or reconstructed as an “original” copy.
 - The Sub-Adjacent Transformer PDF's retained filename is truncated (`...Sub_Adjac.pdf`); the full title above is verified against the IJCAI proceedings entry.
 - The 2026 KDD paper was stored under `AIOps_papers` and has been moved into this TSAD collection. The 2026 `TKDE26-TFT-GCN` item is a journal paper, so it is outside this conference-only scope. The broad KDD time-series foundation-model survey was not included because it is not specifically a TSAD paper.

@@ -235,3 +235,12 @@
 - Main conceptual change: separated evidence provenance, candidate-space semantics, target-specific verification, workflow repair, and physical recovery; strengthened the Hybrid RCA architecture while marking network hierarchy, open-set/multi-root handling, rollback, and recovery as hypotheses or gaps.
 - Most important open questions: a network Evidence Ticket, hierarchical/open-set/multi-root candidate evaluation, and independent recovery verification for human-gated remediation.
 - Next step: pursue the research-question-driven network batch; do not treat this synthesis as a proven end-to-end system.
+
+## 2026-10-23 — CAPMix
+
+- Date: 2026-10-23
+- Paper: CAPMix: Robust KPI Anomaly Detection for AIOps in Noisy and Dynamic Environments
+- Core takeaway: DTW 软化正常邻域内的伪异常标签，双空间 Mixup 限制夸张注入模式对 KPI 判别边界的偏置；收益因数据集而异。
+- New concepts: Anomaly Shift；DTW-based label revision；dual-space mixup for anomaly augmentation。
+- Open questions: 单一正常均值如何处理多种工作状态；业务负载与故障并发时能否区分；训练异常标签来源及固定阈值表现。
+- Next step: 阅读 When Model Meets New Normals，比较训练增强与测试时适应对新正常状态的处理。

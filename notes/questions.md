@@ -175,3 +175,15 @@
 - Planning 是否一定需要 search，还是可以通过单一路径的可验证计划生成完成？
 - world model 预测的 imagined state 何时足以替代真实 Observation，何时必须由环境或 symbolic simulator 校验？
 - Planner 的 reward 与 Agent 任务真实效用不一致时，如何检测 search-induced error？
+
+## From CAPMix reading
+
+### 论文明确留下或未充分回答的问题
+
+- 单一训练窗口均值中心能否表达多种正常业务状态，还是会把稀有但合法的状态当作偏离？（PDF §3.3.2；[CAPMix 笔记](../papers/capmix/notes.md#14-questions)）
+- KPI 与负载、发布或扩缩容变化同时出现时，如何区分正常业务变化与真实故障？本文提到这些波动，但未显式使用业务上下文作为模型条件。（PDF §1, §5）
+- Benchmarks 中原始异常标签是否逐数据集可用于训练，以及无标签污染样本如何处理？（PDF §3.4, §4.1；[CAPMix 笔记](../papers/capmix/notes.md#11-limitations)）
+
+### 基于 CAPMix 进一步产生的问题
+
+- 在不扫描测试标签选最佳阈值的前提下，CAPMix 的告警成本、误报率和检出率是否仍有优势？
