@@ -80,7 +80,7 @@ $$S_i^{(k)}[p]=\operatorname{median}_{j\ne i}U_{i,j}^{(k)}[p].$$
 
 ### 6.4 评估协议与指标
 
-对输出连续分数的方法，先按 exponential moving average 平滑，再以 Gaussian threshold $\mu+k\sigma$ 扫描 $k$。主要表格报告 sweep 得到的 contextual F1-max；产生 binary label 的方法按默认设置评价。该指标是跨阈值事后最大值，不能直接解读成固定误报预算下的运行表现。（§4, p.5; Appendix C.5）
+原始序列先 min-max 到 $[0,1]$ 并移除 least-squares linear trend；Yahoo A4 另在已知 change point 前后分别标准化。对连续分数再按 exponential moving average 平滑，以 Gaussian quantile threshold $\tau_\alpha=\mu+z_\alpha\sigma$ 扫描 $z_\alpha$，其中 $\alpha\in\{0.10,0.01,0.001\}$，报告 unweighted contextual F1 与其最大值 F1-max；binary-label 方法按默认输出评价。A4 的分段标准化和 F1-max 都是比较协议的一部分，不能直接解读成固定误报预算下的运行表现。（§4, p.5; Appendix C.5）
 
 ## 7. Experimental Design and Evidence
 
