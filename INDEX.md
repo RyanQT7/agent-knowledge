@@ -26,6 +26,7 @@
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
+- [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
