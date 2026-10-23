@@ -330,3 +330,13 @@
 - New concepts: correlation-profile spectral clustering；cluster-specific embedding；masked causal temporal mixer；empirical p-value sequential evidence；boundary correction。
 - Open questions: test-label Best-F1 阈值与无标签线上阈值差距；静态关系簇应对动态业务状态的迁移；负载与故障并发下的事件延迟和边界修正。
 - Next step: 阅读 TFC 完成第三批，再综合 Graph-MoE、CCM-TAD 与已有动态 normality / 多关系方法。
+
+
+## 2026-10-23 — TFC
+
+- Date: 2026-10-23
+- Paper: Rethinking Time Series Anomaly Detection from a Dynamic Perspective: Temporal–Frequency–Curvature Fusion
+- Core takeaway: TFC 以二阶差分显式放大轨迹弯折，以 MSA 读取多跨度曲率模式，并用频率 cross-attention 抑制正常周期震荡误报；其实现仍是逐条 univariate 表征，没有使用动机方程中的外生业务驱动。
+- New concepts: discrete curvature evidence；multi-span masked attention；frequency–curvature calibration；temporal / pattern expert routing；Event-F1。
+- Open questions: 逐点 score / loss 的精确公式、中心差分的在线前视、无标签 threshold 结果、正常业务周期切换与故障并发、Table 1 / 2 TODS 数值差异。
+- Next step: 将 Graph-MoE、CCM-TAD、TFC 与前六篇整合为 batch 3 Knowledge Review，并据主题安排后续阅读。

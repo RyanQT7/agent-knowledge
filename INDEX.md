@@ -35,6 +35,7 @@
 - [MACE — multi-pattern normality in the frequency domain](papers/mace/notes.md) · [知识卡片](papers/mace/knowledge-card.md)
 - [Graph-MoE — multi-level graph experts and memory routing](papers/graph-moe/notes.md) · [知识卡片](papers/graph-moe/knowledge-card.md)
 - [CCM-TAD — cluster-aware causal mixer for online multivariate TSAD](papers/ccm-tad/notes.md) · [知识卡片](papers/ccm-tad/knowledge-card.md)
+- [TFC — temporal, frequency, and curvature fusion](papers/tfc/notes.md) · [知识卡片](papers/tfc/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

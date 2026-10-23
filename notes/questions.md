@@ -249,6 +249,15 @@
 - 相关 profile clustering 对 PSM 的 NN-sep 几乎无增益，什么数据条件决定聚类表示真正有用？（PDF §4.2.3, Table 6）
 
 
+## From TFC reading
+
+- TFC 如何将融合输出 $\\hat Y$ 转成逐点异常分数并定义训练 loss？论文主文 / 附录没有给出精确映射。（PDF §§3–4）
+- 状态空间动机中的外生驱动 $u_t$ 如何进入实际算法？模型逐条单变量训练，未使用 workload / Trace / release 条件。（PDF Eq. 4; Appendix C）
+- 曲率中心差分依赖 $t+1$，temporal Transformer 也未描述 causal mask；逐点在线告警延迟如何定义？（PDF Eq. 12, §3.3）
+- 正常周期变化和真实故障并发时，frequency branch 是否会校准掉故障证据？论文没有该并发情景实验。（PDF §3.4）
+- Table 2 的 TFC TODS F1 / Event-F1 (.9258/.9155) 与 Table 1 (.9481/.9231) 不一致，差异来自何种 run / protocol？（PDF pp.6–8, Tables 1–2）
+
+
 ## Knowledge Review v4: TSAD batch 2 status update
 
 本节基于 CAPMix、When Model Meets New Normals、CAROTS、CrossAD、Fortifying Time Series、MACE 六篇已完成笔记；更多 TSAD 论文尚待读，结论可继续变化。
