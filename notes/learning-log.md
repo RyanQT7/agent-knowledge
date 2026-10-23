@@ -292,3 +292,13 @@
 - New concepts: DTW-certified radius；percentile smoothing for unbounded anomaly scores；Keogh envelope slack；certified confusion matrix under evasion / availability.
 - Open questions: DTW 扰动是否符合业务语义；Keogh 的保守性与零证书 coverage；推理多次采样的成本；新正常在线适应后认证边界。
 - Next step: 阅读 Learning Multi-Pattern Normalities in the Frequency Domain，比较显式多模式表示与统计平滑 / 证书路线。
+
+
+## 2026-10-23 — MACE
+
+- Date: 2026-10-23
+- Paper: Learning Multi-Pattern Normalities in the Frequency Domain for Efficient Time Series Anomaly Detection
+- Core takeaway: 按服务从训练正常频谱抽取高频 Fourier bases，以服务条件子空间统一多服务模式；时域双卷积突出短异常，频域双卷积抑制高方差异常谱的重构。该“多模式”主要是跨服务差异，不代表同服务的动态业务状态已经建模。
+- New concepts: service-conditioned normal frequency subspace；context-aware DFT / IDFT；time / frequency dualistic convolution；sparse Fourier basis KL gap。
+- Open questions: unseen service 的 basis 来源；业务上下文与多运行态；异常频谱假设范围；表格 F1 的阈值可复现性；负载变化与故障并发。
+- Next step: 完成第二批三篇 TSAD Knowledge Review；随后进入第三批，按主题安排剩余论文。

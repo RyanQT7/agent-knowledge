@@ -223,6 +223,15 @@
 - 本地 PDF 的 NeurIPS 2025 标记与 2026 arXiv v1 标记对应哪个公开版本，会议终稿是否一致？（PDF p.1）
 
 
+## From MACE reading
+
+- 未见服务在 Table VIII 的 context-aware DFT bases 从何处获得？结果是否需要目标服务的未标注正常窗口，或确为无需目标样本的 zero-shot？（PDF §§IV-C, V-B）
+- 如何把静态 service-specific pattern subspace 扩展为同一服务随 workload、时段、发布及扩缩容切换的多种正常运行态？（PDF §§I, IV-C）
+- 频谱高方差 / 正向 i.i.d. amplitude shift 假设是否适用于低能量、相位型和跨变量关系型故障？（PDF pp.5–8, Theorems 1–2）
+- F1 使用的阈值协议、reconstruction norm 和测试期标签使用能否从 supplementary code 明确复现？（PDF §§III, V）
+- 负载变化和故障同时发生时，静态服务正常谱基如何避免把短期故障并入常见模式？论文尚无该并发场景实验。（PDF §§IV–V）
+
+
 ## Knowledge Review v3: TSAD batch 1
 
 本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。
