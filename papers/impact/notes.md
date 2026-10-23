@@ -109,7 +109,7 @@ $$\mathcal L_{re}=\mathcal L_{seen}+\lambda\mathcal L_{unseen}. \tag{19}$$
 
 ### 7.1 Datasets / protocols / baselines
 
-8 个 benchmark：单一 anomaly class 的 UCR、ASD、PSM、SMD；含多 anomaly classes 的 character trajectory CT、spoken Arabic digits SAD、PTB-XL ECG、TUSZ EEG。数据覆盖 UCR 异质单变量、服务 / cluster telemetry、语音与医疗波形。（§4.1; Appendix E, pp.17–18）
+8 个 benchmark：单一 anomaly class 的 UCR、ASD、PSM、SMD；含多 anomaly classes 的 character trajectory CT、spoken Arabic digits SAD、PTB-XL ECG、TUSZ EEG。每个时间区间作为一个 sample；附录列出 interval 长度分别为 93–1,000、维数为 1–38。数据覆盖 UCR 异质单变量、服务 / cluster telemetry、语音与医疗波形。（§3, §4.1; Appendix E, pp.17–18）
 
 两类主 setting：unsupervised baseline 只看 nominal training；open-set general protocol 从可用 anomaly classes 随机抽 labeled examples；hard setting 对多类数据只以一个 anomaly class 的标签训练，测试时需泛化到其余 unseen classes。两个 open-set setting 默认每个用于监督的类别只用 10 个 anomaly examples。训练数据额外注入 2% test anomalies 作为 contamination；这些污染样本从最终 test set 排除，以避免 train-test leakage。作者用 AUC、五次独立运行报告 mean ± std。（§4.1; Appendix E）
 
@@ -138,7 +138,7 @@ Table 3 支持多模块互补：
 - 在 2%–10% contamination rate 的敏感性图中，IMPACT 随污染增加表现相对稳定；ASD、SMD 某些点随污染率升高反而改善，作者将其解释为把污染改造成额外异常监督。该实验污染来源为测试 anomaly 且从最终测试剔除。（Appendix H.3, pp.20–22）
 - 与 COE、WMix、COE-WMix、CutAddPaste 替换比较时，IMPACT hard setting 较稳定；feature distribution KLD 报告比基线 augmentation 平均低 64.13%（范围 0.03–0.32 vs. 0.15–1.53），并展示 t-SNE。KLD / t-SNE 仅说明该协议下合成 feature 与 unseen feature 分布较接近，不证明生成时序可解释或因果真实。（Appendix H.4, pp.22–24）
 - 多通道数敏感性显示 3–5 channels 通常兼顾信息量和抗噪；通道过多可降低表现。（Appendix H.6, p.25）
-- 额外 point-level evaluation 在 UCR / ASD / PSM / SMD 报 Affiliation-F1 与 VUS-ROC；IMPACT 对 Affiliation-F1 在前三个数据集第一、PSM 第二，对 VUS-ROC 四集第一。（Appendix H.7, p.26）
+- 额外 point-level evaluation 在 UCR / ASD / PSM / SMD 将测试序列以 stride 1 滑窗切成连续 intervals，再把每窗分数赋到其末端时间点；报告 Affiliation-F1 与 VUS-ROC。IMPACT 对 Affiliation-F1 在前三个数据集第一、PSM 第二，对 VUS-ROC 四集第一。（Appendix H.7, p.26）
 - 作者给 influence computation 的复杂度论断 $O(MP)$（$M$ nominal samples，$P$ parameters），并以合成规模对比报告近似随样本量线性增长；实际开销仍依赖参数维度、Hessian/Fisher 近似和实现。（Appendix H.8, pp.26–28）
 
 ## 8. Technical Contribution and Limitations
