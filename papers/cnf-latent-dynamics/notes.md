@@ -94,7 +94,13 @@ MV-KS 的 statistical power 取决于样本数与 latent dimension。synthetic e
 - **[实验支持]** 当训练满足 latent dynamics，例如 NEK 序列 FIT 88%、Stock 100%，NLL 的 mean VUS-PR 约 54、KS 约 44，表现具竞争力；MITDB 不满足合规时，FIT 约 18%（不同表列为相应 subset 的 FIT），两类 scoring 均退化。（§4.2, Tables 3–5）
 - **[作者解释]** NLL 在真实 point/spike anomalies 往往更好，KS 在 synthetic structural / frequency / amplitude / regime changes 更有优势。作者把方法定位为无监督时使用合规统计检验，而不是取代所有 likelihood detector。（§5, PDF p. 8）
 
-### 6.4 训练 compliance 对部署的意义
+### 6.4 消融：latent dynamics 相对标准高斯 prior 的作用
+
+作者在 UCR、TAO、MITDB、Exathlon、Yahoo、Opportunity 等真实序列上比较 LG-LDM 与标准 $\mathcal N(0,I)$ latent prior。使用显式 LG-LDM 后，MV-KS scoring 的 VUS-PR 为 $0.921\pm0.092$，标准高斯 prior 为 $0.836\pm0.213$；VUS-ROC 为 $0.984\pm0.027$ vs. $0.977\pm0.032$。（§4.2, PDF pp. 6–7）
+
+**[实验支持]** 该消融支持：在被测序列上，规定 latent mean dynamics 优于只有静态标准高斯 prior，尤其 VUS-PR 均值及波动有明显差异。它不证明 LG-LDM 对每个数据集或所有 anomaly type 最优；MITDB 的低 FIT 和退化结果正好提示 inductive bias 适配性是前提。
+
+### 6.5 训练 compliance 对部署的意义
 
 Figure 3 展示 CNF capacity 过大或 context 不匹配时，训练 latent trajectory 的 KS statistic 会显著升高；此时自动 KS 临界值不能被信任。FIT 用于识别这种情况。论文明确指出 FIT 衡量 statistical validity，不是 AD quality。（§4.2, Fig. 3, PDF p. 7）
 

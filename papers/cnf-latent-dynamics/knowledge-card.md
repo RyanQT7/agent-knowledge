@@ -38,6 +38,7 @@
 - **[实验支持]** synthetic 4D、$w=64$ 时 MV-KS 对 NLL：AUC-PR 82.1 vs 78.8，VUS-PR 96.0 vs 92.8，Aff-F1 92.6 vs 85.0。（§4.2, Table 2）
 - **[实验支持]** TSB-AD 1080 sequences leaderboard 上 NLL 为 UTS 第 7，KS 第 17；所以 KS 不是普遍优于 NLL。（Table 5）
 - **[实验支持]** compliance 成功的 NEK / Stock 子集较强；MITDB 训练 FIT 低，NLL 与 KS 均退化。（§4.2, Tables 3–5）
+- **[消融支持]** 相对标准 $\mathcal N(0,I)$ latent prior，LG-LDM 在真实序列上 KS VUS-PR 为 $.921\pm.092$ vs. $.836\pm.213$，VUS-ROC 为 $.984\pm.027$ vs. $.977\pm.032$；不代表 LG-LDM 对所有数据都适用。（§4.2, PDF pp. 6–7）
 
 ## 8. Limitations
 

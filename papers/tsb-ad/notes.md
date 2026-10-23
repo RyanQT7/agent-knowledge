@@ -79,6 +79,8 @@ Fig. 5 以构造的异常 score 场景对比指标对时滞、区间命中及噪
 
 作者比较 MOMENT 在 TSB-AD 与其专门评估集 MOMENT-Eval 上的表现，观察到在专门评估集上的性能明显下降；对 MOMENT fine-tuning 与 zero-shot 变体的 pairwise comparison 显示 fine-tuning 可减小分布差异。（Appendix D.3–D.4, pp.28–29）这是一个数据污染风险案例，不能据此量化所有 foundation model 的污染程度。
 
+本文研究对象是数据集、指标和 benchmark protocol，不是包含可拆分网络模块的单一 detector；因此没有传统意义上的 detector component ablation。其对应实验分析是 synthetic score / lag / random-score 指标测试、异常类型子集比较、detector 排名及 MOMENT-Eval 污染案例（§§4–5; Appendix D）。
+
 ## 8. Technical Contributions and Reproduction Value
 
 1. 提供 40 个来源数据集、1,070 条 curated UTS/MTS 序列，既覆盖人工筛选也包含算法辅助审查。（Abstract; §4.1）

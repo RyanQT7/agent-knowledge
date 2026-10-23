@@ -46,7 +46,7 @@
 | [TeamWork (2026)](../../papers/teamwork/notes.md) | ERI 分 dominant / auxiliary channel，前三周期做 point/segment/period masking 后门控重建 | 8 个基准、role / branch / mask 消融 | ERI 是统计互信息 proxy 而非因果等级；静态 role 和全局 FFT 弱周期边界由作者指出（Review v12） |
 | [AnoMamba (2026)](../../papers/anomamba/notes.md) | GSR 以全局上下文重加权 Mamba step-size，并用 multi-scale prior 约束重建 | 8 集上 F1-AF 7/8、VUS-ROC 6/8 第一；去 GSR 后 UTS F1-AF 降低 | SPOT / window 固定；hidden attention 是贡献可视化而非因果解释（§§5.3, 5.8） |
 | [FlowFuse (2026)](../../papers/flowfuse/notes.md) | temporal/frequency × clustering/reconstruction 四视角分数由 coupling flow 联合建模 | 18 基准；消融对简单平均约 +8.0% Aff-F1；mixed anomaly 仍困难 | score uncertainty 是 ensemble variance proxy；view 同时失败和业务状态条件化未验证（§4） |
-| [Conditional Normalizing Flows (2026)](../../papers/cnf-latent-dynamics/notes.md) | 条件 flow 将序列映为 latent；LG-LDM + MV-KS 检验动态合规性，FIT 诊断训练 | 合成结构异常下 KS 超 NLL 若干指标；真实 leaderboard KS 排名低于 NLL | GOF 对窗口 / 维度 / 训练 FIT 敏感；LG-LDM 不适合所有数据，point anomaly 会被长窗口稀释（§§4–5） |
+| [Conditional Normalizing Flows (2026)](../../papers/cnf-latent-dynamics/notes.md) | 条件 flow 将序列映为 latent；LG-LDM + MV-KS 检验动态合规性，FIT 诊断训练 | 合成结构异常下 KS 超 NLL 若干指标；真实序列消融中 LG-LDM 的 KS VUS-PR 0.921±0.092 高于标准 Gaussian prior 0.836±0.213；真实 leaderboard KS 排名低于 NLL | GOF 对窗口 / 维度 / 训练 FIT 敏感；LG-LDM 不适合所有数据，point anomaly 会被长窗口稀释（§§4–5） |
 
 ## 2. 方法分类与技术演进
 
