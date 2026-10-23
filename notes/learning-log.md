@@ -366,3 +366,12 @@
 - Evidence: PSM/SMD/SWaT 多指标、ablation 与 SMD localization case；SLS 是对称 latent 结构而非 causal graph，推理模板静态，F1 阈值按测试真值选取且 SMD 表间口径需核对。
 - Open questions: 多模态正常 SLS、结构与物理根因对照、负载—故障并发、窗口拖尾、无标签阈值。
 - Progress: 完成第 11/33 篇完整 PDF 精读、笔记和卡片；同批第三篇为 SARAD。
+
+
+## 2026-10-23 — SARAD
+
+- Paper: *SARAD: Spatial Association-Aware Anomaly Detection and Diagnosis for Multivariate Time Series* (NeurIPS 2024).
+- Core takeaway: Transformer 读取变量维 association，比较窗口两半的 MHSA map，column-sum aggregation 得到 SAR progression；MLP 重建该 progression，和 data residual 联合检测。
+- Evidence: SMD/PSM/SWaT/HAI range AUC/VUS、诊断指标与模块消融；作者代码公开。短异常可能被半窗口稀释，attention association 不等于物理因果，SWaT/HAI 诊断标签并非完整故障 feature labels。
+- Open questions: 业务状态切换与故障并发；attention 对齐外部 topology / Trace；短异常延迟与多尺度；低成本扩展。
+- Progress: 批次 4 完成，累计 12/33 篇。下一步写 Knowledge Review v6 并按正常状态 / 鲁棒性 / 基准方法主题选择第 13–15 篇。

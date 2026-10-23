@@ -38,6 +38,7 @@
 - [TFC — temporal, frequency, and curvature fusion](papers/tfc/notes.md) · [知识卡片](papers/tfc/knowledge-card.md)
 - [GCAD — gradient-derived Granger graph deviation](papers/gcad/notes.md) · [知识卡片](papers/gcad/knowledge-card.md)
 - [OracleAD — Structured Temporal Causality](papers/oraclead/notes.md) · [知识卡片](papers/oraclead/knowledge-card.md)
+- [SARAD — spatial association reduction detection and diagnosis](papers/sarad/notes.md) · [知识卡片](papers/sarad/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

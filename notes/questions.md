@@ -321,3 +321,11 @@
 - 对称 latent-distance deviation 与真实 service topology、Trace、故障注入根因的关系如何验证？偏差矩阵的变量排序是否在全测试集而非精选案例上有效？（PDF §4.3, Appendix G）
 - prediction score × deviation score 是否会压低仅存在于单一分量的异常证据？窗口延迟和恢复期拖尾如何影响事件级报警？（PDF §§3.4, 4.3）
 - 测试标签 oracle threshold 对 F1 的提升有多大；主文与 ablation 中 SMD 子集口径差异应如何复现？（PDF Tables 1–2, Appendix D.3）
+
+
+## From SARAD reading
+
+- workload / 控制状态切换导致的 attention association reduction 与故障 SAR 如何区分？负载和真实故障并发时 progression autoencoder 会过滤哪类证据？（PDF §§3.3–3.4；[SARAD 笔记](../papers/sarad/notes.md)）
+- attention map 是否跨初始化稳定，并对应已知传感器拓扑、Trace 或干预关系？progression detection 对物理根因的解释效度如何验证？（PDF §§3.2–3.3）
+- $2W=100$ 的前后窗对短异常产生多大稀释 / 延迟；多尺度窗口如何在 feature 数增加时保持 $O(N^2)$ 计算可控？（PDF §4, Appendices H, N）
+- 当前主诊断分数用 data reconstruction residual，空间 progression 的变量归因贡献有无全量 forensic ground truth 验证？SWaT / HAI attack-origin labels 如何影响诊断结论？（PDF Eq. 6; Appendix E.3）
