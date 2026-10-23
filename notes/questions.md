@@ -313,3 +313,11 @@
 - loss-gradient 得到的 Granger influence 是否与真实拓扑、干预或故障传播一致？如何评估图边语义，而非只看 anomaly AUROC？（PDF Eqs. 2–6）
 - Table 1 若干数据点数与常用全量规模不同，预处理 / 子集划分以及窗口标签对齐的具体实现是什么？（PDF p.5）
 - 正常负载切换与故障同时出现时，静态 $A_{norm}$ 的偏差能否归因；无代码公开下怎样精确复现 $P$ 积分、抽样数和 $h,\beta$？
+
+
+## From OracleAD reading
+
+- 多个正常运行状态下，epoch 平均的单一 SLS 是否会混成并不存在的中间结构？能否用状态条件 / 多模板 SLS，且避免负载—故障并发时错误更新？（PDF §§3.2, I；[OracleAD 笔记](../papers/oraclead/notes.md)）
+- 对称 latent-distance deviation 与真实 service topology、Trace、故障注入根因的关系如何验证？偏差矩阵的变量排序是否在全测试集而非精选案例上有效？（PDF §4.3, Appendix G）
+- prediction score × deviation score 是否会压低仅存在于单一分量的异常证据？窗口延迟和恢复期拖尾如何影响事件级报警？（PDF §§3.4, 4.3）
+- 测试标签 oracle threshold 对 F1 的提升有多大；主文与 ablation 中 SMD 子集口径差异应如何复现？（PDF Tables 1–2, Appendix D.3）

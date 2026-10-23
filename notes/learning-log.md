@@ -357,3 +357,12 @@
 - Evidence: 五数据集 AUROC/AUPRC、关系 / 对角 / sparsification ablation 和一个 SWaT 案例；pairwise 限制，SMAP AUPRC 不领先，运行阈值和因果图真值验证不足。
 - Open questions: 多种正常负载下图模板如何条件化；loss-gradient 与真实因果机制如何对照；正常负载与故障并发；数据规模口径与复现参数。
 - Progress: 完成第 10/33 篇的完整 PDF 精读、笔记和知识卡片；本批剩 OracleAD、SARAD。
+
+
+## 2026-10-23 — OracleAD / Structured Temporal Causality
+
+- Paper: *Structured Temporal Causality for Interpretable Multivariate Time Series Anomaly Detection* (NeurIPS 2025), model OracleAD.
+- Core takeaway: 逐通道 LSTM 编码 + 通道 MHSA 构造 latent relations，以每轮训练的平均 pairwise L2 distance matrix（SLS）作模板；预测误差乘结构偏差进行检测。
+- Evidence: PSM/SMD/SWaT 多指标、ablation 与 SMD localization case；SLS 是对称 latent 结构而非 causal graph，推理模板静态，F1 阈值按测试真值选取且 SMD 表间口径需核对。
+- Open questions: 多模态正常 SLS、结构与物理根因对照、负载—故障并发、窗口拖尾、无标签阈值。
+- Progress: 完成第 11/33 篇完整 PDF 精读、笔记和卡片；同批第三篇为 SARAD。
