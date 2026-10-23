@@ -36,6 +36,7 @@
 - [Graph-MoE — multi-level graph experts and memory routing](papers/graph-moe/notes.md) · [知识卡片](papers/graph-moe/knowledge-card.md)
 - [CCM-TAD — cluster-aware causal mixer for online multivariate TSAD](papers/ccm-tad/notes.md) · [知识卡片](papers/ccm-tad/knowledge-card.md)
 - [TFC — temporal, frequency, and curvature fusion](papers/tfc/notes.md) · [知识卡片](papers/tfc/knowledge-card.md)
+- [GCAD — gradient-derived Granger graph deviation](papers/gcad/notes.md) · [知识卡片](papers/gcad/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

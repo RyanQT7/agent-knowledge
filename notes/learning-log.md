@@ -348,3 +348,12 @@
 - Main synthesis: 区分潜在历史图层路由、静态相关 profile 分组 + 顺序证据、以及单变量曲率 / 频带证据；三者均比原始点值提供更多结构，但仍不等于业务状态识别或波动成因解释。
 - Most important open questions: workload / release / Trace 条件化、正常负载与故障并发、在线 memory / prototype / model 更新污染、测试标签 oracle threshold 与无标签运行点、流式前视延迟。
 - Next step: 批次 4 阅读 GCAD、Structured Temporal Causality、SARAD，比较图因果、结构化时间因果与空间关联诊断。
+
+
+## 2026-10-23 — GCAD
+
+- Paper: *Anomaly Detection in Multivariate Time Series from the Perspective of Granger Causality* (AAAI 2025).
+- Core takeaway: 按目标通道对 Mixer prediction loss 回传，聚合历史输入梯度形成窗口级 Granger predictive-influence 图，再与训练期正常均值图比较；图变化作为检测证据，不是干预因果图。
+- Evidence: 五数据集 AUROC/AUPRC、关系 / 对角 / sparsification ablation 和一个 SWaT 案例；pairwise 限制，SMAP AUPRC 不领先，运行阈值和因果图真值验证不足。
+- Open questions: 多种正常负载下图模板如何条件化；loss-gradient 与真实因果机制如何对照；正常负载与故障并发；数据规模口径与复现参数。
+- Progress: 完成第 10/33 篇的完整 PDF 精读、笔记和知识卡片；本批剩 OracleAD、SARAD。
