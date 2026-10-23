@@ -28,6 +28,57 @@
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
 - **TSAD 精读进度：33/33**；33 篇 PDF 均已完成实际精读，并有单篇笔记与知识卡片。批次进度见 [learning log](notes/learning-log.md)，跨论文评审见 [Knowledge Review v13](notes/reviews/knowledge-review-v13.md)，总览与检索入口见 [TSAD final synthesis](notes/reviews/tsad-final-synthesis.md) 和 [TSAD knowledge query guide](notes/guides/tsad-knowledge-query-guide.md)。
+
+
+### TSAD knowledge extraction and export
+
+- [Paper Knowledge Extraction Skill](skills/paper-knowledge-extraction/SKILL.md)
+- [Export README and progress](exports/tsad-knowledge/README.md)
+- [Full 33-paper knowledge archive](exports/tsad-knowledge/tsad-33-paper-knowledge-full.md)
+- [Concise overview and method relations](exports/tsad-knowledge/tsad-33-paper-knowledge-overview.md)
+- [Research problem map](exports/tsad-knowledge/tsad-research-problem-map.md)
+- [Structured JSONL](exports/tsad-knowledge/tsad-paper-knowledge.jsonl)
+
+### TSAD detailed knowledge dossiers
+
+| Paper dossier | Year |
+| --- | ---: |
+| [大语言模型引导的时间序列异常检测知识蒸馏](papers/anomalyllm/knowledge-dossier.md) | `2024` |
+| [AnoMamba：通过选择性全局依赖建模使重建与时间序列异常检测对齐](papers/anomamba/knowledge-dossier.md) | `2026` |
+| [AnomSeer：强化多模态大语言模型进行时间序列异常推理](papers/anomseer/knowledge-dossier.md) | `2026` |
+| [面向噪声与动态环境的 AIOps 鲁棒 KPI 异常检测](papers/capmix/knowledge-dossier.md) | `2026` |
+| [因果感知对比学习：鲁棒多变量时间序列异常检测](papers/carots/knowledge-dossier.md) | `2025` |
+| [用于多变量时间序列在线异常检测的聚类感知因果混合器](papers/ccm-tad/knowledge-dossier.md) | `2026` |
+| [通过条件正则化流潜空间归纳偏置进行时间序列异常检测](papers/cnf-latent-dynamics/knowledge-dossier.md) | `2026` |
+| [COGNOS：通过受约束的高斯白噪声优化与平滑增强时间序列异常检测](papers/cognos/knowledge-dossier.md) | `2026` |
+| [跨尺度关联与跨窗口建模的时间序列异常检测](papers/crossad/knowledge-dossier.md) | `2025` |
+| [深入探索大语言模型以实现有效的时间序列异常检测](papers/delving-llm-tsad/knowledge-dossier.md) | `2025` |
+| [基于耦合流的时间序列异常检测多视角集成](papers/flowfuse/knowledge-dossier.md) | `2026` |
+| [加固时间序列：DTW 认证鲁棒异常检测](papers/fortifying-time-series/knowledge-dossier.md) | `2025` |
+| [从 Granger 因果视角检测多变量时间序列异常](papers/gcad/knowledge-dossier.md) | `2025` |
+| [用于多变量时间序列异常检测的图混合专家与记忆增强路由器](papers/graph-moe/knowledge-dossier.md) | `2025` |
+| [基于幂等重建的多变量时间序列异常检测](papers/idempotent-reconstruction/knowledge-dossier.md) | `2025` |
+| [IMPACT：面向开放集时间序列异常检测的影响建模](papers/impact/knowledge-dossier.md) | `2026` |
+| [KAN-AD：基于 Kolmogorov–Arnold 网络的时间序列异常检测](papers/kan-ad/knowledge-dossier.md) | `2025` |
+| [频域多模式正常性学习与高效时间序列异常检测](papers/mace/knowledge-dossier.md) | `2024` |
+| [结构化时间因果：可解释的多变量时间序列异常检测](papers/oraclead/knowledge-dossier.md) | `2025` |
+| [扰动引导的时间序列异常检测对比表征学习](papers/pcrta/knowledge-dossier.md) | `2024` |
+| [无监督时间序列异常检测：路在何方？](papers/quo-vadis/knowledge-dossier.md) | `2024` |
+| [RTdetector：基于重建趋势的时间序列异常检测 Transformer](papers/rtdetector/knowledge-dossier.md) | `2025` |
+| [面向多变量时间序列异常检测与诊断的空间关联感知方法](papers/sarad/knowledge-dossier.md) | `2024` |
+| [ScatterAD：基于时间—拓扑散射机制的时间序列异常检测](papers/scatterad/knowledge-dossier.md) | `2025` |
+| [Sub-Adjacent Transformer：从非相邻邻域重建误差改进时间序列异常检测](papers/sub-adjacent-transformer/knowledge-dossier.md) | `2024` |
+| [TeamWork：非对称角色感知通道建模的多变量时间序列异常检测](papers/teamwork/knowledge-dossier.md) | `2026` |
+| [从动态视角重新思考时间序列异常检测：时域—频域—曲率融合](papers/tfc/knowledge-dossier.md) | `2026` |
+| [用于时间序列异常检测的时域—频域掩码自编码器](papers/tfmae/knowledge-dossier.md) | `2024` |
+| [面向零样本时间序列异常检测基础模型：合成数据与相对上下文差异](papers/time-rcd/knowledge-dossier.md) | `2026` |
+| [解开时间序列异常检测中的“异常”：自监督三域方法](papers/triad/knowledge-dossier.md) | `2024` |
+| [时间序列异常检测中的关键问题：构建可靠基准](papers/tsb-ad/knowledge-dossier.md) | `2024` |
+| [利用视觉语言模型进行时间序列异常检测](papers/vlm4ts/knowledge-dossier.md) | `2026` |
+| [当模型遇见新正常状态：无监督时间序列异常检测的测试时适应](papers/when-model-meets-new-normals/knowledge-dossier.md) | `2024` |
+
+### TSAD detailed reading notes and knowledge cards
+
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
 - [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - [CAROTS — causality-aware contrastive MTSAD](papers/carots/notes.md) · [知识卡片](papers/carots/knowledge-card.md)

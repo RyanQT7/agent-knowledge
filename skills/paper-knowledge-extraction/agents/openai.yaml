@@ -1,0 +1,3 @@
+interface:
+  display_name: "Paper Knowledge Extraction"
+  short_description: "Build evidence-grounded paper knowledge dossiers"

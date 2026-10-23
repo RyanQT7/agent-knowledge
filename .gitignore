@@ -6,3 +6,4 @@ __pycache__/
 sources/papers/*.pdf
 sources/papers/**/*.pdf
 sources/code/
+exports/tsad-knowledge/TSAD-knowledge-export.zip

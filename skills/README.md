@@ -62,6 +62,9 @@ source-code-annotation
 knowledge-review
 = generic cross-paper consolidation
 
+paper-knowledge-extraction
+= post-reading structured knowledge dossiers and exports
+
 knowledge-query
 = retrieve / learn from accumulated knowledge
 ~~~
@@ -69,5 +72,6 @@ knowledge-query
 - [knowledge-query](knowledge-query/SKILL.md) — 基于已积累知识进行检索、教学、比较和来源追溯；默认只读。`Status: v1`
 
 - [learning-batch](learning-batch/SKILL.md) — 串行编排新论文批次，并调用 paper-reading 与 knowledge-review。`Status: v1 / validated from Planning Batch`
+- [paper-knowledge-extraction](paper-knowledge-extraction/SKILL.md) — 从已完成精读的论文提取可追溯科研知识档案，并校验、导出批量 Markdown / JSONL。`Status: v1 / validated with FlowFuse + Conditional Normalizing Flows pilots and the 33-paper TSAD set`
 
 正式的知识库维护 Skill 默认在任务完成并通过自检后执行 `git add`、`git commit` 和 `git push origin main`。遇到失败、冲突、来源核对未通过、远程或认证异常，或用户明确禁用同步时，保留本地状态并停止 push。
