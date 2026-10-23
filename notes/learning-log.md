@@ -244,3 +244,13 @@
 - New concepts: Anomaly Shift；DTW-based label revision；dual-space mixup for anomaly augmentation。
 - Open questions: 单一正常均值如何处理多种工作状态；业务负载与故障并发时能否区分；训练异常标签来源及固定阈值表现。
 - Next step: 阅读 When Model Meets New Normals，比较训练增强与测试时适应对新正常状态的处理。
+
+
+## 2026-10-23 — When Model Meets New Normals
+
+- Date: 2026-10-23
+- Paper: When Model Meets New Normals: Test-Time Adaptation for Unsupervised Time-Series Anomaly Detection
+- Core takeaway: EMA 去趋势适应整体水平变化，预测正常点上的在线重构更新学习剩余动态；两者需要配合，但伪标签漏检可污染更新。
+- New concepts: new normal problem；趋势估计 + 预测正常掩码的测试时适应。
+- Open questions: 业务负载与故障并发如何安全适应；不同数据集的阈值/EMA/学习率能否自动确定；WADI 附录的 TP/FP 报告数字为何不一致。
+- Next step: 阅读 CAROTS，比较在线适应与上下文/因果增强。

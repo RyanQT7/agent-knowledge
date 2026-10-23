@@ -28,6 +28,7 @@
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
+- [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

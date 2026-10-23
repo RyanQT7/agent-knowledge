@@ -187,3 +187,11 @@
 ### 基于 CAPMix 进一步产生的问题
 
 - 在不扫描测试标签选最佳阈值的前提下，CAPMix 的告警成本、误报率和检出率是否仍有优势？
+
+
+## From When Model Meets New Normals reading
+
+- 检测器漏报的异常样本进入在线更新时，如何检测并阻止自我强化污染？（PDF pp.4, 7；[精读笔记](../papers/when-model-meets-new-normals/notes.md#14-questions)）
+- 负载跃迁、发布与故障同时出现时，如何让趋势状态只吸收合法的新正常？本文没有使用 workload 或运维上下文。（PDF pp.3–4；[精读笔记](../papers/when-model-meets-new-normals/notes.md#11-limitations-and-reproduction-value)）
+- 在线阈值如何在不查看测试标签时兼顾逐点检出与事件级误报成本？（PDF pp.5, 7）
+- Appendix 对 WADI 的 FP/TP 数值与变化方向为何不一致；Table 12 的计数使用什么阈值口径？（PDF pp.10, 15）
