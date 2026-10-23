@@ -384,3 +384,36 @@
 - Current gaps in 12-paper scope: 动态业务状态语义、状态变化与故障并发、多源运行 context、关系与真实拓扑 / Trace 对照、在线更新污染、无标签运行点与事件成本。上述判断仍待后续 21 篇复核。
 - Progress: 12/33 完成，已逐篇提交三份详细笔记 / 卡片并完成本批 Review。
 - Next batch (13–15): Quo Vadis; The Elephant in the Room; Temporal-Frequency Masked Autoencoders.
+
+
+## 2026-10-23 — Position: Quo Vadis, Unsupervised Time Series Anomaly Detection?
+
+- Paper: *Position: Quo Vadis, Unsupervised Time Series Anomaly Detection?* (ICML 2024).
+- Core takeaway: PCA / 1-NN / 浅层网络是必要强 baseline；PA-F1 可奖励噪声，point、range 与阈值协议应一起报告。
+- Evidence: 论文在 SWaT / WADI / SMD 等数据上报告 PCA 等简洁方法的竞争力；随机预测在 SWaT PA-F1 .963，但标准 / range F1 约 .218 / .217。该文自身使用 test-set best threshold，数字不是部署阈值结果。
+- Progress: 完成第 13/33 篇全文精读、详细笔记和知识卡片；已 commit/push `026cb4e`。
+
+
+## 2026-10-23 — The Elephant in the Room / TSB-AD
+
+- Paper: *The Elephant in the Room: Towards A Reliable Time-Series Anomaly Detection Benchmark* (NeurIPS 2024 Datasets and Benchmarks Track).
+- Core takeaway: 结合人工与算法辅助复核，整理 1,070 条 UTS/MTS，统一 40 类 detector 与十种指标；作者推荐 VUS-PR 的结论限定于其 reliability tests。
+- Evidence: 1,070 sequences / 40 datasets，450+ model variants；没有 detector 在所有数据集领先；固定主随机种子，benchmark 作者承认人工复核有限且会持续更新。
+- Progress: 完成第 14/33 篇全文精读、详细笔记和知识卡片；已 commit/push `bb470c5`。
+
+
+## 2026-10-23 — TFMAE
+
+- Paper: *Temporal-Frequency Masked Autoencoders for Time Series Anomaly Detection* (ICDE 2024).
+- Core takeaway: 以局部高-CV 时间 mask 与低幅值频率 mask 构造双视图，通过 adversarial symmetric-KL discrepancy 检测，而不直接使用 reconstruction residual。
+- Evidence: 主表五个真实集平均 point-adjusted F1 96.04%；组件 / mask ablations 支持其设计；阈值依 validation score 和预设 anomaly ratio，SMAP shift evidence 是单个 CDF case study。业务 workload / Trace 未输入。
+- Progress: 完成第 15/33 篇全文精读、详细笔记和知识卡片；已 commit/push `42ffe7d`。
+
+
+## 2026-10-23 — Knowledge Review v7: TSAD batch 5
+
+- Scope: Quo Vadis、TSB-AD、TFMAE，与前 12 篇交叉比较。
+- Main synthesis: 区分 baseline / protocol critique、benchmark + metric reliability、temporal-frequency masked view discrepancy；明确 Best-F1、PA-F1、VUS-PR 和 validation anomaly-rate threshold 的边界。
+- Current gaps in 15-paper scope: workload / Trace / release 条件化、正常状态切换与故障并发、固定告警运行点、benchmark curation selection effect、双视图机制在业务高波动下的稳定性。
+- Progress: 15/33 完成，三篇各自笔记 / 卡片和 Review 已更新知识索引及问题列表。
+- Next batch (16–18): Unraveling the “Anomaly” (tri-domain); Perturbation Guiding Contrastive Representation; Sub-Adjacent Transformer.

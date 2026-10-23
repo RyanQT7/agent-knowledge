@@ -39,6 +39,9 @@
 - [GCAD — gradient-derived Granger graph deviation](papers/gcad/notes.md) · [知识卡片](papers/gcad/knowledge-card.md)
 - [OracleAD — Structured Temporal Causality](papers/oraclead/notes.md) · [知识卡片](papers/oraclead/knowledge-card.md)
 - [SARAD — spatial association reduction detection and diagnosis](papers/sarad/notes.md) · [知识卡片](papers/sarad/knowledge-card.md)
+- [Quo Vadis — unsupervised TSAD baselines and evaluation protocols](papers/quo-vadis/notes.md) · [知识卡片](papers/quo-vadis/knowledge-card.md)
+- [The Elephant in the Room / TSB-AD — reliable TSAD benchmark](papers/tsb-ad/notes.md) · [知识卡片](papers/tsb-ad/knowledge-card.md)
+- [TFMAE — temporal-frequency masked autoencoders](papers/tfmae/notes.md) · [知识卡片](papers/tfmae/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
@@ -49,6 +52,7 @@
 - [Knowledge Review v4 — TSAD batch 2: multi-pattern normality, scale relations, and DTW certification](notes/reviews/knowledge-review-v4.md)
 - [Knowledge Review v5 — TSAD batch 3: latent history, channel grouping, and dynamical evidence](notes/reviews/knowledge-review-v5.md)
 - [Knowledge Review v6 — TSAD batch 4: three kinds of relational anomaly evidence](notes/reviews/knowledge-review-v6.md)
+- [Knowledge Review v7 — TSAD batch 5: evaluation reliability and temporal-frequency evidence](notes/reviews/knowledge-review-v7.md)
 
 ## AIOps Literature — First-stage Triage
 

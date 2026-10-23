@@ -348,3 +348,36 @@
 #### 下一批计划（第 13–15 篇）
 
 Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；先核对评测规范与 benchmark 证据，再和 MACE / TFC 的频域方法比较。
+
+
+## Knowledge Review v7: TSAD batch 5 status update
+
+本节综合 15 篇已完成全文精读的证据；后续 18 篇仍可能改变结论。Quo Vadis、TSB-AD 和 TFMAE 的单篇问题见下文；跨论文比较见 [Knowledge Review v7](reviews/knowledge-review-v7.md)。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 已有服务条件频谱、跨窗 prototype、latent memory、test-time adaptation、因果保持增强与 TFMAE 双视图一致性；尚未证明能按 workload / release 语义标记同一实体状态并在切换时保持故障敏感度。 |
+| 正常业务波动和真实故障如何区分？ | Partially Answered | 已有形态、趋势、关系、频谱、跨尺度和曲率等统计证据；15 篇仍缺“仅状态变化 / 仅故障 / 并发 / 未见合法状态”控制矩阵及固定运行点告警评估。 |
+| 是否利用 Metric、Trace、负载和运行上下文？ | Open | 本批三篇主要研究评测或数值时间序列，没有把 workload、release、Trace 作为检测输入并做条件验证。 |
+| 方法是否解释波动来源？ | Partially Answered | TFMAE 的视图 discrepancy 是偏离分数，TSB-AD 是 benchmark；不解释业务来源。早先关系方法增加结构证据，但尚未充分与 Trace / topology / fault cause 对齐。 |
+| 如何处理正常负载与故障并发？ | Open | 15 篇均没有系统并发测试；局部 CV mask、静态 reference、在线适应和关系更新在此条件下的作用未量化。 |
+| 哪些技术方向已被提出？ | Partially Answered | 简洁统计 baseline、curated multi-metric benchmark、frequency masking、多视图对比、multi-pattern spectral reference 和 test-time adaptation 均已有具体方法。 |
+| 关键评测还有何不足？ | Partially Answered | Quo Vadis 展示 test-label Best-F1 / PA 风险；TSB-AD 提供十指标与 VUS-PR 分析但主结果固定 seed；TFMAE 主表使用 PA-F1 且依异常率阈值。数字不可跨协议直接排名。 |
+
+### From Quo Vadis reading
+
+- 哪些公开数据和预处理设定下，PCA / 1-NN 的强结果会失效？是否由非线性关系、状态条件变换或事件级诊断提供额外收益？（PDF §§3–4, Tables 2–5）
+- test-set best threshold 与 validation-only、normal-only calibration 的差距多大？主文 point / range / PA 指标的排序在统一 entity split 后是否保留？（PDF §3.5, p.6）
+- 线性 student 在两个多变量 benchmark 上近似 deep model，是否能扩展到其他 anomaly type、事件定位及真实 streaming setting？（PDF §4.3, Table 4）
+
+### From TSB-AD reading
+
+- detector-assisted curation 是否改变最终异常难度或模型族表现？需要 detector-blind holdout、独立标注者与标注 uncertainty 检验。（PDF §4.1.2）
+- UTS channel derived from MTS 的依赖性，以及主结果单 seed 对 detector rank 的影响应如何量化？（PDF Table 2; checklist p.17）
+- 如何以 workload、release、Trace 和故障并发标注扩展 benchmark，并将 VUS / event metrics 与告警成本和检测延迟对齐？（PDF §§4–5）
+
+### From TFMAE reading
+
+- 局部 high-CV 的合法业务峰谷和真实故障如何区别；频域低幅值 mask 是否可能遮盖弱但关键的周期模式？（PDF Eqs. 1–10; Table V）
+- adversarial symmetric-KL 是否跨随机种子和不同正常状态稳定？新状态与故障并发时 discrepancy 的变化是什么？（PDF Eqs. 14–16; Fig. 9）
+- anomaly-rate threshold 错配、无标签正常 calibration、非 PA interval metric 和事件延迟下的表现如何？（PDF §V-A, Table III）
