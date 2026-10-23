@@ -449,3 +449,36 @@
 - Main synthesis: 区分 augmentation hard negatives、扰动分类伪标签 + LOF、非紧邻 reconstruction constraint；同时标出 triad single-event、best-F1 threshold、point adjustment 和运行 context 缺口。
 - Progress: 18/33 完成；三篇笔记 / 卡片、Review、INDEX、questions 均更新并同步。
 - Next batch (19–21): Large Language Model Guided Knowledge Distillation; Delving into Large Language Models for Effective TSAD; AnomSeer.
+
+
+## 2026-10-23 — AnomalyLLM
+
+- Paper: *Large Language Model Guided Knowledge Distillation for Time Series Anomaly Detection* (IJCAI 2024).
+- Core takeaway: frozen GPT-2 time-series teacher + per-channel prototype student；synthetic local distortions create student–teacher discrepancy, teacher consistency stabilizes its response to perturbation.
+- Evidence: UCR aggregate accuracy / AF1 .820 / .858; adjusted F1 on four common MTS sets .958 / .956 / .965 / .997; WaQ / SWAN .620 / .804. Recorded prototype 32 vs sensitivity 48 and WaQ / GECCO table-text mismatch instead of silently resolving them.
+- Progress: 完成第 19/33 篇 PDF 精读及笔记 / 卡片；`86be981` 已 push。PDF 不纳入 Git。
+
+
+## 2026-10-23 — Delving into LLMs for TSAD
+
+- Paper: *Delving into Large Language Models for Effective Time-Series Anomaly Detection* (NeurIPS 2025).
+- Core takeaway: 将 LLM TSAD 拆为 temporal understanding 与 localization；ACF de-seasonalization 处理季节遮挡，index-aware text 把隐式计数变成区间索引检索。
+- Evidence: AnomLLM 上去索引平均 F1 降 23.36 points；Qwen 的 GT localization diagnostic index-aware F1 60.16 / 6.45s vs index-free 20.33 / 29.79s。TSB-AD-U GPT-4o 每样本约 140.63s；模拟 context case 尚未证明真实业务 context 安全过滤未知故障。
+- Progress: 完成第 20/33 篇 PDF 精读及笔记 / 卡片；`d1e0d23` 已 push。代码链接已入库。
+
+
+## 2026-10-23 — AnomSeer
+
+- Paper: *AnomSeer: Reinforcing Multimodal LLMs to Reason for Time-Series Anomaly Detection* (ICML 2026).
+- Core takeaway: GT-derived statistical ExpCoT 通过 token-level OT reasoning reward 和 advantage-space orthogonalization 进入 Qwen2.5-VL 的 TimerPO 训练，输出检测、类别与文本解释。
+- Evidence: AnomLLM mean Affinity F1 为 TimeMaster-3B 71.9、AnomSeer-3B 79.3、7B 84.4；OT / orthogonalization 有 ablation。ExpCoT 从 GT 类型与时间区间生成，因此 pure RL 不等于 label-free；appendix 仍有末端短异常漏检。
+- Progress: 完成第 21/33 篇 PDF 精读及笔记 / 卡片；`d12960d` 已 push。未执行训练或复现实验。
+
+
+## 2026-10-23 — Knowledge Review v9: TSAD batch 7
+
+- Scope: AnomalyLLM、Delving、AnomSeer，与前 18 篇已读论文交叉比较。
+- Main synthesis: 区分 LLM teacher 的表示蒸馏、零样本输入预处理 / prompt 结构、MLLM 的 GT-derived expert-trace RL；多种形态表示还不等于业务状态语义，文本解释也不等于根因来源验证。
+- Research evidence gaps: context-conditioned state / fault concurrency、真实 workload / release / Trace 输入、context filtering 对未知故障召回的影响、GT trace 的解释忠实性、固定误报预算与延迟。
+- Progress: 21/33 完成；三篇笔记 / 卡片、Review v9、INDEX、questions 已更新。每篇和 Review 均按规范单独 commit/push；PDF 仍被 `.gitignore` 排除。
+- Next batch (22–24): Harnessing Vision-Language Models for TSAD; Towards Foundation Models for Zero-Shot TSAD; IMPACT: Influence Modeling for Open-Set TSAD。

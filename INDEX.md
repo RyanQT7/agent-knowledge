@@ -27,6 +27,7 @@
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
+- **TSAD 精读进度：21/33**；最近完成第 7 批 LLM / MLLM 论文，进度与问题见 [learning log](notes/learning-log.md) 和 [Knowledge Review v9](notes/reviews/knowledge-review-v9.md)。
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
 - [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - [CAROTS — causality-aware contrastive MTSAD](papers/carots/notes.md) · [知识卡片](papers/carots/knowledge-card.md)
@@ -45,6 +46,9 @@
 - [TriAD — self-supervised tri-domain anomaly detection](papers/triad/notes.md) · [知识卡片](papers/triad/knowledge-card.md)
 - [PCRTA — perturbation-guided contrastive representation learning](papers/pcrta/notes.md) · [知识卡片](papers/pcrta/knowledge-card.md)
 - [Sub-Adjacent Transformer — reconstruction from non-adjacent neighborhoods](papers/sub-adjacent-transformer/notes.md) · [知识卡片](papers/sub-adjacent-transformer/knowledge-card.md)
+- [AnomalyLLM — LLM teacher / prototype student knowledge distillation](papers/anomalyllm/notes.md) · [知识卡片](papers/anomalyllm/knowledge-card.md)
+- [Delving into LLMs for TSAD — de-seasonalization and index-aware prompting](papers/delving-llm-tsad/notes.md) · [知识卡片](papers/delving-llm-tsad/knowledge-card.md)
+- [AnomSeer — ExpCoT and time-series grounded policy optimization](papers/anomseer/notes.md) · [知识卡片](papers/anomseer/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
@@ -57,6 +61,7 @@
 - [Knowledge Review v6 — TSAD batch 4: three kinds of relational anomaly evidence](notes/reviews/knowledge-review-v6.md)
 - [Knowledge Review v7 — TSAD batch 5: evaluation reliability and temporal-frequency evidence](notes/reviews/knowledge-review-v7.md)
 - [Knowledge Review v8 — TSAD batch 6: perturbation contrast, tri-domain localization, and sub-adjacent reconstruction](notes/reviews/knowledge-review-v8.md)
+- [Knowledge Review v9 — TSAD batch 7: LLM distillation, zero-shot prompting, and evidence-grounded reasoning](notes/reviews/knowledge-review-v9.md)
 
 ## AIOps Literature — First-stage Triage
 

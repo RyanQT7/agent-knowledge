@@ -331,6 +331,42 @@
 - 当前主诊断分数用 data reconstruction residual，空间 progression 的变量归因贡献有无全量 forensic ground truth 验证？SWaT / HAI attack-origin labels 如何影响诊断结论？（PDF Eq. 6; Appendix E.3）
 
 
+## Knowledge Review v9: TSAD batch 7 status update
+
+本节合并 21 篇已完成的 PDF 精读结果。AnomalyLLM、Delving、AnomSeer 的跨论文分析见 [Knowledge Review v9](reviews/knowledge-review-v9.md)。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 已有 per-channel prototypes、多服务 / 窗口 / 频谱 memory、测试时 adaptation、周期分解与多视图机制；多数按形状、关系或周期表达，尚未证明用 workload / release 语义安全识别并更新合法状态。 |
+| 正常业务波动和真实故障如何区分？ | Partially Answered | Delving 展示少量文本背景过滤已知可解释变化；AnomalyLLM 用 prototype discrepancy，AnomSeer 用 label-matched statistics。没有在真实业务 context 下联合测状态变化 / 故障 / 并发 / 未见状态。 |
+| 方法是否只抑制噪声，或能解释波动来源？ | Partially Answered | AnomalyLLM 输出表示距离；Delving 可按模拟背景过滤；AnomSeer 能输出统计推理 trace。但尚未将说明与真实 event、Trace、拓扑或 fault cause 核验。 |
+| 是否使用 Metric、Trace、workload、release context？ | Open | 数值 metrics 是主要输入；Delving 有 ETTh2 / Electricity 的 simulated natural-language context case，但本批没有系统利用真实 workload、release、Trace 数据。 |
+| 正常负载变化与故障同时出现时如何处理？ | Open | 21 篇都未建立受控的并发状态变化 / 故障评估矩阵。prototype、memory、online adaptation、context filtering 的更新 / 抑制安全性均待检验。 |
+| 哪些方法已有类似思路？ | Partially Answered | Prototype normal references、seasonal decomposition、index-aware localization、synthetic perturbation、统计 probe trace、OT reasoning alignment 都已有论文实现；新研究需逐一定位差异。 |
+| 哪些研究问题缺少充分实验？ | Partially Answered | context filter 是否伤害未知故障 recall、ExpCoT explanation faithfulness、GT trace supervision 外推、真实上下文输入、固定误报预算 / 延迟、短边界事件仍需证据。 |
+
+### From AnomalyLLM reading
+
+- 每个变量的 prototype pool 如何覆盖多个合法 workload / release 状态？prototype 在线更新时如何避免把漏检故障吸收为 normal？（PDF §3.2）
+- prototype discrepancy 与 GPT-2 teacher discrepancy 各自贡献多少；在 validation-only threshold / 固定告警预算下少样本收益是否仍在？（PDF §§3–4）
+- synthetic jittering、scaling、warping 与真实故障和合法大幅业务波动的对应关系是什么？（PDF §3.4）
+- 原文主设置 prototypes=32、敏感性结论偏好 48；WaQ / GECCO 的 Table 5 文字差异应由代码 / 作者配置如何解释？（PDF §§4.2–4.4, Tables 5–6）
+
+### From Delving into LLMs for TSAD reading
+
+- ACF dominant-period 分解在多周期、周期漂移、节假日 / 发布状态切换中是否会减弱真正频率故障？（PDF §3.1, Table 3）
+- 如何用真实 workload、发布事件、Metric / Trace 产生可审计 context；模型过滤“已知可解释波动”时，未知故障 recall 是否下降？（PDF §5.2, Appendix D.6）
+- 全量 TSB-AD、validation-only threshold 与统一事件延迟下，LLM 对 SR / 常规 detector 的准确率—成本曲线如何？（PDF §5.1, Appendix Table 9）
+- Index-aware 在 GT localization-only setting 的增益如何映射到端到端检测，长序列 prompt length / API version 变化时是否保留？（PDF §4.2, Table 4）
+
+### From AnomSeer reading
+
+- ExpCoT 用 GT class / interval 构造并在 conclusion 中保留 GT 区间；移除定位答案信息、改用弱监督 / 无标签 references 后性能如何？（PDF Appendix B.2）
+- 可以怎样独立验证生成解释的事实准确性与忠实性，而非只测其 embedding 更接近 ExpCoT？（PDF §5.3, Appendix D.3）
+- 在同一服务多状态、负载与真实故障并发、未知异常类型时，统计 ExpCoT probe 会支持哪个假设？（PDF §§4–6）
+- 真实 multivariate dependency、Trace / topology 和固定 false-alarm budget / streaming delay 下的效果、计算量如何？（PDF §6, Appendix D.4）
+
+
 ## Knowledge Review v6: TSAD batch 4 status update
 
 本节汇总前四批 12 篇已完成精读；之后 21 篇尚可能改变当前结论。GCAD、OracleAD、SARAD 已分别增加逐篇问题，交叉比较见 [Knowledge Review v6](reviews/knowledge-review-v6.md)。
