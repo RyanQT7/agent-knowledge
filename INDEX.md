@@ -142,6 +142,7 @@
 ## Learning Guides
 
 - [Agent / LLM / Skill / AIOps Overview](notes/guides/agent-llm-skill-aiops-overview.md)
+- [TSAD knowledge query guide — 33-paper reading paths and evidence rules](notes/guides/tsad-knowledge-query-guide.md)
 
 ## Documents / Blogs
 

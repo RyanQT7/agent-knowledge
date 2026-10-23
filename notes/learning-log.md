@@ -614,3 +614,11 @@
 - Evidence gaps: 真实 workload/release/Trace 条件化、合法状态切换与故障并发、statistical / ensemble uncertainty calibration、固定 FPR 与 event delay。
 - Progress: **33/33** 完成；33 篇均已生成详细笔记与知识卡片；第 11 批 Review、INDEX 和问题状态已更新。
 - Next step: 完成 33 篇全景对比、方法演进、正常波动与故障专题、证据化研究空白及知识检索指南。
+
+
+## 2026-10-23 — TSAD final synthesis
+
+- Scope: 2024–2026 33 篇 TSAD 论文，依据逐篇 PDF 笔记和 Knowledge Reviews v3–v13。
+- Main synthesis: normality 已有 prototypes / memory、频域、在线适配、相对上下文、因果关系、残差统计、score fusion 和 latent dynamics 等路线；真实业务状态语义、负载变化与故障并发、Trace / release 归因与统一部署评测仍缺充分证据。
+- Documents: [TSAD final synthesis](reviews/tsad-final-synthesis.md)；[TSAD knowledge query guide](guides/tsad-knowledge-query-guide.md)。
+- Progress: 33/33 实际 PDF 精读、33 份详细笔记与 33 张知识卡片完成；未训练或复现模型。
