@@ -240,6 +240,15 @@
 - 记忆路由能否区分正常负载变化和同一时间段叠加的故障？论文没有该并发场景实验。（PDF §§3–4）
 
 
+## From CCM-TAD reading
+
+- 当业务负载切换导致跨通道相关 profile 改变时，训练期静态 cluster 如何迁移？何时需要重建 cluster？（PDF §3.2; Appendix J.5）
+- causal temporal mask 能保证时间位置的信息流方向，但能否与 workload / Trace 结合识别业务语义和真实通道因果机制？（Appendix M）
+- Best-F1 通过测试标签联合搜索 $\alpha,h$；部署前固定阈值的真实在线分数与该 oracle 值差距多大？（Appendix F, Eq. 24）
+- 累积分数与边界校正在间歇故障、低强度持续波动及负载峰谷并发时的延迟 / 合并率如何？（PDF §3.4, Eqs. 14–17）
+- 相关 profile clustering 对 PSM 的 NN-sep 几乎无增益，什么数据条件决定聚类表示真正有用？（PDF §4.2.3, Table 6）
+
+
 ## Knowledge Review v4: TSAD batch 2 status update
 
 本节基于 CAPMix、When Model Meets New Normals、CAROTS、CrossAD、Fortifying Time Series、MACE 六篇已完成笔记；更多 TSAD 论文尚待读，结论可继续变化。

@@ -34,6 +34,7 @@
 - [Fortifying Time Series — DTW-certified robust anomaly detection](papers/fortifying-time-series/notes.md) · [知识卡片](papers/fortifying-time-series/knowledge-card.md)
 - [MACE — multi-pattern normality in the frequency domain](papers/mace/notes.md) · [知识卡片](papers/mace/knowledge-card.md)
 - [Graph-MoE — multi-level graph experts and memory routing](papers/graph-moe/notes.md) · [知识卡片](papers/graph-moe/knowledge-card.md)
+- [CCM-TAD — cluster-aware causal mixer for online multivariate TSAD](papers/ccm-tad/notes.md) · [知识卡片](papers/ccm-tad/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews

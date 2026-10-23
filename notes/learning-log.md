@@ -320,3 +320,13 @@
 - New concepts: window-dynamic entity attention graph；layer-wise expert alignment；gated memory router；conditional normalizing flow scoring。
 - Open questions: memory 跨窗口和 train/test 重置、安全更新方式；SWaT 测试再切分协议；业务上下文对齐及负载变化与故障并发。
 - Next step: 完成本批另外两篇动态 / 因果上下文方法，再做第三批跨论文 Review。
+
+
+## 2026-10-23 — CCM-TAD
+
+- Date: 2026-10-23
+- Paper: Cluster-Aware Causal Mixer for Online Anomaly Detection in Multivariate Time Series
+- Core takeaway: CCM-TAD 将静态相关 profile clustering、时间维 causal mask 和验证误差尾概率累积组合成在线检测器；论文所称 causality 是时间信息流约束，不是 Granger / 跨通道因果发现。
+- New concepts: correlation-profile spectral clustering；cluster-specific embedding；masked causal temporal mixer；empirical p-value sequential evidence；boundary correction。
+- Open questions: test-label Best-F1 阈值与无标签线上阈值差距；静态关系簇应对动态业务状态的迁移；负载与故障并发下的事件延迟和边界修正。
+- Next step: 阅读 TFC 完成第三批，再综合 Graph-MoE、CCM-TAD 与已有动态 normality / 多关系方法。
