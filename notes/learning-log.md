@@ -581,3 +581,36 @@
 - Evidence gaps: 动态状态与故障并发、异常起点和区间覆盖、异方差 / 跨变量噪声、rare-normal safety、业务上下文 source attribution。
 - Progress: 30/33 完成；3 篇笔记 / 卡片、Review v12、INDEX 与问题列表已更新。
 - Next batch (31–33): AnoMamba; Multi-View Ensemble via Coupling Flows; Conditional Normalizing Flows。
+
+
+## 2026-10-23 — AnoMamba
+
+- Paper: *AnoMamba: Aligning Reconstruction with Time Series Anomaly Detection via Selective Global Dependency Modeling* (IJCAI 2026).
+- Core takeaway: channel-independent patch embedding 加 GSRMamba，以全局 patch context 重加权 S6 step-size；KL multi-scale long-tail prior 约束重建依赖。
+- Evidence: 8 个基准 F1-AF 7/8、VUS-ROC 6/8 第一；移除 GSR 时 UTS F1-AF .7830 降至 .6547。实验使用 window=100、SPOT；hidden attention 不是因果解释。
+- Progress: 完成第 31/33 篇 PDF 精读并生成笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — FlowFuse
+
+- Paper: *Multi-View Ensemble for Time Series Anomaly Detection via Coupling Flows* (IJCAI 2026).
+- Core takeaway: 时域 / 频域 × 聚类 / 重建四路分数，经交替 coupling flows 学 normal score joint density；ensemble disagreement 可引导有限标签路由。
+- Evidence: 18 个基准；四个代表集消融中 flow 融合相对简单平均约 +8.0% Aff-F1；mixed anomalies 仍较难。
+- Progress: 完成第 32/33 篇 PDF 精读并生成笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — Conditional Normalizing Flows
+
+- Paper: *Anomaly Detection in Time-Series via Inductive Biases in the Latent Space of Conditional Normalizing Flows* (UAI 2026).
+- Core takeaway: CNF 将序列映射到具有显式 latent dynamics 的空间，以 whitened latent 的 MV-KS GOF 检验偏离，并用 FIT 检查训练假设是否满足。
+- Evidence: synthetic 4D、w=64 时 KS 优于 NLL 的若干指标；TSB-AD leaderboard 上 NLL UTS 第 7、KS 第 17。作者明确指出窗口 / 维度、模型容量与 LG-LDM 适配问题。
+- Progress: 完成第 33/33 篇 PDF 精读并生成笔记 / 卡片；未运行代码或训练。
+
+
+## 2026-10-23 — Knowledge Review v13: TSAD batch 11
+
+- Scope: AnoMamba、FlowFuse、Conditional Normalizing Flows，并关联前三十篇跨论文证据。
+- Main synthesis: 三者分别把 normality 约束置于重构依赖、异质 detector score 联合分布、latent temporal compliance；全局依赖、ensemble 或统计检验都不自动说明变化源自合法负载还是故障。
+- Evidence gaps: 真实 workload/release/Trace 条件化、合法状态切换与故障并发、statistical / ensemble uncertainty calibration、固定 FPR 与 event delay。
+- Progress: **33/33** 完成；33 篇均已生成详细笔记与知识卡片；第 11 批 Review、INDEX 和问题状态已更新。
+- Next step: 完成 33 篇全景对比、方法演进、正常波动与故障专题、证据化研究空白及知识检索指南。

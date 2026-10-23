@@ -27,7 +27,7 @@
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
-- **TSAD 精读进度：30/33**；最近完成第 10 批散布表征 / 残差白化 / 变量角色论文，进度与问题见 [learning log](notes/learning-log.md) 和 [Knowledge Review v12](notes/reviews/knowledge-review-v12.md)。
+- **TSAD 精读进度：33/33**；33 篇 PDF 均已完成实际精读，并有单篇笔记与知识卡片。批次进度见 [learning log](notes/learning-log.md)，跨论文评审见 [Knowledge Review v13](notes/reviews/knowledge-review-v13.md)，总览与检索入口见 [TSAD final synthesis](notes/reviews/tsad-final-synthesis.md) 和 [TSAD knowledge query guide](notes/guides/tsad-knowledge-query-guide.md)。
 - [CAPMix — robust KPI anomaly detection](papers/capmix/notes.md) · [知识卡片](papers/capmix/knowledge-card.md)
 - [When Model Meets New Normals — test-time adaptation for new normal states](papers/when-model-meets-new-normals/notes.md) · [知识卡片](papers/when-model-meets-new-normals/knowledge-card.md)
 - [CAROTS — causality-aware contrastive MTSAD](papers/carots/notes.md) · [知识卡片](papers/carots/knowledge-card.md)
@@ -58,6 +58,9 @@
 - [ScatterAD — temporal-topological scattering](papers/scatterad/notes.md) · [知识卡片](papers/scatterad/knowledge-card.md)
 - [COGNOS — Gaussian-white residuals and Kalman smoothing](papers/cognos/notes.md) · [知识卡片](papers/cognos/knowledge-card.md)
 - [TeamWork — asymmetric role-aware channels](papers/teamwork/notes.md) · [知识卡片](papers/teamwork/knowledge-card.md)
+- [AnoMamba — selective global dependency reconstruction](papers/anomamba/notes.md) · [知识卡片](papers/anomamba/knowledge-card.md)
+- [FlowFuse — coupling-flow fusion of multi-view anomaly scores](papers/flowfuse/notes.md) · [知识卡片](papers/flowfuse/knowledge-card.md)
+- [Conditional Normalizing Flows — latent-dynamics compliance testing](papers/cnf-latent-dynamics/notes.md) · [知识卡片](papers/cnf-latent-dynamics/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
@@ -74,6 +77,8 @@
 - [Knowledge Review v10 — TSAD batch 8: visual verification, relative context, and open-set influence](notes/reviews/knowledge-review-v10.md)
 - [Knowledge Review v11 — TSAD batch 9: smooth forecasting, reconstruction trends, and idempotent manifolds](notes/reviews/knowledge-review-v11.md)
 - [Knowledge Review v12 — TSAD batch 10: scattering, residual whitening, and channel roles](notes/reviews/knowledge-review-v12.md)
+- [Knowledge Review v13 — TSAD batch 11: global dependencies, multi-view scores, and latent dynamics](notes/reviews/knowledge-review-v13.md)
+- [TSAD final synthesis — 33-paper panorama, method evolution, and evidence-backed gaps](notes/reviews/tsad-final-synthesis.md)
 
 ## AIOps Literature — First-stage Triage
 

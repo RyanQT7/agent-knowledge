@@ -530,3 +530,25 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - COGNOS 在 heteroscedastic、相关通道噪声下需要何种 covariance-aware filter；global quantile calibration 如何无标签选择？（Appendix A.2; D.2）
 - TeamWork ERI rankings 在不同 operating stages 是否稳定；若变量角色随状态变化，在线更新如何避免异常污染？（TeamWork Limitations, p.14）
 - 三篇在“仅正常状态切换 / 仅故障 / 并发 / 未见合法状态”协议下的 event delay、区间覆盖和 group-wise FPR 如何比较？（Knowledge Review v12 §§4–7）
+
+
+## Knowledge Review v13: TSAD completion status (33/33)
+
+以下是 33 篇实际 PDF 精读完成后的工作状态；整体比较见 [Knowledge Review v13](reviews/knowledge-review-v13.md)，完整证据综合见 [TSAD final synthesis](reviews/tsad-final-synthesis.md)。
+
+| Question | Status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | 已有 prototypes / memory / frequency patterns / context-relative reference / test-time adaptation / latent dynamics / dynamic roles / global dependencies；但各自正常状态多由训练分布或模型内部统计表征，业务 workload / release 语义与安全切换缺少统一验证。 |
+| 正常业务波动和真实故障如何区分？ | Open | 33 篇包含统计异常、上下文偏离、重建误差、鲁棒性、OOD 与 latent GOF；对真实业务 source 的区分仍需 workload / release / Trace 或 controlled injection 证据。 |
+| 方法是否仅抑制噪声，是否解释波动来源？ | Partially Answered | 多数方法提供结构化偏离证据而非纯去噪，但 score / attention / flow / latent test 仍不等于已验证的业务因果归因。 |
+| 是否利用 Metric、Trace、业务负载和运行上下文？ | Open | 已读 TSAD 论文主体仍以数值序列、频谱、图表示或人工构造上下文为主；未形成基于真实 Metric–Trace–release–workload 的统一条件检测比较。 |
+| 如何处理负载变化与故障同时发生？ | Open | 未发现跨 33 篇统一控制“仅状态切换 / 仅故障 / 同时发生 / 未见合法状态”的实验矩阵。WMMNN、TimeRCD、IMPACT、CNF 等给出相关机制或风险，但不等于已解决并发区分。 |
+| 哪些思路已经被提出？ | Partially Answered | 多模式原型 / memory、test-time adaptation、context reference、因果 / 关联结构、open-set cleaning、robustness certificate、residual null、multi-view score fusion、latent GOF 均有论文实例；每类适用假设和运行语义需逐篇对照。 |
+| 哪些结论缺少充分实验？ | Partially Answered | 主要缺口包括合法 rare-state group FPR、state transition × fault 并发、context attribution fidelity、uncertainty calibration、validation-only fixed-FPR、event delay 与区间覆盖，以及跨数据源 / generator 外推。具体论文证据见综合报告 §5。 |
+
+### From AnoMamba / FlowFuse / Conditional Normalizing Flows
+
+- GSR hidden attention 能否在 workload / release 干预下忠实反映真实依赖，而不是只解释 reconstruction attribution？（AnoMamba §5.8, Figs. 6–7）
+- FlowFuse 的 ensemble disagreement 是否校准；当四个 base views 在状态漂移时相关性失败，融合能否识别共同盲点？（FlowFuse §§3.4–4.4）
+- CNF 的 FIT 在目标线上环境是否能预测 false alarm / event recall；如何把单一 LG-LDM 扩展到多个合法动态而不吸收故障？（CNF §§3.2, 4.2, 5）
+- 对三类方法建立统一的 context-shift × fault concurrency protocol 后，其 benchmark 增益能否在固定 FPR、event delay、duration coverage 和 group-wise false alarm 下保留？（Knowledge Review v13 §§3–4）
