@@ -450,3 +450,36 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - sub-adjacent distance band 能否随采样率、period、运行负载状态自适应？循环窗口边界是否带来不真实的首尾关系？（PDF §3.2, Eqs. 1–4）
 - 局部状态切换和长持续异常是否同样无法从 sub-adjacent neighborhood 重建？怎样与真实故障区分？（PDF §§3.2–3.3）
 - test-best threshold / point adjustment / pooled-vs-per-entity protocol 对主表增益影响多大？（PDF §§4.2–4.4, Tables 2–8）
+
+
+## Knowledge Review v10: TSAD batch 8 status update
+
+本节汇总 24 篇已完成 PDF 精读；第 8 批三篇跨论文比较见 [Knowledge Review v10](reviews/knowledge-review-v10.md)。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | Prototype / memory / spectrum / adaptation、同序列 visual reference 与 RCD context、IMPACT reference normals 均已有机制；business-state 语义和安全切换仍未解决。 |
+| 正常业务波动与真实故障如何区分？ | Partially Answered | 有 visual trend verification、context-relative discrepancy、text filtering、因果依赖和 risk influence；没有真实状态改变 + 故障并发控制矩阵。 |
+| 只抑噪声还是解释波动来源？ | Partially Answered | 有 relational / visual / influence evidence，但未系统对齐 workload、release、Trace 或根因 ground truth。 |
+| 是否利用 Metric、Trace、workload、release？ | Open | 主要为数值 metric；少数模拟文本 context；没有系统真实 Trace / release-conditioned evaluation。 |
+| 正常负载变化和真实故障同时发生时怎样处理？ | Open | TimeRCD context contamination、VLM4TS dense anomaly recall、IMPACT rare-normal flips 都暴露相关安全问题，但未形成统一并发实验。 |
+| 哪些机制已经被提出？ | Partially Answered | Patch visual verification、synthetic RCD pretraining、influence-guided open-set cleaning、prototypes / memory / online adaptation 均已有具体方法。 |
+| 哪些关键结论缺实验支持？ | Partially Answered | Generator-held-out、真实业务 context safety、rare-group robustness、rationale fidelity、validation-only calibration 和固定运行点仍不足。 |
+
+### From Harnessing VLMs for TSAD reading
+
+- Yahoo A3/A4 dense anomaly setting 下，如何同时提升召回并避免把真实重复异常压成 broader visual pattern？window size / threshold 是否应根据序列状态自适应？（PDF §4; Appendix D.4）
+- confidence 1–3 是否校准；full-series min/max plot scaling 对极端值和合法幅值切换是否敏感？（PDF §§3.1–3.2）
+- 真实 workload / release / Trace 作为 VLM context 后，哪些过滤是 benign fluctuation、哪些会误删未知故障？API latency / fixed FPR 下表现如何？（PDF §3.2, Table 2）
+
+### From TimeRCD reading
+
+- context window 含高比例 anomaly 时，怎样避免错误更新 / 污染序列内 normal reference；是否需要 context quality gate 或多状态 reference？（PDF §3.3）
+- 同一 generator family 上 train / held-out contextual test 能否外推到 generator-held-out 及真实业务状态？（PDF §2.3; Appendix E.2）
+- 固定 5k context、严格不调 target 的优势在 validation-only calibration、固定误报预算、在线流式延迟下如何？（PDF §3.1–3.3）
+
+### From IMPACT reading
+
+- validation influence 是否能区分 contamination 与 rare but valid normal group；组别 / workload 条件化 validation 是否降低错误翻标？（PDF Appendix I）
+- 如果不允许从 test anomaly 抽样构造污染，或 validation 标签不完备，影响排序与 label flipping 还能否成立？（PDF §4.1; Appendix E, H.3）
+- feature-space synthetic anomalies 能否映射到可解释的 temporal / causal fault patterns；AUC 结论在 fixed false-alarm thresholds 下是否保留？（PDF §§3.2–3.3, Appendix H.4）

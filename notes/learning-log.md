@@ -482,3 +482,36 @@
 - Research evidence gaps: context-conditioned state / fault concurrency、真实 workload / release / Trace 输入、context filtering 对未知故障召回的影响、GT trace 的解释忠实性、固定误报预算与延迟。
 - Progress: 21/33 完成；三篇笔记 / 卡片、Review v9、INDEX、questions 已更新。每篇和 Review 均按规范单独 commit/push；PDF 仍被 `.gitignore` 排除。
 - Next batch (22–24): Harnessing Vision-Language Models for TSAD; Towards Foundation Models for Zero-Shot TSAD; IMPACT: Influence Modeling for Open-Set TSAD。
+
+
+## 2026-10-23 — Harnessing Vision-Language Models for TSAD
+
+- Paper: *Harnessing Vision-Language Models for Time Series Anomaly Detection* (AAAI 2026).
+- Core takeaway: CLIP patch-level multi-scale cross-window screening proposes local intervals; GPT-4o verifies against a full-series plot and can add missed candidates.
+- Evidence: ViT4TS / VLM4TS mean F1-max 0.612 / 0.659; VLM4TS leads 9/11. Yahoo A3/A4 dense anomalies reduce performance; max-F1 protocol and roughly 14.68-second per-series VLM latency bound interpretation.
+- Progress: 完成第 22/33 篇 PDF 精读及笔记 / 卡片；`8482c21` 已 push。
+
+
+## 2026-10-23 — TimeRCD
+
+- Paper: *Towards Foundation Models for Zero-Shot Time Series Anomaly Detection: Leveraging Synthetic Data and Relative Context Discrepancy* (ICML 2026).
+- Core takeaway: 2.5B synthetic points teach a Transformer to classify local relational discrepancy from long input context; reconstruction is a training scaffold, inference uses anomaly head only.
+- Evidence: 64 zero-shot dataset-metric cases rank first 38 / second 14; dedicated synthetic contextual anomaly Standard-F1 0.827. Fixed 5k context is not universally optimal and anomaly-dense contexts can be contaminated.
+- Progress: 完成第 23/33 篇 PDF 精读及笔记 / 卡片；`fe5efc1` 已 push。
+
+
+## 2026-10-23 — IMPACT
+
+- Paper: *IMPACT: Influence Modeling for Open-Set Time Series Anomaly Detection* (ICML 2026).
+- Core takeaway: validation-risk influence guides contamination label-flipping and feature-space pseudo anomaly generation for seen / unseen open-set heads.
+- Evidence: strong AUC under general / hard protocols and 2–10% injected contamination; hard TUSZ drops 75.70→60.92 without unseen loss. The contamination is sampled from test anomalies then excluded from final test; rare normal subpopulations are an explicit risk.
+- Progress: 完成第 24/33 篇 PDF 精读及笔记 / 卡片；`bb6fe73` 已 push。
+
+
+## 2026-10-23 — Knowledge Review v10: TSAD batch 8
+
+- Scope: Harnessing VLMs, TimeRCD, IMPACT，与前 21 篇交叉比较。
+- Main synthesis: 区分 same-series visual reference、synthetic-pretrained relative context、validation-risk influence 三类 reference / supervision；它们分别对应 candidate verification、zero-shot contextual TSAD、few-shot open-set contamination handling。
+- Evidence gaps: 真实 workload / release / Trace context、状态变化与故障并发、rare-normal group robustness、generator-held-out validation、rationale fidelity 和固定告警预算。
+- Progress: 24/33 完成；3 篇笔记 / 卡片、Review v10、INDEX、questions 已更新。逐篇提交并 push；PDF 仍被 `.gitignore` 排除。
+- Next batch (25–27): KAN-AD; RTdetector; Idempotent Reconstruction。
