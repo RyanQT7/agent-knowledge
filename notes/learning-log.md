@@ -282,3 +282,13 @@
 - New concepts: cross-scale reconstruction；scale-independent / cross-scale attention masks；period-aware sub-series query；EMA global multi-scale prototypes。
 - Open questions: 多种业务正常状态与故障并发时的状态识别；原型推理期是否更新；业务上下文是否能解释原型；SWAN VUS-ROC 与消融增益表文不一致。
 - Next step: 阅读 Fortifying Time Series，比较 DTW 鲁棒性认证的威胁模型、扰动范围和业务时序变化。
+
+
+## 2026-10-23 — Fortifying Time Series
+
+- Date: 2026-10-23
+- Paper: Fortifying Time Series: DTW-Certified Robust Anomaly Detection
+- Core takeaway: 用 randomized percentile smoothing 先给 anomaly score 得到 ℓ2 决策证书，再经 Keogh DTW 下界转换成对抗时间扭曲半径；证书是决策不变保证，不是原判定正确或业务状态可解释保证。
+- New concepts: DTW-certified radius；percentile smoothing for unbounded anomaly scores；Keogh envelope slack；certified confusion matrix under evasion / availability.
+- Open questions: DTW 扰动是否符合业务语义；Keogh 的保守性与零证书 coverage；推理多次采样的成本；新正常在线适应后认证边界。
+- Next step: 阅读 Learning Multi-Pattern Normalities in the Frequency Domain，比较显式多模式表示与统计平滑 / 证书路线。

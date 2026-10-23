@@ -214,6 +214,15 @@
 - 跨尺度重构与 CAROTS 跨变量预测关系能否联合，以区分局部—全局形态变化和变量联动变化？目前尚无组合实验。（CrossAD §§3–4; CAROTS note）
 
 
+## From Fortifying Time Series reading
+
+- DTW 半径及 warping window 是否在具体业务领域代表语义保持变化，还是会把某些真实故障（如延迟 / 时间偏移）纳入同一等价类？（PDF §§3.1–3.2）
+- Keogh lower bound 产生的零证书样本在经验 DTW 攻击下是否稳定；更紧下界可提高多少可认证覆盖率？（PDF §3.2, Theorem 3.3; Appendix F）
+- 如何在不看测试标签的情况下联合选择平滑噪声 $\sigma$、序列长度 $T$、DTW 窗口 $w$、告警阈值和线上时延预算？（PDF §§4–5）
+- 认证后分类仍可能是错误的旧决策；如何将正确性、事件级代价及多种正常运行状态纳入安全声明？（PDF §§3–4）
+- 本地 PDF 的 NeurIPS 2025 标记与 2026 arXiv v1 标记对应哪个公开版本，会议终稿是否一致？（PDF p.1）
+
+
 ## Knowledge Review v3: TSAD batch 1
 
 本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。
