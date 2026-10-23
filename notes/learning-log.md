@@ -310,3 +310,13 @@
 - Main synthesis: 区分服务频谱先验、跨尺度 / 跨窗统计模式和 DTW 对抗决策证书；确认这些分别处理跨服务异质性、重构关联和攻击不变性，不等于识别业务运行语义。
 - Most important open questions: 同服务动态多状态、业务上下文 / Trace、负载与故障并发、异常安全更新、无标签阈值及鲁棒性成本。
 - Next step: 阅读下一批主题论文；完成其余 33 篇后再判断全库研究空白并生成综合报告。
+
+
+## 2026-10-23 — Graph-MoE
+
+- Date: 2026-10-23
+- Paper: Graph Mixture of Experts and Memory-augmented Routers for Multivariate Time Series Anomaly Detection
+- Core takeaway: 把各 GNN 深度编码的不同邻域范围作为 experts，并以记忆增强路由器结合当前及历史特征加权；其 memory 是潜在历史摘要，并未被证明对应可解释的业务态。
+- New concepts: window-dynamic entity attention graph；layer-wise expert alignment；gated memory router；conditional normalizing flow scoring。
+- Open questions: memory 跨窗口和 train/test 重置、安全更新方式；SWaT 测试再切分协议；业务上下文对齐及负载变化与故障并发。
+- Next step: 完成本批另外两篇动态 / 因果上下文方法，再做第三批跨论文 Review。

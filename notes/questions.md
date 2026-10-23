@@ -232,6 +232,14 @@
 - 负载变化和故障同时发生时，静态服务正常谱基如何避免把短期故障并入常见模式？论文尚无该并发场景实验。（PDF §§IV–V）
 
 
+## From Graph-MoE reading
+
+- Graph-MoE 的 memory 在实体、窗口、训练 / 测试边界间如何初始化和重置？异常窗口是否会进入 memory？（PDF pp.4–5, Eqs. 12–16）
+- 动态 attention graph 能否与真实 service topology、Trace 或已知业务状态对齐？潜在相关结构不能直接当作因果依赖。（PDF pp.3–4, Eqs. 5–6）
+- SWaT 原测试序列再拆为 train / validation / test 后，严格独立测试、固定阈值和事件级结果是否仍保有提升？（PDF p.5, Implementation Details）
+- 记忆路由能否区分正常负载变化和同一时间段叠加的故障？论文没有该并发场景实验。（PDF §§3–4）
+
+
 ## Knowledge Review v4: TSAD batch 2 status update
 
 本节基于 CAPMix、When Model Meets New Normals、CAROTS、CrossAD、Fortifying Time Series、MACE 六篇已完成笔记；更多 TSAD 论文尚待读，结论可继续变化。

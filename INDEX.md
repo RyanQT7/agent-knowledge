@@ -33,6 +33,7 @@
 - [CrossAD — cross-scale associations and cross-window modeling](papers/crossad/notes.md) · [知识卡片](papers/crossad/knowledge-card.md)
 - [Fortifying Time Series — DTW-certified robust anomaly detection](papers/fortifying-time-series/notes.md) · [知识卡片](papers/fortifying-time-series/knowledge-card.md)
 - [MACE — multi-pattern normality in the frequency domain](papers/mace/notes.md) · [知识卡片](papers/mace/knowledge-card.md)
+- [Graph-MoE — multi-level graph experts and memory routing](papers/graph-moe/notes.md) · [知识卡片](papers/graph-moe/knowledge-card.md)
 - 更多论文笔记见 [papers/](papers/)。
 
 ## Knowledge Reviews
