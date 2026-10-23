@@ -329,3 +329,22 @@
 - attention map 是否跨初始化稳定，并对应已知传感器拓扑、Trace 或干预关系？progression detection 对物理根因的解释效度如何验证？（PDF §§3.2–3.3）
 - $2W=100$ 的前后窗对短异常产生多大稀释 / 延迟；多尺度窗口如何在 feature 数增加时保持 $O(N^2)$ 计算可控？（PDF §4, Appendices H, N）
 - 当前主诊断分数用 data reconstruction residual，空间 progression 的变量归因贡献有无全量 forensic ground truth 验证？SWaT / HAI attack-origin labels 如何影响诊断结论？（PDF Eq. 6; Appendix E.3）
+
+
+## Knowledge Review v6: TSAD batch 4 status update
+
+本节汇总前四批 12 篇已完成精读；之后 21 篇尚可能改变当前结论。GCAD、OracleAD、SARAD 已分别增加逐篇问题，交叉比较见 [Knowledge Review v6](reviews/knowledge-review-v6.md)。
+
+| Question | Current status | Evidence summary |
+| --- | --- | --- |
+| 多种正常状态如何建模？ | Partially Answered | WMMNN 测试时适应、MACE 服务条件频谱、CrossAD 原型、Graph-MoE memory、CAROTS 多样因果增强已提出；GCAD/OracleAD 的全局关系 reference 与 SARAD progression 均未使用业务状态语义。 |
+| 正常业务波动和故障如何区分？ | Partially Answered | 形态、趋势、频谱、曲率、尺度与关系变化均有检测机制；尚无受控“状态变化 × 故障并发”矩阵。 |
+| 是否利用 Metric、Trace、业务负载与运行上下文？ | Open | 目前主要学习指标序列及其统计 / latent 关系；MACE 用静态 service identity，未见 workload、Trace、release 的条件化验证。 |
+| 方法是否解释波动来源？ | Partially Answered | 因果 proxy、latent structure 和 attention association 增加可视结构，但都未充分与真实 topology、Trace 或 fault-injection cause 对齐。 |
+| 如何处理正常负载与故障并发？ | Open | 12 篇无系统并发测试；在线适应污染、固定关系模板误报、prototype / memory 更新安全仍需验证。 |
+| 哪些方向已被提出？ | Partially Answered | online adaptation、跨服务 / 跨窗正常模式、causal augmentation / graph、关系变化、曲率和顺序检测已有具体机制；需明确新贡献边界。 |
+| 关键评测还有何不足？ | Partially Answered | 测试标签 Best-F1、诊断标签不完整、不同 split / window / range metrics、GT 因果关系验证、在线延迟与告警成本均需逐篇留意。 |
+
+#### 下一批计划（第 13–15 篇）
+
+Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；先核对评测规范与 benchmark 证据，再和 MACE / TFC 的频域方法比较。

@@ -48,6 +48,7 @@
 - [Knowledge Review v3 — TSAD batch 1: normal variation, adaptation, and causal structure](notes/reviews/knowledge-review-v3.md)
 - [Knowledge Review v4 — TSAD batch 2: multi-pattern normality, scale relations, and DTW certification](notes/reviews/knowledge-review-v4.md)
 - [Knowledge Review v5 — TSAD batch 3: latent history, channel grouping, and dynamical evidence](notes/reviews/knowledge-review-v5.md)
+- [Knowledge Review v6 — TSAD batch 4: three kinds of relational anomaly evidence](notes/reviews/knowledge-review-v6.md)
 
 ## AIOps Literature — First-stage Triage
 

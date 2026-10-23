@@ -375,3 +375,12 @@
 - Evidence: SMD/PSM/SWaT/HAI range AUC/VUS、诊断指标与模块消融；作者代码公开。短异常可能被半窗口稀释，attention association 不等于物理因果，SWaT/HAI 诊断标签并非完整故障 feature labels。
 - Open questions: 业务状态切换与故障并发；attention 对齐外部 topology / Trace；短异常延迟与多尺度；低成本扩展。
 - Progress: 批次 4 完成，累计 12/33 篇。下一步写 Knowledge Review v6 并按正常状态 / 鲁棒性 / 基准方法主题选择第 13–15 篇。
+
+
+## 2026-10-23 — Knowledge Review v6: TSAD batch 4
+
+- Scope: GCAD、Structured Temporal Causality / OracleAD、SARAD，与前 9 篇对比。
+- Main synthesis: 区分 loss-gradient predictive Granger proxy、对称 latent-distance SLS、MHSA association reduction progression；结构异常证据不等于运维根因解释。
+- Current gaps in 12-paper scope: 动态业务状态语义、状态变化与故障并发、多源运行 context、关系与真实拓扑 / Trace 对照、在线更新污染、无标签运行点与事件成本。上述判断仍待后续 21 篇复核。
+- Progress: 12/33 完成，已逐篇提交三份详细笔记 / 卡片并完成本批 Review。
+- Next batch (13–15): Quo Vadis; The Elephant in the Room; Temporal-Frequency Masked Autoencoders.
