@@ -203,3 +203,18 @@
 - 如何验证 CUTS+ 得到的因果图与 CPA/CDA 的语义保真度，而不只看图相似度和下游分数？（PDF pp.15–18）
 - 为什么 (A_{CD}) 在 WADI 与 SWaT 等数据集贡献不同；是否需要上下文门控或独立校准？（PDF pp.8, 17）
 - 业务负载、发布、Trace 等外生上下文能否改善因果图在多种正常工作模式间的迁移？（Appendix §D）
+
+
+## Knowledge Review v3: TSAD batch 1
+
+本表只汇总 CAPMix、When Model Meets New Normals 和 CAROTS 三篇提供的证据；状态可由后续论文更新。原始逐篇问题见上文。
+
+| Question | Status | Current understanding |
+| --- | --- | --- |
+| 如何区分正常业务波动与真实故障？ | Partially Answered | 形态伪标签、测试时趋势适应和因果关系偏离分别提供线索，但缺少负载变化与真实故障并发的系统实验。（[Review v3](reviews/knowledge-review-v3.md#8-open-questions)） |
+| 多种合法运行状态如何建模？ | Partially Answered | CAROTS 用因果保持增强和 SOC 纳入多样正例；WMMNN 学新状态但不命名模式；CAPMix 的单一均值中心可能受限。 |
+| 检测分数能否解释波动来源？ | Partially Answered | CAROTS 增加跨变量预测关系证据，但不做业务事件或根因归因；其余两篇主要调整检测边界 / 状态。 |
+| 是否显式利用 Metric、Trace、业务负载和运行上下文？ | Open | 三篇以时序指标为主，未形成 workload、Trace、发布事件的上下文校准；CAROTS 将外生变量列为未来方向。 |
+| 负载变化与故障同时发生时如何安全处理？ | Open | 在线伪正常更新可能吸收漏检故障，固定因果图可能不适应机制切换，现有实验没有系统验证并发情形。 |
+| 哪些方向已经有方法提出，哪些仍有证据空白？ | Partially Answered | 合成异常增强、测试期漂移适应、Granger / 因果异常检测均已有方法；创新点需超出既有机制并经全批 33 篇复核。 |
+| 关键结论有哪些实验缺口？ | Partially Answered | 线上阈值与告警成本、因果图真值、在线污染稳定性、跨组织迁移及波动来源解释均缺充分证据；WADI 数字口径需要复核。 |

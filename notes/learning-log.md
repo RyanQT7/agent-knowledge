@@ -264,3 +264,11 @@
 - New concepts: causality-preserving / causality-disturbing augmentation；similarity-filtered one-class contrastive loss；causal forecast + latent centroid ensemble。
 - Open questions: 因果结构变化的正常切换如何处理；如何验证估计因果图真实可靠；业务上下文和外生变量如何接入。
 - Next step: 完成前三篇的跨论文 Review；继续 CrossAD。
+
+
+## 2026-10-23 — Knowledge Review v3: TSAD batch 1
+
+- Scope: CAPMix, When Model Meets New Normals, and CAROTS.
+- Main conceptual change: 将正常性证据分为窗口形态、测试时分布状态、跨变量预测关系；训练期增强、在线适应和因果建模互补但假设不同。
+- Most important open questions: 负载变化与故障并发、上下文/Trace 使用、因果图正确性、在线伪标签污染和无标签阈值校准。
+- Next themes: CrossAD、Fortifying Time Series、以及多模式正常性建模。
