@@ -167,6 +167,11 @@
 ### LLM-Driven Microservice Anomaly Generation
 
 - [Topic index, cross-paper comparison, reading paths, and query guide](notes/aiops/llm-microservice-anomaly-generation.md)
+- [Research overview: LLM-driven anomaly generation and Metric–Trace modeling](notes/aiops/llm-microservice-research-overview.md)
+- [Research survey and overlap analysis](notes/aiops/llm-microservice-anomaly-generation-survey.md)
+- [Candidate technical designs](notes/aiops/llm-metric-trace-generation-design.md)
+- [Minimum experiment plan](notes/aiops/llm-metric-trace-experiment-plan.md)
+- [Novelty boundaries and candidate contributions](notes/aiops/llm-microservice-research-novelty.md)
 - [Source papers CSV and download / version report](sources/papers/llm-microservice-anomaly-generation/download_report.md)
 - [TraceLLM](papers/aiops/tracellm/notes.md) · [card](papers/aiops/tracellm/knowledge-card.md) · [dossier](papers/aiops/tracellm/knowledge-dossier.md)
 - [LLM-AP](papers/aiops/llm-ap-synthetic-augmentation/notes.md) · [card](papers/aiops/llm-ap-synthetic-augmentation/knowledge-card.md) · [dossier](papers/aiops/llm-ap-synthetic-augmentation/knowledge-dossier.md)

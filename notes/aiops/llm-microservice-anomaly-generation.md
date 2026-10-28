@@ -103,6 +103,18 @@ Start with this topic map, then follow each paper’s detailed note and dossier.
 - What evidence distinguishes business load variation from infrastructure fault?
 - Which work jointly generates multiple observability modalities, and what is still unknown?
 
+## Research proposal analysis
+
+For analysis of LLM-planned microservice faults, Metric–Trace consistency, and separation of healthy workload variation from service degradation, use:
+
+- [Self-contained research overview](llm-microservice-research-overview.md)
+- [Literature survey and novelty overlap](llm-microservice-anomaly-generation-survey.md)
+- [Candidate technical designs and recommendation](llm-metric-trace-generation-design.md)
+- [Minimum experiment plan](llm-metric-trace-experiment-plan.md)
+- [Novelty boundaries and candidate contributions](llm-microservice-research-novelty.md)
+
+These reports synthesize this topic with the 33-paper TSAD collection. They distinguish paper facts, experiment evidence, and research hypotheses. The current knowledge base has no verified schema document for the State Grid project’s Metric / Trace data; its data-field status is therefore recorded as unknown, not missing.
+
 ## Export package
 
 Standalone knowledge export: [README](../../exports/llm-microservice-anomaly-generation/README.md), [full knowledge Markdown](../../exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge.md), [overview](../../exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge-overview.md), [JSONL](../../exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation.jsonl), [cross-paper comparison](../../exports/llm-microservice-anomaly-generation/comparison.md).
