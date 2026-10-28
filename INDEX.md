@@ -162,6 +162,20 @@
 - [AIOps Knowledge Review v1 — Multimodal / Topology-aware / Production RCA](notes/aiops/reviews/aiops-knowledge-review-v1.md)
 - [AIOps Knowledge Review v2 — Agentic Incident Management](notes/aiops/reviews/aiops-knowledge-review-v2.md)
 - [AIOps Knowledge Review v3 — Evidence-grounded, candidate-constrained, verifiable RCA](notes/aiops/reviews/aiops-knowledge-review-v3.md)
+- [AIOps Knowledge Review v4 — LLM-driven microservice anomaly generation](notes/aiops/reviews/aiops-knowledge-review-v4.md)
+
+### LLM-Driven Microservice Anomaly Generation
+
+- [Topic index, cross-paper comparison, reading paths, and query guide](notes/aiops/llm-microservice-anomaly-generation.md)
+- [Source papers CSV and download / version report](sources/papers/llm-microservice-anomaly-generation/download_report.md)
+- [TraceLLM](papers/aiops/tracellm/notes.md) · [card](papers/aiops/tracellm/knowledge-card.md) · [dossier](papers/aiops/tracellm/knowledge-dossier.md)
+- [LLM-AP](papers/aiops/llm-ap-synthetic-augmentation/notes.md) · [card](papers/aiops/llm-ap-synthetic-augmentation/knowledge-card.md) · [dossier](papers/aiops/llm-ap-synthetic-augmentation/knowledge-dossier.md)
+- [Synthetic Time Series for Cloud Microservices](papers/aiops/synthetic-cloud-microservices/notes.md) · [card](papers/aiops/synthetic-cloud-microservices/knowledge-card.md) · [dossier](papers/aiops/synthetic-cloud-microservices/knowledge-dossier.md)
+- [GenIAS](papers/aiops/genias/notes.md) · [card](papers/aiops/genias/knowledge-card.md) · [dossier](papers/aiops/genias/knowledge-dossier.md)
+- [MODIFy](papers/aiops/modify/notes.md) · [card](papers/aiops/modify/knowledge-card.md) · [dossier](papers/aiops/modify/knowledge-dossier.md)
+- [AIOpsLab](papers/aiops/aiopslab/notes.md) · [card](papers/aiops/aiopslab/knowledge-card.md) · [dossier](papers/aiops/aiopslab/knowledge-dossier.md)
+- [AMulSys — full text pending](papers/aiops/amulsys/availability.md)
+- Standalone export: [full knowledge](exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge.md) · [overview](exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge-overview.md) · [JSONL](exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation.jsonl)
 
 ### AIOps Architecture Synthesis
 

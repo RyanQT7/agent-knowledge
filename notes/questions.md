@@ -552,3 +552,16 @@ Quo Vadis、The Elephant in the Room、Temporal-Frequency Masked Autoencoders；
 - FlowFuse 的 ensemble disagreement 是否校准；当四个 base views 在状态漂移时相关性失败，融合能否识别共同盲点？（FlowFuse §§3.4–4.4）
 - CNF 的 FIT 在目标线上环境是否能预测 false alarm / event recall；如何把单一 LG-LDM 扩展到多个合法动态而不吸收故障？（CNF §§3.2, 4.2, 5）
 - 对三类方法建立统一的 context-shift × fault concurrency protocol 后，其 benchmark 增益能否在固定 FPR、event delay、duration coverage 和 group-wise false alarm 下保留？（Knowledge Review v13 §§3–4）
+
+## AIOps Knowledge Review v4: LLM-Driven Microservice Anomaly Generation
+
+专题论文比较见 [AIOps Knowledge Review v4](aiops/reviews/aiops-knowledge-review-v4.md)。下列状态只表示当前六篇全文阅读所覆盖的证据范围。
+
+| Question | Status | Current understanding |
+| --- | --- | --- |
+| 生成数据真实性需要哪些彼此独立的验证层？ | Partially Answered | 当前材料区分格式 / 结构、局部统计或表征、下游任务收益、运行时故障干预和多模态诊断；没有单一通用真实性指标。 |
+| 正常业务变化与真实故障能否按来源可靠区分？ | Open | 有正常负载曲线、少量 no-op 任务和现有 TSAD 新正常 / 鲁棒增强方法；缺少覆盖正常变化、故障及两者并发的统一微服务验证。 |
+| 生成 Metric、Trace、Log 是否在同一故障机制下保持一致？ | Open | TraceLLM、LLM-AP、GenIAS 分别是单类生成；运行环境可共同产生多模态观察，但尚无本专题已读生成器做同根因联合合成并检验一致性。 |
+| LLM 生成是否优于传统生成？ | Partially Answered | TraceLLM 在若干图任务和 LLM-AP 在部分 NAB detector 有效；GenIAS 作为 VAE 对照也有效。没有统一真实微服务数据、相同验证与下游预算下的比较。 |
+| 合成样本上的指标增益是否迁移到真实微服务故障？ | Open | TraceLLM 有图任务 synthetic-train / real-test；LLM-AP 和 GenIAS 缺少真实微服务故障评估；两个 live testbed 论文未做生成增强收益测量。 |
+| AMulSys 的增强 / 混合图机制是什么？ | Open | 已确认出版元数据但未取得全文；摘要预览不够支持机制结论。 |

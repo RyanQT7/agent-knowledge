@@ -622,3 +622,59 @@
 - Main synthesis: normality 已有 prototypes / memory、频域、在线适配、相对上下文、因果关系、残差统计、score fusion 和 latent dynamics 等路线；真实业务状态语义、负载变化与故障并发、Trace / release 归因与统一部署评测仍缺充分证据。
 - Documents: [TSAD final synthesis](reviews/tsad-final-synthesis.md)；[TSAD knowledge query guide](guides/tsad-knowledge-query-guide.md)。
 - Progress: 33/33 实际 PDF 精读、33 份详细笔记与 33 张知识卡片完成；未训练或复现模型。
+
+## 2026-10-28 — LLM-Driven Microservice Anomaly Generation topic
+
+- Scope: TraceLLM、LLM-AP、Synthetic Time Series、GenIAS、MODIFy、AIOpsLab；AMulSys 的全文待获取。
+- Main synthesis: 区分 Trace DAG 生成、数值异常合成、运行时故障注入、多模态诊断和 Agent benchmark；真实性需分结构、统计、任务效用、机制和跨模态层级核验。
+- Evidence gaps: 正常业务波动与故障并发的来源区分；同根因下 Metric–Trace–Log 生成一致性；合成数据在真实微服务事故上的 detector 收益；AMulSys 全文机制。
+- Documents: [专题索引与检索入口](aiops/llm-microservice-anomaly-generation.md)；[AIOps Knowledge Review v4](aiops/reviews/aiops-knowledge-review-v4.md)。
+- Progress: 6 篇全文精读、6 张卡片和 6 份知识档案完成；未进行论文精读以外的模型设计或实验。
+
+## 2026-10-28 — TraceLLM
+
+- Paper: [TraceLLM](../papers/aiops/tracellm/notes.md)
+- Core takeaway: 递归层级生成和约束微调提升调用 DAG 条件有效性；生成 Trace 结构不等于生成故障机制。
+- New concepts: 结构化 Trace generation 与 fault-semantic generation 的边界。
+- Open questions: 合成调用图是否能提升真实微服务异常检测 / RCA？
+- Next step: 对照在线故障注入数据。
+
+## 2026-10-28 — LLM-AP
+
+- Paper: [LLM-AP](../papers/aiops/llm-ap-synthetic-augmentation/notes.md)
+- Core takeaway: LLM 改写单变量窗口后由五阶段规则筛选；部分 NAB detector 获益、Autoformer 退化，规则通过不等于故障机制真实。
+- New concepts: 生成与真实性筛选分离。
+- Open questions: 能否跨数据集、模型和多变量微服务 KPI 保持效益？
+- Next step: 与 GenIAS 对照生成机制及证据层级。
+
+## 2026-10-28 — Synthetic Time Series for Anomaly Detection in Cloud Microservices
+
+- Paper: [Synthetic Time Series](../papers/aiops/synthetic-cloud-microservices/notes.md)
+- Core takeaway: 动态正常需求、负载异常、AWS FIS 故障注入和服务指标采集组成受控数据构造流程，但论文没有评估检测器。
+- New concepts: 工作负载生成与基础设施 fault injection 分层。
+- Open questions: 业务变化与故障并发时，标签和跨模态传播是否仍可辨别？
+- Next step: 对照 AIOpsLab 的故障 / 任务 oracle。
+
+## 2026-10-28 — GenIAS
+
+- Paper: [GenIAS](../papers/aiops/genias/notes.md)
+- Core takeaway: VAE 潜空间扰动与逐变量 patching 可在多个 TSAD 基准改进部分检测指标，但没有微服务故障语义。
+- New concepts: 数值异常合成与运行时故障注入为不同层级。
+- Open questions: 如何用机制先验提高变量级异常真实性而不破坏合法动态？
+- Next step: 与 LLM-AP 和 CAPMix 并列比较。
+
+## 2026-10-28 — MODIFy
+
+- Paper: [MODIFy](../papers/aiops/modify/notes.md)
+- Core takeaway: 三模态特征融合、Trace 去噪与联合根因定位提高两个微服务基准结果；扩散模块服务于表征鲁棒性，而非异常样本生成。
+- New concepts: diffusion-based denoising 与 diffusion sample generation 的区别。
+- Open questions: 固定拓扑 / 监督根因模型在负载状态变化和多根因环境下如何表现？
+- Next step: 获得 AMulSys 全文后再做机制对照。
+
+## 2026-10-28 — AIOpsLab
+
+- Paper: [AIOpsLab](../papers/aiops/aiopslab/notes.md)
+- Core takeaway: live testbed 通过真实服务运行与受控故障产生可追溯多模态观察；正式版两个 no-op 任务暴露正常误报。
+- New concepts: benchmark fault intervention 与离线合成数据生成的证据边界。
+- Open questions: 如何扩大正常工作负载 / release 状态覆盖并评估并发故障？
+- Next step: 结合 TSAD 新正常与 robust augmentation 论文做专题 review。
