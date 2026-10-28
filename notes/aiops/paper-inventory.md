@@ -1,5 +1,9 @@
 # AIOps Paper Inventory
 
+## Focused topic with full-paper notes
+
+The [LLM-Driven Microservice Anomaly Generation topic](llm-microservice-anomaly-generation.md) separately tracks seven user-requested papers: six have full notes and structured dossiers; AMulSys remains pending lawful full-text access. Source metadata, versions, PDF hashes, and download states are in [the topic source report](../../sources/papers/llm-microservice-anomaly-generation/download_report.md). This does not alter the original 33-paper TSAD collection.
+
 Status: Batch 1, Batch 2, and research-driven Batch 3 full reading completed; AIOps Knowledge Review v3 completed
 
 Scan date: 2026-09-15

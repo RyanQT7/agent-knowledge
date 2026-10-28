@@ -1,6 +1,6 @@
 # AIOps Literature Map
 
-Status: Batch 1, Batch 2, and research-driven Batch 3 formal notes completed; AIOps Knowledge Reviews v1–v3 and Network AIOps Architecture Synthesis v1 completed
+Status: Batch 1, Batch 2, and research-driven Batch 3 formal notes completed; six additional microservice-generation / diagnosis papers fully read; AIOps Knowledge Reviews v1–v4 and Network AIOps Architecture Synthesis v1 completed
 
 This map is a navigation skeleton for the AIOps literature. It is organized by problem and system role, not by presumed algorithmic similarity. Formal notes replace source-PDF links as papers complete full reading; source PDFs remain in the inventory.
 
@@ -9,6 +9,17 @@ This map is a navigation skeleton for the AIOps literature. It is organized by p
 - [TFC — temporal–frequency–curvature fusion](<../../sources/papers/AIOps_papers/KDD26-Rethinking Time Series Anomaly Detection from a DynamicPerspective- Temporal–Frequency–Curvature Fusion.pdf>) — multivariate time-series anomaly detection.
 - [TFT-GCN](<../../sources/papers/AIOps_papers/TKDE26-TFT-GCN_A_Time-Frequency_Based_Model_for_Time_Series_Anomaly_Detection.pdf>) — temporal/frequency modeling with cross-variable graph structure.
 - [Foundation Models for Time Series](<../../sources/papers/AIOps_papers/KDD26-Foundation Models for Time Series Analysis- Concepts,Methodologies, and Applications.pdf>) — background on forecasting and anomaly-detection applications.
+
+## Microservice Anomaly Data, Trace Generation, and Fault Injection
+
+- [Topic index and evidence-based comparison](llm-microservice-anomaly-generation.md) — separates numeric / Trace generation, live fault injection, multimodal diagnosis, and Agent evaluation.
+- [TraceLLM](../../papers/aiops/tracellm/notes.md) — LLM-generated invocation DAGs; structural and downstream graph-task evaluation, not fault generation.
+- [LLM-AP](../../papers/aiops/llm-ap-synthetic-augmentation/notes.md) — frozen LLM edits univariate numeric windows with rule-based sample validation.
+- [Synthetic Time Series for Cloud Microservices](../../papers/aiops/synthetic-cloud-microservices/notes.md) — normal load curves, load anomalies, and AWS FIS faults with collected service metrics.
+- [GenIAS](../../papers/aiops/genias/notes.md) — VAE latent-space anomaly generation and variable-level patching.
+- [MODIFy](../../papers/aiops/modify/notes.md) — multimodal Metric / Log / Trace diagnosis; not a data generator.
+- [AIOpsLab](../../papers/aiops/aiopslab/notes.md) — live cloud fault injection, multimodal observations, and Agent evaluation.
+- [AMulSys availability](../../papers/aiops/amulsys/availability.md) — publisher full text currently pending; no method summary claimed.
 
 ## Root Cause Analysis / Fault Localization / Diagnosis
 
