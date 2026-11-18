@@ -72,3 +72,7 @@ ReAct 是一种最容易理解的 Agent Loop；框架的主要差异在于谁拥
 
 - 如何为 investigation loop 定义“足够证据”而不只依赖模型自报完成？
 - 哪些循环转移应由模型决定，哪些应由 deterministic policy 强制决定？
+
+## Trace and operations link
+
+For reliable diagnosis, a loop should emit more than thought/action text: preserve Agent identity, tool name and parameters, returned observation, state update, handoff/dependency and stop reason. This connects ordinary runtime events to AgentOps attribution. In IT operations, link the same events to evidence provenance and an independently checked recovery outcome. See [AgentOps](agentops/README.md), [AgentRx](../papers/agentops/agentrx.md), [TraJudger](../papers/agentops/trajudger.md), and [OpsAgent](opsagent/README.md).

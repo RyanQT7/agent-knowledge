@@ -39,3 +39,13 @@ For the current inventory and preliminary taxonomy, see [AIOps paper inventory](
 - [Verification](verification.md)
 
 The first five-paper formal batch is recorded in [AIOps Knowledge Review v1](../../notes/aiops/reviews/aiops-knowledge-review-v1.md). Concepts remain evolving and should be updated only when later sources add durable cross-paper evidence. Batch 2 adds [Comfey](../../papers/aiops/comfey/notes.md) for production incident triage, [AIM](../../papers/aiops/aim/notes.md) for prompt-level multimodal alert interpretation and plan-to-act, [StepFly](../../papers/aiops/stepfly/notes.md) for bounded TSG execution, [TSGen](../../papers/aiops/tsgen/notes.md) for historical-incident knowledge curation, and [ChatRCA](../../papers/aiops/chatrca/notes.md) for role-specialized human-gated RCA. Batch 3 adds [Cloud-OpsBench](../../papers/aiops/cloud-opsbench/notes.md) for reproducible process evaluation, [Cloud Intelligence/AIOps 2.0](../../papers/aiops/cloud-intelligence/notes.md) for knowledge-artifact governance, [CHIEF](../../papers/aiops/chief/notes.md) for hierarchical execution-trace attribution, and [FlowFixer](../../papers/aiops/flowfixer/notes.md) for symbolic workflow repair verification. Their cross-paper boundaries are consolidated in [AIOps Knowledge Review v2](../../notes/aiops/reviews/aiops-knowledge-review-v2.md) and [AIOps Knowledge Review v3](../../notes/aiops/reviews/aiops-knowledge-review-v3.md); these systems should not be generalized into a single physical-RCA or autonomous-Agent architecture without further evidence.
+
+## Agent operations connection
+
+- [OpsAgent — Agents for IT Operations](../opsagent/README.md)
+- [AgentOps — Operations for Agent Systems](../agentops/README.md)
+- [AgentOps vs OpsAgent](../../notes/guides/agentops-vs-opsagent.md)
+- [Agent Research Directions 2026](../../notes/guides/agent-research-directions-2026.md)
+- [Advanced Lesson 2](../../notes/lessons/lesson-02-advanced-agent-systems.md)
+
+AIOps evidence, candidate-space, provenance and verification concepts apply to OpsAgent's infrastructure tasks. AgentOps adds a separate trace/attribution layer for failures inside the Agent that performs those tasks; a combined closed loop remains a research hypothesis.

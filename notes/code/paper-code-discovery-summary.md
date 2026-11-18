@@ -130,3 +130,18 @@ benchmark、可复现交互、轨迹归因等不同层面。
 5. 代码执行是高风险 action；smolagents 的 `CodeAgent` 明确经过 interpreter/executor 边界，不能和 read-only telemetry query 使用相同安全假设。
 
 更完整的横向比较见 [Agent Framework Source Code Comparison](../../code/agent-frameworks/comparison.md)。
+
+## AgentOps and OpsAgent code analysis
+
+This research batch added static, commit-pinned analysis of [AgentRx](../../papers/agentops/agentrx.md), [Trial by Trace](../../papers/agentops/trial-by-trace.md), the [NKU OpsAgent system](../../papers/opsagent/opsagent-system.md), [OpsMem](../../papers/opsagent/opsmem.md), [Graph of States](../../papers/opsagent/graph-of-states.md), and [PoS](../../papers/opsagent/pos.md). Confirmed repositories, status evidence, commit SHAs, license observations, entry modules, and paper-to-code mappings are in the [repository index](../../code/repository-index.md).
+
+Cross-paper code observations:
+
+1. AgentRx and Trial by Trace make trace normalization, event recording, and verifier evidence explicit, but neither guarantees that source trajectories include every model-visible context or dependency.
+2. NKU OpsAgent's repository exposes orchestration, shared evidence preprocessing, role agents, review, and offline evolution. The inspected flow did not reveal a separate independent verifier; production remediation remains human executed.
+3. OpsMem separates incident-local state, cross-event memory activation, and approval-gated consolidation. Its public sample does not reproduce the private operational corpus.
+4. Graph of States provides diagnosis-state graph/FSM and expert evidence calls; the inspected path did not implement repair.
+5. PoS validates proposed state changes with a model-assisted sentinel and detects progress traps, then composes constraints for later actions. The recovery module does not itself select or execute a production operation.
+6. These code paths suggest a research connection between trace-level AgentOps attribution and evidence-grounded OpsAgent diagnosis, but no reviewed implementation validates the combined method end to end.
+
+All six repositories were read statically at recorded SHAs. No dependencies were installed, code was executed, or operational action performed. Public repository presence is not equivalent to complete reproducibility.

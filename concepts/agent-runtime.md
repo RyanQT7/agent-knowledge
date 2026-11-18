@@ -74,3 +74,9 @@ Agent 是面向目标的决策系统；Agent Runtime 是让这个系统可以受
 
 - AIOps Agent Runtime 应该把 candidate state、evidence provenance 和 conversation state 如何分层？
 - 哪些状态必须 checkpoint，哪些只应存在于当前 investigation context？
+
+## AgentOps and operational AIOps links
+
+AgentOps adds a reliability view around the runtime: record which Agent saw which context, requested which tool action, received which Observation, changed which state, and how the run terminated. This is useful for step-level attribution but requires privacy controls and does not itself prove causal correctness. See [AgentOps Concept](agentops/README.md), [AgentRx](../papers/agentops/agentrx.md), [TraJudger](../papers/agentops/trajudger.md), and [Trial by Trace](../papers/agentops/trial-by-trace.md).
+
+In OpsAgent systems, the runtime additionally needs IT-specific tool permissions, evidence provenance, candidate constraints and recovery verification. See [OpsAgent Concept](opsagent/README.md), [Agentic Incident Management](aiops/agentic-incident-management.md), and [Verification](aiops/verification.md).

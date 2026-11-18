@@ -87,3 +87,7 @@ World model 是 planning 的预测基础，不是 planning 本身，也不是 me
 - predicted state 与实际 Observation 不一致时，系统应如何检测、回溯和 replanning？
 - world model 应保存完整状态、局部状态还是不确定性分布？
 - 何时应使用 learned world model，何时应使用 symbolic simulator 或 classical planner？
+
+## Belief state and diagnosis graphs
+
+A predicted or hypothesized state is not the same as the external operational world state. [Graph of States](../papers/opsagent/graph-of-states.md) uses a graph for abductive hypothesis expansion/backtracking, while [PoS](../papers/opsagent/pos.md) makes long-horizon belief and unresolved progress gaps explicit. Both are related to state-aware reasoning, but neither removes the need to check claims against fresh environment evidence. See [OpsAgent Concept](opsagent/README.md) and [Evidence Provenance](aiops/evidence-provenance.md).

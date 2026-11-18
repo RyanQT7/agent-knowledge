@@ -126,3 +126,7 @@ This is a cross-paper working synthesis, not a universal standard; a weaker chec
 - How should verification handle missing, delayed, conflicting, open-set, or multi-root evidence?
 - Which recovery signals are independent enough from the repair generator?
 - When should a human gate be mandatory?
+
+## AgentOps attribution and recovery
+
+A verification target may be an Agent step, an attribution edge, a proposed workflow repair, or the final operational recovery. [AgentRx](../../papers/agentops/agentrx.md) combines trace normalization, constraints and evidence for diagnosis; [TraJudger](../../papers/agentops/trajudger.md) traces failure through structured dependencies; [PROBE](../../papers/agentops/probe.md) studies evidence-gated guidance for a later attempt. Their mechanisms do not jointly establish a universal recovery protocol. Always distinguish diagnosis, retry guidance, executed change and independently observed recovery. See [AgentOps Concept](../agentops/README.md).

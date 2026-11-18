@@ -159,3 +159,7 @@ ReAct 把 planning 变成一种由 LLM 生成、由环境反馈约束的过程�
 - planning 是否一定需要 search，还是可以由可验证的单一路径计划生成与执行组成？
 - ReWOO 式 Planner–Worker–Solver 何时需要在 Worker 之后显式 replanning，何时由 Solver 后处理已经足够？
 - 如何评估一个自然语言 blueprint 的可执行性、依赖正确性和对动态 Observation 的适应性？
+
+## Dynamic operational investigation
+
+An IT investigation can combine a fixed, auditable workflow with observation-triggered branches. [FlowXpert](../papers/opsagent/flowxpert.md) focuses on workflow generation/evaluation; [NKU OpsAgent](../papers/opsagent/opsagent-system.md) investigates microservice incidents; [ToolRCA](../papers/opsagent/toolrca.md) measures how tool abstraction affects RCA behavior. These are different contributions, and a generated workflow is not automatically verified execution. See [OpsAgent Concept](opsagent/README.md) and [Agentic Incident Management](aiops/agentic-incident-management.md).

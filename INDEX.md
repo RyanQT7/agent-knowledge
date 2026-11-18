@@ -221,3 +221,54 @@
 ## Open Questions
 
 - [Open Questions](notes/questions.md)
+
+## AgentOps and OpsAgent Research (cutoff: 2026-11-17)
+
+The labels AgentOps and OpsAgent below are this knowledge base's organizing categories, not a universal taxonomy. The title *OpsAgent* also names one specific NKU system; see the topic guide for the distinction.
+
+### AgentOps — Operations for Agent Systems
+
+- [AgentOps topic index](notes/agentops/README.md)
+- [Paper inventory and reading status](notes/agentops/paper-inventory.md)
+- [Research directions](notes/agentops/research-directions.md)
+- [Research gaps](notes/agentops/research-gaps.md)
+- [AgentOps Knowledge Review v1](notes/agentops/reviews/agentops-review-v1.md)
+- Formal paper notes:
+  - [Agent System Operations](papers/agentops/agent-system-operations.md) — survey; IEEE TSE acceptance/status documented in note
+  - [TraJudger](papers/agentops/trajudger.md) — USENIX ATC ’26
+  - [Debugging the Debuggers / PROBE](papers/agentops/probe.md) — arXiv preprint at cutoff
+  - [AgentRx](papers/agentops/agentrx.md) — Findings of EMNLP 2026
+  - [Trial by Trace](papers/agentops/trial-by-trace.md) — arXiv preprint at cutoff
+  - [A Survey for LLM Agent Trajectory Analysis](papers/agentops/trajectory-survey.md) — IEEE TSE Early Access; publisher text not fully accessible in this pass
+  - [Taming Uncertainty via Automation](papers/agentops/taming-uncertainty.md) — ASE 2025 NIER
+  - [TraceElephant](https://aclanthology.org/2026.acl-long.912/) — screened for next reading; not yet a full local paper note
+- Existing detailed notes reused, not duplicated: [CHIEF](papers/aiops/chief/notes.md) and [FlowFixer](papers/aiops/flowfixer/notes.md).
+
+### OpsAgent — Agents for IT Operations
+
+- [OpsAgent topic index](notes/opsagent/README.md)
+- [Paper inventory and reading status](notes/opsagent/paper-inventory.md)
+- [Research directions](notes/opsagent/research-directions.md)
+- [Research gaps](notes/opsagent/research-gaps.md)
+- [OpsAgent Knowledge Review v1](notes/opsagent/reviews/opsagent-review-v1.md)
+- Formal paper notes:
+  - [NKU OpsAgent: Evolving Multi-agent Incident Management](papers/opsagent/opsagent-system.md) — ASE 2026 Companion Industry Showcase; distinguish system name from topic
+  - [KRCA](papers/opsagent/krca.md) — ASE 2026
+  - [OpsMem](papers/opsagent/opsmem.md) — ISSRE 2026 Industry Track
+  - [Graph of States](papers/opsagent/graph-of-states.md) — ICML 2026 / PMLR 306
+  - [Beyond Memory / PoS](papers/opsagent/pos.md) — arXiv preprint at cutoff; no venue assumed
+  - [FlowXpert](papers/opsagent/flowxpert.md) — KDD 2025
+  - [KnowLution](papers/opsagent/knowlution.md) — ISSRE 2026
+  - [ToolRCA](papers/opsagent/toolrca.md) — arXiv preprint at cutoff
+- Additional screened directions and metadata-only records are marked in the inventory, including PAGE, Prism, and the NetOps/AIOps survey.
+
+### Cross-topic integration and learning
+
+- [AgentOps vs OpsAgent](notes/guides/agentops-vs-opsagent.md) — comparison table and explicitly labeled, unvalidated transfer hypothesis
+- [Agent Research Directions 2026](notes/guides/agent-research-directions-2026.md) — 12 research areas, representative work, maturity and limits
+- [Advanced Lesson 2: Agent state, decisions, planning and multi-agent collaboration](notes/lessons/lesson-02-advanced-agent-systems.md)
+- [AgentOps concept](concepts/agentops/README.md) · [OpsAgent concept](concepts/opsagent/README.md)
+- Related concepts updated: [Agent Runtime](concepts/agent-runtime.md), [Agent Loop](concepts/agent-loop.md), [Memory](concepts/memory.md), [Planning](concepts/planning.md), [World Model](concepts/world-model.md), [Candidate Space](concepts/aiops/candidate-space.md), [Evidence Provenance](concepts/aiops/evidence-provenance.md), [Verification](concepts/aiops/verification.md)
+- [AgentOps / OpsAgent paper-code index](code/repository-index.md)
+
+The two topic branches and merge history are retained in Git. PDFs and cloned third-party repositories remain under the existing ignored-source rules and are not committed.

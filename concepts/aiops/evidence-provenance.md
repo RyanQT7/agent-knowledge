@@ -94,3 +94,7 @@ The current papers support the need for evidence tickets, evidence chains, tool 
 - How should one observation map to multiple candidate levels such as device, interface, link, and module?
 - How much raw evidence should be retained versus summarized?
 - How can provenance be checked automatically before an LLM or human accepts a root cause?
+
+## Agent trajectory provenance
+
+AgentOps has a parallel provenance problem: an attribution is only as reliable as the recorded inputs, tool calls/results, state mutations, delegation links and verification events. [AgentRx](../../papers/agentops/agentrx.md) normalizes trajectories and records checker evidence; [TraJudger](../../papers/agentops/trajudger.md) reconstructs interaction dependencies for backward attribution. These traces complement, but do not replace, infrastructure provenance such as entity, timestamp, query and telemetry freshness. Cross-domain integration is described as a research hypothesis in the [AgentOps vs OpsAgent guide](../../notes/guides/agentops-vs-opsagent.md).

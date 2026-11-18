@@ -93,3 +93,7 @@ Candidate space is the contract that connects evidence to an evaluable RCA outpu
 - How can pruning preserve open-set and multi-root recall?
 - How should Top-k be evaluated across hierarchy levels?
 - What evidence is sufficient to add an unknown candidate rather than force a closed label?
+
+## Agent operations candidate spaces
+
+For AgentOps, the candidate universe can be trajectory steps, Agent identities, failure categories, dependency edges and propagation chains. [AgentRx](../../papers/agentops/agentrx.md) constrains step-level diagnosis with trace checks; [TraJudger](../../papers/agentops/trajudger.md) uses a structured dependency graph for backward attribution. These are not the same label space as infrastructure RCA. For OpsAgent, [KRCA](../../papers/opsagent/krca.md) uses microservice dependency structure to prune service candidates; its recall depends on the candidate/topology assumptions. See [AgentOps](../agentops/README.md) and [OpsAgent](../opsagent/README.md).

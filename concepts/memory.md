@@ -115,3 +115,9 @@ ReAct 展示 memory 的最小形态：历史信息只要持续进入 context，�
 - Microsoft Agent Framework 的 `AgentSession`、ContextProvider 和 Workflow checkpoint 可以持久化不同类型的控制/上下文状态，但仍需应用定义 retrieval、selection、compression 和 forgetting。
 
 因此，源码中的 `memory`、`session`、`state`、`checkpoint` 不能只按名字归为同一个 Memory 概念。参见 [framework comparison](../code/agent-frameworks/comparison.md)。
+
+## Agentic operations links
+
+Separate the current incident's working state from cross-incident operational experience. [OpsMem](../papers/opsagent/opsmem.md) studies interaction between short-term diagnostic state and long-term memory; [Graph of States](../papers/opsagent/graph-of-states.md) represents evolving hypotheses and evidence; [PoS](../papers/opsagent/pos.md) models explicit beliefs and unresolved gaps for long-horizon progress. These are distinct mechanisms and do not establish that recalled experience is correct for a new incident.
+
+See also [OpsAgent Concept](opsagent/README.md), [AgentOps Concept](agentops/README.md), and [Evidence Provenance](aiops/evidence-provenance.md).
