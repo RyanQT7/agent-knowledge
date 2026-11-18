@@ -1,0 +1,18 @@
+flowchart LR
+  T[Task 与约束] --> S[State：进度、证据、待办]
+  S --> C[构造本轮模型视图]
+  C --> L[LLM 提出决策]
+  L --> P[Runtime 解析受控输出]
+  P --> D{final / handoff / tool}
+  D -->|final| V[核验证据]
+  V -->|满足| X[停止]
+  V -->|不足| H[升级或继续调查]
+  D -->|handoff| F[记录交接状态]
+  F --> S
+  D -->|tool| G[Runtime 校验权限、schema、预算]
+  G -->|拒绝| R[记录拒绝原因]
+  R --> S
+  G -->|获准| A[Runtime 执行 Tool]
+  A --> O[Observation]
+  O --> U[更新 State 与轨迹]
+  U --> S

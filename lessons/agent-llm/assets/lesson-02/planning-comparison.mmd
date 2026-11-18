@@ -1,0 +1,13 @@
+flowchart LR
+  subgraph R[Reactive：ReAct]
+    R1[Observation] --> R2[选一个动作] --> R3[执行 Tool] --> R1
+  end
+  subgraph P[Plan-first：ReWOO]
+    P1[Task] --> P2[先生成 Plan / evidence slots] --> P3[Worker 执行] --> P4[Solver 汇总]
+  end
+  subgraph E[Planner–Executor：LLM+P]
+    E1[自然语言 Task] --> E2[LLM 生成 PDDL] --> E3[Classical Planner 搜索] --> E4[Executor 执行]
+  end
+  subgraph S[State-aware：PoS]
+    S1[Task + Belief + gaps] --> S2[选 action] --> S3[环境 Observation] --> S4[检查 / update / replan] --> S1
+  end

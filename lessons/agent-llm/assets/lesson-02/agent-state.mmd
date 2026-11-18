@@ -1,0 +1,13 @@
+flowchart LR
+  W[World State：外部现实] --> O[Observation：查询返回]
+  O --> P[Provenance：来源/实体/时间/查询]
+  P --> B[Belief State：当前假设与不确定性]
+  T[Task State：目标/约束/完成条件] --> C[Context：本轮模型视图]
+  M[Memory：可检索历史经验] -. 适用性筛选 .-> C
+  B --> C
+  E[Execution State：工具与运行进度] --> C
+  C --> L[LLM 提出下一步]
+  L --> R[Runtime 校验并执行]
+  R --> E
+  R --> O
+  B -. 审核后沉淀 .-> M

@@ -1,0 +1,16 @@
+flowchart LR
+  R[根因步骤：错实体/时间窗] --> T[错误工具查询]
+  T --> C[Coordinator 错误归属结果]
+  C --> D[RCA 排除正确候选]
+  D --> V[Reviewer 只复述摘要]
+  V --> S[终端症状：错误报告]
+  subgraph AR[AgentRx：失败后归因]
+    I[规范化 Trajectory IR] --> K[静态/动态约束]
+    K --> E[Checker Evidence]
+    E --> J[Judge 选择关键失败步与类别]
+  end
+  subgraph TJ[TraJudger：失败后归因]
+    H[HCG：意图/动作/依赖] --> X[专门诊断角色]
+    X --> B[从终端失败反向遍历]
+    B --> Q[区分 root、conduit、symptom]
+  end

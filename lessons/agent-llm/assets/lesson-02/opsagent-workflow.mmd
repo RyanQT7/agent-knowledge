@@ -1,0 +1,16 @@
+flowchart LR
+  Q[Incident / query] --> I[Intent Interpreter：任务与时间范围]
+  I --> O[Orchestrator]
+  O --> P[Data Processor + telemetry tools]
+  P -->|共同的 M/L/T 证据| A[Anomaly Sentinel：AD]
+  P -->|共同的 M/L/T 证据| F[Failure Diagnoser：FT]
+  P -->|共同的 M/L/T 证据| R[Root Detective：RCL]
+  A --> X[MessagePool / ReviewPool：交叉评阅]
+  F --> X
+  R --> X
+  X --> Y[各 specialist refine]
+  Y --> Z[Root-cause report]
+  Z --> H[On-call engineer 检查并执行缓解]
+  H --> C[人工确认的案例]
+  C --> E[离线 PPO / reflection]
+  E -. 后续任务读取经验 .-> O

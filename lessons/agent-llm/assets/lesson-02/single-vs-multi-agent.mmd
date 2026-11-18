@@ -1,0 +1,23 @@
+flowchart LR
+  subgraph S[Single Agent]
+    A[一个 Agent 持有状态] --> M[Metrics Tool]
+    A --> L[Logs Tool]
+    A --> T[Topology Tool]
+    M --> U[共同状态]
+    L --> U
+    T --> U
+    U --> A
+  end
+  subgraph X[Multi-Agent]
+    C[Coordinator] --> MA[Metric Agent]
+    C --> LA[Log Agent]
+    C --> TA[Topology Agent]
+    MA --> E[带来源的 Evidence Tickets]
+    LA --> E
+    TA --> E
+    E --> R[RCA Agent]
+    R --> V[Verifier：fresh query / rule check]
+    V --> D{满足停止条件？}
+    D -->|是| F[结束]
+    D -->|否| C
+  end

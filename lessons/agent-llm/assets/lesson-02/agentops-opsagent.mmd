@@ -1,0 +1,14 @@
+flowchart LR
+  subgraph O[IT / OpsAgent：基础设施层]
+    I[Incident] --> T[Metrics / Logs / Traces / Topology]
+    T --> A[OpsAgent 调查与候选]
+    A --> G[只读 / 人工批准 / 有界动作]
+    G --> S[新观测验证服务恢复]
+  end
+  subgraph R[AgentOps：Agent 可靠性层]
+    X[Trajectory：Agent、工具、状态、依赖] --> D[检测与轨迹归因]
+    D --> H[限制重试 / 修复工具 / 人工升级]
+    H --> V[独立检查 Agent 行为与环境结果]
+  end
+  A -. Agent 执行事件 .-> X
+  V -. 研究假设：经对照评估后改进工具/流程 .-> A
