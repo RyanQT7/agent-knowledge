@@ -135,5 +135,5 @@
 - [AgentOps 专题与精读清单](../agentops/README.md)
 - [OpsAgent 专题与精读清单](../opsagent/README.md)
 - [AgentOps vs OpsAgent](agentops-vs-opsagent.md)
-- [Advanced Lesson 2](../lessons/lesson-02-advanced-agent-systems.md)
+- [Advanced Lesson 2](../../lessons/agent-llm/lesson-02-advanced-agent-systems.md)
 - [Agent、Planning、Memory、World Model Concepts](../../concepts/README.md)

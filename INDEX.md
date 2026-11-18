@@ -266,7 +266,7 @@ The labels AgentOps and OpsAgent below are this knowledge base's organizing cate
 
 - [AgentOps vs OpsAgent](notes/guides/agentops-vs-opsagent.md) — comparison table and explicitly labeled, unvalidated transfer hypothesis
 - [Agent Research Directions 2026](notes/guides/agent-research-directions-2026.md) — 12 research areas, representative work, maturity and limits
-- [Advanced Lesson 2: Agent state, decisions, planning and multi-agent collaboration](notes/lessons/lesson-02-advanced-agent-systems.md)
+- [Advanced Lesson 2: Agent state, decisions, planning and multi-agent collaboration](lessons/agent-llm/lesson-02-advanced-agent-systems.md)
 - [AgentOps concept](concepts/agentops/README.md) · [OpsAgent concept](concepts/opsagent/README.md)
 - Related concepts updated: [Agent Runtime](concepts/agent-runtime.md), [Agent Loop](concepts/agent-loop.md), [Memory](concepts/memory.md), [Planning](concepts/planning.md), [World Model](concepts/world-model.md), [Candidate Space](concepts/aiops/candidate-space.md), [Evidence Provenance](concepts/aiops/evidence-provenance.md), [Verification](concepts/aiops/verification.md)
 - [AgentOps / OpsAgent paper-code index](code/repository-index.md)

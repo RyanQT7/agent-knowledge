@@ -11,7 +11,7 @@
 - [研究缺口](research-gaps.md)
 - [OpsAgent Knowledge Review v1](reviews/opsagent-review-v1.md)
 - [与 AgentOps 的关系](../guides/agentops-vs-opsagent.md)
-- [课程 Lesson 2](../lessons/lesson-02-advanced-agent-systems.md)
+- [课程 Lesson 2](../../lessons/agent-llm/lesson-02-advanced-agent-systems.md)
 
 ## 研究问题
 

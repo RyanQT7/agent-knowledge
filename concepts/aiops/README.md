@@ -46,6 +46,6 @@ The first five-paper formal batch is recorded in [AIOps Knowledge Review v1](../
 - [AgentOps — Operations for Agent Systems](../agentops/README.md)
 - [AgentOps vs OpsAgent](../../notes/guides/agentops-vs-opsagent.md)
 - [Agent Research Directions 2026](../../notes/guides/agent-research-directions-2026.md)
-- [Advanced Lesson 2](../../notes/lessons/lesson-02-advanced-agent-systems.md)
+- [Advanced Lesson 2](../../lessons/agent-llm/lesson-02-advanced-agent-systems.md)
 
 AIOps evidence, candidate-space, provenance and verification concepts apply to OpsAgent's infrastructure tasks. AgentOps adds a separate trace/attribution layer for failures inside the Agent that performs those tasks; a combined closed loop remains a research hypothesis.

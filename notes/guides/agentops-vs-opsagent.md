@@ -56,7 +56,7 @@ OpsAgent 的成功率不只取决于根因模型。若查询过期、工具参�
 - [AgentOps 专题](../agentops/README.md) · [研究 Review](../agentops/reviews/agentops-review-v1.md) · [研究缺口](../agentops/research-gaps.md)
 - [OpsAgent 专题](../opsagent/README.md) · [研究 Review](../opsagent/reviews/opsagent-review-v1.md) · [研究缺口](../opsagent/research-gaps.md)
 - [Agent Research Directions 2026](agent-research-directions-2026.md)
-- [Advanced Lesson 2](../lessons/lesson-02-advanced-agent-systems.md)
+- [Advanced Lesson 2](../../lessons/agent-llm/lesson-02-advanced-agent-systems.md)
 - [Network AIOps 架构综合](../aiops/reviews/network-aiops-architecture-synthesis-v1.md)
 
 ### 代表方法

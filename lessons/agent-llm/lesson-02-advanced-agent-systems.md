@@ -1,6 +1,6 @@
 # Lesson 2：Agent 的状态、决策、规划与多智能体协作
 
-> 本课承接[第一课：LLM Agent 的工作过程](../../lessons/agent-llm/lesson-01-llm-agent.md)。第一课介绍了任务、工具、观察、循环和运行时；本课进一步理解 Agent 如何表示状态、选择行动、调整计划，多个 Agent 如何协作，以及怎样诊断它们自身的故障。
+> 本课承接[第一课：LLM Agent 的工作过程](lesson-01-llm-agent.md)。第一课介绍了任务、工具、观察、循环和运行时；本课进一步理解 Agent 如何表示状态、选择行动、调整计划，多个 Agent 如何协作，以及怎样诊断它们自身的故障。
 
 **贯穿案例：** 某个微服务的请求延迟突然上升。以下数值都是教学示例，不代表论文实验结果。
 
@@ -312,7 +312,7 @@ Multi-Agent AIOps
 
 这是教学模型，不代表所有系统都按此路线发展。固定 SOP 若能覆盖任务，可能比动态 Agent 更可靠；多 Agent 要由证据证明分工有收益。
 
-关联：[Agentic Incident Management](../../concepts/aiops/agentic-incident-management.md)、[AIOps Review v3](../aiops/reviews/aiops-knowledge-review-v3.md)、[Network AIOps Architecture Synthesis](../aiops/reviews/network-aiops-architecture-synthesis-v1.md)。
+关联：[Agentic Incident Management](../../concepts/aiops/agentic-incident-management.md)、[AIOps Review v3](../../notes/aiops/reviews/aiops-knowledge-review-v3.md)、[Network AIOps Architecture Synthesis](../../notes/aiops/reviews/network-aiops-architecture-synthesis-v1.md)。
 
 **关键结论：** Agentic 程度取决于系统能否基于观察调整行动，不取决于是否使用了 LLM、RAG、工具或多个角色。
 
@@ -493,9 +493,9 @@ Coordinator 把“过去 30 分钟 checkout 延迟升高”错委派成“查 pa
 ## 知识库连接
 
 - **基础概念：** [Agent](../../concepts/agent.md)、[Agent Loop](../../concepts/agent-loop.md)、[Agent Runtime](../../concepts/agent-runtime.md)、[Reasoning](../../concepts/reasoning.md)、[Planning](../../concepts/planning.md)、[Memory](../../concepts/memory.md)、[World Model](../../concepts/world-model.md)、[Tool Use](../../concepts/tool-use.md)、[Reflection](../../concepts/reflection.md)。
-- **AgentOps：** [AgentOps Review v1](../agentops/reviews/agentops-review-v1.md)、[AgentRx](../../papers/agentops/agentrx.md)、[TraJudger](../../papers/agentops/trajudger.md)、[PROBE](../../papers/agentops/probe.md)、[Trial by Trace](../../papers/agentops/trial-by-trace.md)。
-- **OpsAgent：** [OpsAgent Review v1](../opsagent/reviews/opsagent-review-v1.md)、[OpsMem](../../papers/opsagent/opsmem.md)、[Graph of States](../../papers/opsagent/graph-of-states.md)、[PoS](../../papers/opsagent/pos.md)、[KRCA](../../papers/opsagent/krca.md)。
-- **AIOps：** [Candidate Space](../../concepts/aiops/candidate-space.md)、[Evidence Provenance](../../concepts/aiops/evidence-provenance.md)、[Verification](../../concepts/aiops/verification.md)、[Network AIOps Architecture Synthesis](../aiops/reviews/network-aiops-architecture-synthesis-v1.md)。
-- **跨主题：** [AgentOps vs OpsAgent](../guides/agentops-vs-opsagent.md)、[Agent Research Directions 2026](../guides/agent-research-directions-2026.md)、[ReAct](../../papers/react/notes.md)、[Toolformer](../../papers/toolformer/notes.md)、[Reflexion](../../papers/reflexion/notes.md)、[ReWOO](../../papers/rewoo/notes.md)、[LLM+P](../../papers/llm-p/notes.md)、[RAP](../../papers/rap/notes.md)。
+- **AgentOps：** [AgentOps Review v1](../../notes/agentops/reviews/agentops-review-v1.md)、[AgentRx](../../papers/agentops/agentrx.md)、[TraJudger](../../papers/agentops/trajudger.md)、[PROBE](../../papers/agentops/probe.md)、[Trial by Trace](../../papers/agentops/trial-by-trace.md)。
+- **OpsAgent：** [OpsAgent Review v1](../../notes/opsagent/reviews/opsagent-review-v1.md)、[OpsMem](../../papers/opsagent/opsmem.md)、[Graph of States](../../papers/opsagent/graph-of-states.md)、[PoS](../../papers/opsagent/pos.md)、[KRCA](../../papers/opsagent/krca.md)。
+- **AIOps：** [Candidate Space](../../concepts/aiops/candidate-space.md)、[Evidence Provenance](../../concepts/aiops/evidence-provenance.md)、[Verification](../../concepts/aiops/verification.md)、[Network AIOps Architecture Synthesis](../../notes/aiops/reviews/network-aiops-architecture-synthesis-v1.md)。
+- **跨主题：** [AgentOps vs OpsAgent](../../notes/guides/agentops-vs-opsagent.md)、[Agent Research Directions 2026](../../notes/guides/agent-research-directions-2026.md)、[ReAct](../../papers/react/notes.md)、[Toolformer](../../papers/toolformer/notes.md)、[Reflexion](../../papers/reflexion/notes.md)、[ReWOO](../../papers/rewoo/notes.md)、[LLM+P](../../papers/llm-p/notes.md)、[RAP](../../papers/rap/notes.md)。
 
 **学完后应能解释：** 一个 Agent 如何把状态转成决策，多个 Agent 怎样传递任务和证据，以及如何通过轨迹、候选、独立验证和外部状态检查诊断自身故障。
