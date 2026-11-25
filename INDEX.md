@@ -195,6 +195,15 @@
 - [Agent Framework Source Notes](code/agent-frameworks/README.md)
 - [Agent Framework Source Code Comparison](code/agent-frameworks/comparison.md)
 
+## Self-Evolving Knowledge Base — Phase 1
+
+- [Phase 1 design and prior project research](notes/guides/self-evolving-knowledge-base-design.md)
+- [Evolution workflow, state, budgets, and approval boundary](evolution/README.md)
+- [Research Discovery Skill](skills/research-discovery/SKILL.md)
+- [Knowledge Audit Skill](skills/knowledge-audit/SKILL.md)
+- [Knowledge Evolution Skill](skills/knowledge-evolution/SKILL.md)
+- [Claim and Evidence schema](evolution/claims/README.md)
+
 ## Agent Framework Learning
 
 - [Agent Framework Learning Skill](skills/agent-framework-learning/SKILL.md)

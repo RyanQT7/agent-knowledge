@@ -1,0 +1,13 @@
+{"case_id":"dup-paper","synthetic":true,"scenario":"duplicate paper identity","expected_issue_type":"duplicate_paper_identity","reason":"Two notes resolve to one arXiv base ID."}
+{"case_id":"broken-link","synthetic":true,"scenario":"broken internal link","expected_issue_type":"broken_internal_link","reason":"A relative Markdown destination does not exist."}
+{"case_id":"missing-source","synthetic":true,"scenario":"missing source","expected_issue_type":"invalid_claim_schema","reason":"An active claim has no evidence list entries."}
+{"case_id":"true-conflict","synthetic":true,"scenario":"confirmed conflict","expected_issue_type":"unresolved_claim_conflict","reason":"Evidence explicitly contradicts an active, unmarked claim."}
+{"case_id":"scope-difference","synthetic":true,"scenario":"scope difference, not direct conflict","expected_issue_type":"scope_qualification","reason":"Evidence qualifies a claim and must be preserved as a scope bound."}
+{"case_id":"stale-version","synthetic":true,"scenario":"stale source version","expected_issue_type":"stale_source_version","reason":"A v1 claim source has a discovered v2 version event."}
+{"case_id":"open-question","synthetic":true,"scenario":"unresolved question","expected_issue_type":"open_research_questions","reason":"An Open question remains a discovery signal."}
+{"case_id":"missing-association","synthetic":true,"scenario":"missing association","expected_issue_type":"orphan_concept","reason":"A Concept has no inbound local Markdown link."}
+{"case_id":"no-update","synthetic":true,"scenario":"correct knowledge, no update needed","expected_issue_type":"no_finding_for_claim","reason":"A grounded active claim with supports evidence remains valid."}
+{"case_id":"insufficient-evidence","synthetic":true,"scenario":"insufficient evidence","expected_issue_type":"invalid_claim_schema","reason":"A contested claim without evidence cannot be treated as grounded."}
+{"case_id":"source-id-mismatch","synthetic":true,"scenario":"duplicate or anomalous source ID","expected_issue_type":"source_id_uri_mismatch","reason":"One stable source ID points to different URIs."}
+{"case_id":"duplicate-candidate","synthetic":true,"scenario":"duplicate candidate ID","expected_issue_type":"duplicate_candidate_id","reason":"Repeated candidate identity must be merged, not queued twice."}
+{"case_id":"candidate-schema","synthetic":true,"scenario":"candidate missing novelty/relevance rationale","expected_issue_type":"invalid_candidate_schema","reason":"Every queued candidate must carry the specified metadata and screening rationales."}

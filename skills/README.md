@@ -13,6 +13,9 @@ Skill 层次：
 - agent-framework-learning — source-first learning of open-source Agent frameworks and runtimes
 - knowledge-review — generic cross-paper consolidation
 - knowledge-query — retrieve / learn from accumulated knowledge
+- research-discovery — incremental paper/source discovery driven by gaps and questions
+- knowledge-audit — deterministic structure checks plus bounded read-only semantic audit
+- knowledge-evolution — resumable orchestration and evidence-based proposal generation
 
 - [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
 - [knowledge-review](knowledge-review/SKILL.md) — 跨论文知识整合与阶段性复盘。`Status: v1 / validated with ReAct + Toolformer + Reflexion`
@@ -67,11 +70,23 @@ paper-knowledge-extraction
 
 knowledge-query
 = retrieve / learn from accumulated knowledge
+
+research-discovery
+= incremental research / source discovery
+
+knowledge-audit
+= read-only structure and evidence audit
+
+knowledge-evolution
+= resumable research iteration and gated proposal workflow
 ~~~
 
 - [knowledge-query](knowledge-query/SKILL.md) — 基于已积累知识进行检索、教学、比较和来源追溯；默认只读。`Status: v1`
 
 - [learning-batch](learning-batch/SKILL.md) — 串行编排新论文批次，并调用 paper-reading 与 knowledge-review。`Status: v1 / validated from Planning Batch`
 - [paper-knowledge-extraction](paper-knowledge-extraction/SKILL.md) — 从已完成精读的论文提取可追溯科研知识档案，并校验、导出批量 Markdown / JSONL。`Status: v1 / validated with FlowFuse + Conditional Normalizing Flows pilots and the 33-paper TSAD set`
+- [research-discovery](research-discovery/SKILL.md) — 按 Research Questions、Research Gaps、Roadmaps 和 watchlist 做增量检索、元数据核验、去重与候选排序。
+- [knowledge-audit](knowledge-audit/SKILL.md) — 确定性结构审计和最多 10 页的只读语义审计。
+- [knowledge-evolution](knowledge-evolution/SKILL.md) — 编排可恢复的 research iteration，维护 Claims 并生成需批准的知识更新 Proposal。
 
 正式的知识库维护 Skill 默认在任务完成并通过自检后执行 `git add`、`git commit` 和 `git push origin main`。遇到失败、冲突、来源核对未通过、远程或认证异常，或用户明确禁用同步时，保留本地状态并停止 push。

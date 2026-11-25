@@ -6,5 +6,7 @@ __pycache__/
 sources/papers/*.pdf
 sources/papers/**/*.pdf
 sources/code/
+evolution/state/*.lock
+evolution/state/.*.tmp
 exports/tsad-knowledge/TSAD-knowledge-export.zip
 exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge.zip
