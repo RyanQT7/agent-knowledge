@@ -68,3 +68,37 @@ Enabled connectors: arXiv, OpenAlex, Crossref, Semantic Scholar, GitHub public A
 ## Formal knowledge and Git boundary
 
 `audit-only` is read-only outside `evolution/audits`, `evolution/inbox`, `evolution/state`, and the run manifest. `proposal` can add Claim records, reports, and proposal files; it does not change `papers/`, `concepts/`, Questions, Reviews, Lessons, Skills, or INDEX without user approval. Candidate paper notes stay on an isolated local worktree/branch because existing reading Skills normally sync to `main`. Do not stage ignored PDFs or user files. No scheduler is enabled.
+
+## Phase 1.5: independent Self-Evolution Engine
+
+The Python controller now runs a bounded research loop as its own Linux process. It uses the existing discovery queue, Claim records, audit code, Proposal validator, and local Skills as source instructions. Codex CLI is the current replaceable model backend; it uses the already configured login, `codex exec --ephemeral --json`, strict output schemas, separate Planner / Executor / Evaluator / Reflector calls, and role-specific sandbox settings. No API key is copied or required by the engine.
+
+Start a run from the repository root:
+
+```bash
+python3 scripts/evolution/evolve.py run
+python3 scripts/evolution/evolve.py run --focus "Agent Memory and Self-Evolving Agents" --max-rounds 3 --max-model-calls 12
+```
+
+Inspect, stop, or resume a run:
+
+```bash
+python3 scripts/evolution/evolve.py status
+python3 scripts/evolution/evolve.py status <RUN_ID>
+python3 scripts/evolution/evolve.py stop <RUN_ID>
+python3 scripts/evolution/evolve.py resume <RUN_ID>
+```
+
+`status` reads saved state. `stop` requests a cooperative stop and terminates an active model task at its next safe boundary. `resume` reuses completed, schema-checked role outputs and continues only unfinished stages. It explicitly retries a `FAILED` stage within the original call/attempt budgets; `NEEDS_REVIEW`, `BLOCKED`, and other terminal outcomes are not silently restarted. The run refuses to resume if its Goal, engine configuration, or base Git commit changed. Use a new run ID for a new experiment after other terminal outcomes.
+
+The default limits in `config/engine.yaml` are three research rounds, twelve total model calls across all roles and retries, two retries per task, two consecutive rounds without useful gain, twenty candidates screened per round, two full-paper reads, four web-search calls for an Executor task and two for an Evaluator task, one model process at a time, a 20-minute hard task timeout (with shorter role-specific timeouts), and a one-hour run timeout. CLI values may lower (but cannot raise) the configured round and call caps. Model name and reasoning effort can be set in that file or passed with `--model` / `--reasoning-effort`; a null model uses the installed Codex CLI default. Actual token use is recorded only when returned by the CLI; call, search, and time caps remain enforced if the CLI does not expose token usage.
+
+Each `evolution/runs/<RUN_ID>/` folder holds the frozen Goal and config, manifest/state, append-only events, baseline and per-round audits, model task prompts/results, candidate memos, independent evaluations, reflections, knowledge-gain records, and final report. Model task logs and run state are created with owner-only filesystem permissions. The separate detached worktree is used only for Executor output and is checked against a fixed list of allowed paths.
+
+### Review boundary
+
+A normal run can write discovery metadata to the inbox/cursor, audit records to its run folder, and a `draft` Proposal containing `needs_review` Claim candidates after deterministic and independent checks pass. It never edits formal Concepts, Paper notes, Questions, Reviews, Lessons, INDEX, existing Claims, or Skills. It never approves/applies a Proposal, commits, pushes, or changes scheduling. Candidate knowledge gain is reported separately from approved formal knowledge gain.
+
+Review a generated draft by reading its Proposal JSON, evidence locators, candidate memo, and independent evaluation. Approve or reject only the exact reviewed scope. Phase 1's `scripts.evolution.proposals` `check`, `approve`, and `apply` commands are the explicit path for a deliberate human-approved change; re-check immediately before apply because changed file hashes invalidate the old review. `apply` modifies only the named validated files and does not commit or push. Roll back an already committed approved change with `git revert <commit>`; before commit, restore only the exact files named by that Proposal and verify the resulting diff.
+
+The deterministic Fake/Mock backends are for tests only and never provide research evidence. Use the default `codex-cli` backend for a real run. The engine does not schedule itself; a single `run` invocation stops when the Planner, evaluator, or a configured limit says to stop.

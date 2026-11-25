@@ -317,8 +317,8 @@ def safe_relative_path(raw: str, root: Path) -> tuple[str | None, str | None]:
     if not normalized or normalized.startswith(("sources/", ".git/", "evolution/state/")):
         return None, "path is outside the allowed proposal scope"
     allowed_roots = ("concepts/", "papers/", "code/", "notes/", "lessons/")
-    if normalized != "INDEX.md" and not normalized.startswith(allowed_roots):
-        return None, "proposal target must be a knowledge file or INDEX.md"
+    if normalized not in {"INDEX.md", "evolution/claims/claims.jsonl"} and not normalized.startswith(allowed_roots):
+        return None, "proposal target must be a knowledge file, INDEX.md, or the structured Claim store"
     if normalized.startswith("skills/"):
         return None, "Skill changes are out of scope for Phase 1"
     resolved = (root / normalized).resolve()

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "backend": {
+    "type": "codex-cli",
+    "executable": "codex",
+    "model": null,
+    "reasoning_effort": null,
+    "search": true
+  },
+  "budgets": {
+    "max_rounds": 3,
+    "max_model_calls": 12,
+    "max_web_search_calls_per_task": 4,
+    "max_web_search_calls_by_role": {
+      "planner": 0,
+      "executor": 4,
+      "evaluator": 2,
+      "reflector": 0
+    },
+    "executor_call_reserve": {
+      "evaluator": 1,
+      "reflector": 1,
+      "next_planner": 1
+    },
+    "max_retries_per_task": 2,
+    "max_no_progress_rounds": 2,
+    "max_screened_candidates_per_round": 20,
+    "max_full_reads": 2,
+    "parallel_model_calls": 1,
+    "task_timeout_seconds": 1200,
+    "run_timeout_seconds": 3600,
+    "role_timeout_seconds": {
+      "planner": 180,
+      "executor": 600,
+      "evaluator": 420,
+      "reflector": 150
+    }
+  },
+  "permissions": {
+    "planner": "read-only",
+    "executor": "workspace-write",
+    "evaluator": "read-only",
+    "reflector": "read-only",
+    "auto_apply_proposals": false,
+    "auto_modify_skills": false,
+    "auto_modify_lessons": false,
+    "auto_commit": false,
+    "auto_push": false
+  },
+  "discovery": {
+    "enabled": true,
+    "topic_ids": ["agent-memory", "self-evolving-agent"],
+    "sources": ["arxiv", "openalex", "crossref", "semantic_scholar", "github"],
+    "lookback_days": 90
+  },
+  "source_verification_timeout_seconds": 10,
+  "context": {
+    "phase1_summary_chars": 2500,
+    "open_questions": 10,
+    "planner_candidates": 8,
+    "candidate_abstract_chars": 240,
+    "executor_claims": 8,
+    "executor_summary_chars": 1500
+  },
+  "allowed_topic_ids": ["agent-memory", "self-evolving-agent"]
+}
