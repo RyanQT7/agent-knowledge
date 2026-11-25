@@ -59,6 +59,7 @@
     "open_questions": 10,
     "planner_candidates": 8,
     "candidate_abstract_chars": 240,
+    "experience_memories": 5,
     "executor_claims": 8,
     "executor_summary_chars": 1500
   },

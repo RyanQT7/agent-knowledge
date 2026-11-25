@@ -1,6 +1,6 @@
-# Self-Evolving Knowledge Base — Phase 1
+# Self-Evolving Knowledge Base — Phases 1–2
 
-This directory stores discovery metadata, Claim/Evidence relations, audit reports, reviewable proposals, run manifests, feedback schemas, and incremental state. Full paper text remains in the existing `sources/papers/` (ignored PDFs) and `papers/` note locations. Do not copy a paper body into `evolution/`.
+This directory stores discovery metadata, Claim/Evidence relations, audit reports, reviewable proposals, run manifests, compact Experience Memory, feedback schemas, and incremental state. Full paper text remains in the existing `sources/papers/` (ignored PDFs) and `papers/` note locations. Do not copy a paper body into `evolution/`.
 
 ## One-line Codex entrypoints
 
@@ -121,3 +121,39 @@ A normal run can write discovery metadata to the inbox/cursor, audit records to 
 Review a generated draft by reading its Proposal JSON, evidence locators, candidate memo, and independent evaluation. Approve or reject only the exact reviewed scope. Phase 1's `scripts.evolution.proposals` `check`, `approve`, and `apply` commands are the explicit path for a deliberate human-approved change; re-check immediately before apply because changed file hashes invalidate the old review. `apply` modifies only the named validated files and does not commit or push. Roll back an already committed approved change with `git revert <commit>`; before commit, restore only the exact files named by that Proposal and verify the resulting diff.
 
 The deterministic Fake/Mock backends are for tests only and never provide research evidence. Use the default `codex-cli` backend for a real run. The engine does not schedule itself; a single `run` invocation stops when the Planner, evaluator, or a configured limit says to stop.
+
+## Phase 2: Experience Memory and Skill Evolution
+
+Experience Memory stores short execution lessons and user feedback in `evolution/experience/records.jsonl`. These records describe workflow behavior, not research facts or Claim evidence. The engine selects at most five relevant active records at run start and passes them as process guidance: Planner and Executor receive task-relevant lessons, Evaluator receives only evaluation-method lessons, and Reflector sees the same bounded context. Old findings are never treated as evidence for a new paper. At terminal run states, the Controller collects only useful evaluation, evidence, budget, or verified-success outcomes from structured run data; ordinary successful file operations are not stored.
+
+Import the six known Phase 1.5/user-feedback records (repeat-safe), list or search records, and record scoped feedback:
+
+```bash
+python3 scripts/evolution/experience.py import-history
+python3 scripts/evolution/experience.py list
+python3 scripts/evolution/experience.py search --task-type research --topic "Agent Memory" --skill paper-reading --limit 5
+python3 scripts/evolution/experience.py add --type user_feedback --task-type teaching --message "用真实论文案例解释执行过程"
+python3 scripts/evolution/experience.py add --type user_feedback --task-type general --message "默认减少无实际收益的重复验证" --persistent
+```
+
+Use `--persistent` only for a preference the user explicitly wants to carry across future tasks. Add `--source-ref` for a report/run/feedback reference. Set stale items to `needs_review`, `superseded`, or `rejected`; similar records merge and preserve evidence references. For ordinary Codex tasks, call `experience-memory` at task start/end; there is no global chat interception.
+
+Skill Evolution does not edit a formal Skill while drafting or evaluating. The `skill-evolution` Skill reviews one experience-backed issue and produces a focused candidate under `evolution/skill-proposals/`. Evaluation is static and retrospective by default; it does not claim measured improvements without comparable execution. Review and operate a candidate with:
+
+```bash
+python3 scripts/evolution/skill_evolution.py list
+python3 scripts/evolution/skill_evolution.py show <PROPOSAL_ID>
+python3 scripts/evolution/skill_evolution.py evaluate <PROPOSAL_ID>
+python3 scripts/evolution/skill_evolution.py approve <PROPOSAL_ID> --note "Reviewed diff and evidence"
+python3 scripts/evolution/skill_evolution.py apply <PROPOSAL_ID>
+python3 scripts/evolution/skill_evolution.py reject <PROPOSAL_ID> --note "Not reusable"
+python3 scripts/evolution/skill_evolution.py rollback <PROPOSAL_ID>
+```
+
+Only an explicitly approved proposal can be applied. Apply checks the original Skill hash and the evaluated candidate hash; rollback restores the saved original only when the Skill still matches the applied version. Review its new diff and commit/push according to the normal repository workflow. The engine's bounded research flow does not auto-apply Skill proposals.
+
+The implementation reuses the repository's prior static analysis of Reflexion, A-MEM, SkillOpt, and SkillHone in the [design report](../notes/guides/self-evolving-knowledge-base-design.md): retain bounded, source-linked experience; make small candidate edits; evaluate separately from the proposer; preserve accepted and rejected versions. This Phase 2 implementation is deliberately lighter than those research systems and adds no training, benchmark service, or automatic publishing.
+
+### Phase 2 pilot
+
+The imported Lesson 2 feedback points to more concrete teaching examples, annotated pseudocode, and a clear execution path. `source-code-annotation` already requires Chinese annotations, real caller/callee paths, and explanation of WHY/WHAT/HOW; its scope is source annotation, not general Lesson authoring. No matching Lesson-authoring Skill exists, so Phase 2 keeps this experience available for a suitable future task and records **No Skill Update Needed** rather than changing an unrelated Skill. The two pre-existing research proposals remain untouched.

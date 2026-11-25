@@ -29,6 +29,7 @@ from scripts.evolution.engine.state import TERMINAL, append_event, is_stop_reque
 from scripts.evolution.engine.termination import BudgetExhausted, calls_remaining, executor_calls_reserved, full_reads_remaining, goal_criteria_satisfied, should_stop_no_progress
 from scripts.evolution.proposals import check_proposal, create_proposal
 from scripts.evolution.audit import audit
+from scripts.evolution.experience import collect_run_experience
 
 
 def load_engine_config(root: Path = ROOT) -> dict[str, Any]:
@@ -90,6 +91,7 @@ def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_
             "official primary source pages",
         ],
         "existing_skill_protocols": {
+            "experience-memory": "retrieve up to five relevant active execution lessons; use as process guidance only, never as current research evidence",
             "knowledge-evolution": "bounded discovery -> audit -> grounded reading -> Claims -> draft Proposal; no publication",
             "research-discovery": "read metadata/candidates only; do not infer paper understanding from abstracts",
             "knowledge-audit": "read-only; separate contradiction, scope, version, evidence gaps, and no-update",
@@ -99,7 +101,7 @@ def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_
         },
         "write_scope": ["isolated Git worktree candidate artifact under evolution/runs/<run_id>/round_<n>/candidate/", "draft Proposal under evolution/proposals/ after deterministic and independent evaluation"],
         "hard_constraints": [
-            "Do not modify formal Concepts, Papers, Questions, Reviews, Lessons, Skills, INDEX, or existing Claim records.",
+            "Do not modify formal Concepts, Papers, Questions, Reviews, Lessons, Skills, INDEX, or existing Claim records; past Experience Memory is not evidence for new claims.",
             "Do not approve, apply, commit, push, install dependencies, run third-party code, or change scheduling.",
             "Do not change this resolved Goal, budgets, source allowlist, evaluation criteria, or permissions.",
             "Planner and Evaluator are read-only; Executor writes only its isolated candidate workspace artifact.",
@@ -230,6 +232,7 @@ class EvolutionController:
             self.source_getter = lambda uri, timeout: (True, f"mock-verified {uri}")
         self.discovery_fn = discovery_fn
         self.audit_fn = audit_fn
+        self._active_experiences: list[dict[str, Any]] = []
 
     def create_run(self, goal: dict[str, Any], run_id: str | None = None) -> Path:
         if self.backend.name == "codex-cli":
@@ -540,7 +543,7 @@ class EvolutionController:
             reflector_stage["status"] = "pending"
         reflector_stage["reflection_context_hash"] = context_hash
         save_state(run_dir, state)
-        prompt = reflector.build_prompt(goal, plan, execution, evaluation, backend_error)
+        prompt = reflector.build_prompt(goal, plan, execution, evaluation, backend_error, self._active_experiences)
         try:
             result = self._invoke(run_dir, state, goal, "reflector", prompt, round_number, "read-only", force_new=force_new)
             state["rounds"].setdefault(str(round_number), {})["reflection"] = result
@@ -575,7 +578,9 @@ class EvolutionController:
         return references
 
     def _run_rounds(self, run_dir: Path, state: dict[str, Any], goal: dict[str, Any]) -> None:
-        base_memory = memory.initial_memory(self.root, self.config)
+        experience_config = {**self.config, "experience_skill_names": [*goal.get("existing_skill_protocols", {}).keys(), "experience-memory"]}
+        base_memory = memory.initial_memory(self.root, experience_config)
+        self._active_experiences = base_memory.get("relevant_experiences", [])[:5]
         max_rounds = int(goal["budgets"]["max_rounds"])
         next_round = int(state.get("current_round", 1))
         while next_round <= max_rounds:
@@ -1067,6 +1072,18 @@ class EvolutionController:
         state["api_cost"] = "unavailable"
         save_state(run_dir, state)
         append_event(run_dir, "run_terminal", {"status": status, "reason": reason})
+        if not state.get("experience_collection_complete"):
+            try:
+                state["experience_ids"] = collect_run_experience(
+                    self.root, run_dir, state,
+                    json.loads((run_dir / "goal.yaml").read_text(encoding="utf-8")),
+                )
+                state["experience_collection_complete"] = True
+                save_state(run_dir, state)
+                append_event(run_dir, "experience_memory_updated", {"experience_ids": state["experience_ids"]})
+            except Exception as exc:
+                state["experience_collection_error"] = f"{type(exc).__name__}: {str(exc)[:400]}"
+                save_state(run_dir, state)
         self._write_final_report(run_dir, state)
         return state
 
@@ -1090,6 +1107,7 @@ class EvolutionController:
             f"- Calls started: {state.get('calls_started', 0)} / {json.loads((run_dir / 'goal.yaml').read_text())['budgets']['max_model_calls']}",
             f"- Token usage: `{state.get('token_usage', 'unavailable')}`", f"- API cost: `{state.get('api_cost', 'unavailable')}`",
             f"- Formal knowledge applied: `{state.get('formal_knowledge_applied')}`", f"- Skills modified: `{state.get('skills_modified')}`", "",
+            f"- Experience Memory references: `{', '.join(state.get('experience_ids', [])) or 'none'}`", "",
             "## Discovery", "", json.dumps(state.get("discovery", {}), ensure_ascii=False, indent=2), "",
             "## Rounds", "",
         ]

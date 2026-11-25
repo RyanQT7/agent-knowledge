@@ -16,6 +16,8 @@ Skill 层次：
 - research-discovery — incremental paper/source discovery driven by gaps and questions
 - knowledge-audit — deterministic structure checks plus bounded read-only semantic audit
 - knowledge-evolution — resumable orchestration and evidence-based proposal generation
+- experience-memory — concise cross-task execution experience and user-feedback memory
+- skill-evolution — reviewable Skill improvement proposals with explicit approval
 
 - [paper-reading](paper-reading/SKILL.md) — 阅读单篇学术论文 PDF 并整合到知识库。`Status: v1 / validated with ReAct workflow`
 - [knowledge-review](knowledge-review/SKILL.md) — 跨论文知识整合与阶段性复盘。`Status: v1 / validated with ReAct + Toolformer + Reflexion`
@@ -88,5 +90,7 @@ knowledge-evolution
 - [research-discovery](research-discovery/SKILL.md) — 按 Research Questions、Research Gaps、Roadmaps 和 watchlist 做增量检索、元数据核验、去重与候选排序。
 - [knowledge-audit](knowledge-audit/SKILL.md) — 确定性结构审计和最多 10 页的只读语义审计。
 - [knowledge-evolution](knowledge-evolution/SKILL.md) — 编排可恢复的 research iteration，维护 Claims 并生成需批准的知识更新 Proposal。
+- [experience-memory](experience-memory/SKILL.md) — 记录、检索和维护简短可复用的任务经验及用户反馈；历史经验不是当前研究证据。
+- [skill-evolution](skill-evolution/SKILL.md) — 从有依据的经验生成、评估 Skill 候选，并在明确批准后应用或回滚。
 
 正式的知识库维护 Skill 默认在任务完成并通过自检后执行 `git add`、`git commit` 和 `git push origin main`。遇到失败、冲突、来源核对未通过、远程或认证异常，或用户明确禁用同步时，保留本地状态并停止 push。

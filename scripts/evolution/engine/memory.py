@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from scripts.evolution.common import read_jsonl
+from scripts.evolution.experience import retrieve_experiences
 from scripts.evolution.engine.focus import terms_for_text
 from scripts.evolution.engine.local_sources import find_local_paper_material
 
@@ -102,6 +103,15 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
         report = "\n".join(summary_parts)
     else:
         question_list = _open_questions(root, question_limit)
+    experience_rows = retrieve_experiences(
+        root,
+        task_type="research",
+        topic=str(focus_resolution.get("research_focus", "")),
+        skill_names=list(config.get("experience_skill_names") or (config.get("existing_skill_protocols") or {}).keys()) or ["knowledge-evolution", "research-discovery", "paper-reading", "code-reading"],
+        stage="planning and evidence review",
+        limit=int(context_limits.get("experience_memories", 5)),
+        mark_used=True,
+    )
     if focus_resolution:
         relevant_proposals = []
         for proposal in proposals:
@@ -121,6 +131,7 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
         "claims": claims,
         "pending_proposals": [item for item in relevant_proposals if item.get("status") in {"draft", "approved"}],
         "candidate_queue": candidate_queue,
+        "relevant_experiences": experience_rows,
         "research_context": research_context,
         "focus": {
             "research_focus": focus_resolution.get("research_focus"),
@@ -171,7 +182,7 @@ def planner_memory(base: dict[str, Any], state: dict[str, Any], round_number: in
         key: (discovery or {}).get(key)
         for key in ("status", "candidates_added", "candidate_version_updates", "duplicates")
     }
-    return {"initial": base, "fresh_discovery": discovery_summary, "previous_rounds": previous, "remaining_model_calls": state.get("remaining_calls"), "remaining_full_reads": state.get("remaining_full_reads")}
+    return {"initial": base, "relevant_experiences": base.get("relevant_experiences", [])[:5], "fresh_discovery": discovery_summary, "previous_rounds": previous, "remaining_model_calls": state.get("remaining_calls"), "remaining_full_reads": state.get("remaining_full_reads")}
 
 
 def executor_memory(current: dict[str, Any], plan: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
@@ -215,6 +226,7 @@ def executor_memory(current: dict[str, Any], plan: dict[str, Any], config: dict[
             "recent_reviews": initial.get("research_context", {}).get("recent_reviews", [])[:2],
         },
         "claims": compact_claims,
+        "relevant_experiences": current.get("relevant_experiences", [])[:5],
         "pending_proposals": [
             {key: row.get(key) for key in ("proposal_id", "status", "title")}
             for row in initial.get("pending_proposals", [])[:6]

@@ -202,6 +202,9 @@
 - [Research Discovery Skill](skills/research-discovery/SKILL.md)
 - [Knowledge Audit Skill](skills/knowledge-audit/SKILL.md)
 - [Knowledge Evolution Skill](skills/knowledge-evolution/SKILL.md)
+- [Experience Memory Skill](skills/experience-memory/SKILL.md)
+- [Skill Evolution Skill](skills/skill-evolution/SKILL.md)
+- [Experience Memory records and usage](evolution/experience/README.md)
 - [Claim and Evidence schema](evolution/claims/README.md)
 
 ## Agent Framework Learning
