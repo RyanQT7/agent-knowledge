@@ -87,6 +87,7 @@ def _base_record(topic: dict[str, Any], source: str, query: str, **values: Any) 
         "novelty_reason": "Pending comparison with indexed local knowledge; metadata alone does not establish research novelty.",
         "relevance_reason": "Pending watchlist relevance screening; metadata alone does not establish paper quality.",
         "research_topic": topic["id"],
+        "related_topics": [topic["id"]],
         "related_questions": list(topic.get("research_questions", [])),
         "related_concepts": list(topic.get("concepts", [])),
         "discovered_at": utc_now(),
@@ -371,6 +372,11 @@ def _merge_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
             index = len(merged) - 1
         else:
             item = merged[index]
+            existing_topics = item.get("related_topics") if isinstance(item.get("related_topics"), list) else []
+            incoming_topics = raw.get("related_topics") if isinstance(raw.get("related_topics"), list) else []
+            item["related_topics"] = list(dict.fromkeys([topic for topic in existing_topics + incoming_topics if topic]))
+            for field in ("related_questions", "related_concepts"):
+                item[field] = list(dict.fromkeys(list(item.get(field, [])) + list(raw.get(field, []))))
             _append_unique_source_records(item, [{"source": raw.get("source_system"), "record_id": raw.get("source_record_id"), "url": raw.get("source_url"), "version": raw.get("source_version")}])
             for field in ("doi", "arxiv_id", "venue", "publication_date", "abstract", "official_repository"):
                 if raw.get(field) and not item.get(field):
@@ -544,6 +550,7 @@ def discover(
     run_id: str | None = None,
     query_override: str | None = None,
     provider_overrides: dict[str, Callable[..., list[dict[str, Any]]]] | None = None,
+    topic_overrides: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     evolution = root / "evolution"
     watchlist = load_config(evolution / "config" / "watchlist.yaml")
@@ -563,6 +570,10 @@ def discover(
         }]
     else:
         selected_topics = choose_topics(root, watchlist, topic_ids, auto)
+    for topic in selected_topics:
+        override = (topic_overrides or {}).get(topic["id"], {})
+        if override:
+            topic.update(override)
     if not selected_topics:
         return {"status": "no_topics", "topics": [], "sources_succeeded": [], "sources_failed": [], "candidates_found": 0}
     state_path = evolution / "state" / "discovery.json"
@@ -699,6 +710,13 @@ def discover(
             else:
                 existing = old_rows[match_index]
                 existing["relevance_reason"] = item["relevance_reason"]
+                existing_topics = existing.get("related_topics") if isinstance(existing.get("related_topics"), list) else []
+                incoming_topics = item.get("related_topics") if isinstance(item.get("related_topics"), list) else []
+                existing["related_topics"] = list(dict.fromkeys(
+                    [topic for topic in existing_topics + incoming_topics + [existing.get("research_topic"), item.get("research_topic")] if topic]
+                ))
+                for field in ("related_questions", "related_concepts"):
+                    existing[field] = list(dict.fromkeys(list(existing.get(field, [])) + list(item.get(field, []))))
                 if not existing.get("novelty_reason") or existing.get("novelty_reason", "").startswith("Pending"):
                     existing["novelty_reason"] = item["novelty_reason"]
                 _append_unique_source_records(existing, item.get("source_records", []))

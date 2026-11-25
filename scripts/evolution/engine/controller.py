@@ -21,6 +21,7 @@ from scripts.evolution.common import (
     sha256_bytes, sha256_file, stable_hash, utc_now, validate_claim,
 )
 from scripts.evolution.discovery import discover, load_config
+from scripts.evolution.engine.focus import apply_focus_to_config, resolve_focus
 from scripts.evolution.engine import evaluator, executor, memory, planner, reflector
 from scripts.evolution.engine.local_sources import find_local_paper_material
 from scripts.evolution.engine.schemas import SCHEMAS
@@ -35,10 +36,14 @@ def load_engine_config(root: Path = ROOT) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict) or value.get("version") != 1:
         raise ValueError(f"unsupported engine configuration: {path}")
+    value["_knowledge_root"] = str(root.resolve())
     return value
 
 
-def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_calls: int | None = None, focus: str = "Agent Memory and Self-Evolving Agents") -> dict[str, Any]:
+def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_calls: int | None = None, focus: str | None = None, root: Path | None = None) -> dict[str, Any]:
+    knowledge_root = (root or Path(config.get("_knowledge_root", ROOT))).resolve()
+    resolution = resolve_focus(knowledge_root, focus)
+    apply_focus_to_config(config, resolution)
     budgets = dict(config["budgets"])
     if max_rounds is not None:
         if not 1 <= max_rounds <= int(config["budgets"]["max_rounds"]):
@@ -48,29 +53,42 @@ def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_
         if not 1 <= max_model_calls <= int(config["budgets"]["max_model_calls"]):
             raise ValueError(f"max_model_calls must be between 1 and the configured hard cap ({config['budgets']['max_model_calls']})")
         budgets["max_model_calls"] = max_model_calls
+    selected_context = resolution["research_context"]
+    research_scope = [f"User research focus: {resolution['research_focus']}"]
+    research_scope.extend(
+        f"Watchlist scope: {topic['group']}: {topic['title']} ({'; '.join(topic['keywords'][:5])})"
+        for topic in resolution["topics"]
+    )
+    research_scope.extend(
+        f"Relevant knowledge file: {item['path']} — {item['title']}"
+        for item in selected_context["related_concepts"]
+    )
+    research_scope.extend(
+        f"Open research gap from {item['path']}: {item['excerpt'][:350]}"
+        for item in selected_context["research_gaps"][:3]
+    )
     return {
         "schema_version": 1,
-        "goal_id": "agent-memory-self-evolution-phase-1.5",
+        "goal_id": "self-evolution-" + stable_hash("|".join(resolution["topic_ids"]) + "|" + resolution["research_focus"], 12),
         "version": 1,
-        "research_focus": focus,
-        "research_scope": [
-            "Agent Memory and Self-Evolving Agents",
-            "memory selection, dynamic update, provenance, validity and correction",
-            "error knowledge propagation and memory reliability",
-            "causal attribution of memory utility and task outcomes",
-            "distinction between context, memory, belief state, and skills",
-        ],
-        "research_questions": [
-            "How should Agent Memory be selected, updated, linked, versioned, and corrected?",
-            "How do Context, Memory, Belief State, and Skill differ?",
-            "How can erroneous experience be prevented from propagating?",
-            "How can memory utility be separated from evidence validity and source provenance?",
-            "How can historical execution feedback become reusable experience without confusing a proxy with task success?",
-        ],
-        "allowed_topic_ids": list(config["allowed_topic_ids"]),
+        "research_focus": resolution["research_focus"],
+        "focus_selection": resolution["selection"],
+        "focus_topics": resolution["topics"],
+        "research_scope": research_scope,
+        "research_questions": resolution["research_questions"],
+        "research_context": selected_context,
+        "allowed_topic_ids": list(resolution["topic_ids"]),
         "allowed_sources": list(config["discovery"]["sources"]) + ["publisher-primary", "conference-primary", "project-official"],
         "allowed_source_hosts": sorted(evaluator.ALLOWED_SOURCE_HOSTS),
-        "read_scope": ["notes/questions.md", "concepts/", "papers/", "code/", "evolution/claims/", "evolution/inbox/", "Phase 1 run and audit records", "official primary source pages"],
+        "read_scope": [
+            "INDEX.md", "notes/questions.md", "concepts/", "papers/", "code/",
+            "notes/**/research-gaps.md", "notes/**/reading-roadmap.md", "notes/**/reviews/",
+            "evolution/claims/", "evolution/inbox/", "Phase 1 run and audit records",
+            *[item["path"] for item in selected_context["related_concepts"]],
+            *[item["path"] for item in selected_context["research_gaps"][:4]],
+            *[item["path"] for item in selected_context["reading_roadmaps"][:2]],
+            "official primary source pages",
+        ],
         "existing_skill_protocols": {
             "knowledge-evolution": "bounded discovery -> audit -> grounded reading -> Claims -> draft Proposal; no publication",
             "research-discovery": "read metadata/candidates only; do not infer paper understanding from abstracts",
@@ -83,7 +101,7 @@ def build_goal(config: dict[str, Any], max_rounds: int | None = None, max_model_
         "hard_constraints": [
             "Do not modify formal Concepts, Papers, Questions, Reviews, Lessons, Skills, INDEX, or existing Claim records.",
             "Do not approve, apply, commit, push, install dependencies, run third-party code, or change scheduling.",
-            "Do not change this Goal, budgets, source allowlist, evaluation criteria, or permissions.",
+            "Do not change this resolved Goal, budgets, source allowlist, evaluation criteria, or permissions.",
             "Planner and Evaluator are read-only; Executor writes only its isolated candidate workspace artifact.",
             "Every candidate Claim stays needs_review and every proposal stays draft.",
             "Never count an abstract or selected sections as a full paper read.",
@@ -398,7 +416,12 @@ class EvolutionController:
             state["discovery"] = {"status": "disabled", "result": {}}
             save_state(run_dir, state)
             return
-        append_event(run_dir, "discovery_started", {"topic_ids": discovery_cfg.get("topic_ids", []), "sources": discovery_cfg.get("sources", [])})
+        append_event(run_dir, "discovery_started", {
+            "focus": goal.get("research_focus"),
+            "topic_ids": discovery_cfg.get("topic_ids", []),
+            "query_override": discovery_cfg.get("query_override"),
+            "sources": discovery_cfg.get("sources", []),
+        })
         try:
             result = self.discovery_fn(
                 root=self.root,
@@ -407,6 +430,8 @@ class EvolutionController:
                 screen_limit=min(int(self.config["budgets"]["max_screened_candidates_per_round"]), 20),
                 source_filter=set(discovery_cfg.get("sources", [])),
                 run_id=f"engine-discovery-{state['run_id']}",
+                query_override=discovery_cfg.get("query_override"),
+                topic_overrides=discovery_cfg.get("topic_overrides", {}),
             )
             state["discovery"] = {
                 "status": result.get("status", "unknown"),

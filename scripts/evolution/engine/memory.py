@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from scripts.evolution.common import read_jsonl
+from scripts.evolution.engine.focus import terms_for_text
 from scripts.evolution.engine.local_sources import find_local_paper_material
 
 
@@ -29,28 +30,49 @@ def _open_questions(root: Path, limit: int = 30) -> list[str]:
 
 
 def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str, Any]:
+    config = config or {}
+    focus_resolution = config.get("focus_resolution", {})
+    research_context = focus_resolution.get("research_context", {})
     context_limits = (config or {}).get("context", {})
     summary_limit = max(1000, int(context_limits.get("phase1_summary_chars", 5000)))
     question_limit = max(1, int(context_limits.get("open_questions", 20)))
     candidate_limit = max(1, int(context_limits.get("planner_candidates", 12)))
     abstract_limit = max(100, int(context_limits.get("candidate_abstract_chars", 400)))
     report_path = root / "evolution" / "runs" / "first-evolution-report.md"
-    report = report_path.read_text(encoding="utf-8", errors="replace") if report_path.exists() else ""
+    report = report_path.read_text(encoding="utf-8", errors="replace") if report_path.exists() and not focus_resolution else ""
     candidate_rows = read_jsonl(root / "evolution" / "inbox" / "candidates.jsonl")
-    relevant = [row for row in candidate_rows if row.get("research_topic") in {"agent-memory", "self-evolving-agent"} and row.get("status") not in {"rejected", "duplicate"}]
+    allowed_topics = set(config.get("allowed_topic_ids", focus_resolution.get("topic_ids", [])))
+    relevant = [
+        row for row in candidate_rows
+        if (
+            not allowed_topics
+            or row.get("research_topic") in allowed_topics
+            or bool(allowed_topics & set(row.get("related_topics", [])))
+        )
+        and row.get("status") not in {"rejected", "duplicate"}
+    ]
     relevant.sort(key=lambda row: (row.get("status") not in {"queued", "reading", "deferred"}, -float(row.get("priority", 0)), row.get("publication_date") or ""), reverse=False)
     candidate_queue = []
     for row in relevant[:candidate_limit]:
         candidate = {
             key: (str(row.get(key) or "")[:abstract_limit] if key == "abstract" else row.get(key))
-            for key in ("candidate_id", "title", "authors", "publication_date", "publication_status", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "research_topic", "related_questions", "related_concepts", "novelty_reason", "relevance_reason", "priority", "status", "abstract")
+            for key in ("candidate_id", "title", "authors", "publication_date", "publication_status", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "research_topic", "related_topics", "related_questions", "related_concepts", "novelty_reason", "relevance_reason", "priority", "status", "abstract")
             if key in row
         }
         material = find_local_paper_material(root, row)
         if any(material.values()):
             candidate["local_paper_material"] = material
         candidate_queue.append(candidate)
-    claims = read_jsonl(root / "evolution" / "claims" / "claims.jsonl")
+    all_claims = read_jsonl(root / "evolution" / "claims" / "claims.jsonl")
+    terms = set(focus_resolution.get("terms", []))
+    min_focus_matches = 2 if len(terms) > 1 else 1
+    topic_prefixes = tuple(topic_id + "." for topic_id in allowed_topics)
+    claims = [
+        claim for claim in all_claims
+        if not focus_resolution
+        or str(claim.get("claim_id", "")).startswith(topic_prefixes)
+        or len(terms & terms_for_text(str(claim.get("statement", "") + " " + claim.get("scope", "")))) >= min_focus_matches
+    ][:int(context_limits.get("planner_claims", 20))]
     proposal_dir = root / "evolution" / "proposals"
     proposals = []
     for path in sorted(proposal_dir.glob("*.json")):
@@ -58,14 +80,55 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
             item = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
-        proposals.append({"proposal_id": item.get("proposal_id"), "status": item.get("status"), "title": item.get("title"), "files": item.get("files", [])})
-    question_list = _open_questions(root, question_limit)
+        proposals.append({
+            "proposal_id": item.get("proposal_id"),
+            "status": item.get("status"),
+            "title": item.get("title"),
+            "files": item.get("files", []),
+            "research_focus": item.get("research_focus", ""),
+            "related_questions": item.get("related_questions", []),
+            "affected_claims": item.get("affected_claims", []),
+        })
+    if focus_resolution:
+        question_list = list(dict.fromkeys(
+            [item.get("question", "") for item in research_context.get("open_questions", []) if item.get("question")]
+            + list(focus_resolution.get("research_questions", []))
+        ))[:question_limit]
+        summary_parts = [
+            f"Focus: {focus_resolution.get('research_focus', '')}",
+            *[f"Concept {item['path']}: {item.get('excerpt', '')}" for item in research_context.get("related_concepts", [])[:3]],
+            *[f"Gap {item['path']}: {item.get('excerpt', '')}" for item in research_context.get("research_gaps", [])[:3]],
+        ]
+        report = "\n".join(summary_parts)
+    else:
+        question_list = _open_questions(root, question_limit)
+    if focus_resolution:
+        relevant_proposals = []
+        for proposal in proposals:
+            proposal_text = " ".join([
+                str(proposal.get("title", "")),
+                str(proposal.get("research_focus", "")),
+                " ".join(str(item) for item in proposal.get("related_questions", [])),
+                " ".join(str(item) for item in proposal.get("affected_claims", [])),
+            ])
+            if len(terms & terms_for_text(proposal_text)) >= min_focus_matches:
+                relevant_proposals.append(proposal)
+    else:
+        relevant_proposals = proposals
     return {
         "phase1_summary": report[:summary_limit],
         "open_questions": question_list,
         "claims": claims,
-        "pending_proposals": [item for item in proposals if item.get("status") in {"draft", "approved"}],
+        "pending_proposals": [item for item in relevant_proposals if item.get("status") in {"draft", "approved"}],
         "candidate_queue": candidate_queue,
+        "research_context": research_context,
+        "focus": {
+            "research_focus": focus_resolution.get("research_focus"),
+            "selection": focus_resolution.get("selection"),
+            "topic_ids": sorted(allowed_topics),
+            "topics": focus_resolution.get("topics", []),
+            "research_questions": focus_resolution.get("research_questions", []),
+        } if focus_resolution else {},
         "historical_audit_baseline": {"run_id": "first-evolution-20261125-v2", "finding_count": 58, "files_scanned": 358, "status": "historical; compare by signature, do not treat as new regressions"},
     }
 
@@ -144,6 +207,13 @@ def executor_memory(current: dict[str, Any], plan: dict[str, Any], config: dict[
     return {
         "phase1_summary": str(initial.get("phase1_summary", ""))[:int(limits.get("executor_summary_chars", 1800))],
         "open_questions": selected_questions,
+        "focus": initial.get("focus", {}),
+        "research_context": {
+            "related_concepts": initial.get("research_context", {}).get("related_concepts", [])[:3],
+            "research_gaps": initial.get("research_context", {}).get("research_gaps", [])[:3],
+            "reading_roadmaps": initial.get("research_context", {}).get("reading_roadmaps", [])[:2],
+            "recent_reviews": initial.get("research_context", {}).get("recent_reviews", [])[:2],
+        },
         "claims": compact_claims,
         "pending_proposals": [
             {key: row.get(key) for key in ("proposal_id", "status", "title")}

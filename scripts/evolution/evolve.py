@@ -61,7 +61,7 @@ def main(argv: list[str] | None = None) -> int:
     run = commands.add_parser("run", help="start a new evolution run")
     run.add_argument("--backend", choices=("codex-cli", "mock"), default=None)
     run.add_argument("--scenario", choices=("smoke",), help="deterministic test scenario; not research evidence")
-    run.add_argument("--focus", default="Agent Memory and Self-Evolving Agents")
+    run.add_argument("--focus", default=None, help="research theme; omit to select a topic from existing knowledge gaps")
     run.add_argument("--max-rounds", type=int)
     run.add_argument("--max-model-calls", type=int)
     run.add_argument("--model")
@@ -110,7 +110,7 @@ def main(argv: list[str] | None = None) -> int:
                 config["discovery"]["enabled"] = False
             if args.scenario and config["backend"]["type"] != "mock":
                 raise ValueError("--scenario is only valid with --backend mock")
-            goal = build_goal(config, args.max_rounds, args.max_model_calls, args.focus)
+            goal = build_goal(config, args.max_rounds, args.max_model_calls, args.focus, root=root)
             backend = _backend(config, scenario=args.scenario)
             controller = EvolutionController(backend, root=root, config=config)
             run_dir = controller.create_run(goal, run_id=args.run_id)

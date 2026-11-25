@@ -73,11 +73,12 @@ Enabled connectors: arXiv, OpenAlex, Crossref, Semantic Scholar, GitHub public A
 
 The Python controller now runs a bounded research loop as its own Linux process. It uses the existing discovery queue, Claim records, audit code, Proposal validator, and local Skills as source instructions. Codex CLI is the current replaceable model backend; it uses the already configured login, `codex exec --ephemeral --json`, strict output schemas, separate Planner / Executor / Evaluator / Reflector calls, and role-specific sandbox settings. No API key is copied or required by the engine.
 
-Start a run from the repository root:
+Start a run from the repository root. An explicit focus is resolved against watchlist titles, groups, and keywords; unmatched themes become a temporary query with their own discovery cursor. With no focus, the engine selects a watchlist topic from current Questions, Research Gaps, Roadmaps, and Reviews:
 
 ```bash
 python3 scripts/evolution/evolve.py run
-python3 scripts/evolution/evolve.py run --focus "Agent Memory and Self-Evolving Agents" --max-rounds 3 --max-model-calls 12
+python3 scripts/evolution/evolve.py run --focus "AgentOps trajectory failure attribution" --max-rounds 3 --max-model-calls 12
+python3 scripts/evolution/evolve.py run --max-rounds 3 --max-model-calls 12
 ```
 
 Inspect, stop, or resume a run:
@@ -111,7 +112,7 @@ From the repository root, start the current configured research theme with:
 python3 scripts/evolution/evolve.py run --focus "Agent Memory and Self-Evolving Agents" --max-rounds 3 --max-model-calls 12
 ```
 
-`--focus` sets the run's research-focus label; `--max-rounds` and `--max-model-calls` lower the configured limits and cannot raise them. The present Goal template still fixes the actual research scope to Agent Memory and Self-Evolving Agents, so changing `--focus` alone does not switch to a different domain. A future domain change needs a matching Goal scope/questions and allowed topic IDs in `evolution/config/engine.yaml`; do not label an out-of-scope run as a different completed study. The engine does not schedule recurring runs.
+`--focus` sets the run scope, watchlist topic IDs, discovery query terms, related Questions/Concepts/Research Gaps, and the topic boundary available to Planner and later rounds. Unmatched user topics use the watchlist's default sources and a stable custom-topic cursor. `--max-rounds` and `--max-model-calls` lower the configured limits and cannot raise them. Without `--focus`, selection follows the existing gap/question ranking. The engine does not schedule recurring runs.
 
 ### Review boundary
 
