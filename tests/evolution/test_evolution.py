@@ -10,7 +10,7 @@ from pathlib import Path
 from scripts.evolution.audit import audit, markdown_links
 from scripts.evolution.common import normalize_arxiv, normalize_doi, normalize_repo_url
 from scripts.evolution.discovery import _base_record, _cursor_key, _is_relevant, _query_string, discover, load_config
-from scripts.evolution.proposals import apply_proposal, create_proposal, patch_paths, validate_proposal
+from scripts.evolution.proposals import apply_proposal, check_proposal, create_proposal, patch_paths, validate_proposal
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -205,6 +205,7 @@ class ProposalTests(unittest.TestCase):
             evidence = [{"source_id": "arxiv:2510.12345", "source_version": "2510.12345v1", "source_uri": "https://arxiv.org/abs/2510.12345", "locator": "Sec. 3", "relation": "supports", "accessed_at": "2026-11-25"}]
             proposal = create_proposal(proposal_id="p-approved", title="Approved update", run_id="test-run", research_focus="Agent Memory", files=["concepts/memory.md"], patch_file=patch_file, evidence=evidence, root=root)
             self.assertEqual(len(json.loads(proposal.read_text())["base_revision"]), 40)
+            self.assertEqual(check_proposal(json.loads(proposal.read_text()), root), [])
             with self.assertRaisesRegex(ValueError, "explicit human approval"):
                 apply_proposal(proposal, "", "", root)
             self.assertEqual(target.read_text(), before)

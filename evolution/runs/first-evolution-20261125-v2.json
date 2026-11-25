@@ -1,0 +1,544 @@
+{
+  "api_cost": "unavailable",
+  "audit_result": {
+    "candidates_scanned": 147,
+    "claims_scanned": 3,
+    "created_at": "2026-11-25T06:25:21Z",
+    "files_scanned": 358,
+    "finding_count": 58,
+    "run_id": "first-evolution-20261125-v2",
+    "semantic_scope": "LLM/manual semantic review is performed by skills/knowledge-audit/SKILL.md on a bounded set of at most 10 relevant pages; this script is deterministic only.",
+    "status": "complete"
+  },
+  "candidate_final_status_counts": {
+    "deferred": 26,
+    "read": 2,
+    "rejected": 119
+  },
+  "candidate_initially_deferred_count": 8,
+  "candidate_screened_count": 20,
+  "candidates_found": 28,
+  "claims_reviewed": [
+    "agent-memory.leto.utility-feedback-1",
+    "agent-memory.evodisco.retrieval-proxy-1",
+    "agent-memory.ledger.source-policy-1"
+  ],
+  "completion_notes": [
+    {
+      "at": "2026-11-25T06:30:14Z",
+      "note": "Research and proposal generation complete. Two drafts await explicit human approval; no proposal was applied to main."
+    }
+  ],
+  "cursor_after": {
+    "agent-memory|arxiv|096ad503bbfcda37bcb6": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\"",
+      "result_count": 0,
+      "since": "2026-08-27",
+      "source": "arxiv",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|arxiv|0e12848993ba5e21214c": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "arxiv",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|crossref|096ad503bbfcda37bcb6": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "crossref",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|crossref|0e12848993ba5e21214c": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "crossref",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|github|096ad503bbfcda37bcb6": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "github",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|github|0e12848993ba5e21214c": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "github",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|openalex|096ad503bbfcda37bcb6": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "openalex",
+      "topic_id": "agent-memory"
+    },
+    "agent-memory|openalex|0e12848993ba5e21214c": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "openalex",
+      "topic_id": "agent-memory"
+    },
+    "self-evolving-agent|arxiv|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 6,
+      "since": "2026-11-18",
+      "source": "arxiv",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|crossref|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-11-18",
+      "source": "crossref",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|github|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-11-18",
+      "source": "github",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|openalex|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:53:16Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-11-18",
+      "source": "openalex",
+      "topic_id": "self-evolving-agent"
+    }
+  },
+  "cursor_before": {
+    "agent-memory|arxiv|0e12848993ba5e21214c": null,
+    "agent-memory|crossref|0e12848993ba5e21214c": null,
+    "agent-memory|github|0e12848993ba5e21214c": null,
+    "agent-memory|openalex|0e12848993ba5e21214c": null,
+    "agent-memory|semantic_scholar|0e12848993ba5e21214c": null,
+    "self-evolving-agent|arxiv|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 0,
+      "since": "2026-08-27",
+      "source": "arxiv",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|crossref|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "crossref",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|github|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "github",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|openalex|91f7d39c6052f9832ce1": {
+      "last_successful_at": "2026-11-25T05:41:14Z",
+      "overlap_days": 7,
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "result_count": 20,
+      "since": "2026-08-27",
+      "source": "openalex",
+      "topic_id": "self-evolving-agent"
+    },
+    "self-evolving-agent|semantic_scholar|91f7d39c6052f9832ce1": null
+  },
+  "discovery_result": {
+    "candidate_file": "evolution/inbox/candidates.jsonl",
+    "candidate_ids": [
+      "cand-1c41427e0431c8a353ad",
+      "cand-1feb67d7e80d7967280a",
+      "cand-28fbeee8c8e838a986f2",
+      "cand-37f86587cf9a5f1ac061",
+      "cand-44b50ca45d78b1a5ad8d",
+      "cand-4cc94daa8c95b0ac4200",
+      "cand-50e7138845adbc4855c6",
+      "cand-53097423a2d1ff8beb2b",
+      "cand-53be85d535f20254b825",
+      "cand-6903ea42a8dbd6f3fe5e",
+      "cand-7559be1cdf52cb7871d3",
+      "cand-7c7ff87b5de3dad65820",
+      "cand-88ea9cb3fdfdf14fe84f",
+      "cand-96ae6f48401c56abc7d5",
+      "cand-989af3ac6fddfd16dd7c",
+      "cand-9b72bb010c823872c1ec",
+      "cand-9b7d13dd696955b96de5",
+      "cand-a4d1a0d63c2998ec89cf",
+      "cand-b7bf4245eb98415c4534",
+      "cand-b9b9547b54f3486e0ebb",
+      "cand-c66a9b56437b957abbbe",
+      "cand-c6c5cff2f8d720682052",
+      "cand-cc17d56c7b93d800d791",
+      "cand-dcc985d567cde0aafacf",
+      "cand-dd2141a9fdbc261f0e0d",
+      "cand-e1ead3676b78732331eb",
+      "cand-e941e523d0a8b5b0e58c",
+      "cand-f7e0f1e7b43280b117a9"
+    ],
+    "candidate_version_updates": 0,
+    "candidates_added": 28,
+    "candidates_found": 28,
+    "cursor_state": "evolution/state/discovery.json",
+    "duplicates": 0,
+    "finished_at": "2026-11-25T05:53:16Z",
+    "focus_selection": "explicit",
+    "records_fetched": 28,
+    "run_id": "first-evolution-20261125-v2",
+    "screened_this_run": 20,
+    "source_results": [
+      {
+        "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+        "rejected_future_date_count": 0,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 20,
+        "result_count": 20,
+        "resumed": false,
+        "since": "2026-08-27",
+        "source": "arxiv",
+        "status": "success",
+        "topic": "agent-memory"
+      },
+      {
+        "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+        "rejected_future_date_count": 20,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 0,
+        "result_count": 20,
+        "resumed": false,
+        "since": "2026-08-27",
+        "source": "openalex",
+        "status": "success",
+        "topic": "agent-memory"
+      },
+      {
+        "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+        "rejected_future_date_count": 20,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 0,
+        "result_count": 20,
+        "resumed": false,
+        "since": "2026-08-27",
+        "source": "crossref",
+        "status": "success",
+        "topic": "agent-memory"
+      },
+      {
+        "cursor_before": null,
+        "error": "RuntimeError: request failed: HTTPError: HTTP Error 429: ",
+        "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+        "source": "semantic_scholar",
+        "status": "failed",
+        "topic": "agent-memory"
+      },
+      {
+        "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+        "rejected_future_date_count": 0,
+        "rejected_irrelevant_count": 18,
+        "relevant_count": 2,
+        "result_count": 20,
+        "resumed": false,
+        "since": "2026-08-27",
+        "source": "github",
+        "status": "success",
+        "topic": "agent-memory"
+      },
+      {
+        "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+        "rejected_future_date_count": 0,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 6,
+        "result_count": 6,
+        "resumed": true,
+        "since": "2026-11-18",
+        "source": "arxiv",
+        "status": "success",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+        "rejected_future_date_count": 20,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 0,
+        "result_count": 20,
+        "resumed": true,
+        "since": "2026-11-18",
+        "source": "openalex",
+        "status": "success",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+        "rejected_future_date_count": 20,
+        "rejected_irrelevant_count": 0,
+        "relevant_count": 0,
+        "result_count": 20,
+        "resumed": true,
+        "since": "2026-11-18",
+        "source": "crossref",
+        "status": "success",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "cursor_before": null,
+        "error": "RuntimeError: request failed: HTTPError: HTTP Error 429: ",
+        "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+        "source": "semantic_scholar",
+        "status": "failed",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+        "rejected_future_date_count": 0,
+        "rejected_irrelevant_count": 20,
+        "relevant_count": 0,
+        "result_count": 20,
+        "resumed": true,
+        "since": "2026-11-18",
+        "source": "github",
+        "status": "success",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "commit": "ceffb860f0712bbae97b184d440df62bc910ca8d",
+        "event_type": "tracked_repository",
+        "previous_commit": "ceffb860f0712bbae97b184d440df62bc910ca8d",
+        "repository": "https://github.com/agiresearch/A-mem",
+        "source": "github-tracked",
+        "status": "success",
+        "topic": "agent-memory,self-evolving-agent"
+      },
+      {
+        "commit": "dc0b5e654cafa1073a2819086151c1e0d13012f0",
+        "event_type": "tracked_repository",
+        "previous_commit": "dc0b5e654cafa1073a2819086151c1e0d13012f0",
+        "repository": "https://github.com/microsoft/SkillOpt",
+        "source": "github-tracked",
+        "status": "success",
+        "topic": "self-evolving-agent"
+      },
+      {
+        "error": "RuntimeError: request failed after 1 attempt(s): HTTPError: HTTP Error 403: rate limit exceeded",
+        "repository": "https://github.com/Tencent/SkillHone",
+        "source": "github-tracked",
+        "status": "failed",
+        "topic": "self-evolving-agent"
+      }
+    ],
+    "sources_failed": 3,
+    "sources_succeeded": 10,
+    "status": "partial",
+    "topics": [
+      "agent-memory",
+      "self-evolving-agent"
+    ]
+  },
+  "duplicates": 0,
+  "errors": [
+    {
+      "cursor_before": null,
+      "error": "RuntimeError: request failed: HTTPError: HTTP Error 429: ",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "semantic_scholar",
+      "status": "failed",
+      "topic": "agent-memory"
+    },
+    {
+      "cursor_before": null,
+      "error": "RuntimeError: request failed: HTTPError: HTTP Error 429: ",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "semantic_scholar",
+      "status": "failed",
+      "topic": "self-evolving-agent"
+    },
+    {
+      "error": "RuntimeError: request failed after 1 attempt(s): HTTPError: HTTP Error 403: rate limit exceeded",
+      "repository": "https://github.com/Tencent/SkillHone",
+      "source": "github-tracked",
+      "status": "failed",
+      "topic": "self-evolving-agent"
+    }
+  ],
+  "finished_at": "2026-11-25T06:30:14Z",
+  "formal_knowledge_applied": false,
+  "mode": "proposal",
+  "mode_boundary": "No formal knowledge file is changed by this runner. Codex Skills own the semantic research/proposal stages; applying a proposal requires explicit human approval.",
+  "model": "unavailable (Codex runtime does not expose model identity to the script)",
+  "papers_full_read_count": 2,
+  "papers_read": [
+    "Leto: full HTML paper",
+    "EvoDisco: full HTML paper"
+  ],
+  "papers_selected": [
+    "Leto: Utility-Centric Agent Memory (arXiv:2611.33005v1)",
+    "EvoDisco: Strategy Discovery for Evolving Agent Memory (arXiv:2611.22102v1)",
+    "LEDGER: Auditable Agent Memory Under Change (targeted sections only; full read deferred)"
+  ],
+  "phase_notes": {
+    "paper_and_code_reading": [
+      {
+        "at": "2026-11-25T06:30:14Z",
+        "note": "Full HTML v1 reads: Leto and EvoDisco. LEDGER Sections III-C–III-E and Limitations reviewed only; no official repository was confirmed for the two full-read papers."
+      }
+    ],
+    "proposal": [
+      {
+        "at": "2026-11-25T06:30:14Z",
+        "note": "Created two draft proposals; each changes at most two core files, hashes validate, and git apply --check passes. Main knowledge is unchanged."
+      }
+    ],
+    "report": [
+      {
+        "at": "2026-11-25T06:30:14Z",
+        "note": "First iteration report saved at evolution/runs/first-evolution-report.md."
+      }
+    ],
+    "semantic_audit": [
+      {
+        "at": "2026-11-25T06:30:14Z",
+        "note": "Read-only semantic review of 10 scoped pages; no true contradiction or superseded core conclusion found."
+      }
+    ]
+  },
+  "phases": {
+    "approval": "pending",
+    "deterministic_audit": "complete",
+    "discovery": "complete",
+    "paper_and_code_reading": "complete",
+    "proposal": "complete",
+    "report": "complete",
+    "semantic_audit": "complete"
+  },
+  "proposal_order": [
+    "pilot-agent-memory-notes-20261125",
+    "pilot-agent-memory-concept-20261125"
+  ],
+  "proposals_created": [
+    "pilot-agent-memory-notes-20261125",
+    "pilot-agent-memory-concept-20261125"
+  ],
+  "queries": [
+    {
+      "cursor_key": "agent-memory|arxiv|0e12848993ba5e21214c",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "arxiv",
+      "topic_id": "agent-memory"
+    },
+    {
+      "cursor_key": "agent-memory|openalex|0e12848993ba5e21214c",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "openalex",
+      "topic_id": "agent-memory"
+    },
+    {
+      "cursor_key": "agent-memory|crossref|0e12848993ba5e21214c",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "crossref",
+      "topic_id": "agent-memory"
+    },
+    {
+      "cursor_key": "agent-memory|semantic_scholar|0e12848993ba5e21214c",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "semantic_scholar",
+      "topic_id": "agent-memory"
+    },
+    {
+      "cursor_key": "agent-memory|github|0e12848993ba5e21214c",
+      "query": "\"agent memory\" OR \"long term memory agent\" OR \"memory evolution agent\" OR \"memory conflict agent\" OR \"belief state agent\"",
+      "source": "github",
+      "topic_id": "agent-memory"
+    },
+    {
+      "cursor_key": "self-evolving-agent|arxiv|91f7d39c6052f9832ce1",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "arxiv",
+      "topic_id": "self-evolving-agent"
+    },
+    {
+      "cursor_key": "self-evolving-agent|openalex|91f7d39c6052f9832ce1",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "openalex",
+      "topic_id": "self-evolving-agent"
+    },
+    {
+      "cursor_key": "self-evolving-agent|crossref|91f7d39c6052f9832ce1",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "crossref",
+      "topic_id": "self-evolving-agent"
+    },
+    {
+      "cursor_key": "self-evolving-agent|semantic_scholar|91f7d39c6052f9832ce1",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "semantic_scholar",
+      "topic_id": "self-evolving-agent"
+    },
+    {
+      "cursor_key": "self-evolving-agent|github|91f7d39c6052f9832ce1",
+      "query": "\"self evolving agent\" OR \"continual agent learning\" OR \"agent self improvement\"",
+      "source": "github",
+      "topic_id": "self-evolving-agent"
+    }
+  ],
+  "query_override": null,
+  "research_focus": "Agent Memory, Self-Evolving Agent",
+  "run_id": "first-evolution-20261125-v2",
+  "skill_versions": {
+    "skills/aiops-learning-batch/SKILL.md": "ce9130829206900ca2715f99d6f5c49d164c035899d0cc12c9be2ef591db57df",
+    "skills/aiops-paper-reading/SKILL.md": "628e1a7da4b047fee81fc610dd0cfbb9bd5fdeefa5f03815dd7186a8e7cea1f1",
+    "skills/code-reading/SKILL.md": "29905c35c8c8c3782d6162de739745cdff9b4104b7dbac3962acc173aa35da5d",
+    "skills/knowledge-audit/SKILL.md": "f0d1ad02847b71a431d7c7fc823406498784e7d6dbb6df2227702618cce843ce",
+    "skills/knowledge-evolution/SKILL.md": "6b0bd53e8665b16c9fcfd0eac5e4872cd325b965c684e572b2321d40b03dda6c",
+    "skills/knowledge-query/SKILL.md": "597e514329ad055261648edfb26d1359a0f39b28766857e64ce5e3db95022e65",
+    "skills/knowledge-review/SKILL.md": "9fb33e9473a8db7d5222fa6b3aab0c00d9bafbdd92d603667b5c29e6ef17f912",
+    "skills/learning-batch/SKILL.md": "f062e049398217c3c232cfe39f6ded7b89ec1de571809efb39e46f3bd15afa1c",
+    "skills/paper-code-discovery/SKILL.md": "ac2078c81f8009599cb933a099337154e8ebb66391c6bf87ed5a339df131f67c",
+    "skills/paper-reading/SKILL.md": "e4bd60c6866080aa0e4883732ab9806626dd9d2b13b6328fa7e13eb4d7c36249",
+    "skills/research-discovery/SKILL.md": "2566142f3e3dcea57d984b40147d81bef60db2dab6e9c164a3f699d2b73c9a89"
+  },
+  "started_at": "2026-11-25T05:52:55Z",
+  "status": "complete",
+  "token_usage": "unavailable",
+  "topics": [
+    "agent-memory",
+    "self-evolving-agent"
+  ]
+}

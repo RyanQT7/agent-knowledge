@@ -32,6 +32,28 @@ def patch_added_paths(patch: str) -> set[str]:
     return {match.group(1).replace("\\ ", " ") for match in ADDED_PATH_RE.finditer(patch)}
 
 
+def check_proposal(proposal: dict[str, Any], root: Path = ROOT) -> list[str]:
+    errors = validate_proposal(proposal, root, check_hashes=True)
+    if errors:
+        return errors
+    changed_paths = proposal["files"]
+    status = subprocess.run(["git", "status", "--porcelain", "--", *changed_paths], cwd=root, text=True, capture_output=True)
+    if status.returncode != 0:
+        return [f"cannot inspect Git target status: {status.stderr.strip() or status.returncode}"]
+    if status.stdout.strip():
+        return ["proposal targets have local changes; refusing to approve or apply"]
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".patch", delete=False) as handle:
+        handle.write(proposal["patch"])
+        patch_path = Path(handle.name)
+    try:
+        result = subprocess.run(["git", "apply", "--check", str(patch_path)], cwd=root, text=True, capture_output=True)
+        if result.returncode != 0:
+            return ["git apply --check failed: " + (result.stderr.strip() or result.stdout.strip() or str(result.returncode))]
+    finally:
+        patch_path.unlink(missing_ok=True)
+    return []
+
+
 def validate_proposal(proposal: dict[str, Any], root: Path = ROOT, check_hashes: bool = True) -> list[str]:
     errors: list[str] = []
     for required in ("proposal_id", "title", "run_id", "research_focus", "created_at", "status", "evidence", "files", "base_hashes", "base_revision", "patch", "uncertainties", "rollback"):
@@ -158,7 +180,7 @@ def approve_proposal(proposal_path: Path, approved_by: str, approval_note: str, 
     proposal = read_json(proposal_path, None)
     if not isinstance(proposal, dict):
         raise FileNotFoundError(proposal_path)
-    errors = validate_proposal(proposal, root, check_hashes=True)
+    errors = check_proposal(proposal, root)
     if errors:
         raise ValueError("proposal is not approvable: " + "; ".join(errors))
     if not approved_by.strip() or not approval_note.strip():
@@ -174,7 +196,7 @@ def apply_proposal(proposal_path: Path, approved_by: str, approval_note: str, ro
         proposal = read_json(proposal_path, None)
         if not isinstance(proposal, dict):
             raise FileNotFoundError(proposal_path)
-        errors = validate_proposal(proposal, root, check_hashes=True)
+        errors = check_proposal(proposal, root)
         if errors:
             raise ValueError("proposal is not applicable: " + "; ".join(errors))
         for dependency_id in proposal.get("depends_on", []):
@@ -243,7 +265,7 @@ def _main(argv: list[str] | None = None) -> int:
             print(result.relative_to(ROOT))
         elif args.command == "check":
             proposal = read_json(args.proposal, None)
-            errors = validate_proposal(proposal or {})
+            errors = check_proposal(proposal or {})
             print(json.dumps({"valid": not errors, "errors": errors}, ensure_ascii=False, indent=2))
             return 0 if not errors else 1
         elif args.command == "approve":
