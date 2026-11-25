@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "max_screened_candidates_per_run": 20,
+  "max_full_reads_per_run": 3,
+  "max_audited_pages_per_run": 10,
+  "max_proposal_files": 3,
+  "max_http_retries": 1,
+  "http_timeout_seconds": 12,
+  "overlap_days": 7,
+  "default_initial_lookback_days": 90,
+  "semantic_context_pages": 5,
+  "semantic_context_claims": 10,
+  "max_tool_requests_per_source": 1
+}
