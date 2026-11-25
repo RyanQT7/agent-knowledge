@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from scripts.evolution.common import read_jsonl
+from scripts.evolution.engine.local_sources import find_local_paper_material
 
 
 def _open_questions(root: Path, limit: int = 30) -> list[str]:
@@ -38,6 +39,17 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
     candidate_rows = read_jsonl(root / "evolution" / "inbox" / "candidates.jsonl")
     relevant = [row for row in candidate_rows if row.get("research_topic") in {"agent-memory", "self-evolving-agent"} and row.get("status") not in {"rejected", "duplicate"}]
     relevant.sort(key=lambda row: (row.get("status") not in {"queued", "reading", "deferred"}, -float(row.get("priority", 0)), row.get("publication_date") or ""), reverse=False)
+    candidate_queue = []
+    for row in relevant[:candidate_limit]:
+        candidate = {
+            key: (str(row.get(key) or "")[:abstract_limit] if key == "abstract" else row.get(key))
+            for key in ("candidate_id", "title", "authors", "publication_date", "publication_status", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "research_topic", "related_questions", "related_concepts", "novelty_reason", "relevance_reason", "priority", "status", "abstract")
+            if key in row
+        }
+        material = find_local_paper_material(root, row)
+        if any(material.values()):
+            candidate["local_paper_material"] = material
+        candidate_queue.append(candidate)
     claims = read_jsonl(root / "evolution" / "claims" / "claims.jsonl")
     proposal_dir = root / "evolution" / "proposals"
     proposals = []
@@ -53,10 +65,7 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
         "open_questions": question_list,
         "claims": claims,
         "pending_proposals": [item for item in proposals if item.get("status") in {"draft", "approved"}],
-        "candidate_queue": [
-            {key: (str(row.get(key) or "")[:abstract_limit] if key == "abstract" else row.get(key)) for key in ("candidate_id", "title", "authors", "publication_date", "publication_status", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "research_topic", "related_questions", "related_concepts", "novelty_reason", "relevance_reason", "priority", "status", "abstract") if key in row}
-            for row in relevant[:candidate_limit]
-        ],
+        "candidate_queue": candidate_queue,
         "historical_audit_baseline": {"run_id": "first-evolution-20261125-v2", "finding_count": 58, "files_scanned": 358, "status": "historical; compare by signature, do not treat as new regressions"},
     }
 
@@ -142,7 +151,7 @@ def executor_memory(current: dict[str, Any], plan: dict[str, Any], config: dict[
         ],
         "candidate_queue": [
             {key: (str(row.get(key) or "")[:int(limits.get("candidate_abstract_chars", 240))] if key == "abstract" else row.get(key))
-             for key in ("candidate_id", "title", "publication_date", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "related_questions", "priority", "status", "abstract")
+             for key in ("candidate_id", "title", "publication_date", "arxiv_id", "doi", "source_url", "source_version", "official_repository", "related_questions", "priority", "status", "abstract", "local_paper_material")
              if key in row}
             for row in candidates[:4]
         ],

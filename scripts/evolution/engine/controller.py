@@ -22,6 +22,7 @@ from scripts.evolution.common import (
 )
 from scripts.evolution.discovery import discover, load_config
 from scripts.evolution.engine import evaluator, executor, memory, planner, reflector
+from scripts.evolution.engine.local_sources import find_local_paper_material
 from scripts.evolution.engine.schemas import SCHEMAS
 from scripts.evolution.engine.state import TERMINAL, append_event, is_stop_requested, load_state, safe_run_dir, save_state, transition
 from scripts.evolution.engine.termination import BudgetExhausted, calls_remaining, executor_calls_reserved, full_reads_remaining, goal_criteria_satisfied, should_stop_no_progress
@@ -805,10 +806,13 @@ class EvolutionController:
             if state.get("full_reads_used", 0) + deterministic.get("full_reads", 0) > int(goal["budgets"]["max_full_reads"]):
                 deterministic["hard_errors"].append({"type": "run_read_budget", "evidence": "cumulative full reads exceed the Goal budget"})
                 deterministic["source_validity_gate"] = False
-            raw_evidence = [
-                {key: paper.get(key) for key in ("source_id", "source_version", "source_uri", "reading_extent", "locators")}
-                for paper in normalized.get("papers", [])
-            ]
+            raw_evidence = []
+            for paper in normalized.get("papers", []):
+                source_record = {key: paper.get(key) for key in ("source_id", "source_version", "source_uri", "title", "reading_extent", "locators")}
+                local_material = find_local_paper_material(self.root, paper)
+                if any(local_material.values()):
+                    source_record["local_paper_material"] = local_material
+                raw_evidence.append(source_record)
             atomic_write_json(run_dir / f"round_{round_number:02d}" / f"deterministic-evaluation-attempt-{semantic_attempt + 1:02d}.json", deterministic)
             if state["status"] == "RUNNING":
                 transition(run_dir, state, "EVALUATING", "Deterministic artifact/evidence/policy checks completed; independent Judge is next.")

@@ -95,6 +95,24 @@ The default limits in `config/engine.yaml` are three research rounds, twelve tot
 
 Each `evolution/runs/<RUN_ID>/` folder holds the frozen Goal and config, manifest/state, append-only events, baseline and per-round audits, model task prompts/results, candidate memos, independent evaluations, reflections, knowledge-gain records, and final report. Model task logs and run state are created with owner-only filesystem permissions. The separate detached worktree is used only for Executor output and is checked against a fixed list of allowed paths.
 
+### Reusing local paper sources
+
+Original PDFs remain in the existing `sources/papers/` tree and are ignored by Git; paper notes under `papers/<paper-id>/notes.md` link to those originals. There are currently no general parsed-text sidecars. The engine uses a small identity matcher over source IDs, DOI/arXiv IDs, titles, note metadata, and local-file links. It passes matching absolute paths to the Executor for selected candidates and to the Judge for each reported paper. Paths are references only: PDFs are not copied into run folders, and no extraction cache is created.
+
+The Executor is instructed to use a local PDF or parsed-text file first and record precise locators. The Judge receives the same source paths independently and checks only the relevant sections, pages, figures, or tables for the specific Findings. A prior `full_text` record prevents another full read; the Judge should make a targeted evidence check. Paper notes are orientation, not primary evidence. If a path is not readable in the active Codex sandbox, the role must report that and use bounded primary-source retrieval only when needed. Matching is heuristic and may miss files; a missing local match does not mean the paper is unavailable.
+
+The latest MemFolder continuation remains review-only: the Judge accepted candidate Finding `r01-f04` as a scoped interpretation, while `r01-f01`, `r01-f02`, `r01-f03`, and `r01-a02-f01` remain unverified because their saved excerpts were insufficient. Proposal `phase15-phase15-memfolder-cont-20261125-a3a68a8` remains a draft. The next Planner chose a saved-record evidence check with zero full reads, but that task has not been executed. No formal knowledge or Skill was changed.
+
+### Daily bounded run
+
+From the repository root, start the current configured research theme with:
+
+```bash
+python3 scripts/evolution/evolve.py run --focus "Agent Memory and Self-Evolving Agents" --max-rounds 3 --max-model-calls 12
+```
+
+`--focus` sets the run's research-focus label; `--max-rounds` and `--max-model-calls` lower the configured limits and cannot raise them. The present Goal template still fixes the actual research scope to Agent Memory and Self-Evolving Agents, so changing `--focus` alone does not switch to a different domain. A future domain change needs a matching Goal scope/questions and allowed topic IDs in `evolution/config/engine.yaml`; do not label an out-of-scope run as a different completed study. The engine does not schedule recurring runs.
+
 ### Review boundary
 
 A normal run can write discovery metadata to the inbox/cursor, audit records to its run folder, and a `draft` Proposal containing `needs_review` Claim candidates after deterministic and independent checks pass. It never edits formal Concepts, Paper notes, Questions, Reviews, Lessons, INDEX, existing Claims, or Skills. It never approves/applies a Proposal, commits, pushes, or changes scheduling. Candidate knowledge gain is reported separately from approved formal knowledge gain.
