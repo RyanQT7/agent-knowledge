@@ -1,14 +1,15 @@
 {
-  "active_count": 6,
+  "active_count": 7,
   "experience_ids": [
     "exp-5da6d9bfb56b",
     "exp-f51eed5e1631",
     "exp-c80dc99565a2",
     "exp-a60e39f20bf3",
     "exp-53bb12ff53e4",
-    "exp-f59f04e0983f"
+    "exp-f59f04e0983f",
+    "exp-4018148873bb"
   ],
-  "record_count": 6,
+  "record_count": 7,
   "schema_version": 1,
-  "updated_at": "2026-11-25T15:19:16Z"
+  "updated_at": "2026-11-26T06:53:48Z"
 }
