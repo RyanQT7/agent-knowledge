@@ -14,9 +14,9 @@
 ```mermaid
 flowchart LR
   A[多公司历史 KPI] --> AD[异常点 / 延迟告警]
-  B[生产风格结构化事件] --> GRE[属性组合 + GRE 合成根因]
-  GRE --> LOC[多维实体 / 根因指标定位]
-  C[sysA 测试床] --> INJ[故障注入 + 业务遥测]
+  B[Suning 生产交易数据] --> GRE[GRE 合成异常与根因属性组合]
+  GRE --> LOC[多维根因属性组合定位]
+  C[中国移动浙江 sysA 服务架构] --> INJ[故障注入 + 业务遥测]
   INJ --> RCA[故障发现 / 诊断]
   AD --> COMP[分任务竞赛协议]
   LOC --> COMP

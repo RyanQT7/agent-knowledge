@@ -1,0 +1,67 @@
+{
+  "applied_hash": null,
+  "base_commit": "40f186a6758fca52500b68fdcc592495045dc214",
+  "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+  "candidate_hash": "ed765d3f6606289a4baba24f72d31f6877c1fb634203a7cd4c9d157df8f69a1b",
+  "candidate_version": 2,
+  "change_scope": [
+    "Restore explicit end-to-end coverage while retaining importance-driven depth.",
+    "Allow only narrowly scoped, necessary direct-reference reading and align it with aiops-paper-reading."
+  ],
+  "created_at": "2026-11-26T11:02:25Z",
+  "diff_hash": "430e6fe2d244a33e1089d6b721c717721028d0c141e404e9909c84a56544d1f9",
+  "evaluation": {
+    "artifact_hashes": {
+      "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+      "candidate_hash": "ed765d3f6606289a4baba24f72d31f6877c1fb634203a7cd4c9d157df8f69a1b",
+      "diff_hash": "430e6fe2d244a33e1089d6b721c717721028d0c141e404e9909c84a56544d1f9"
+    },
+    "baseline_rules_not_verbatim": [
+      "- Experiments, benchmarks, baselines, metrics, tables, and figures.",
+      "- Method, architecture, algorithms, and workflow.",
+      "- Appendix details, prompts, examples, trajectories, ablations, and implementation settings that materially affect understanding."
+    ],
+    "evaluated_at": "2026-11-26T11:03:45Z",
+    "issues": [],
+    "performance_claim": "not established",
+    "record_sha256": "34ba889253767cfd7180aedfa2bf534dd668f273d43cfcf117cb88592f538400",
+    "report_sha256": "18288bf581a76daa53dde6fe975e8d4241882b8a30bf4e65018e97742507510c",
+    "result": "Inconclusive",
+    "type": "static_and_retrospective"
+  },
+  "expected_benefit": "Improve the observed task behavior with a minimal reusable instruction change.",
+  "experience_ids": [
+    "exp-77ed5c77884f",
+    "exp-8da9d9cb732b"
+  ],
+  "experience_summaries": [
+    {
+      "evidence_refs": [
+        "evolution/feedback/benchmark-paper-reading-2026-11-26.md"
+      ],
+      "experience_id": "exp-77ed5c77884f",
+      "lesson": "笔记的篇幅、一个案例或一个公式不能替代核心贡献覆盖。按问题与贡献分配阅读深度，并追踪能改变结论的附录、负结果、对照和限制。"
+    },
+    {
+      "evidence_refs": [
+        "evolution/feedback/benchmark-paper-reading-2026-11-26.md"
+      ],
+      "experience_id": "exp-8da9d9cb732b",
+      "lesson": "记录论文版本与关键定位。先确认评分对象、分母、过滤条件及其含义，再比较数值；将标签可核验性、样本代表性和过程证据分开。"
+    }
+  ],
+  "lineage_diff_hash": "8d8dcd01dfea852bd475a5be6619c30170374f8174292ec6ac17c70eead54ccb",
+  "parent_candidate_hash": "7ac57ab2f74742d95f78d9e00472b5b041d0b54d5654dd4237b186cad858ae2f",
+  "parent_diff_hash": "74e256a6486ab1e91b31e61a0c5631fc9b31ed014480244c294813dad2967bb0",
+  "parent_proposal_id": "skill-paper-reading-20261126t093120z-7ac57a",
+  "possible_side_effects": "May add context or constraints; evaluator should check for redundancy, conflicts, and loss of useful flexibility.",
+  "problem": "Review the linked execution experience and determine whether this focused Skill edit addresses a reusable defect.",
+  "proposal_id": "skill-paper-reading-20261126t110225z-ed765d",
+  "rollback": "restore the captured original.md only if current target hash still matches applied_hash",
+  "schema_version": 1,
+  "status": "evaluated",
+  "suggested_change": "See candidate.md and changes.diff.",
+  "target_path": "skills/paper-reading/SKILL.md",
+  "target_skill": "paper-reading",
+  "title": "Restore full coverage and bound reference reading"
+}

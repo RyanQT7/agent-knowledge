@@ -678,3 +678,11 @@
 - New concepts: benchmark fault intervention 与离线合成数据生成的证据边界。
 - Open questions: 如何扩大正常工作负载 / release 状态覆盖并评估并发故障？
 - Next step: 结合 TSAD 新正常与 robust augmentation 论文做专题 review。
+
+## 2026-11-26 — NetArena
+
+- Paper: [NetArena](../papers/benchmark/netarena/notes.md)
+- Core takeaway: 以可执行状态转换同时生成任务真值和环境反馈，分别检查最终状态正确性与轨迹逐步安全；仿真表现不等于生产就绪。
+- New concepts: Dynamic executable Agent benchmark with constructive/reactive state-transition tasks.
+- Open questions: 生成器外泛化、query 独立性、跨应用 latency 口径及 sim-to-real transfer。
+- Next step: 将生成模板/拓扑分组留出与安全、成本指标对照纳入动态 Benchmark 研究。

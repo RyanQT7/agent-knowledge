@@ -1,6 +1,6 @@
 # Benchmark 论文清单、身份与证据状态
 
-核验日期：2026-11-26。本专题论文范围固定为六篇；没有纳入同名或主题相近替代项。六篇均已基于本地 PDF/全文解析材料完成正文精读，按单篇笔记中列明的章节定位复核机制、案例、结果与局限；不表示所有论文都拥有可运行源码。
+核验日期：2026-11-26。原专题范围为六篇；本次独立加入 NetArena，不替换原论文。七篇均有各自笔记；NetArena 的全文文本由其 ICLR 2026 正式版 PDF 解析，源码仅静态阅读，不表示所有论文都拥有可运行源码或已复现。
 
 | # | 论文身份及发表信息 | 论文 / 官方来源 | 本地材料与阅读范围 |
 | --- | --- | --- | --- |
@@ -10,12 +10,14 @@
 | 4 | **Constructing Large-Scale Real-World Benchmark Datasets for AIOps**；Li Zeyan et al.; *ZTE Communications* 2026, 24(3):59–69；DOI `10.12142/ZTECOM.202603008` | [DOI](https://doi.org/10.12142/ZTECOM.202603008) · [官方 PDF](https://www.zte.com.cn/content/dam/zte-site/res-www-zte-com-cn/mediares/magazine/publication/com_en/article/en202603/20260308.pdf) | `Constructing_Large_Scale_Real_World_Benchmark_Datasets_AIOps_ZTECOM_202603008.pdf/.txt`；三数据集正文与表格精读；更正 Dataset A 来源并记录“7 KPI / 26 series”歧义；静态分析引用的 iops evaluator |
 | 5 | **A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis**（AgenticOpsEval）；Yuanhong Cai et al.; arXiv:2606.29193 v1，2026-06-28 | [论文](https://arxiv.org/abs/2606.29193) · [官方数据/项目页](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval) | `AgenticOpsEval_2606.29193.pdf/.txt`；v1 正文评分与案例（无独立附录）；GitLab 克隆可见 README/数据目录，但未找到 scorer 源文件，公式为论文级分析 |
 | 6 | **CTBench: Evaluating Troubleshooting Capabilities of AI Agents in Realistic Telecom Network Operations**；Xingyu Yan et al.; arXiv:2608.12002 v2，2026-10-21 | [论文](https://arxiv.org/abs/2608.12002) · [HF 数据卡](https://huggingface.co/datasets/netop/CTBench) | `CTBench_2608.12002.pdf/.txt`；正文及指标、任务案例附录精读；数据文件受使用条件控制，本轮未下载；未核验独立官方源码库/scorer |
+| 7 | **NetArena: Dynamic Benchmarks for AI Agents in Network Automation**；Yajie Zhou et al.; ICLR 2026 | [正式论文 PDF](https://fyy.cs.illinois.edu/files/netarena-iclr26.pdf) · [OpenReview](https://openreview.net/forum?id=BPVPOtzoOz) · [项目](https://www.netarena.ai/) · [官方代码](https://github.com/Froot-NetSys/NetArena) | `NetArena_ICLR2026.pdf/.txt`；正文及 Appendix A–D 完整阅读；官方 `main` commit `aefbd457…` 静态检查 MALT/Route/K8s 生成和评价路径；未安装、运行或部署仿真 |
 
 ## 全文与复用边界
 
-- 已有 PDF、文本和源码优先复用；未重新下载或运行故障注入，也未重新研究 MemFolder。当前工具列表没有 GitHub MCP，因此官方仓库版本身份通过此前保留的只读本地克隆、Git commit 和官方项目链接交叉确认。
+- 原六篇已有 PDF、文本和源码优先复用；NetArena 使用用户指定正式版 PDF 与官方仓库。当前工具列表没有 GitHub MCP，因此官方仓库版本通过只读 Git 克隆、commit 和项目链接核验。未运行故障注入，也未重新研究 MemFolder。
 - 本轮对 OpenRCA 和 ZTE 的本地 PDF/提取文本及官方论文页面作定向核验；其余论文使用本地 PDF/完整文本。各笔记将事实、推断和 Not Reported 分开。
 - `papers/aiops/rcagentbench/` 是 **RCAgentBench**，与 RCABench 不是同一工作。
+- NetArena 新增为动态、可执行的网络自动化 Agent Benchmark；它不替代原六篇面向 AIOps 数据质量、RCA 标签和过程评价的对照材料。
 - 早前 Phase 1.5 Engine 的 NIKA/CTBench 选段任务留在 `evolution/runs/benchmark-20261125/` 作为历史运行记录；它的 partial Findings/Judge 停止状态不代表本次主会话精读结果，也不重复作为本次研究执行流程。
 - 当前挑战赛原始样本、数据字典、注入脚本、标签规范和评估代码未在知识库发现；对本地数据的所有差异判断保持待补证据。
 
@@ -29,5 +31,6 @@
 | ZTE | `iops/evaluation/evaluation.py`；AIOps Challenge 2020 data README | delay-window onset 评分、按时间间隔补缺失标签、全局拼接 F1；独立数据包的组成 | evaluator SHA `ad962c2187d73b1a14971b255a2bd87212f896f2`；数据 README SHA `5dcea9688794f3787a9b7e4a8931c6e70fa0ec78`；没有克隆/验证 Dataset B/C 的全套生成脚本 |
 | AgenticOpsEval | 当前公开 GitLab 克隆 README/目录 | 公开可见内容与论文描述之间的 scorer 可见性差异 | SHA `69cf36430b43024d02530c610b1a4738b5c9a7fb`；未发现 scorer/runner，未逐行复核或运行 |
 | CTBench | 数据卡、论文提供的交互和指标说明 | replay、黄金动作、答案和覆盖率定义来自论文描述 | 没有独立代码仓库已核验；数据需接受 Hugging Face 使用条件，未下载 |
+| NetArena | [Froot-NetSys/NetArena](https://github.com/Froot-NetSys/NetArena) `main` · `../sources/code/NetArena/` | `aefbd457497768a9504cfc1c6b0988a626cf082a` | MALT query/Ground Truth、Mininet 错误生成与 safety、K8s policy 注入/命令回路/connectivity checker | 静态源码与论文流程相符；未运行；该 commit 的跨版本/论文实验对应性未证明；根目录未观察到 LICENSE |
 
 所有外部源码均只读静态分析；没有安装复杂依赖或执行第三方代码。

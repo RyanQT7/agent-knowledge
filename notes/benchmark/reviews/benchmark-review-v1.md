@@ -2,7 +2,7 @@
 
 ## 范围与证据
 
-本 review 综合用户固定的六篇论文。六者不是同一数据集/方法的排名，而是分别检验传统 RCA 难度、网络交互诊断、历史企业遥测、多类型 AIOps 数据建设、证据过程和电信专家排障流程。论文、数据和代码当前版本分列核对；正式笔记见[清单](../paper-inventory.md)和[横向比较](../benchmark-comparison.md)。本轮使用主会话和现有 Skills 完成原文精读与源码静态检查，没有用 Engine 多会话数据冒充六篇论文的研究结果。
+本 review 延续原先指定的六篇论文，并纳入本次新增的 NetArena。它们不是同一数据集/方法的排名，而分别检验传统 RCA 难度、网络交互诊断、历史企业遥测、多类型 AIOps 数据建设、证据过程、电信专家排障，以及动态网络 Agent 操作。论文、数据和代码当前版本分列核对；正式笔记见[清单](../paper-inventory.md)和[横向比较](../benchmark-comparison.md)。NetArena 由当前主会话精读并静态读码，未启动 Engine 或执行仿真。
 
 ## Benchmark 演进的核心：不只是更多数据，而是明确测什么
 
@@ -45,6 +45,14 @@ RCABench 用简单 baseline 发现根因服务的显著异常可能使复杂方�
 同一事件集可服务多个 track：传统 AD 评异常起止/检测延迟；传统 RCA 评根因排序/多根因；LLM 评结构化回答和证据定位；Agent 额外评工具选择、证据覆盖、冗余与系统影响。需要统一数据切分和底层 GT，但允许不同输出任务。公开 model/harness 版本、可见信息、最大步数/时间/Token、重试与失败处理。
 
 同一公式不能解决所有任务。Top‑k、IoU、Exact match、F1、evidence recall、SLO impact 回答不同问题；报告分层值，不将若干维度压成不可解释的单分。需要置信区间时明确其随机来源；CTBench 的 Pass@1 标准误是跨任务变化，不是模型重复运行方差。
+
+### 动态执行任务补充：NetArena
+
+NetArena 将任务定义为 `(S, A, E)`，令查询、执行后真值及环境反馈共享一套应用状态。它补上静态 query benchmark 无法观察“动作如何改变系统”的缺口：constructive 任务以可执行动作构造目标态，reactive 任务以隐藏故障后的健康恢复态为目标；Safety 则检查每一个中间状态。这样能区分“最终修好”与“过程中过度破坏”，也能在多个有效修复路径之间用状态结果而非唯一命令串评分。（NetArena §3.2–3.3）
+
+这类评价和 NIKA 的交互调查相近，但 NetArena 横跨图配置、Mininet Routing 和 Kubernetes policy；它与 CTBench 的固定命令回放、AgenticOpsEval 的专家证据/checkpoint 标签也不相同。状态恢复不能证明真实因果解释，安全约束也只覆盖编码进应用 checker 的部分。NetArena 明确提醒 emulator 成绩不代表生产就绪；现有论文材料未证明模拟器覆盖全部真实网络扰动。（NetArena §5.3）
+
+论文用随机采样扩大查询集并观察到置信区间重叠减少，但这不自动保证查询独立或生成器外泛化。还需按模板、种子、拓扑和故障类型进行留出，并以配对/重复采样核验 CI 与模型排序。NetArena 的 latency 在不同 app 使用命令/墙钟时间或修复轮数，未形成可直接横比的统一成本指标；Table 1 的表格文本抽取也有口径不清处，见[单篇笔记](../../../papers/benchmark/netarena/notes.md#7-实验设计与结果)。
 
 ## 对网络 AIOps 数据集的启发
 

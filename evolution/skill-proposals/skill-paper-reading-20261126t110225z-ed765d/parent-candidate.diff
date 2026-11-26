@@ -1,0 +1,20 @@
+--- skill-paper-reading-20261126t093120z-7ac57a/candidate.md
++++ skill-paper-reading-20261126t110225z-ed765d/candidate.md
+@@ -23,7 +23,7 @@
+ → Commit and push the completed knowledge task when all checks pass
+ ```
+ 
+-Work inside the current knowledge-base root. Do not read a second paper, download unrelated material, install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
++Work inside the current knowledge-base root. Do not process another paper as a task output or expand into unrelated material. Check local sources first. A directly cited reference may be read or, only if unavailable locally, retrieved when necessary to explain a core mechanism; record why and the exact scope, use only relevant evidence, and do not create a second paper note. For `aiops-paper-reading`, this is a narrow exception to its default restriction on additional material, not permission to browse or survey adjacent work. Do not install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
+ 
+ ## Input and source location
+ 
+@@ -69,7 +69,7 @@
+ 
+ ## Full-paper reading
+ 
+-Identify the research question and main contributions before deciding what deserves depth. Follow each important claim to its mechanism and strongest evidence, including appendices, discussion, limitations, and negative results that change its interpretation. Reuse earlier reading and consult a directly cited reference when it is needed to explain a core mechanism. Label preliminary coverage and record any source gaps.
++Read the paper end to end. Full-paper coverage and importance-driven depth are complementary: cover all sections, then spend the most explanation on the core contributions, methods, and strongest evidence. Inspect appendices, discussion, limitations, and negative results when they change the interpretation. Reuse earlier reading, follow important claims to their mechanisms and evidence, and mark source gaps.
+ 
+ Choose emphasis by contribution. For algorithms, trace the mathematical mechanism, architecture, training objective, and experimental comparisons. For benchmarks, trace provenance, construction, labels, quality gates, difficulty, and scoring. For agents, trace workflow, tools, state, memory, planning, recovery, and cost where applicable. For systems, trace interfaces, interactions, runtime behavior, and trade-offs.
+ 

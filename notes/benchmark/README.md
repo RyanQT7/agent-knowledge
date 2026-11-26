@@ -1,20 +1,21 @@
 # AIOps Benchmark 专题
 
-本专题比较 AIOps 与 Agent Benchmark 如何构造故障、建立 Ground Truth、处理数据质量和评价诊断过程。当前固定研究范围为六篇论文。
+本专题比较 AIOps 与 Agent Benchmark 如何构造故障、建立 Ground Truth、处理数据质量和评价诊断过程。原专题包含六篇论文；本次增加 NetArena 作为独立的泛化阅读案例，当前索引共七篇。
 
 ## 阅读入口
 
 - [论文清单、全文状态与源码边界](paper-inventory.md)
-- [六篇论文横向比较](benchmark-comparison.md)
+- [论文横向比较](benchmark-comparison.md)
 - [对本地 AIOps 挑战赛数据集建设的启发](dataset-design-insights.md)
 - [研究缺口](research-gaps.md)
 - [Benchmark Knowledge Review v1](reviews/benchmark-review-v1.md)
 - [独立反馈处理与 Skill 候选评估](reviews/reading-feedback-resolution.md)
-- 六篇单篇精读：[`papers/benchmark/`](../../papers/benchmark/)
+- 单篇精读：[`papers/benchmark/`](../../papers/benchmark/)
+- 新增：[NetArena 精读](../../papers/benchmark/netarena/notes.md) · [官方源码静态分析](../../code/benchmark/netarena.md)
 
 ## 证据边界
 
-六篇均已由本轮 Codex 主会话完整精读，复用已有 PDF/全文和源码材料；只对有官方代码且可访问的范围做静态阅读，未执行故障注入或大型基准。各论文当前源码可能早于或晚于论文实验版，源码索引明确记录版本差异。
+原六篇均已由此前 Codex 主会话精读；NetArena 在本次独立泛化阅读中完成正式版正文和附录阅读。只对有官方代码且可访问的范围做静态阅读，未执行故障注入或大型基准。各论文当前源码可能早于或晚于论文实验版，源码索引明确记录版本差异。
 
 本地挑战赛样本、数据字典、注入脚本、标签规范和评估器当前缺失。因此有关 inode/process count/fd、时间边界、角色绑定、长尾、传播范围的具体判断都是待核查假设。
 
