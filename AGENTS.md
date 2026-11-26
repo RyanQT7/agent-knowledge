@@ -8,3 +8,4 @@
 - A new paper/code note is a normal task artifact. Changes to durable cross-paper Concepts, Claims, Lessons, or Skills require a reviewable Proposal and explicit user approval; committing a note does not approve those changes.
 - Before committing, stage only exact paths changed by the current task with `git add -- <paths>`. Never stage unrelated pre-existing work. Preserve existing Skill-specific commit/push behavior unless the user says otherwise.
 - Keep verification proportional to task risk and value; avoid repeated checks that cannot change the decision. See [the lightweight research workflow](notes/guides/lightweight-research-workflow.md).
+- For local paper PDF inspection, use `~/.local/bin/paper-pdf`; command examples, private environment versions, and extraction limits are documented in `scripts/research/README.md`.

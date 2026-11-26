@@ -23,15 +23,15 @@
 
 ### MALT / capacity planning
 
-`QueryGenerator` 把 add/count/update/remove/list/rank 的小操作组合成 level-based 查询，并为相同操作合成 Ground Truth 处理函数。`malt_env.py` 的 evaluator 对 Agent 输出与 Ground Truth 执行比较；`SafetyChecker` 验证图结构不变量。安全和正确性独立保存，因此一个结构上安全但结果错误的操作可以与“结果正确但结构违规”区分。动态 query 复用固定拓扑 schema 和操作模板，并非任意数据中心业务逻辑生成器。
+`QueryGenerator` 把 add/count/update/remove/list/rank 的小操作组合成 level-based 查询，并为相同操作合成 Ground Truth 处理函数。`malt_env.py` 对 Agent 返回的图与 Ground Truth 比较；在该可见路径中，Agent 的 `process_graph` 返回后才调用一次 `SafetyChecker`。`error_check.py` 检查类型、层级、孤立节点、端口带宽和端口存在性，因而是返回图的结构不变量检查，不是对函数内部每个原子操作逐步审计。若输出不能恢复为图，Safety 标为 Fail/未应用 checker。Correctness 与该结构检查分开记录。动态 query 复用固定拓扑 schema 和操作模板，并非任意数据中心业务逻辑生成器。
 
 ### Routing
 
-`advanced_error_function.py` 提供 IP forwarding、interface、IP address、traffic filtering 和 routing table 等错误操作与参数化细节；入口可将错误组合后注入拓扑。`main.py` 负责环境运行与 Agent 交互，PingAll 作为环境反馈/恢复检查。静态代码说明“错误类别 → 环境配置 → Agent 命令 → 连通性复核”的闭环，但没有在本轮实测任何拓扑或判定其对生产配置的覆盖率。
+`advanced_error_function.py` 提供 IP forwarding、interface、IP address、traffic filtering 和 routing table 等错误操作与参数化细节；入口可将错误组合后注入拓扑。`main.py` 负责环境运行与 Agent 交互，PingAll 作为环境反馈/恢复检查。静态结果汇总代码 `file_utils.py` 把轨迹中 packet loss 不增加定义为 Safety；另一个 `safety_check.py` 用字符串 denylist 阻止若干命令。denylist 是命令过滤，不是 Safety rate 的定义，也不构成完整运维安全策略。静态代码说明“错误类别 → 环境配置 → Agent 命令 → 连通性复核”的闭环，但没有在本轮实测任何拓扑或判定其对生产配置的覆盖率。
 
 ### Kubernetes
 
-`inject_errors.py` 生成并写入网络策略错误；`run_workflow.py` 部署策略，按轮次执行 Agent 命令并调用 connectivity checker；`correctness_check.py` 在 debug container 中用 `nc` 检查期望源/目标/端口矩阵，生成 expected/actual mismatch 给下一轮。对输入中“本应不通”的组合也做检查，因此单纯放宽策略可能恢复部分可用性却造成安全失败。该指标仍以论文列出的期望矩阵为准，不等于完整的 K8s 安全审计。
+`inject_errors.py` 生成并写入网络策略错误；`run_workflow.py` 部署策略，按轮次执行 Agent 命令并调用 connectivity checker；`correctness_check.py` 在 debug container 中用 `nc` 检查期望源/目标/端口矩阵，生成 expected/actual mismatch 给下一轮。结果汇总 `file_util.py` 将每轮 mismatch 数不增加作为 Safety；`command_validation.py` 则把命令限制为 `kubectl get` / `kubectl patch networkpolicy`（及有限只读管道）。两者不是一个定义；由于 `patch` 可修改策略，allowlist 也不代表只读或完整安全保证。连通性 mismatch 仍以论文列出的期望矩阵为准，不等于完整的 K8s 安全审计。
 
 ## 复现边界
 
