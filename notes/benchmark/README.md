@@ -10,6 +10,7 @@
 - [研究缺口](research-gaps.md)
 - [Benchmark Knowledge Review v1](reviews/benchmark-review-v1.md)
 - [独立反馈处理与 Skill 候选评估](reviews/reading-feedback-resolution.md)
+- Benchmark 论文写作与实验设计：[逐篇写作分析](writing-study/paper-writing-analysis.md) · [实验比较与贡献—证据映射](writing-study/experiment-design-comparison.md) · [Network Benchmark 写作指南](writing-study/network-benchmark-writing-guide.md)
 - 单篇精读：[`papers/benchmark/`](../../papers/benchmark/)
 - 新增：[NetArena 精读](../../papers/benchmark/netarena/notes.md) · [官方源码静态分析](../../code/benchmark/netarena.md)
 
