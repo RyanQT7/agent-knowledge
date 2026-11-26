@@ -21,7 +21,7 @@ The manifest records **3 calls started**, **600,220 input / 13,319 output tokens
 
 ## First-round findings
 
-Executor produced four single-paper findings with valid source identity/locator records and one cross-paper synthesis. Deterministic evaluation found a source/schema failure in the synthesis finding: it referenced an evidence source absent from the reviewed-paper list. The batch did not pass the source-validity gate, and no findings became accepted Claims.
+Executor produced four single-paper findings with valid source identity/locator records and one cross-paper synthesis. Deterministic evaluation found a source/schema failure in the synthesis finding: it used a combined source URI absent from the reviewed-paper list. The Judge was interrupted before returning a decision, so no findings became accepted Claims; the batch-wide gate also treated the one Finding error as a batch failure. The gate has since been changed so source/schema failures attach to individual Findings: the cross-paper synthesis is rejected while independently valid Findings remain eligible for Judge review. This repair does not retroactively accept or verify any Benchmark finding.
 
 The useful research observations preserved in [`round_01/artifacts/research-memo.md`](round_01/artifacts/research-memo.md) are:
 
@@ -45,9 +45,21 @@ Official implementation checks were read-only and bounded to public project docu
 
 ## Experience Memory
 
-On 2026-11-26 the task queried Experience Memory and retrieved five relevant records: reuse local sources, keep validation proportional, preserve Executor attempts, keep temporary Findings distinct from formal Claims, and give the Judge primary-source excerpts. These guided source reuse, targeted analysis, and the decision not to repeat broad audits. The Engine manifest itself contains no experience IDs, so this retrieval occurred at task level rather than being recorded as injected into the first Planner context.
+The saved Planner and Executor prompts contain the five relevant Experience IDs for local-source reuse, proportional validation, retry preservation, Finding/Claim separation, and primary-source evidence. The Judge prompt contains the three evidence/controller experiences relevant to verification. Thus Experience Memory was actually injected into the Engine roles; it was not only retrieved by the surrounding Codex task. `manifest.json`'s empty `experience_ids` means this run collected no new experience records at termination; the field does not represent retrieved/injected IDs. The Reflector used a deterministic runtime fallback and had no model prompt in this run.
 
 One new active efficiency experience was recorded as `exp-8bd076219cec`, linked to this run’s usage manifest. It captures the observed 570,961-token Executor stage and recommends smaller role context and per-stage budgets that preserve Judge/Reflector capacity.
+
+## Workflow and token diagnosis
+
+The Executor's 570,961 input tokens came from one section-analysis call for NIKA and CTBench, not six complete paper reads. The saved CLI event log contains 11 distinct shell invocations (22 in-progress/completed event records) and about 162,970 bytes of captured command output. Broad `rg` commands account for about 120,639 bytes (74%); repeated targeted reads overlap by 92 lines for each paper, and the Executor also read its 4,322-byte memo back after writing it. These are strong sources of avoidable context, but the CLI does not provide a precise per-command token attribution, so they cannot be mapped exactly to the 570,961 tokens.
+
+The Executor prompt was about 45 KB. It included a 27 KB serialized Goal with the full six-paper fixed queue and research context, while task memory repeated portions of that context; the active plan selected only NIKA and CTBench. This duplicated prompt context, broad shell output, and overlapping source ranges are more plausible contributors to the high input total than complete rereads of all six papers.
+
+The Engine did not load or invoke the repository's `paper-reading`, `aiops-paper-reading`, `paper-code-discovery`, or `code-reading` Skill files. Its prompt named these protocols and embedded a short set of evidence rules, but the Executor wrote one `research-memo.md` rather than canonical per-paper notes. The ordinary Codex workflow separately created the six Benchmark paper notes and synthesis. It reused the Engine memo for NIKA/CTBench, so the work was not six full duplicate reads, but findings and notes overlapped and were created by separate flows. The Engine's Judge is already designed to reuse merged Executor findings and inspect only cited source sections; Reflector and Knowledge Evolution also consume the Executor result rather than doing their own full research.
+
+`learning-batch` and `aiops-learning-batch` were not invoked in this Engine run. Their batch-planning scope overlaps conceptually with the Controller's round planning, budget, retry, and checkpoint responsibilities; they should remain standalone entry points for ordinary Codex work rather than being nested under the Engine. The Engine and ordinary Codex share the repository's committed Skills and knowledge files, while the Engine executes in a detached worktree at its frozen base commit; uncommitted work in the main checkout is not automatically visible there.
+
+For the currently preferred lightweight direction, reusable components are the existing Skills, Experience Memory retrieval, local source manifest, Claim/Proposal checks, and optional independent Judge / Skill Evolution. No new lightweight workflow was implemented as part of this diagnostic repair.
 
 ## Remaining work
 

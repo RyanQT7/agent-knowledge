@@ -323,15 +323,57 @@ class EngineFixture(unittest.TestCase):
         execution["papers"][0]["publication_date"] = "2999-01-01"
         execution["papers"][0]["source_version"] = "2401.99999v2"
         execution["findings"][0]["source_version"] = "2401.99999v2"
-        normalized = {**execution, "findings": [{**execution["findings"][0], "finding_id": "r01-f01"}]}
+        execution["papers"].append({"title": "Second fixture paper", "source_id": "arxiv:2401.56789", "source_version": "2401.56789v1", "publication_date": "2024-02-01", "source_uri": "https://arxiv.org/abs/2401.56789v1", "reading_extent": "sections_only", "locators": ["Sec. 1"]})
+        execution["findings"].append({"finding_id": "r01-f02", "statement": "A separate valid fixture finding remains eligible for evaluation.", "claim_type": "paper_fact", "scope": "Synthetic test only", "source_id": "arxiv:2401.56789", "source_version": "2401.56789v1", "source_uri": "https://arxiv.org/abs/2401.56789v1", "locator": "Sec. 1", "relation": "supports", "evidence_quote": "fixture excerpt", "importance": "Test Finding-level gating.", "related_claim_ids": [], "related_finding_ids": []})
+        normalized = {**execution, "findings": [{**execution["findings"][0], "finding_id": "r01-f01"}, execution["findings"][1]]}
         goal = build_goal(load_engine_config(self.root), max_rounds=1, max_model_calls=3)
         plan = planner_response(1)
+        plan["max_full_reads"] = 2
         report = evaluator.deterministic_evaluation(normalized, plan, goal, [], source_getter=lambda uri, timeout: (True, "fixture"))
-        types = {error["type"] for error in report["hard_errors"]}
+        types = {error["type"] for error in report["source_errors"]}
+        invalid_types = {error["type"] for error in report["finding_checks"][0]["hard_errors"]}
         self.assertIn("future_date", types)
         self.assertIn("source_identity", types)
-        self.assertIn("claim_source_identity", types)
+        self.assertIn("claim_source_identity", invalid_types)
+        self.assertEqual(report["invalid_finding_ids"], ["r01-f01"])
+        self.assertEqual(report["valid_finding_ids"], ["r01-f02"])
         self.assertFalse(report["source_validity_gate"])
+        self.assertTrue(report["batch_validity_gate"])
+        self.assertEqual(report["hard_errors"], [])
+
+    def test_one_invalid_finding_does_not_block_valid_sibling(self) -> None:
+        def responder(request: BackendRequest) -> dict:
+            round_number = int(re.search(r"-r(\d+)-", request.task_id).group(1))
+            if request.role == "planner":
+                if round_number == 1:
+                    return planner_response(1)
+                return planner_response(2, "no_update_needed", ["r01-f02"])
+            if request.role == "executor":
+                result = executor_response(round_number, request)
+                if round_number == 1:
+                    result["findings"][0]["source_uri"] = "https://arxiv.org/abs/9999.99999v1"
+                    valid_sibling = dict(result["findings"][0])
+                    valid_sibling.update({
+                        "finding_id": "F2",
+                        "statement": "A separate source-grounded finding remains independently reviewable.",
+                        "source_id": "arxiv:2401.01234",
+                        "source_version": "2401.01234v1",
+                        "source_uri": "https://arxiv.org/abs/2401.01234v1",
+                    })
+                    result["findings"].append(valid_sibling)
+                return result
+            if request.role == "evaluator":
+                return evaluator_response(accepted=["r01-f01", "r01-f02"] if round_number == 1 else [])
+            return reflection_response()
+
+        _, state, _ = self.run_controller(MockBackend(responder), "engine-finding-gate-001")
+        first_round = state["rounds"]["1"]
+        self.assertFalse(first_round["deterministic_evaluation"]["source_validity_gate"])
+        self.assertTrue(first_round["deterministic_evaluation"]["batch_validity_gate"])
+        self.assertEqual(first_round["deterministic_evaluation"]["invalid_finding_ids"], ["r01-f01"])
+        self.assertEqual(first_round["deterministic_evaluation"]["judge_accepted_invalid_finding_ids"], ["r01-f01"])
+        self.assertEqual([item["finding_id"] for item in first_round["knowledge_gain"]["accepted_findings"]], ["r01-f02"])
+        self.assertEqual(first_round["knowledge_gain"]["candidate_gain"], 1)
 
     def test_phase1_119_candidate_fault_replay_checks_date_field_and_query_relevance(self) -> None:
         source_run = read_json(REPO / "evolution/runs/first-evolution-20261125.json", {})

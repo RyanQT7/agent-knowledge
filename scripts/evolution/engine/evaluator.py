@@ -57,49 +57,59 @@ def _identity_matches(item: dict[str, Any]) -> bool:
 def deterministic_evaluation(execution: dict[str, Any], plan: dict[str, Any], goal: dict[str, Any], existing_claims: list[dict[str, Any]], existing_findings: list[dict[str, Any]] | None = None, source_getter: Callable[[str, int], tuple[bool, str]] | None = None) -> dict[str, Any]:
     hard_errors: list[dict[str, str]] = []
     soft_notes: list[dict[str, str]] = []
+    source_errors: list[dict[str, str]] = []
     papers = execution.get("papers", [])
     full_reads = [paper for paper in papers if paper.get("reading_extent") == "full_text"]
     if len(full_reads) > min(int(plan.get("max_full_reads", 0)), int(goal["budgets"]["max_full_reads"])):
         hard_errors.append({"type": "budget", "evidence": "reported full reads exceed the immutable per-task budget"})
     today = dt.date.today()
     for paper in papers:
+        paper_errors: list[dict[str, str]] = []
         raw_date = paper.get("publication_date")
         if raw_date:
             try:
                 pub_date = dt.date.fromisoformat(str(raw_date)[:10])
                 if pub_date > today:
-                    hard_errors.append({"type": "future_date", "evidence": f"{paper.get('source_id')}: {raw_date} is later than {today.isoformat()}"})
+                    paper_errors.append({"type": "future_date", "evidence": f"{paper.get('source_id')}: {raw_date} is later than {today.isoformat()}"})
             except ValueError:
                 soft_notes.append({"type": "date_unparseable", "evidence": f"{paper.get('source_id')}: {raw_date}"})
         if not _identity_matches(paper):
-            hard_errors.append({"type": "source_identity", "evidence": f"source ID/version does not match URI: {paper.get('source_id')} {paper.get('source_version')} {paper.get('source_uri')}"})
+            paper_errors.append({"type": "source_identity", "evidence": f"source ID/version does not match URI: {paper.get('source_id')} {paper.get('source_version')} {paper.get('source_uri')}"})
         verified, detail = verify_source_uri(str(paper.get("source_uri", "")), getter=source_getter)
         if not verified:
-            hard_errors.append({"type": "source_unavailable", "evidence": f"{paper.get('source_uri')}: {detail}"})
+            paper_errors.append({"type": "source_unavailable", "evidence": f"{paper.get('source_uri')}: {detail}"})
         paper["source_verification"] = {"verified": verified, "detail": detail}
         if paper.get("reading_extent") in {"sections_only", "abstract_only", "metadata_only"}:
             soft_notes.append({"type": "partial_read", "evidence": f"{paper.get('source_id')} read extent: {paper.get('reading_extent')}"})
         if not paper.get("locators") and paper.get("reading_extent") != "metadata_only":
-            hard_errors.append({"type": "missing_locator", "evidence": f"{paper.get('source_id')} has no section/equation/table locator"})
+            paper_errors.append({"type": "missing_locator", "evidence": f"{paper.get('source_id')} has no section/equation/table locator"})
+        source_errors.extend({**error, "source_id": str(paper.get("source_id", "")), "source_uri": str(paper.get("source_uri", ""))} for error in paper_errors)
     normalized_existing = {normalize_title(item.get("statement")) for item in existing_claims}
     known_claim_ids = {item.get("claim_id") for item in existing_claims}
     normalized_existing.update(normalize_title(item.get("statement")) for item in (existing_findings or []))
     seen_statements: set[str] = set()
     known_finding_ids = {item.get("finding_id") for item in execution.get("findings", [])}
     known_finding_ids.update(item.get("finding_id") for item in (existing_findings or []))
+    finding_checks: list[dict[str, Any]] = []
     for finding in execution.get("findings", []):
-        if finding.get("source_uri") not in {paper.get("source_uri") for paper in papers}:
-            hard_errors.append({"type": "unlisted_evidence", "evidence": f"{finding.get('finding_id')} points to a source absent from the reviewed paper list"})
+        finding_errors: list[dict[str, str]] = []
+        matched_papers = [paper for paper in papers if finding.get("source_uri") == paper.get("source_uri")]
+        if not matched_papers:
+            finding_errors.append({"type": "unlisted_evidence", "evidence": f"{finding.get('finding_id')} points to a source absent from the reviewed paper list"})
+        else:
+            for error in source_errors:
+                if error.get("source_uri") == finding.get("source_uri"):
+                    finding_errors.append({"type": error["type"], "evidence": error["evidence"]})
         if not _identity_matches(finding):
-            hard_errors.append({"type": "claim_source_identity", "evidence": f"claim source identity does not match its URI: {finding.get('finding_id')}"})
+            finding_errors.append({"type": "claim_source_identity", "evidence": f"claim source identity does not match its URI: {finding.get('finding_id')}"})
         if not finding.get("locator") or not finding.get("evidence_quote"):
-            hard_errors.append({"type": "missing_evidence_locator", "evidence": f"{finding.get('finding_id')} lacks a pinpoint locator or excerpt"})
+            finding_errors.append({"type": "missing_evidence_locator", "evidence": f"{finding.get('finding_id')} lacks a pinpoint locator or excerpt"})
         unknown_related = sorted(set(finding.get("related_claim_ids", [])) - known_claim_ids)
         if unknown_related:
-            hard_errors.append({"type": "unknown_related_claim", "evidence": f"{finding.get('finding_id')} refers to unknown Claim IDs: {', '.join(unknown_related)}"})
+            finding_errors.append({"type": "unknown_related_claim", "evidence": f"{finding.get('finding_id')} refers to unknown Claim IDs: {', '.join(unknown_related)}"})
         unknown_finding_refs = sorted(set(finding.get("related_finding_ids", [])) - known_finding_ids)
         if unknown_finding_refs:
-            hard_errors.append({"type": "unknown_related_finding", "evidence": f"{finding.get('finding_id')} refers to unknown Finding IDs: {', '.join(unknown_finding_refs)}"})
+            finding_errors.append({"type": "unknown_related_finding", "evidence": f"{finding.get('finding_id')} refers to unknown Finding IDs: {', '.join(unknown_finding_refs)}"})
         statement = normalize_title(finding.get("statement"))
         if statement in normalized_existing or statement in seen_statements:
             finding["duplicate_or_repeated"] = True
@@ -107,6 +117,11 @@ def deterministic_evaluation(execution: dict[str, Any], plan: dict[str, Any], go
         else:
             finding["duplicate_or_repeated"] = False
         seen_statements.add(statement)
+        finding_checks.append({
+            "finding_id": finding.get("finding_id", ""),
+            "valid": not finding_errors,
+            "hard_errors": finding_errors,
+        })
     status = execution.get("status")
     if status == "completed" and not execution.get("artifact_path"):
         hard_errors.append({"type": "missing_artifact", "evidence": "completed execution supplied no candidate artifact path"})
@@ -114,8 +129,14 @@ def deterministic_evaluation(execution: dict[str, Any], plan: dict[str, Any], go
         hard_errors.append({"type": "status_mismatch", "evidence": "no_update_needed output contains findings"})
     return {
         "hard_errors": hard_errors,
+        "source_errors": source_errors,
+        "finding_checks": finding_checks,
+        "valid_finding_ids": [item["finding_id"] for item in finding_checks if item["valid"]],
+        "invalid_finding_ids": [item["finding_id"] for item in finding_checks if not item["valid"]],
         "soft_notes": soft_notes,
-        "source_validity_gate": not hard_errors,
+        # Keep the item-level source gate distinct from batch-wide policy/budget gates.
+        "source_validity_gate": not source_errors and all(item["valid"] for item in finding_checks),
+        "batch_validity_gate": not hard_errors,
         "full_reads": len(full_reads),
         "verified_source_count": sum(bool(paper.get("source_verification", {}).get("verified")) for paper in papers),
         "candidate_distinct_findings": [finding["finding_id"] for finding in execution.get("findings", []) if not finding.get("duplicate_or_repeated")],
@@ -176,6 +197,6 @@ def build_judge_prompt(goal: dict[str, Any], plan: dict[str, Any], execution: di
     }
     return """You are an independent Evaluator in a bounded research-evolution runtime. This is a separate, stateless model call. Apply the read-only `knowledge-audit` Skill distinctions. Do not accept the Executor's summary or self-reported confidence as proof. Judge only the supplied goal, acceptance rules, actual candidate artifact, raw source references/excerpts, and deterministic checks. Experience Memory below is process guidance only and is never factual evidence for a current claim. The shared source manifest may contain local_paper_material paths: inspect the original local PDF or parsed text first, and read only the sections/pages/figures needed to verify the specific Findings and locators. Do not repeat a full-paper read or copy source contents into run artifacts. If a path is inaccessible, state that explicitly and use the primary URL or a search tool actually exposed by this Codex CLI only when needed; report if the environment does not provide one. Web-search calls are capped by Goal.budgets.max_web_search_calls_per_task: batch focused checks and reuse opened pages instead of repeating searches. Do not mark an abstract-only/section-only read as a full read. Distinguish factual accuracy, completeness, method understanding, evidence sufficiency, research relevance, and scope. Treat historical audit findings as baseline; only new regressions are this run's failures.
 
-Hard gates: any deterministic hard error means do not PASS; source identity/version and evidence location must be consistent; semantic similarity alone is not support; a retrieval proxy is not a task outcome; the candidate must not edit formal knowledge or Skills. A score or confidence alone cannot pass. Evaluate each finding against existing Claims and open questions. Provide evidence-based gap_progress for relevant questions; distinguish progress from resolution. If a finding needs human interpretation, mark NEEDS_REVIEW. If a bounded correction can repair a concrete defect, RETRY. If the plan itself is poor, REPLAN. If there is no new verifiable contribution, NO_UPDATE_NEEDED.
+Hard gates: batch-wide deterministic hard errors mean do not PASS. Finding-specific errors in `finding_checks` invalidate only those Findings; never accept an invalid Finding, but continue evaluating other valid Findings in the batch. Source identity/version and evidence location must be consistent; semantic similarity alone is not support; a retrieval proxy is not a task outcome; the candidate must not edit formal knowledge or Skills. A score or confidence alone cannot pass. Evaluate each finding against existing Claims and open questions. Provide evidence-based gap_progress for relevant questions; distinguish progress from resolution. If a finding needs human interpretation, mark NEEDS_REVIEW. If a bounded correction can repair a concrete defect, RETRY. If the plan itself is poor, REPLAN. If there is no new verifiable contribution, NO_UPDATE_NEEDED.
 
 Immutable goal:\n""" + json.dumps(round_goal, ensure_ascii=False, separators=(",", ":")) + "\nCurrent-round acceptance:\n" + json.dumps(round_acceptance, ensure_ascii=False, separators=(",", ":")) + "\nCurrent round: " + str(round_number) + "\n" + round_scope + "\nRelevant existing knowledge:\n" + json.dumps(_compact_knowledge_context(existing_knowledge, plan, execution), ensure_ascii=False, separators=(",", ":")) + "\nTask plan:\n" + json.dumps(plan, ensure_ascii=False, separators=(",", ":")) + "\nComplete merged Executor result:\n" + json.dumps(execution, ensure_ascii=False, separators=(",", ":")) + "\nShared source manifest (finding excerpts are already in the merged output):\n" + json.dumps(raw_evidence, ensure_ascii=False, separators=(",", ":")) + "\nDeterministic checks:\n" + json.dumps(deterministic, ensure_ascii=False, separators=(",", ":"))

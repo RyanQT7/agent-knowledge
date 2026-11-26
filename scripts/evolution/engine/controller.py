@@ -676,7 +676,7 @@ class EvolutionController:
                 state["no_progress_rounds"] = int(state.get("no_progress_rounds", 0)) + 1
                 save_state(run_dir, state)
                 append_event(run_dir, "no_update_round", {"round": next_round, "reason": llm_evaluation.get("rationale", "no verifiable increment")})
-            elif llm_evaluation.get("decision") == "PASS" and deterministic.get("source_validity_gate"):
+            elif llm_evaluation.get("decision") == "PASS" and deterministic.get("batch_validity_gate", deterministic.get("source_validity_gate")):
                 gain = self._knowledge_gain(normalized, llm_evaluation, round_data)
                 round_data["knowledge_gain"] = gain
                 round_data["unresolved_questions"] = _round_unresolved_questions(
@@ -838,12 +838,15 @@ class EvolutionController:
             if execution_result.get("controller_path_error"):
                 deterministic["hard_errors"].append({"type": "artifact_path", "evidence": execution_result["controller_path_error"]})
                 deterministic["source_validity_gate"] = False
+                deterministic["batch_validity_gate"] = False
             if execution_result.get("controller_permission_error"):
                 deterministic["hard_errors"].append({"type": "permission", "evidence": execution_result["controller_permission_error"]})
                 deterministic["source_validity_gate"] = False
+                deterministic["batch_validity_gate"] = False
             if state.get("full_reads_used", 0) + deterministic.get("full_reads", 0) > int(goal["budgets"]["max_full_reads"]):
                 deterministic["hard_errors"].append({"type": "run_read_budget", "evidence": "cumulative full reads exceed the Goal budget"})
                 deterministic["source_validity_gate"] = False
+                deterministic["batch_validity_gate"] = False
             raw_evidence = []
             for paper in normalized.get("papers", []):
                 source_record = {key: paper.get(key) for key in ("source_id", "source_version", "source_uri", "title", "reading_extent", "locators")}
@@ -866,6 +869,10 @@ class EvolutionController:
             if accepted - finding_ids or set(llm_eval.get("rejected_finding_ids", [])) - finding_ids:
                 llm_eval["controller_schema_error"] = "Evaluator referenced a finding ID absent from Executor output."
                 llm_eval["decision"] = "NEEDS_REVIEW"
+            invalid_finding_ids = set(deterministic.get("invalid_finding_ids", []))
+            deterministic["judge_accepted_invalid_finding_ids"] = sorted(accepted & invalid_finding_ids)
+            llm_eval["accepted_finding_ids"] = sorted(accepted - invalid_finding_ids)
+            llm_eval["rejected_finding_ids"] = sorted(set(llm_eval.get("rejected_finding_ids", [])) | invalid_finding_ids)
             if deterministic["hard_errors"]:
                 llm_eval["controller_hard_gate"] = "Deterministic hard errors cannot be overridden by the LLM Judge."
                 llm_eval["decision"] = "NEEDS_REVIEW"
