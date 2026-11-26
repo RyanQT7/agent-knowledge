@@ -4,7 +4,7 @@
 
 - **论文标题：** *A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis*（项目名 AgenticOpsEval）。
 - **作者/版本：** Yuanhong Cai, Xiaohui Nie, Kanglin Yin, Changhua Pei, Yongqian Sun, Shenglin Zhang, Haibin Liu, Guiyang Liu, Xidao Wen, Fang Situ, Dan Pei；arXiv:2606.29193v1，2026-06-28。[论文](https://arxiv.org/abs/2606.29193) · [官方数据页](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval)
-- **本地材料：** [PDF](../../../sources/papers/benchmark/AgenticOpsEval_2606.29193.pdf) 与完整 HTML 派生文本；本轮已完整阅读正文和主要附录。
+- **本地材料：** [PDF](../../../sources/papers/benchmark/AgenticOpsEval_2606.29193.pdf) 与完整 HTML 派生文本；本轮已完整阅读正文。该 v1 没有独立附录。
 - **代码状态：** 论文称评分代码随项目提供；当前可取得的 GitLab 仓库快照为 `69cf36430b43024d02530c610b1a4738b5c9a7fb`，树内可见 README 和数据目录，但本次克隆的版本未包含 scorer/runner 源码。因此下面的评分机制来自论文原文，不是代码复现结论。没有下载数据或执行代码。
 
 ## 1. 动机与双数据集设计
@@ -21,6 +21,8 @@
 - 400 个案例、18 种故障类型、9 个故障类别、3 个注入层级（service 195 / pod 123 / node 82）。注入使用 Chaos Mesh 等受控机制；参数在规定范围内变化。
 - 18 天数据约 11.9 GB、2,835 个 Parquet 文件、2.69 亿行；指标来自 Prometheus/APM 与节点/TiDB 监控，日志来自 Filebeat，trace 来自 Jaeger。hour/day/modality 分区使使用者可仅读取目标时间段。
 - Metrics、Logs、Traces 用 service/pod 标识关联。统计标注显示 250/400（62.5%）案例至少需要两种模态，124/400（31%）需要三种模态；这说明数据有跨模态证据需求，但并不证明某次 Agent 决策确实使用了它们。（§4.1–4.5，Tables 2–3）
+
+在原有应用层之下加入 TiDB 与 Redis 的资源、I/O 和网络扰动，目的是让故障可以从持久化或缓存层经依赖传播到应用服务，检验 Agent 是否停留在上层症状。§6.1 将不合格注入分为三类：重试/降级/扩缩容将故障吸收；有告警但痕迹不足以支撑专家复原；故障实际行为偏离意图，例如 CPU 压力诱发 OOM kill。两套集合从更大的注入池保留可追查的观测足迹。这可能改变困难样本分布，论文未给出完整剔除分布。
 
 ### 标签如何建立
 
@@ -62,6 +64,8 @@ RCA100 含 103 个 Chaos Drill 故障事件，部署在 Alibaba Cloud ACK 的 Op
 
 论文 Fig. 6 的真实标注例：`payment → checkout → checkout::PlaceOrder`。第一步 payment 要达到特定 error_count/error_rate 条件；第二步 checkout 有对应错误增长；最后一步的 PlaceOrder 操作也有错误阈值。它比“日志提到 payment 出错”的文本标签更可判定：只说对服务名而没有满足数值条件，不能算完整的证据路径。
 
+Fig. 6 的 HTTP 5xx 案例中，payment 是 cause（error_count≥8,829、error_rate≥0.50），checkout 是 propagation（error_count≥8,828、error_rate≥0.50），checkout::PlaceOrder 是 impact（error_count≥8,828）。Fig. 6 示例数值按原图记录。661 个 checkpoints 中 98.2% 落在 Metrics，但 92.2% 的链涉及至少两类实体，20/103 跨 APM/K8s，要用 Events 的生命周期信息和 Topology 的实体映射；每例平均触及 4.02/6 模态。计数分布与调查时其他证据的重要性并不相同（§5.3、§5.5）。
+
 ### 评分
 
 \[
@@ -70,13 +74,15 @@ RCA100 含 103 个 Chaos Drill 故障事件，部署在 Alibaba Cloud ACK 的 Op
 
 Entity 评价 UModel 实体定位，邻接拓扑实体有部分信用；Fault 对 28 类类型评分；Process 联合考察因果链节点与观测 checkpoint。论文未把 Process 的全部边界情况简化成公开代码可核验公式；在当前项目未能读取 scorer 的情况下，不推测节点与 checkpoint 的内部权重。
 
-四类常见信号是 request count（204 checkpoints）、平均 latency（178）、error count（97）等。RCA100 的 103 案例中约 95 个涉及两种以上实体类型传播；约 20 个跨 APM 与 Kubernetes 实体类型。Top 4 故障类型占 44.7%，其余类别仍有长尾，整体指标需与类别明细一起看。（§5.3–5.6）
+常见信号是 request count（204 checkpoints）、平均 latency（178）、error count（97）等。RCA100 的 103 案例中约 95 个涉及两种以上实体类型传播；约 20 个跨 APM 与 Kubernetes 实体类型。Top 4 故障类型占 44.7%，其余类别仍有长尾，整体指标需与类别明细一起看。（§5.3–5.6）
+
+权重鼓励先找到可操作的对象和类型，再用证据或链佐证。AIOps2025 只有正确定位的题参与 APL，能抑制错误短轨迹，却使效率条件化于各系统自己的命中子集。RCA100 相邻节点有部分分，能区分近错，却可能使拓扑近邻成为保守猜测；Process 对参考链的覆盖无法单独验证替代证据或因果使用。后两项是待检验的指标激励，未发现可复核 scorer 支持更细公式。
 
 ## 4. Agent 交互与实验结论
 
 AIOps2025 以结构化多模态文件和任务提示供 Agent 调查；RCA100 用告警/实体、拓扑及六模态观测支持因果链核验。论文重点评价答案字段和标注证据，不等同于 NIKA 那样对动态网络工具调用、环境反馈和业务影响作完整协议评价，也没有安全修复任务。
 
-AIOps2025 进入 2025 CCF AIOps Challenge，论文报告 6,093 支参赛队伍/团队的验证；RCA100 对应 Tianchi 赛道。参与规模证明协议可实际运行，不是单独的科学有效性证据。两数据集在故障集、输入入口和过程标签颗粒度不同，不能把成绩当作同一排行榜。
+AIOps2025 进入 2025 CCF AIOps Challenge，CCF 有 561 队；RCA100 对应 Tianchi 赛道，有 5,532 队；6,093 是两项赛事合计。论文未提供完整多模型性能对照。参与规模证明协议可实际运行，不是单独的科学有效性证据。两数据集在故障集、输入入口和过程标签颗粒度不同，不能把成绩当作同一排行榜。
 
 ## 5. 数据质量、捷径风险与论文局限
 
@@ -94,9 +100,13 @@ AIOps2025 进入 2025 CCF AIOps Challenge，论文报告 6,093 支参赛队伍/�
 - 关键词/embedding 类型匹配、前 20 词截断有明确刷分控制，但仍未证明文本解释与因果推理一致；
 - RCA100 checkpoint 数值证据更精细，但数值阈值也可能成为可记忆签名。
 
+§6.2 建议将源数据库和厂商 API 的异构转换放在统一工具层。AIOps2025 用服务/pod 名对齐，RCA100 用 UModel 对齐 APM、K8s、云资源的别名和对象关系；数据分片、时间戳、空值、类型的标准化使按事件读取可行。§6.4 提出的后续用途包括多模态 TSAD、带链与拓扑的因果发现、专家/Agent 轨迹偏差分析及学习。这些是复用方向，论文未对其效果作统一实验验证。
+
 ## 6. 开放性与实现核对
 
 论文描述已释放数据与评分代码；本次公开 GitLab 克隆只有数据页面/README 和目录信息，未发现评分/执行代码文件，因此不能验证论文分数的具体字符串匹配、阈值或 checkpoint 聚合实现。未下载约 15 GB 数据，也未运行基准。需要后续获取带 scorer 的正式 release 并固定版本，才能做到 line-level 代码复核。
+
+RCA100 §5.1 将答案放在独立 answer-key 包，公开任务契约不含答案。论文报告跨模态引用完整性 100% 和实体—拓扑对齐率 98.06%，两者是结构检查，不是证据充分性。RCA100 资料正文标注 CC BY-NC-SA 4.0，公开仓库 README 将 AIOps2025 标注为 CC BY-NC 4.0，实际复用仍需按对应数据包的许可确认；论文 arXiv 许可与数据许可分开。
 
 ## 7. 对数据集论文的启发
 

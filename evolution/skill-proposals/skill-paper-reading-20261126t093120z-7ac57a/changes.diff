@@ -1,0 +1,28 @@
+--- a/skills/paper-reading/SKILL.md
++++ b/skills/paper-reading/SKILL.md
+@@ -69,11 +69,9 @@
+ 
+ ## Full-paper reading
+ 
+-Read as much of the complete PDF as the available local tools allow. Do not generate the note from only the Abstract, Introduction, or Conclusion. Inspect, when present:
+-
+-- Method, architecture, algorithms, and workflow.
+-- Experiments, benchmarks, baselines, metrics, tables, and figures.
+-- Appendix details, prompts, examples, trajectories, ablations, and implementation settings that materially affect understanding.
++Identify the research question and main contributions before deciding what deserves depth. Follow each important claim to its mechanism and strongest evidence, including appendices, discussion, limitations, and negative results that change its interpretation. Reuse earlier reading and consult a directly cited reference when it is needed to explain a core mechanism. Label preliminary coverage and record any source gaps.
++
++Choose emphasis by contribution. For algorithms, trace the mathematical mechanism, architecture, training objective, and experimental comparisons. For benchmarks, trace provenance, construction, labels, quality gates, difficulty, and scoring. For agents, trace workflow, tools, state, memory, planning, recovery, and cost where applicable. For systems, trace interfaces, interactions, runtime behavior, and trade-offs.
+ 
+ Use available local PDF text extraction or rendering tools. If a preferred utility is unavailable, use another available local method; do not install packages just to complete the ordinary workflow. Do not print the full extracted paper or the completed note to the terminal.
+ 
+@@ -118,7 +116,9 @@
+ 
+ ## Evidence and interpretation boundaries
+ 
+-Ground key facts directly in the paper. Add source markers near important methods, numbers, conclusions, and limitations:
++Use the paper’s figures, examples, data, or pseudocode to explain how the mechanism runs, why it was designed that way, and where it fails. Explain how central scores are computed and what their incentives and denominators imply. Interpret the decisive baselines, ablations and failures under their actual assumptions. Label teaching examples and relate the findings to complementary or conflicting work when that changes the research understanding.
++
++Bind key facts, numbers, and locators to the exact version read. Confirm the cited section, figure, table, or appendix and identify discrepancies with other releases. Add source markers near important methods, numbers, conclusions, and limitations:
+ 
+ ```text
+ Source: Sec. 3

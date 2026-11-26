@@ -9,6 +9,7 @@
 - [对本地 AIOps 挑战赛数据集建设的启发](dataset-design-insights.md)
 - [研究缺口](research-gaps.md)
 - [Benchmark Knowledge Review v1](reviews/benchmark-review-v1.md)
+- [独立反馈处理与 Skill 候选评估](reviews/reading-feedback-resolution.md)
 - 六篇单篇精读：[`papers/benchmark/`](../../papers/benchmark/)
 
 ## 证据边界

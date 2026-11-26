@@ -1,0 +1,58 @@
+{
+  "applied_hash": null,
+  "base_commit": "79dde6f3ee1599585cdcc87a4ff84ed88a226036",
+  "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+  "candidate_hash": "7ac57ab2f74742d95f78d9e00472b5b041d0b54d5654dd4237b186cad858ae2f",
+  "created_at": "2026-11-26T09:31:20Z",
+  "diff_hash": "74e256a6486ab1e91b31e61a0c5631fc9b31ed014480244c294813dad2967bb0",
+  "evaluation": {
+    "artifact_hashes": {
+      "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+      "candidate_hash": "7ac57ab2f74742d95f78d9e00472b5b041d0b54d5654dd4237b186cad858ae2f",
+      "diff_hash": "74e256a6486ab1e91b31e61a0c5631fc9b31ed014480244c294813dad2967bb0"
+    },
+    "baseline_rules_not_verbatim": [
+      "- Experiments, benchmarks, baselines, metrics, tables, and figures.",
+      "- Appendix details, prompts, examples, trajectories, ablations, and implementation settings that materially affect understanding.",
+      "- Method, architecture, algorithms, and workflow."
+    ],
+    "evaluated_at": "2026-11-26T09:36:53Z",
+    "issues": [],
+    "performance_claim": "not established",
+    "record_sha256": "f8151e88c83c357c7e830c60986e006c722da0f85d0571cfc54e8bcab8a23582",
+    "report_sha256": "d05a32cb8d2355db07bf73694599068c699580835a598053a3eafee41bce5853",
+    "result": "Inconclusive",
+    "type": "static_and_retrospective"
+  },
+  "expected_benefit": "Improve the observed task behavior with a minimal reusable instruction change.",
+  "experience_ids": [
+    "exp-77ed5c77884f",
+    "exp-8da9d9cb732b"
+  ],
+  "experience_summaries": [
+    {
+      "evidence_refs": [
+        "evolution/feedback/benchmark-paper-reading-2026-11-26.md"
+      ],
+      "experience_id": "exp-77ed5c77884f",
+      "lesson": "笔记的篇幅、一个案例或一个公式不能替代核心贡献覆盖。按问题与贡献分配阅读深度，并追踪能改变结论的附录、负结果、对照和限制。"
+    },
+    {
+      "evidence_refs": [
+        "evolution/feedback/benchmark-paper-reading-2026-11-26.md"
+      ],
+      "experience_id": "exp-8da9d9cb732b",
+      "lesson": "记录论文版本与关键定位。先确认评分对象、分母、过滤条件及其含义，再比较数值；将标签可核验性、样本代表性和过程证据分开。"
+    }
+  ],
+  "possible_side_effects": "May add context or constraints; evaluator should check for redundancy, conflicts, and loss of useful flexibility.",
+  "problem": "Review the linked execution experience and determine whether this focused Skill edit addresses a reusable defect.",
+  "proposal_id": "skill-paper-reading-20261126t093120z-7ac57a",
+  "rollback": "restore the captured original.md only if current target hash still matches applied_hash",
+  "schema_version": 1,
+  "status": "evaluated",
+  "suggested_change": "See candidate.md and changes.diff.",
+  "target_path": "skills/paper-reading/SKILL.md",
+  "target_skill": "paper-reading",
+  "title": "Prioritize contribution evidence in full paper reading"
+}
