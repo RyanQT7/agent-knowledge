@@ -1,0 +1,13 @@
+--- a/skills/paper-reading/SKILL.md
++++ b/skills/paper-reading/SKILL.md
+@@ -116,6 +116,10 @@
+ 
+ Explain the role of each step, especially how observations or external feedback affect later reasoning and action. Do not assume that every paper has a Planner, Executor, Memory, Environment, or Tool module; name only components the paper defines or clearly implements.
+ 
++## Full-read depth for benchmark papers
++
++For a full-read Benchmark or dataset paper, go beyond the common note structure with one paper-reported case that follows the path from environment/input through fault or task construction, ground-truth evidence, agent/algorithm output, and scoring. Explain one central metric or score formula in plain language and interpret at least one experiment result, including what it does and does not establish. Anchor each walkthrough and result to a section, figure, table, or appendix. If the paper has no such case or does not report a formula, say so; any teaching example must be labeled as illustrative rather than paper evidence. Brief discovery notes may be shorter, but identify themselves as preliminary and do not claim a full read.
++
+ ## Evidence and interpretation boundaries
+ 
+ Ground key facts directly in the paper. Add source markers near important methods, numbers, conclusions, and limitations:

@@ -1,0 +1,46 @@
+{
+  "applied_hash": null,
+  "base_commit": "b01d76669afbd18cfb16cc9b169936dab04a8b52",
+  "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+  "candidate_hash": "d438db5e21fb6afe1734dd325881a82d7dfdfdf409d592f7b8d5f90ff19aca85",
+  "created_at": "2026-11-26T06:39:45Z",
+  "diff_hash": "1c4d6fd93f26ffecdaf0806480254c75c05c6ffaed181af97d3666081c50857f",
+  "evaluation": {
+    "artifact_hashes": {
+      "base_hash": "001874f8f53e6bd3f8ca6725dffcabe219a7aecfbf98f5b0431c1906ff964e23",
+      "candidate_hash": "d438db5e21fb6afe1734dd325881a82d7dfdfdf409d592f7b8d5f90ff19aca85",
+      "diff_hash": "1c4d6fd93f26ffecdaf0806480254c75c05c6ffaed181af97d3666081c50857f"
+    },
+    "baseline_rules_not_verbatim": [],
+    "evaluated_at": "2026-11-26T06:39:56Z",
+    "issues": [],
+    "performance_claim": "not established",
+    "record_sha256": "3f6bd9335fcbac23611efffbeb3fef2560d439a255e2fd286317cd8a7b001ce8",
+    "report_sha256": "fbde4c46276f30062ac78f6d2a8b063e2237a7fe783a791930021bf29f4ce0ed",
+    "result": "Inconclusive",
+    "type": "static_and_retrospective"
+  },
+  "expected_benefit": "Improve the observed task behavior with a minimal reusable instruction change.",
+  "experience_ids": [
+    "exp-311316848c9f"
+  ],
+  "experience_summaries": [
+    {
+      "evidence_refs": [
+        "user-feedback:benchmark-paper-reading-2026-11-26"
+      ],
+      "experience_id": "exp-311316848c9f",
+      "lesson": "此前六篇 Benchmark 专题笔记偏短、停留于综述，缺少核心机制的逐步解释、具体案例和实验结果分析，关键结论与原文定位关联不足，无法支持深入科研学习。"
+    }
+  ],
+  "possible_side_effects": "May add context or constraints; evaluator should check for redundancy, conflicts, and loss of useful flexibility.",
+  "problem": "Review the linked execution experience and determine whether this focused Skill edit addresses a reusable defect.",
+  "proposal_id": "skill-paper-reading-20261126t063945z-d438db",
+  "rollback": "restore the captured original.md only if current target hash still matches applied_hash",
+  "schema_version": 1,
+  "status": "evaluated",
+  "suggested_change": "See candidate.md and changes.diff.",
+  "target_path": "skills/paper-reading/SKILL.md",
+  "target_skill": "paper-reading",
+  "title": "Require concrete cases and metric interpretation for full Benchmark reads"
+}

@@ -1,42 +1,91 @@
-# RCABench — Fault Propagation-Aware Microservice RCA Benchmark
+# RCABench：让微服务 RCA 基准中的故障传播变得可测
 
-## Identity and evidence status
+## 论文身份与阅读范围
 
-- **Title:** *Rethinking the Evaluation of Microservice RCA with a Fault Propagation-Aware Benchmark*
-- **Authors:** Aoyang Fang, Songhan Zhang, Yifan Yang, Haotong Wu, Junjielong Xu, Xuyang Wang, Rui Wang, Manyi Wang, Qisheng Lu, Pinjia He.
-- **Version / venue:** arXiv:2510.04711v2 (2025-12-23); the arXiv record identifies acceptance at FSE 2026. [Paper](https://arxiv.org/abs/2510.04711)
-- **Official project:** [revisiting-rca-evaluation](https://operationspai.github.io/revisiting-rca-evaluation/), now linked to [OperationsPAI/Aegis](https://github.com/OperationsPAI/aegis).
-- **Local source:** [`RCABench_2510.04711.pdf`](../../../sources/papers/benchmark/RCABench_2510.04711.pdf), derived text alongside it. This was not selected by the Engine; this note synthesizes the paper text and official project material, not an Engine-certified full read or independent Judge result.
+- **论文标题：** *Rethinking the Evaluation of Microservice RCA with a Fault Propagation-Aware Benchmark*
+- **作者：** Aoyang Fang, Songhan Zhang, Yifan Yang, Haotong Wu, Junjielong Xu, Xuyang Wang, Rui Wang, Manyi Wang, Qisheng Lu, Pinjia He。
+- **版本：** arXiv:2510.04711v2，2025-12-23；论文记录 FSE 2026 接收信息。[论文与修订记录](https://arxiv.org/abs/2510.04711)
+- **本地来源：** [论文 PDF](../../../sources/papers/benchmark/RCABench_2510.04711.pdf)；同目录 `.txt` 为本地 HTML 派生全文。
+- **阅读状态：** 本轮完整阅读论文正文、主要表图和讨论附录；没有运行故障注入、基线或集群。
+- **代码来源：** 论文项目迁移至 [OperationsPAI/Aegis](https://github.com/OperationsPAI/aegis)。本轮静态检查的仓库快照为 `979ae7011d06d21925001ce517ed40cedca529b0`；旧平台仓库 [OperationsPAI/AegisLab](https://github.com/OperationsPAI/AegisLab) 在 `a55646d66fef51c3cd11e67ccebfae5d62ac6f9b` 归档。当前源码形态已经演进，不能当成论文实验版逐行复现。
 
-## Why this benchmark
+## 1. 问题与主张
 
-The authors argue that common microservice RCA benchmarks make the root-cause service unusually prominent in telemetry, allowing simple correlation or rules to match sophisticated RCA methods. Their preliminary comparison reports rule-based methods at or above model performance on four existing benchmarks. RCABench targets this evaluation gap by retaining failures with observable user-facing impact and representing propagation beyond the injected component.
+作者质疑的是“算法在公开基准上的高分是否表示它确实找到了根因”。在四个已有微服务 RCA 数据集上，作者发现极简单的规则方法 SimpleRCA 有时与 SOTA 持平或更好。其诊断是：一些注入任务让根因服务自身出现最强、最明显的信号，因此模型只要抓住最显眼的服务症状就可以答对；这没有充分测试故障如何沿依赖传播、以及根因和症状分离时能否回溯。
 
-## Data, system, and faults
+论文将既有问题分为三类：注入故障未命中实际执行路径；调用图与工作负载没有覆盖丰富依赖；多模态遥测中的根因信号和异常表现过于直接。作者不是提出一个新 RCA 算法，而是提出一个**自动生成并筛选有业务影响的故障案例**的框架，再用传统方法检验新基准的难度。论文主要结论是：仅有注入记录并不足以称为有效故障样本，应该保留注入尝试、可观测影响和根因标签之间的关系。（§1–3，Fig. 1，Table 1）
 
-- **Environment:** TrainTicket, a 50-microservice benchmark application; injected failures run under generated, changing workloads. This is a controlled testbed, not production incidents.
-- **Construction:** the framework explores 31 fault types across six categories and executes 9,152 injection experiments. It retains 1,430 validated failure cases, covering 25 fault types in six categories. The difference between attempted and retained cases is intentional: an injected fault is not automatically an operationally meaningful failure.
-- **Modalities:** metrics, logs, traces, service/call topology, workload context, and user-facing SLIs are used in the generation and validation pipeline. The public paper does not provide one uniform modality-completeness guarantee per case in its summary statistics.
-- **Duration / recovery:** the paper describes isolated collection cycles and environment redeployment; a single universal fault duration is **Not Reported**. Fault injection is not equivalent to recovery/remediation evaluation.
+## 2. 基准怎样构建：从一次注入到可评估案例
 
-## Ground truth and propagation
+```mermaid
+flowchart TD
+  A[TrainTicket 50 个微服务] --> B[状态机驱动的动态业务负载]
+  B --> C[选择注入位置、故障类型与强度]
+  C --> D[执行故障并采集 metrics / traces / logs]
+  D --> E[从调用链与注入配置生成层级根因标签]
+  D --> F[检查用户侧 SLI 是否可观测退化]
+  E --> G{SLI 门禁通过?}
+  F --> G
+  G -->|是| H[写入有效 datapack]
+  G -->|否| I[记录为无影响注入，不当作 RCA 正样本]
+```
 
-Labels are hierarchical: the injection/code-level cause maps to the affected service and downstream failures along the dependency structure. The framework validates that retained cases cause a discernible SLI anomaly, filtering inert injections and cases without relevant user impact. This creates an important distinction between **injection intent** and **observed failure/impact**. The paper’s retained labels are grounded in controlled injection and system structure; they do not represent human uncertainty or competing root-cause explanations in production incidents.
+### 2.1 环境、工作负载与遥测
 
-## Tasks and evaluation
+测试床为 TrainTicket，包含 50 个服务。作者加入状态机驱动的动态工作流，而不只重复一个静态请求；一个订票工作流可由 6 种起始业务状态、3 种途经状态和 2 种终态组合为 36 条路线。目标是让服务调用覆盖更广，避免故障方法落在请求永远不会经过的函数上。请求平均负载约 16.47 QPS、峰值约 37.6 QPS；最终数据记录 188.1 小时、1.547 亿条日志、1,120 万条 trace、78 类指标，服务覆盖 42/50，最大调用深度 7、最长 trace 20 个 span。（§4，Fig. 1、Fig. 8；数据统计见 §5.1 / Table 3）
 
-The paper evaluates RCA localization, including top-k service accuracy, against 11 baseline methods. It reports that performance degrades on the harder benchmark (average Top@1 0.21; best 0.37) and runtime can rise from seconds to hours. It diagnoses scalability issues, observability blind spots, and modeling bottlenecks. This is a conventional algorithm benchmark: no LLM agent tool-use, investigation trajectory, token budget, or action-safety score is defined.
+采集包括 Prometheus 指标、OpenTelemetry traces、与 trace 关联的日志、L4/L7 网络遥测和调用拓扑；数据汇入 ClickHouse，供后续算法读取。时间跨度、工作负载和模态组合增加了实验复杂度，但这些统计不等于每个案例都具备全部模态或所有根因层级。
 
-## Data quality, shortcuts, and interpretation
+### 2.2 故障空间与“有效注入”
 
-**Reported by the authors:** weak or unreachable injection locations, injection intensity, and simple symptom patterns can make benchmarks either trivial or non-operational; 84.4% of initial attempts were classified as “No Anomaly.” SLI-based filtering and richer propagation seek to reduce those defects.
+框架初始设计 31 种故障类型，覆盖资源、网络、HTTP、代码/JVM、DNS、时间等类别，并在服务、容器、方法等候选点位上采样；论文表格有六个可见类别。注入参数组合空间超过 (10^{16})，所以实际以分层随机样本探索，而非穷举。9,152 次尝试最终保留 1,430 个有效案例、25 种故障类型。初始尝试中 84.4% 没有形成可检测的异常；CPU / 内存压力等故障的强度需要调校，部分 JVM 故障目标函数从未被当前工作负载调用，因此无论注入配置如何都不会成为有效事件。（§4.2–4.4，Table 4、Fig. 7）
 
-**Additional risks to test, not findings established by this paper:** a model may exploit fault-type-specific telemetry signatures, workload artifacts, or fixed injection/label associations. Random train/test splits could leak service or injection templates unless split by fault family, target, workload, or topology. Those are proposed checks, not claims that RCABench has those leaks.
+举例说明“注入成功”和“故障成立”不是一回事：论文报告 `HTTPRequestAbort` 的尝试中 100% 被 SLI 标为有影响、`HTTPResponseReplaceCode` 为 98%；相较之下，目标函数未被请求触达的 JVM 故障即使工具显示已施加，也不能代表业务路径发生退化。前两项说明明显中断更容易触发用户侧信号；后者揭示需要把**实验动作日志**和**实测影响**分别留档。这个例子是论文按故障类型汇总的统计，并非声称某一条完整的生产事件记录。（§4.4，Table 5）
 
-## Code and reproducibility
+### 2.3 SLI 门禁与 Ground Truth
 
-The current official project is [Aegis](https://github.com/OperationsPAI/aegis). Its public project description maps the workflow to `aegislab/` for environment/fault/telemetry generation and `rcabench-platform/` for the Python SDK, runners, and scoring. That is a repository-level map, not a commit-pinned source audit; no code, cluster, or injection was run. The paper describes public framework, data, and baseline implementations. Reproduction still depends on matching the paper-era data and software versions rather than assuming the current repository is identical.
+论文用用户可见服务级指标作注入筛选 oracle，主要观察成功率与延迟。成功率通过注入前后请求成功情况的统计检验判断；延迟则对比绝对阈值（如 10 秒）与历史自适应阈值。门禁旨在过滤“脚本执行了、但请求没有受到可辨影响”的样本，而不是证明注入点是现实系统唯一根因。论文的算法描述没有把每一种测试案例都解释成用户体验完全一致的故障类型。（§4.3，Fig. 4）
 
-## Relevance to this knowledge base
+标签从注入参数锚定细粒度原因，再沿实际服务调用/部署关系表达层级影响：方法/函数、容器/Pod、服务及相应指标或 span。细标签意味着粗标签，例如函数级故障可映射到所在服务。需要注意：论文在基准实验中为了与 11 个传统算法公平比较，主要只评到各数据集共有的服务级标签；所以完整层级 GT 的潜力并未完全反映在主表的 Top@K 分数里。（§4.4、§5.2，Fig. 5）
 
-RCABench supports impact-driven inclusion, explicit injection-attempt accounting, hierarchical cause-to-impact labels, and testing whether propagation makes symptoms less trivially correlated with the root. It is relevant to Network AIOps and RCA benchmark construction, but does not by itself address agent evidence quality or live remediation. Compare with [NIKA](../nika/notes.md), [OpenRCA](../openrca/notes.md), and the [dataset-design analysis](../../../notes/benchmark/dataset-design-insights.md).
+## 3. 评价任务、指标与一例计算
+
+实验把每个案例表示为一个故障窗口，算法返回排序后的根因服务。最主要指标为：
+
+- **Top@K**：预测前 K 个候选中是否至少包含真实根因；单根因情形为
+  \[
+  \operatorname{Top@K}=\mathbf{1}[r^*\in \hat R_{1:K}].
+  \]
+- **MRR**：每个案例按真实根因首次出现排名的倒数取平均，若排名为 4，则该例贡献 (1/4)。它奖励把真根因往前排，但不表示整个候选列表具有可解释因果链。
+- **运行时间**：作为可用性/计算规模的补充，不与诊断质量合并成一个“智能”分数。
+
+例如（解释性计算，非论文单条案例）：真实根因是 `checkout`，算法输出 `frontend, cart, checkout`，则 Top@1=0、Top@3=1、RR=1/3。若真实根因只是“服务 checkout”，这样的排序仍无法判断模型是否看见了哪条传播证据，也未评价多根因完整性、证据可信度或修复安全。指标公式见 §5.2 的 Evaluation Metrics。
+
+比较了 11 个传统 RCA 方法，使用论文描述的官方实现/建议参数，并做尽力调参。论文以此测试新基准是否对已有算法更难；没有 LLM Agent、工具调用、调查轨迹或安全修复任务。（§5.2，Table 6）
+
+## 4. 实验发现：难度提升来自什么
+
+在四个老数据集的初步比较中，SimpleRCA 使用指标阈值、trace 延迟和日志关键词等浅层信号，能达到或超过一些复杂方法；作者用这个现象说明原基准可能将根因异常与最明显症状绑定。新数据上的平均 Top@1 为 0.21，最佳方法 MicroRCA 为 0.37；SimpleRCA 为 0.28。这里的低分不是单独证明数据集更“真实”，而是与作者的设计目标相符：算法不能普遍靠一个强根因信号解决。（§3、§5.2，Table 2、Table 6）
+
+类别分析显示，显眼的 `ContainerKill` / JVM 内存等故障可被简单规则较好定位；网络损坏、DNS 随机错误和时间偏移更容易成为盲区。比如 `HTTPRequestAbort` 的 SimpleRCA Top@1 仅 0.13、Top@5 达 0.93，说明真实候选往往已被排入前五，却没被排到第一；与“是否进入候选集”相比，“是否排序到最前”是不同失败。（§5.3，Fig. 11）
+
+作者从最困难的 262 个案例（至少 10/12 方法未成功的筛选口径）中归纳 signal-loss、infrastructure、semantic-gap 等失效模式，并对根因/症状关系作人工分析。不同方法依赖的假设会在不同故障上失效：基于事件频率的方法难处理被杀 Pod 后信号消失的情况；基于系统级指标的方法可能漏掉局部异常；方法/服务语义映射也可能错位。（§5.5，Fig. 12–13）
+
+这些结果支持“当前公开数据集上的离线准确率对基准构造敏感”，但并未直接证明某个方法在生产运维中会变差。系统只使用一个可控测试床，工作负载/故障空间仍是作者设计的代理；Top@K/MRR 不评价证据链是否完整、根因解释是否被操作员接受，作者也承认复杂度代理指标不是 RCA 难度本身。（§6 Validity Threats）
+
+## 5. 核心源码静态阅读
+
+论文项目已并入 [Aegis](https://github.com/OperationsPAI/aegis)；它当前把平台和算法基准 SDK 放在一个仓库。静态读取重点是仓库 README、`rcabench-platform` 的评估、采样和因果推理目录，没有安装依赖或运行代码。
+
+- `rcabench-platform/src/rcabench_platform/v3/internal/reasoning/algorithms/temporal_validator.py`：检查状态时间线是否能支持传播边。观测到的窗口按来源 onset 和 `epsilon_eff` 做时间先后门限；`inferred` / `structural` 窗口没有独立实际时间含义，按证据级别单独处理。这是“传播链时间一致性”实现，不是论文中筛选 injection 的 SLI oracle。
+- `rcabench-platform/src/rcabench_platform/v3/sdk/samplers/metrics_sli.py`：将 trace 按服务、span、分钟聚合，生成 min/max/mean、P50/P90/P95/P99、总量和错误计数。这是下游 RCA 的 SLI 特征，不等同于“检验注入前后服务 SLI 是否过门槛”。
+- `rcabench-platform/src/rcabench_platform/v3/sdk/evaluation/{ground_truth.py,evaluator.py,graph_match.py}`：当前代码能够由 injection 元数据解析 GT fault，比较候选集合/传播图，并可对声明的 SQL evidence 作可执行性和支持度核验。此 schema 属于现行平台版本，不可直接当成论文 Table 6 的评分代码。
+- `aegislab/`：当前公开平台 README 表明其运行“build → inject → collect”，将 fault injection 和观测打包成携带 GT 的 datapack，再交给 `rcabench-platform` 评算法。具体 SLI 筛选逻辑在本轮检查到的当前公开路径中没有找到可按论文复现的直接实现。
+
+## 6. 对网络 AIOps 的启发
+
+可借鉴的不是“多注入几种故障”，而是把一次事件拆成多个可追溯状态：计划注入、实际命中、遥测异常、用户/业务影响、标签生成、纳入/排除决定。对于网络场景，应以业务探针/流量 SLO 验证链路和设备故障是否可感知，并保留被排除的静默注入用于分析，不将其和有效故障混算。
+
+层级 GT 可以映射为设备/接口/链路/协议对象/指标，传播可以表示为“故障源→中间设备或链路→受影响流/业务”。但注入点不一定是拓扑上的最早影响点；一个接口注入可能造成多个节点症状，故真实传播边需要遥测、拓扑、路由状态或人工证据支持。对于我们的数据集，还需要按故障模板、设备角色、拓扑和负载分组切分来排除可记忆的模板关联。上述切分和负对照是后续建议，并非本论文已证明存在某种泄漏。
+
+关联： [NIKA](../nika/notes.md) 的可交互网络环境、[AgenticOpsEval](../agenticopseval/notes.md) 的证据标签与 [Benchmark 综合报告](../../../notes/benchmark/reviews/benchmark-review-v1.md)。完整项目 SHA 及源码映射见[代码索引](../../../code/repository-index.md)。

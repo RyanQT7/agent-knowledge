@@ -1,34 +1,33 @@
-# Benchmark 论文清单与来源核验
+# Benchmark 论文清单、身份与证据状态
 
-核验日期：2026-11-25。固定范围共六篇；没有将相近名称工作替换进来。
+核验日期：2026-11-26。本专题论文范围固定为六篇；没有纳入同名或主题相近替代项。六篇均已基于本地 PDF/全文解析材料完成正文精读，按单篇笔记中列明的章节定位复核机制、案例、结果与局限；不表示所有论文都拥有可运行源码。
 
-| # | 论文身份、作者、发表信息 | 论文来源 | 官方项目 / 数据 / 代码 | 本地来源与阅读状态 |
-| --- | --- | --- | --- | --- |
-| 1 | **Rethinking the Evaluation of Microservice RCA with a Fault Propagation-Aware Benchmark**（RCABench）；Aoyang Fang, Songhan Zhang, Yifan Yang, Haotong Wu, Junjielong Xu, Xuyang Wang, Rui Wang, Manyi Wang, Qisheng Lu, Pinjia He；arXiv:2510.04711 v2，2025-12-23；arXiv 页面标注 FSE'26 接收 | [arXiv](https://arxiv.org/abs/2510.04711)；[项目页](https://operationspai.github.io/revisiting-rca-evaluation/) | 官方项目现指向 [OperationsPAI/aegis](https://github.com/OperationsPAI/aegis)，含 `aegislab/` 平台与 `rcabench-platform/` 评估框架 | PDF 与 arXiv HTML 派生文本在 `sources/papers/benchmark/`；专题新增单篇笔记。Engine 本轮未选中；专题按论文相关段落分析，不计全文精读 |
-| 2 | **A Network Arena for Benchmarking AI Agents on Network Troubleshooting**（NIKA）；Zhihao Wang, Alessandro Cornacchia, Alessio Sacco, Franco Galante, Marco Canini, Dingde Jiang；arXiv:2512.16381 v1，2025-12-18；页面未列会议发表信息 | [arXiv](https://arxiv.org/abs/2512.16381) | [sands-lab/nika](https://github.com/sands-lab/nika)，当前网站说明当前 release | 本地 PDF/HTML；Engine Planner 选中。Executor 读取 §3.3.3、§4.1–4.2、§5 等章节，标记 `sections_only`。独立 Judge 因预算停止未完成 |
-| 3 | **OpenRCA: Can Large Language Models Locate the Root Cause of Software Failures?**；Junjielong Xu, Qinan Zhang, Zhiqing Zhong, Shilin He, Chaoyun Zhang, Qingwei Lin, Dan Pei, Pinjia He, Dongmei Zhang, Qi Zhang；ICLR 2025 | [ICLR 正式论文](https://proceedings.iclr.cc/paper_files/paper/2025/file/d29b8d53678015079e1d245c023e49d2-Paper-Conference.pdf)；[OpenRCA 项目](https://microsoft.github.io/OpenRCA/) | [microsoft/OpenRCA](https://github.com/microsoft/OpenRCA) | 本地 PDF 与官方 PDF 文本；Engine 未处理；使用论文、项目 README 与核心工作流描述分析，未计 Engine 全文精读 |
-| 4 | **Constructing Large-Scale Real-World Benchmark Datasets for AIOps**；Li Zeyan, Han Jing, Zhao Nengwen, Zhang Shenglin, Sun Yongqian, Chen Pengfei, Wen Xidao, Ma Minghua, Pei Dan；ZTE Communications 2026, Vol. 24 No. 3, pp. 59–69；online 2026-09-03；DOI `10.12142/ZTECOM.202603008` | [DOI](https://doi.org/10.12142/ZTECOM.202603008)；[期刊 PDF](https://www.zte.com.cn/content/dam/zte-site/res-www-zte-com-cn/mediares/magazine/publication/com_en/article/en202603/20260308.pdf) | 论文引用 [KPI anomaly detection](https://github.com/netmanaiops/kpi-anomaly-detection)、[MultiDimension-Localization](https://github.com/NetManAIOps/MultiDimension-Localization)、[AIOps Challenge 2020 data](https://github.com/NetManAIOps/AIOps-Challenge-2020-Data)；评估实现还引用 [iopsai/iops/evaluation](https://github.com/iopsai/iops/tree/master/evaluation) | 本地 PDF 与官方期刊 PDF 的选段文本；Engine 未处理；单篇分析明确分开 Dataset A/B/C，并记录论文表述中的范围差异 |
-| 5 | **A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis**（AgenticOpsEval）；Yuanhong Cai, Xiaohui Nie, Kanglin Yin, Changhua Pei, Yongqian Sun, Shenglin Zhang, Haibin Liu, Guiyang Liu, Xidao Wen, Fang Situ, Dan Pei；arXiv:2606.29193 v1，2026-06-28 | [arXiv](https://arxiv.org/abs/2606.29193) | [官方数据/项目页](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval)；论文报告提供 scoring code | 本地 PDF/完整 arXiv HTML 派生文本；Engine 未处理。分析含 AIOps2025 与 RCA100。GitLab 项目文件无法展开，未声称逐文件检查评分代码 |
-| 6 | **CTBench: Evaluating Troubleshooting Capabilities of AI Agents in Realistic Telecom Network Operations**；Xingyu Yan, Tingting Dai, Antonio De Domenico, Mohamed Sana, Nicola Piovesan, Changchang Li, Bowen Liu, Kun Jiang, Mengjie Zhang, Dingcheng Shan, Jing-Cheng Pang, Chenwei Wu, Sijie Wu, Lianying Chao, Haoran Cai, Jiantao Ye, Xubin Li, Simon Mark Lucas, Xin Chen；arXiv:2608.12002 v2，2026-10-21 | [arXiv](https://arxiv.org/abs/2608.12002) | [Hugging Face 数据集](https://huggingface.co/datasets/netop/CTBench)；未核验到独立官方代码仓库 | 本地 PDF/完整 arXiv HTML 派生文本；Engine Planner 选中并读取 §3.2–3.3、§4.1–4.3、§5.1、§7 与 Appendix D.3 等，标记 `sections_only`。Judge 未完成 |
-
-## 阅读边界
-
-- `papers/aiops/rcagentbench/notes.md` 及同名 PDF 是 **RCAgentBench**，标题、任务和 Benchmark 均不同于此处 RCABench，故只在名称辨析中提及。
-- Engine 只产生 NIKA/CTBench 五条候选 Findings；四条单篇 Findings 的来源/版本/locator 可由确定性检查核验。跨论文 Finding 的复合 `source_id` 与单源 schema 不匹配，确定性门禁失败；Judge 被预算停止，五条均未被 Engine 接受为 Claim。
-- 本轮 Engine 对六篇的 `full_text` 计数为 0。专题文档以“论文相关章节分析”描述，不把摘要检索或部分 PDF 页面当作全文精读。
-- AIOps challenge 的实际数据文件、数据字典、注入脚本和标签定义未在当前知识库发现。本文对该数据集只能基于用户列出的风险作待核查问题，不称为已证实的真实案例。
-
-逐篇的 Benchmark 设计、Ground Truth、数据质量、任务/指标及源码可见范围见 [`papers/benchmark/`](../../papers/benchmark/) 下六份笔记。
-
-## 核心源码范围映射
-
-| 论文 | 可检查的官方实现单元 | 这轮可确认的机制 | 未做的事 |
+| # | 论文身份及发表信息 | 论文 / 官方来源 | 本地材料与阅读范围 |
 | --- | --- | --- | --- |
-| RCABench | `aegislab/` 注入—采集平台；`rcabench-platform/` Python SDK/评估器 | 当前 Aegis README 说明 fault injection → telemetry datapack（带 ground truth）→ RCA runner/scoring 的流水线；与论文时期代码/版本差异需要按 release/SHA 进一步锁定 | 未拉取或运行平台、K8s、Chaos Mesh、评估代码；当前仓库是项目后续整合形态 |
-| NIKA | `src/`、`benchmark/`、`config/`、Agent Access Layer；创建任务文档 | 论文定义 `(network scenario, issue, traffic)` 与 task goal；Orchestrator 复现故障，AAL 暴露结构化 MCP 工具并记录调用/状态，goal-specific evaluator 评估 | 本轮 Executor 未做逐文件源码读取；当前主分支已演进，README 当前任务数不是论文任务数 |
-| OpenRCA | `main.generate`、`main.evaluate`、`rca.run_agent_standard`、`rca/baseline/rca_agent` | 任务生成从七种 root-cause-element 子集选择目标、结合时间窗并生成人类式 query；评估以要求元素完全匹配为准；RCA-agent 用 Controller + Python Executor 保留全局数据查询能力 | 当前 GitHub 主分支增加容器沙箱；不等同于论文实验 commit。未运行代理、安装依赖或下载数据 |
-| ZTE 三数据集 | 论文引用的 KPI detection、MultiDimension-Localization、AIOps 2020 data；`iops/evaluation` | Dataset B 的 GRE + 噪声合成和两项 Shortcut 检查；Dataset C 七类注入、记录故障标签；Dataset A 评估延迟约束 | 没有将三个 repo 当成一个系统；未克隆或运行数据/挑战评估 |
-| AgenticOpsEval | 官方 GitLab 项目；论文提供 JSON 标注与三个维度评分协议 | AIOps2025 每模态 key evidence；RCA100 按 cause→propagation→impact 的链步骤与 evidence checkpoint 计分 | GitLab 当前不能从阅读工具展开，未宣称源码逐文件核查；未运行评分脚本 |
-| CTBench | HF 数据集任务、metadata、golden actions、答题输出及评分说明 | RCA tuple/path answer 与 expert action/evidence coverage 分开计算；路径 coverage 是对一条指定 reference route 的代理指标 | 未下载任务数据、未核验每个文件版本或运行 scorer；论文明确说 replay backend 非动态修复 |
+| 1 | **Rethinking the Evaluation of Microservice RCA with a Fault Propagation-Aware Benchmark**（RCABench）；Aoyang Fang et al.; arXiv:2510.04711 v2，FSE 2026 | [论文](https://arxiv.org/abs/2510.04711) · [项目](https://operationspai.github.io/revisiting-rca-evaluation/) · [Aegis](https://github.com/OperationsPAI/aegis) | `sources/papers/benchmark/RCABench_2510.04711.pdf/.txt`；正文、图表与附录精读；Aegis 现行源码静态分析，非论文实验快照 |
+| 2 | **A Network Arena for Benchmarking AI Agents on Network Troubleshooting**（NIKA）；Zhihao Wang et al.; arXiv:2512.16381 v1，2025-12-18 | [论文](https://arxiv.org/abs/2512.16381) · [官方项目](https://github.com/sands-lab/nika) | `NIKA_2512.16381.pdf/.txt`；正文/任务和实验附录精读；NIKA 当前源码静态分析，640 个论文配置与当前 release 数量分开 |
+| 3 | **OpenRCA: Can Large Language Models Locate the Root Cause of Software Failures?**；Junjielong Xu et al.; ICLR 2025 | [正式论文](https://proceedings.iclr.cc/paper_files/paper/2025/file/d29b8d53678015079e1d245c023e49d2-Paper-Conference.pdf) · [项目页](https://microsoft.github.io/OpenRCA/) · [代码](https://github.com/microsoft/OpenRCA) | `OpenRCA_ICLR2025.pdf/.txt`；正文、实验与附录 case/prompt 说明精读；静态检查 generate/evaluate/Agent 路径，未下载约 68 GB 数据 |
+| 4 | **Constructing Large-Scale Real-World Benchmark Datasets for AIOps**；Li Zeyan et al.; *ZTE Communications* 2026, 24(3):59–69；DOI `10.12142/ZTECOM.202603008` | [DOI](https://doi.org/10.12142/ZTECOM.202603008) · [官方 PDF](https://www.zte.com.cn/content/dam/zte-site/res-www-zte-com-cn/mediares/magazine/publication/com_en/article/en202603/20260308.pdf) | `Constructing_Large_Scale_Real_World_Benchmark_Datasets_AIOps_ZTECOM_202603008.pdf/.txt`；三数据集正文与表格精读；更正 Dataset A 来源并记录“7 KPI / 26 series”歧义；静态分析引用的 iops evaluator |
+| 5 | **A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis**（AgenticOpsEval）；Yuanhong Cai et al.; arXiv:2606.29193 v1，2026-06-28 | [论文](https://arxiv.org/abs/2606.29193) · [官方数据/项目页](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval) | `AgenticOpsEval_2606.29193.pdf/.txt`；正文与附录评分、案例精读；GitLab 克隆可见 README/数据目录，但未找到 scorer 源文件，公式为论文级分析 |
+| 6 | **CTBench: Evaluating Troubleshooting Capabilities of AI Agents in Realistic Telecom Network Operations**；Xingyu Yan et al.; arXiv:2608.12002 v2，2026-10-21 | [论文](https://arxiv.org/abs/2608.12002) · [HF 数据卡](https://huggingface.co/datasets/netop/CTBench) | `CTBench_2608.12002.pdf/.txt`；正文及指标、任务案例附录精读；数据文件受使用条件控制，本轮未下载；未核验独立官方源码库/scorer |
 
-源码来源均为公开项目文档和论文对实现的说明；本轮未执行第三方代码。为避免把当前 `main` 错当成论文实验版本，项目数据规模、评估方式和代码状态分别在各单篇笔记中注明。
+## 全文与复用边界
+
+- 已有 PDF、文本和源码优先复用；未重新下载或运行故障注入，也未重新研究 MemFolder。当前工具列表没有 GitHub MCP，因此官方仓库版本身份通过此前保留的只读本地克隆、Git commit 和官方项目链接交叉确认。
+- 本轮对 OpenRCA 和 ZTE 的本地 PDF/提取文本及官方论文页面作定向核验；其余论文使用本地 PDF/完整文本。各笔记将事实、推断和 Not Reported 分开。
+- `papers/aiops/rcagentbench/` 是 **RCAgentBench**，与 RCABench 不是同一工作。
+- 早前 Phase 1.5 Engine 的 NIKA/CTBench 选段任务留在 `evolution/runs/benchmark-20261125/` 作为历史运行记录；它的 partial Findings/Judge 停止状态不代表本次主会话精读结果，也不重复作为本次研究执行流程。
+- 当前挑战赛原始样本、数据字典、注入脚本、标签规范和评估代码未在知识库发现；对本地数据的所有差异判断保持待补证据。
+
+## 源码—论文对应表
+
+| 论文 | 实际检查的源码 | 已确认内容 | 版本/访问边界 |
+| --- | --- | --- | --- |
+| RCABench | `aegis/rcabench-platform` 的 temporal validator、SLI sampler、evaluation；AegisLab README | 传播边时间校验、trace 聚合、当前 datapack→RCA 流程 | `OperationsPAI/aegis` SHA `979ae7011d06d21925001ce517ed40cedca529b0`；归档旧平台 SHA `a55646d66fef51c3cd11e67ccebfae5d62ac6f9b`；没有找到论文 SLI 注入筛选机制的当前直接实现，不运行 |
+| NIKA | `src/nika/problems/base.py`、RCA models/scoring、`link_down.yaml` | scenario/failure/GT 分开建模、canonical resource ID、当前集合 P/R/F1 | `sands-lab/nika` SHA `7324960044f7c524d86e4859a07f260a664f79ac`；当前代码已演进，不等同于论文 evaluator |
+| OpenRCA | `main/generate.py`、`main/evaluate.py`、`rca/run_agent_standard.py`、Controller/Executor | 七种标签子集任务、结构化输出评价、按需 Python 查询工作流 | `microsoft/OpenRCA` SHA `2a481ae63cb045c3eadbeca9eddaa10ec1151979`；当前有沙箱相关演进；数据未下载 |
+| ZTE | `iops/evaluation/evaluation.py`；AIOps Challenge 2020 data README | delay-window onset 评分、按时间间隔补缺失标签、全局拼接 F1；独立数据包的组成 | evaluator SHA `ad962c2187d73b1a14971b255a2bd87212f896f2`；数据 README SHA `5dcea9688794f3787a9b7e4a8931c6e70fa0ec78`；没有克隆/验证 Dataset B/C 的全套生成脚本 |
+| AgenticOpsEval | 当前公开 GitLab 克隆 README/目录 | 公开可见内容与论文描述之间的 scorer 可见性差异 | SHA `69cf36430b43024d02530c610b1a4738b5c9a7fb`；未发现 scorer/runner，未逐行复核或运行 |
+| CTBench | 数据卡、论文提供的交互和指标说明 | replay、黄金动作、答案和覆盖率定义来自论文描述 | 没有独立代码仓库已核验；数据需接受 Hugging Face 使用条件，未下载 |
+
+所有外部源码均只读静态分析；没有安装复杂依赖或执行第三方代码。

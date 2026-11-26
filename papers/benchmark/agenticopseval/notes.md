@@ -1,41 +1,107 @@
-# AgenticOpsEval — Process-Aware Microservice Failure Diagnosis
+# AgenticOpsEval：把证据与因果链纳入微服务 Agent 诊断评分
 
-## Identity and evidence status
+## 论文身份与证据边界
 
-- **Title:** *A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis*
-- **Authors:** Yuanhong Cai, Xiaohui Nie, Kanglin Yin, Changhua Pei, Yongqian Sun, Shenglin Zhang, Haibin Liu, Guiyang Liu, Xidao Wen, Fang Situ, Dan Pei.
-- **Version / venue:** arXiv:2606.29193v1, 2026-06-28; no venue listed on the arXiv record. [Paper](https://arxiv.org/abs/2606.29193)
-- **Official dataset/project:** [AgenticOpsEval page](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval); paper reports scoring code.
-- **Local source:** [`AgenticOpsEval_2606.29193.pdf`](../../../sources/papers/benchmark/AgenticOpsEval_2606.29193.pdf). The Engine did not select it. Paper and project-page metadata were reviewed; GitLab files were not accessible for direct source inspection, so scoring-code mechanisms below are from the paper rather than a code audit.
+- **论文标题：** *A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis*（项目名 AgenticOpsEval）。
+- **作者/版本：** Yuanhong Cai, Xiaohui Nie, Kanglin Yin, Changhua Pei, Yongqian Sun, Shenglin Zhang, Haibin Liu, Guiyang Liu, Xidao Wen, Fang Situ, Dan Pei；arXiv:2606.29193v1，2026-06-28。[论文](https://arxiv.org/abs/2606.29193) · [官方数据页](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval)
+- **本地材料：** [PDF](../../../sources/papers/benchmark/AgenticOpsEval_2606.29193.pdf) 与完整 HTML 派生文本；本轮已完整阅读正文和主要附录。
+- **代码状态：** 论文称评分代码随项目提供；当前可取得的 GitLab 仓库快照为 `69cf36430b43024d02530c610b1a4738b5c9a7fb`，树内可见 README 和数据目录，但本次克隆的版本未包含 scorer/runner 源码。因此下面的评分机制来自论文原文，不是代码复现结论。没有下载数据或执行代码。
 
-## Motivation and data
+## 1. 动机与双数据集设计
 
-AgenticOpsEval argues that final-answer-only RCA metrics cannot distinguish evidence-grounded reasoning from keyword luck. It introduces two datasets totaling 503 cases and about 15.3 GB from two microservice systems. This is a benchmark for agent diagnosis over multimodal observability, not an online live-production repair environment.
+最终答案指标无法区分“碰巧答对”与“查到了与结论一致的证据”。AgenticOpsEval 的设计主张是把诊断的过程证据纳入可计算评价：先判断定位实体和故障类型，再检查轨迹是否覆盖预期观察点，最后对正确答案上的推理长度进行有限惩罚。
 
-### AIOps2025
+论文提供两组互补数据：AIOps2025 以轻量的逐模态 key evidence 标注为主；RCA100 进一步将 cause→propagation→impact 链逐步标注，并要求与数值 checkpoints 对应。前者适合大规模比较，后者提供更细的因果链约束。它们不是相同标签精度下的两个子集，分数不可直接横比。
 
-400 cases on HipsterShop: 10 services plus TiDB components and Redis, deployed across 8 VMs and 33 pods. It covers 18 fault types across nine categories and three severity levels. The paper reports about 11.9 GB, 2,835 files, 269 million rows, and an 18-day collection period. Chaos Mesh is used for fault injection. Three SRE experts independently annotate cases and a senior expert adjudicates; detector proposals help locate candidate evidence. The paper reports competition validation, with 6,093 participating teams for this dataset.
+## 2. AIOps2025：大规模逐模态证据
 
-### RCA100
+### 环境、故障与观测
 
-103 OpenTelemetry Demo Store cases on Alibaba Cloud ACK, 28 fault types in six groups, approximately 3.4 GB and 116 million rows. It contains metrics, logs, traces, events, alerts, and topology. The labels cover fault type, UModel entities, cause→propagation→impact chains, and numeric evidence checkpoints. Paper-reported consistency checks include cross-modal evidence references resolving and high entity/topology alignment. The setup includes single-fault and composite cases; 13 are described as composite.
+- HipsterShop 部署于 8 台 VM，共 33 pods，包含 10 个应用服务及 TiDB/Redis 组件。
+- 400 个案例、18 种故障类型、9 个故障类别、3 个注入层级（service 195 / pod 123 / node 82）。注入使用 Chaos Mesh 等受控机制；参数在规定范围内变化。
+- 18 天数据约 11.9 GB、2,835 个 Parquet 文件、2.69 亿行；指标来自 Prometheus/APM 与节点/TiDB 监控，日志来自 Filebeat，trace 来自 Jaeger。hour/day/modality 分区使使用者可仅读取目标时间段。
+- Metrics、Logs、Traces 用 service/pod 标识关联。统计标注显示 250/400（62.5%）案例至少需要两种模态，124/400（31%）需要三种模态；这说明数据有跨模态证据需求，但并不证明某次 Agent 决策确实使用了它们。（§4.1–4.5，Tables 2–3）
 
-## Ground truth and scoring
+### 标签如何建立
 
-For AIOps2025, the paper labels per-modality key evidence and expert-reviewed cause entities/types. Its score combines localization accuracy (0.4), type accuracy (0.4), explainability/evidence coverage (0.1), and efficiency (0.1). The efficiency term is based on reasoning-path length, not actual API cost or wall-clock resource consumption; it should not be read as a real token/cost budget.
+1. 多模态异常检测器从原始指标、日志、trace 提议候选观察点；
+2. 三名 SRE 分别独立确认/修订每个案例的候选证据；
+3. 高级 SRE 仲裁分歧；
+4. 每个故障场景重复注入多次后才纳入数据。
 
-RCA100 adds structured causal chains and evidence checkpoints. Its score weights entity localization (0.4), fault classification (0.3), and causal chain/evidence (0.3). The exact scoring details differ across the two datasets, so scores should not be compared as if they were identical tasks. Neither metric alone verifies that each cited observation actually drove a correct causal inference.
+最终标注包含故障 `(category, type, instance)`、定位字段、各模态 `key_observations`、必须命中的 `key_metrics`，以及语义等价的故障表述 `fault_description`。这将注入目标与“专家认为观测中可见的内容”区分开。示例为 `emailservice` 的 service-level CPU stress：标签同时列 `pod_processes`、响应时间和 `pod_cpu_usage` 观察，并要求覆盖 CPU 指标；故障类型可由“CPU saturation”等等价说法匹配。（Fig. 4）
 
-## Agent evaluation, shortcuts, and limitations
+### 评分定义
 
-The task is agentic diagnosis on multimodal data, but the paper’s central process measure is labeled evidence coverage rather than open-ended safe tool interaction. AIOps2025 includes anomaly descriptions and key observations; RCA100 supplies structured alert inputs and expected chains/checkpoints. Potential shortcuts include repeated fault templates, known workload signatures, and curated candidate evidence. These are risks to test, not reported proof of leakage. Open-set split by fault type, service, time, and injection template is needed to establish generalization.
+四个维度构成总分：
 
-The two datasets have expert labels and competition exposure, but they remain testbed-derived microservice cases rather than a broad census of production incidents. The paper’s path-length efficiency proxy does not account for actual tokens, API spend, latency, or safety of action.
+\[
+\mathrm{Final}_A=100(0.4\,LA+0.4\,TA+0.1\,Exp+0.1\,Eff)
+\]
 
-## Code and openness
+- **Location Accuracy (LA)：** 预测组件与标注实体严格匹配比例。服务名不等于具体 pod；pod fault 要精确到 pod。网络故障有针对性例外：命中源或目的端实体都可计定位。
+- **Type Accuracy (TA)：** 先匹配预定义故障同义描述关键词；无命中时再做 embedding 相似度回退。模型的 reason 字段只取前 20 个词，避免堆同义词刷分。
+- **Explainability (Exp)：** \(E_m/E_t\)，其中 \(E_t\) 是 key metrics 与 key observations 的并集，\(E_m\) 是轨迹输出中通过严格名称/关键词/trace 节点匹配命中的预期证据。每条 observation 只检查前 20 个字符。
+- **Efficiency (Eff)：** 在 LA 正确案例上的平均轨迹长度 APL：\(\min(1,\exp(-(APL-5)/5))\)。只在定位正确案例上计长度，减少“很短但答错”策略的奖励。
 
-The paper links a public data page and states that scoring code is provided. The public GitLab project could not be expanded to source files in this study. No line-level implementation or scorer was inspected, no dataset downloaded, and no benchmark run. The distinction between paper-defined scoring and current repository contents remains to be version-pinned.
+简例：如果 expected evidence 有 CPU、延迟、trace 三项，Agent 只报告 CPU 和延迟，则 Exp=2/3；但即便最后的故障标签猜对，仍只有部分证据覆盖。反过来，覆盖很多证据也不能抵消定位与类型两个各占 40% 的答案维度。
 
-## Relevance
+**指标限制：** APL 是 `reasoning_trace` 长度的代理，不是实际 token、工具调用次数、墙钟时间或 API 花费。证据项基于字符/关键词匹配，并不确认 Agent 的因果推理真的使用了该证据。AIOps2025 的 Final_A 中过程分占 20%，仍有 80% 是结论字段。（§4.4）
 
-AgenticOpsEval contributes explicit evidence labels and causal-chain checkpoints across two datasets, complementing NIKA’s tool/trajectory observability and CTBench’s expert action routes. For our dataset, evidence annotations should be independently auditable and evaluator outputs should report actual cost separately from reasoning length. See the [comparison](../../../notes/benchmark/benchmark-comparison.md).
+## 3. RCA100：类型化传播链与数值证据
+
+### 环境与案例
+
+RCA100 含 103 个 Chaos Drill 故障事件，部署在 Alibaba Cloud ACK 的 OpenTelemetry Demo Store 上，配合托管 RDS、Redis、消息总线；约 12 个多语言微服务。使用 OpenTelemetry + ARMS Agent 收集 signals，Aliyun UModel 把 APM、Kubernetes、云资源里的实体统一到可比较的 entity ID。
+
+包含 28 种根因类型、6 个语义大类；约 3.4 GB / 1.16 亿行，含 Metrics、Logs、Traces、Events、Alerts、Topology。90 个案例从单个 alert entity 开始，另外 13 个 composite case 不给单一告警实体，避免所有题都暗示“只查这个实体”。论文称标注实体与拓扑参考一致性 98.06%，跨模态来源引用完整性 100%。（§5.1–5.5，Table 6）
+
+### 根因、传播与 checkpoint
+
+标签包含：故障类型、根因 UModel entity、按 cause→propagation→impact 排列的链步骤、每步的可观测性检查点。91 个是 3-step，12 个是 4-step；共 661 个 checkpoint，约每案 6.42 个，99.5% 带有 comparator/value/unit 数值约束。
+
+论文 Fig. 6 的真实标注例：`payment → checkout → checkout::PlaceOrder`。第一步 payment 要达到特定 error_count/error_rate 条件；第二步 checkout 有对应错误增长；最后一步的 PlaceOrder 操作也有错误阈值。它比“日志提到 payment 出错”的文本标签更可判定：只说对服务名而没有满足数值条件，不能算完整的证据路径。
+
+### 评分
+
+\[
+\mathrm{Final}_B=100(0.4\,Entity+0.3\,Fault+0.3\,Process)
+\]
+
+Entity 评价 UModel 实体定位，邻接拓扑实体有部分信用；Fault 对 28 类类型评分；Process 联合考察因果链节点与观测 checkpoint。论文未把 Process 的全部边界情况简化成公开代码可核验公式；在当前项目未能读取 scorer 的情况下，不推测节点与 checkpoint 的内部权重。
+
+四类常见信号是 request count（204 checkpoints）、平均 latency（178）、error count（97）等。RCA100 的 103 案例中约 95 个涉及两种以上实体类型传播；约 20 个跨 APM 与 Kubernetes 实体类型。Top 4 故障类型占 44.7%，其余类别仍有长尾，整体指标需与类别明细一起看。（§5.3–5.6）
+
+## 4. Agent 交互与实验结论
+
+AIOps2025 以结构化多模态文件和任务提示供 Agent 调查；RCA100 用告警/实体、拓扑及六模态观测支持因果链核验。论文重点评价答案字段和标注证据，不等同于 NIKA 那样对动态网络工具调用、环境反馈和业务影响作完整协议评价，也没有安全修复任务。
+
+AIOps2025 进入 2025 CCF AIOps Challenge，论文报告 6,093 支参赛队伍/团队的验证；RCA100 对应 Tianchi 赛道。参与规模证明协议可实际运行，不是单独的科学有效性证据。两数据集在故障集、输入入口和过程标签颗粒度不同，不能把成绩当作同一排行榜。
+
+## 5. 数据质量、捷径风险与论文局限
+
+### 论文明确承认
+
+- 两个 demo 系统约十余个服务，真实生产规模迁移未验证；
+- Chaos 注入较干净，生产常见并发故障、间歇性波动、长期累积退化覆盖有限；
+- 专家主参考路径可能遗漏合法替代诊断路径，进而低估得到正确结论的 Agent；
+- AIOps2025 的效率是轨迹长度代理，未体现实际 Token、端到端延迟和工具成本。
+
+### 基于设计的待测风险（非论文已证实的泄漏）
+
+- 固定故障模板和实例选择可能让模型记住标签—实体关联；
+- key evidence 受检测器提议影响，即便专家修订，也需检查候选生成是否遗漏反例；
+- 关键词/embedding 类型匹配、前 20 词截断有明确刷分控制，但仍未证明文本解释与因果推理一致；
+- RCA100 checkpoint 数值证据更精细，但数值阈值也可能成为可记忆签名。
+
+## 6. 开放性与实现核对
+
+论文描述已释放数据与评分代码；本次公开 GitLab 克隆只有数据页面/README 和目录信息，未发现评分/执行代码文件，因此不能验证论文分数的具体字符串匹配、阈值或 checkpoint 聚合实现。未下载约 15 GB 数据，也未运行基准。需要后续获取带 scorer 的正式 release 并固定版本，才能做到 line-level 代码复核。
+
+## 7. 对数据集论文的启发
+
+对传统 RCA 和 Agent 共享一个数据集时，应明确分开：最终根因标签、每模态证据、因果传播路径、工具调查轨迹、真实执行成本。AIOps2025 展示以较轻标注支持大量案例；RCA100 展示对少量事件做更深的链和数值证据标注。两层标签可以用于不同成本的任务，但要分别报告。
+
+若采用过程指标，应同时记录可替代证据路线，避免精确复现单一 reference route 成为隐式目标。效率至少报告实测 tokens、请求/工具数和时间，避免把输出长度误认为成本。真实案例数量、专家校验和比赛规模不能替代对故障族、部署模板与拓扑的留出评测。
+
+关联：[CTBench](../ctbench/notes.md) 的专家命令路线、[OpenRCA](../openrca/notes.md) 的历史企业遥测，以及[数据集设计启发](../../../notes/benchmark/dataset-design-insights.md)。

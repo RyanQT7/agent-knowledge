@@ -1,40 +1,45 @@
 # 六篇 AIOps Benchmark 论文比较
 
-核验范围仅限用户指定的六篇论文。数值按论文版本记载，未在原文明确报告的字段写 **Not Reported**；当前代码仓库的后续版本不与论文实验版本混用。单篇身份与来源见[论文清单](paper-inventory.md)，逐篇分析见 [`papers/benchmark/`](../../papers/benchmark/)。
+范围固定为 RCABench、NIKA、OpenRCA、*Constructing Large-Scale Real-World Benchmark Datasets for AIOps*、AgenticOpsEval 和 CTBench。数据身份与阅读状态见[论文清单](paper-inventory.md)；逐篇机制详见 [`papers/benchmark/`](../../papers/benchmark/)。`Not Reported` 表示对应论文未在可核对版本明确给出，不能用当前仓库 README 或另一篇论文补齐。
 
-## 数据与任务设计
+## 数据来源、环境与 Ground Truth
 
-| 论文 | 研究对象 / 环境 | 规模与数据模态 | 故障及构造方式 | Ground Truth 与质量控制 | 传播 / 多根因 | 主要任务与指标 |
-| --- | --- | --- | --- | --- | --- | --- |
-| [RCABench](../../papers/benchmark/rcabench/notes.md) | TrainTicket 测试床，50 个微服务，动态负载 | 1,430 个有效失败；9,152 次注入尝试；metrics、logs、traces、拓扑/调用关系、SLI | 六类故障；31 种候选故障类型中筛出 25 种有效类型；控制注入位置/强度并收集遥测 | 注入代码/服务层级标签，并要求 user-facing SLI 有可辨异常；报告 84.4% 初始注入未产生异常而被排除 | 核心是层级传播标签与复杂依赖；同时多根因任务：Not Reported | 传统 RCA 定位；Top@1/Top-k 与运行时间，11 个基线；不测 Agent 工具过程或修复安全 |
-| [NIKA](../../papers/benchmark/nika/notes.md) | Kathará 仿真的网络场景与拓扑 | 5 个场景、54 种 issue、640 个配置；实验用 150 个 incident；公开 900+ traces；拓扑均值约 11/27/101 节点；网络配置、主动测量、流量/遥测 | 以场景、issue、traffic 组合任务；注入网络/主机故障、资源竞争等 | 由场景和注入 issue specification 给定；可复现但不是盲标的生产根因 | 复合故障可扩展，论文基线主要按单个 issue 任务评测；传播链标签：Not Reported | Detection/localization/RCA；正确率、检测时间、token、工具调用/错误、流延迟、丢包、SLO。MCP AAL 记录调用和状态；不评测 mitigation |
-| [OpenRCA](../../papers/benchmark/openrca/notes.md) | 三个企业软件系统的清理后故障遥测 | 335 failures；>68 GB metrics/logs/traces；Telecom 51、Bank 136、Market 148 | 历史真实失败记录，不是统一故障注入；问句从 RCA 元素组合生成并人工检查 | 工程师校准可追溯性、遥测存在性、时间/标签对应；问答覆盖所需根因元素 | RCA 元素可由多个字段组成；因果传播步骤标签：Not Reported | LLM RCA；完全匹配和部分正确率，比较 sampling 与 RCA-agent。Agent 用 Python Executor 查询数据，不执行修复 |
-| [Constructing Large-Scale](../../papers/benchmark/constructing-aiops-benchmark/notes.md) | 三套任务独立：多公司生产 KPI、合成多维指标、China Mobile sysA 失败注入 | A：表格称 26 series / 4,821,526 points、60–207 days（正文提 7 KPI，范围有歧义）；B：400 案例；C：169 injected failures。模态从 KPI/结构化指标到 traces、细粒度 measures | A 为生产异常；B 用根因属性组合、GRE 聚合修改、噪声与过滤生成；C 为七类数据库/容器/节点故障注入 | A 有经验人员标签与延迟报警约束；B 标签来自构造的根因属性组合并筛除混淆；C 记录注入故障时间和根因 | C 有组件/服务关联；显式多跳传播标签：Not Reported | 异常检测 F1/延迟、根因定位 F1、失败发现/诊断及挑战赛排名；不支持 Agent 过程评价 |
-| [AgenticOpsEval](../../papers/benchmark/agenticopseval/notes.md) | HipsterShop 与 OpenTelemetry Demo Store 两类微服务测试环境 | 503 cases、约 15.3 GB；AIOps2025 400、约 11.9 GB；RCA100 103、约 3.4 GB。metrics/logs/traces/events/alerts/topology（完整六模态在 RCA100） | AIOps2025 用 Chaos Mesh；RCA100 用故障演练；覆盖资源、网络、运行时、中间件/数据库、应用逻辑等 | 专家标注和复核；RCA100 标签含 fault type、实体、cause→propagation→impact 与数值证据 checkpoints | 明确传播链；RCA100 含 13 个 composite cases；AIOps2025 的多根因定义：Not Reported | LLM Agent 的 Localization/Identification/Reason；实体/类型/证据覆盖与推理长度。后者不是实际 Token/成本；未发现可审阅的 agent tool-use runner |
-| [CTBench](../../papers/benchmark/ctbench/notes.md) | 脱敏电信维护案例及多厂商设备 CLI 回放 | 234 tasks：126 RCA、108 path restoration；CLI 观察、设备/拓扑/协议 metadata | 历史维护任务与记录命令输出，由专家整理；mock backend 重放，不动态注入/修复 | 15 位资深专家编写，独立专家盲解并审查；359 候选保留 234；gold answer 为 (node, object, cause) 或有序路径 | metadata 表达多跳传播、部分可观测、复合故障；golden action trajectory 表示参考证据路线 | Task accuracy、IoU/path 指标、golden-action coverage、latency/rounds/tokens；单次 Pass@1，1h timeout，无每任务 token/tool 步数上限 |
-
-## Agent 交互与过程评价
-
-| 论文 | Agent 可见信息 / 工具 | 动态调查与反馈 | 是否评价过程 | 成本、安全与主要边界 |
+| 论文 | 环境与规模 | 数据模态 / 故障构造 | Ground Truth 与质量控制 | Not Reported / 主要盲区 |
 | --- | --- | --- | --- | --- |
-| RCABench | 传统算法输入的遥测和拓扑 | 非 Agent 任务 | 否 | 评价计算耗时；无工具/Token/修复安全协议 |
-| NIKA | 场景拓扑、配置、主动测量工具，30+ MCP interfaces | 是；工具请求可返回环境状态，系统记状态快照 | 是，记录工具轨迹、耗时和服务影响 | 报 token/调用等，但不是安全修复基准；未支持 mitigation 评价 |
-| OpenRCA | 关联 telemetry、候选 RCA 元素、时间窗；Agent 通过 Python 查询 | 迭代查询，有反馈；无外部状态变更 | 有 Agent 方法比较，未提供逐步诊断正确性/证据使用的独立标准 | 论文强调数据上下文成本；不评 remediation 风险 |
-| Constructing Large-Scale | 按数据集和竞赛协议提供指标/案例 | 主要离线任务，不是 Agent 环境 | 否 | 检测延迟可计入排名；无 Agent token/工具预算 |
-| AgenticOpsEval | 自托管服务 telemetry、告警/描述及结构化证据标签 | 评价 reasoning/evidence 结果；逐任务工具 API 协议细节：Not Reported | 是，证据覆盖/因果链加最终答案 | APL 是路径长度代理，不是实际成本；无行动安全评估 |
-| CTBench | 设备/CLI 回放工具和结构化任务接口 | 顺序调查；输入读取得到预存输出，状态不动态演进 | 是，golden action route coverage | exact route 会排除等价替代命令；无每任务 Token/步数预算；不评动态维修 |
+| [RCABench](../../papers/benchmark/rcabench/notes.md) | TrainTicket 50 微服务；9,152 次注入尝试筛成 1,430 个有效案例、25 类 | Prometheus metrics、traces、关联 logs、L4/L7 与调用拓扑；六类故障、资源/网络/应用等注入 | 注入位置形成细粒度层级标签；user-facing success-rate/latency SLI 验证影响。84.4% 初次注入未有可辨异常 | 只用 service 级标签对比主方法；多根因分布、生产环境外推和 Agent/修复评价：**Not Reported / 未评** |
+| [NIKA](../../papers/benchmark/nika/notes.md) | Kathará；5 场景、54 issue 类、640 个任务配置；论文实验使用 150 incidents；4 类拓扑平均约 11/27/101 节点 | 网络配置、流量、主动/被动观测；`tc`、`stress-ng` 等注入；工具结果和运行状态 | 注入 issue/目标实体提供可重复标签；Detection、Localization、RCA 目标逐步增加要求 | 专家标注一致性、生产真值和修复安全：**Not Reported / 未评**；仿真不是生产网络 |
+| [OpenRCA](../../papers/benchmark/openrca/notes.md) | 三个企业系统 335 cases（Telecom 51 / Bank 136 / Market 148），约 68.5 GB、5.23 亿行；28 种原因 | Metrics、logs、traces；历史 RCA 记录，不是统一注入实验；GPT‑4o 将根因元素子集变成任务问句 | 从 1,753 条记录池出发，工程师去除遥测缺失/根因不可追溯/时间错配；component/time/reason 为组合标签 | 标注者间一致性、每案证据真值、Agent 的逐步正确性/实测成本：**Not Reported**；闭集候选与给定时间窗限制开放搜索 |
+| [Constructing Large-Scale](../../papers/benchmark/constructing-aiops-benchmark/notes.md) | 三套独立基准：A 多公司 KPI 26 series / 4.82M points / 60–207 days；B 400 结构化案例、5 属性维；C sysA 一个月 169 注入事件、7 类 | A 五公司生产 KPI；B Suning 交易记录上以 GRE + 噪声构造多维异常；C China Mobile Zhejiang sysA 的 traces/KPIs/metrics 与数据库/容器/网络注入 | A 工程师标签与延迟评分；B 根因属性组合并过滤不可区分/非目标异常；C 注入时间和目标实体标签 | Dataset A 正文“7 KPI”与初版表格“26 series”口径不清；B/C 逐个生成脚本版本、Agent 评价：**Not Reported / 未评** |
+| [AgenticOpsEval](../../papers/benchmark/agenticopseval/notes.md) | AIOps2025：HipsterShop 400；RCA100：Demo Store 103；总约 15.3 GB | 前者 Metrics/Logs/Traces、18 faults/9 categories；后者再含 Events/Alerts/Topology、28 faults/6 groups；Chaos drills | 多模态证据由检测器提议、3 位 SRE 独立改标、高级专家裁决并重注入；RCA100 按链步骤给数值 checkpoint | 统一 tool-call API/每任务调用预算和动态修复：**Not Reported / 未评**；公开 GitLab 快照未找到 scorer 源码 |
+| [CTBench](../../papers/benchmark/ctbench/notes.md) | 359 候选筛至 234（126 RCA / 108 path）；脱敏多厂商电信 CLI 维护案例 | 命令输出 replay 与拓扑/协议元数据；5 类 RCA 故障和多个独立根因；无实时状态演化 | 15 位资深专家编题；盲解/复核可解性、答案完整性、gold actions 和元数据；争议不收录 | live device、动态状态变更、修复/回滚与独立官方 scorer：**Not Reported / 未提供**；单一精确命令路线使等价证据被低估 |
 
-## 设计思想及适用场景
+## 任务、交互、指标和源码
 
-1. **难度和运行语境（RCABench）**：适合研究传统 RCA 是否真正学到传播与因果，而不是追随最显眼的异常；SLI 验证能排除“注入成功但用户无感”的空案例。
-2. **可控网络交互（NIKA）**：适合比较网络 Agent 的工具调用、探测策略、调查成本和诊断期间的服务影响。它提供的是可复现的仿真，不代表生产外部效度或修复安全。
-3. **大规模异构真实遥测（OpenRCA）**：适合衡量多模态、长上下文根因分析；代价是历史标签、候选答案和受控采样影响任务开放性。
-4. **数据集谱系与不同任务分轨（ZTE paper）**：说明 KPI 检测、根因定位、故障发现不能被一个标签/指标代表；综合多轮挑战使用提供了复现和社区对比基础。
-5. **标记中间证据（AgenticOpsEval）**：适合评估 Agent 是否覆盖诊断证据和传播链；最终答案、证据和实际成本需要分开评分。
-6. **专家流程与部分可观测（CTBench）**：适合检查 Agent 是否沿着可解释的设备调查路线工作；固定路线 coverage 只适合作为 reference-route proxy，不能等同于因果推理质量。
+| 论文 | 任务与答案 | 过程 / 成本评价 | 源码与复现状态 |
+| --- | --- | --- | --- |
+| RCABench | 传统微服务根因 Top@K、MRR、耗时；论文保存方法级/容器/服务等标签，主表按可比 service label | 无 Agent trajectory、Token、工具或恢复评价 | [Aegis](https://github.com/OperationsPAI/aegis) 当前是整合后版本；静态分析当前 temporal validator、SLI sampler、GT/evaluator；未找到可直接还原论文 SLI 注入门禁的当前实现，未执行 |
+| NIKA | Detection / Localization / RCA；检测、目标实体及故障类型逐步增加答案要求 | MCP 工具轨迹、工具错误、时间、Token、步骤、网络时延/丢包和 SLO；用于评估诊断对网络的影响，不评价修复 | [sands-lab/nika](https://github.com/sands-lab/nika) 当前源码 task/fault 模型、root-cause IDs、scoring 静态分析；当前 F1 evaluator 不应倒推论文实验分数 |
+| OpenRCA | 从七种 component/time/reason 字段组合中出题；Correct 要所问字段全对，Partial 至少一项对；±1 min 时间容差 | RCA-Agent 用 Controller + Python 查询 metrics→traces→logs；未有标准化证据质量/工具成本指标 | [microsoft/OpenRCA](https://github.com/microsoft/OpenRCA) 的 generate/evaluate/Controller/Executor 静态阅读；未装环境/下载外部数据 |
+| Constructing Large-Scale | A KPI 异常检测，B 多维属性定位，C 失败发现/诊断，分别使用 F1、延迟或竞赛规则 | 主要离线算法/竞赛评价，不含 Agent 工具过程 | `iops/evaluation/evaluation.py` 静态确认缺失时间补零、异常段 early detection 处理及全局 F1；数据集与生成/评分仓库分散，未跑实验 |
+| AgenticOpsEval | AIOps2025 是实体 LA、故障 TA、evidence coverage 和 trace-length efficiency；RCA100 是 entity/fault/process | 显式检查所需证据/因果 chain，但 APL 不是实际 Tokens/费用/时延 | 论文描述公开 scorer；当前 GitLab clone `69cf364…` 仅有 README/数据，未能核对评分代码实现 |
+| CTBench | RCA 以实体/故障集合 IoU；路径有 endpoint IoU 与 directed-edge IoU；另报 exact answer | Golden-action coverage 是特定专家路线命令 recall；另报真实 Tokens、时延、交互轮次；Pass@1、3600 秒超时 | [Hugging Face 数据卡](https://huggingface.co/datasets/netop/CTBench)，文件需接受访问条件；未发现独立官方代码仓库/可读 scorer，未下载/运行 |
 
-总体上，这六项工作并非简单地从“传统”升级到“Agent”。它们测量不同对象：受控算法定位、网络工具交互、历史企业 RCA、独立数据集挑战、显式证据轨迹和专家设备命令流程。跨论文比较应先对齐任务边界、答案空间和标签来源，再比较分数。特别是 AgenticOpsEval 的 reasoning-length、CTBench 的 reference-route coverage 与 NIKA 的实际工具调用/资源描述不是同一种过程指标。
+## 对照解读
 
-## 本次实际研究深度
+1. **“真实”要拆成可检验属性。** OpenRCA 的历史企业遥测、ZTE Dataset A 的公司 KPI、Dataset B 的真实分布加合成干预、Dataset C/RCABench 的测试床注入、NIKA 的网络仿真、CTBench 的脱敏 CLI 回放，提供的是不同外部效度，不构成线性真实性排序。
+2. **注入、影响、症状与根因不能等同。** RCABench 以 user-facing SLI 排除未产生影响的注入；AgenticOpsEval 复注入后让专家确认实际证据；NIKA 的 injection specification 易复现但不等于独立生产根因证据；CTBench 把维护记录和参考动作核验分开。
+3. **标签颗粒度不同。** Root-cause entity、fault category、时间、传播链、关键证据、专家动作分别回答不同问题。OpenRCA 的字段 exact match 不与 RCABench Top@K 数值直接对比；AgenticOpsEval 的过程分和 CTBench route recall 也不是同一构念。
+4. **过程评价有多层。** NIKA 记录真实工具调用和网络状态影响；AgenticOpsEval 用标注 evidence 与 chain；CTBench 用精确命令路线；OpenRCA 的 Agent 是数据查询机制，但没有对每条过程证据做评分。阅读轨迹、命中参考路线和使用正确因果证据不能互相替代。
+5. **效率必须测实际资源。** Reasoning path length 可能只是代理；只有 NIKA/CTBench 类协议直接报告实际 Token/时间/调用，但口径仍需统一。Benchmark 不应把短解释当低成本，也不应将计算成本与诊断质量合成不透明总分。
+6. **数据公开不是完全复现。** 源码可见、数据可访问、数据可再分发、评分可运行是四件事。当前 CTBench 数据访问有条件；AgenticOpsEval scorer 未在可见 clone；ZTE 的多套项目不是一体化平台。每个结论须固定论文/数据/代码版本。
 
-本轮 Engine Planner 仅自主选择 NIKA 与 CTBench，Executor 对两篇做选段分析，且输入消耗超出目标。Judge 未完成；Reflector/后续 Planner 未执行。因此这份横向比较是基于六篇本地原文/官方材料的受限专题综合，不能宣称六篇都被 Engine 完整精读并通过独立评估。代码侧只核对公开项目说明和入口/目录映射，没有克隆运行大型系统或故障注入。
+## 适用场景简表
+
+- 传统微服务 RCA 是否过度依赖显著症状：RCABench。
+- Agent 在交互式网络仿真中如何调查并影响网络：NIKA。
+- 企业多模态历史遥测的闭集/字段组合诊断：OpenRCA。
+- KPI、属性维度和故障诊断数据集谱系/竞赛：ZTE 三数据集。
+- 大规模 Agent 多模态 evidence labels 与较深 causal checkpoint：AgenticOpsEval。
+- 电信设备部分可观测 CLI 排障及参考调查路线：CTBench。
+
+更深的跨论文结论见 [Benchmark Review v1](reviews/benchmark-review-v1.md)；面向本地挑战赛的建议见[数据集设计启发](dataset-design-insights.md)。

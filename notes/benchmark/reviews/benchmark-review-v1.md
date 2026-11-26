@@ -1,64 +1,72 @@
-# Benchmark Knowledge Review v1 — AIOps 数据与 Agent 评价
+# Benchmark Knowledge Review v1 — 从可诊断数据到 Agent 过程评价
 
-## Review 范围
+## 范围与证据
 
-本 review 综合固定六篇论文：RCABench、NIKA、OpenRCA、*Constructing Large-Scale Real-World Benchmark Datasets for AIOps*、AgenticOpsEval、CTBench。它们并非同一数据集或同一任务的六个可直接排名版本。Engine 的首次轮次只对 NIKA 与 CTBench 进行选段分析，未完成 Judge 和后续反馈规划；其他论文依据本地全文/官方公开材料补充专题分析。没有把这一轮标成六篇都经过 Engine 精读和独立核验。详细身份和阅读状态见[清单](../paper-inventory.md)。
+本 review 综合用户固定的六篇论文。六者不是同一数据集/方法的排名，而是分别检验传统 RCA 难度、网络交互诊断、历史企业遥测、多类型 AIOps 数据建设、证据过程和电信专家排障流程。论文、数据和代码当前版本分列核对；正式笔记见[清单](../paper-inventory.md)和[横向比较](../benchmark-comparison.md)。本轮使用主会话和现有 Skills 完成原文精读与源码静态检查，没有用 Engine 多会话数据冒充六篇论文的研究结果。
 
-## Benchmark 的研究发展
+## Benchmark 演进的核心：不只是更多数据，而是明确测什么
 
-这组工作呈现的变化不只是规模增加，而是评价对象逐步展开：
+### 1. 有效样本先于注入数量
 
-- 从数据集能否区分 RCA 算法（RCABench），转向数据是否具有用户可感知影响、挑战算法是否真正需要传播/因果建模。
-- 从静态答案题转向工具和场景交互（NIKA），同时记录诊断轨迹、工具成本和诊断期间服务影响。
-- 从规模化异构遥测与历史事件（OpenRCA）转向每条诊断应依赖哪些证据（AgenticOpsEval）。
-- 从终态答案转向专家在部分可见、多厂商 CLI 环境中的调查步骤（CTBench）。
-- ZTE 论文将 KPI 异常、结构化根因定位与故障诊断分成不同数据集，提示“一个大型综合数据集”并不等于一个无差别任务。
+RCABench 的 9,152 次注入尝试仅形成 1,430 个 SLI 有效案例，84.4% 尝试未产生用户可见异常。它揭示“脚本返回成功”不等于有效故障。NIKA 通过明确仿真情景和可重放 issue 提高控制性，但注入规格本身仍是模拟标签。ZTE Dataset C 记录受控注入，Dataset A 是多公司生产 KPI，Dataset B 是生产属性分布上的合成异常；三者外部效度不同。OpenRCA 从历史故障中经工程师过滤，改进证据可用性但会选择可解样本。CTBench 用脱敏历史维护任务与命令回放，保持专家工作语境却不模拟动态网络。
 
-因此，Benchmark 的可信度取决于研究问题、样本生成、标签和 evaluator 是否对齐，而非单纯样本数或模态数。
+因此“真实数据”要拆成来源、运行系统、故障生成/触发、业务影响、标签确认、在线状态变化六个问题。论文写作应把每个层级证据说清，而非仅使用 Real‑world 标签。
 
-## 真实系统、测试床与回放
+### 2. Ground Truth 是一条证据链，不是一列 root cause
 
-六篇论文的“真实”含义不同。OpenRCA 使用企业系统历史故障遥测，但做了筛选和工程校准；ZTE 的数据集同时包含多企业生产 KPI、算法可控合成案例和 China Mobile sysA 故障演练；RCABench 在 TrainTicket 测试床注入故障，并按 user-facing SLI 验证；NIKA 在可配置网络仿真器中生成可重复场景；AgenticOpsEval 在 HipsterShop 和 OpenTelemetry Demo Store 测试系统中构造注入案例；CTBench 从脱敏维护案例和实际设备命令记录构造固定回放。
+这六篇的真值方式构成互补谱系：
 
-这些证据各有边界：生产遥测不保证标签因果完整；注入故障不代表生产分布；合成数据可控但可能暴露模板；命令回放可重复但不包含状态变化。论文应把证据来源分层写清，不能用“real-world”一个词把这些设置混为一谈。
+- **注入与影响门禁：** RCABench 把根因配置关联到服务层级，再用 user-facing SLI 验证故障可感；NIKA 用 scenario/issue/target 支持可复现定位。
+- **历史标签校准：** OpenRCA 将 component/time/reason 组合并由工程师检查遥测与时间可追溯；不过多个合理原因与不确定度表达较少。
+- **构造型标签：** ZTE Dataset B 由选定属性组合生成根因，并过滤其它组合不可区分或非目标指标也异常的案例；要进一步排除模型记住生成器。
+- **观测证据与因果链：** AgenticOpsEval 从各模态 key observations 延伸到 RCA100 的 cause→propagation→impact 与数值 checkpoints。
+- **参考操作路径：** CTBench 对可解性、答案和专家命令路线盲审，并排除不能达成共识的任务；其路径可重复但不是唯一合理路径。
 
-## Ground Truth 与数据质量
+较好的数据模型应分开保存触发/注入、根因、首个可观测异常、传播节点、症状、业务影响、恢复和标签证据。每个字段有来源、时间范围、置信/争议状态及版本。注入目标可以是根因候选，但只有当遥测/影响证据与定义匹配时才升级成有效事件真值。
 
-至少有四类 Ground Truth：
+### 3. Shortcut 风险需要反证协议
 
-1. **注入规范型**：NIKA、RCABench 和部分 AgenticOpsEval 把配置/脚本作为根因真值。它易于重复，但应验证故障是否可观测、是否影响用户，以及注入点是否等同实际最早影响点。
-2. **历史事件/工程记录型**：OpenRCA 与 ZTE 的部分数据依靠企业 RCA 和工程师校准。它更接近运维，但可能缺少竞争原因、不确定性、边界精度和标签一致性。
-3. **专家任务与动作型**：CTBench 盲解题并审查答案、可解性和参考动作；AgenticOpsEval 标记关键证据和因果链。它揭示了任务路线和证据要求，但专家 route 未必是唯一正确路径。
-4. **构造属性型**：ZTE Dataset B 从根因属性组合生成标签，并过滤不可区分组合或噪声异常。它适于可控实验，但要用跨模板/反事实测试检验模型是否学到构造规则。
+RCABench 用简单 baseline 发现根因服务的显著异常可能使复杂方法没有优势；OpenRCA 的 Oracle Sampling（从 1,263 个 KPI 缩为 53 个）明确依赖真值，应视为上界；ZTE Dataset B 通过属性混淆筛选；AgenticOpsEval 由多模态检测器产生证据候选、专家复核；CTBench 的 CLI/replay 与单一 reference route 则有新的模板/路线偏置风险。
 
-可靠流程应将根因实体、故障类型、起止时间、传播边、影响范围、业务后果和证据来源分开记录；保留多根因、Unknown、范围区间和争议，而不是无痕压成单一标签。RCABench 的有效注入率说明注入尝试、实际遥测异常和业务影响是不同状态。
+这些不是对所有论文或本地数据泄漏的证明。Benchmark 应报告独立事件数、按故障族/模板/实体/拓扑/时间分组的切分、朴素规则和单特征基线、模态/可疑字段消融、标签错配负对照及排除原因。随机窗口切分不能替代独立故障事件的外推测试。
 
-## Shortcut 与评估可信度
+### 4. Agent 过程质量有多种不同构念
 
-RCABench 的核心观察是浅显的根因显著性会使简单方法超过复杂方法；ZTE 对合成数据进行混淆筛查；OpenRCA 的 oracle sampling 和候选集说明答案空间可见性会改变难度；AgenticOpsEval 主张把证据标签纳入评测；CTBench 将 gold route 计分，但其固定接口刻意排除替代命令。这些设计共同说明，越精细的标签并不自动消除 Shortcut。
+- NIKA 的 tool calls、工具错误、响应时间、网络 SLO 变化是实际行动/系统开销；它有交互状态与仿真反馈。
+- OpenRCA 的 Controller/Python Executor 是节约上下文的长遥测查询机制，但论文并未为过程证据逐条打分。
+- AgenticOpsEval 的 evidence coverage 评价轨迹是否命中专家标出的观察点，APL efficiency 只以轨迹长度作代理。
+- CTBench 的 golden-action coverage 是 exact-device/exact-command route recall；route 之外的等价证据可能被漏计。
+- RCABench 与 ZTE 的主要对照是离线方法输出，不能因其有多模态输入就称为 Agent benchmark。
 
-可信的 Benchmark 应预先明确泄漏威胁模型，使用按故障族、模板、节点、拓扑、时间分组的测试集；公布简单规则和单变量基线；提供去字段、时间错位、拓扑扰动等负对照；报告每类样本量、数据剔除链路和标注不确定性。论文作者报告的问题与我们提出的风险推测要分别标注。
+所以，正确答案、证据引用、参考路线、真实工具使用、实际资源成本和动作安全必须分别报告。引用一个真指标不保证模型将它用于因果推理；没执行参考命令也不等于没有获得等价观察。效率不能用解释长度替代实测 Tokens、调用和端到端耗时。
 
-## 传统 RCA 与 Agent Benchmark
+### 5. 对传统算法、LLM 与 Agent 的共同协议
 
-传统算法主要测异常/根因答案：事件级 precision/recall、F1、Top-k、延迟和资源。Agent 任务多了调查过程：可见工具、动作空间、状态反馈、证据引用和资源边界。NIKA 可观察 MCP 调用、状态与诊断时服务影响；AgenticOpsEval 提供证据覆盖和因果链；CTBench 提供专家动作路线；OpenRCA 的数据查询 Agent 展示长上下文检索机制。
+同一事件集可服务多个 track：传统 AD 评异常起止/检测延迟；传统 RCA 评根因排序/多根因；LLM 评结构化回答和证据定位；Agent 额外评工具选择、证据覆盖、冗余与系统影响。需要统一数据切分和底层 GT，但允许不同输出任务。公开 model/harness 版本、可见信息、最大步数/时间/Token、重试与失败处理。
 
-它们的过程指标构念不同。Token/调用数是成本；golden action coverage 是参考路线覆盖；证据点覆盖表示引用/命中标注证据；它们均不能单独证明因果理解。最终正确、证据充分、调查有效率、资源费用和动作安全应分开报告。对可变状态环境还应评价 stop/continue 判断、错误恢复以及安全拒绝。
+同一公式不能解决所有任务。Top‑k、IoU、Exact match、F1、evidence recall、SLO impact 回答不同问题；报告分层值，不将若干维度压成不可解释的单分。需要置信区间时明确其随机来源；CTBench 的 Pass@1 标准误是跨任务变化，不是模型重复运行方差。
 
 ## 对网络 AIOps 数据集的启发
 
-有价值的方向是把网络拓扑传播、故障时间边界、多模态关联和证据可追溯性纳入同一事件格式，同时用分组切分和负对照控制 Shortcut。传统异常/定位模型、一次性 LLM 和 Agent 应使用相同事件标签，但各自报告不同任务指标；Agent 还需有工具调用与安全预算。用户提到的 inode、process count、fd、故障角色绑定和长尾现象目前在本知识库没有对应原始数据或统计，不能作为本文已验证发现。
+若自有数据确实包含多模态遥测、网络故障和复杂角色关系，可借鉴：RCABench 的可感知影响门禁、NIKA 的任务/拓扑/工具状态、OpenRCA 的人工标签校准、ZTE 的多任务数据谱系与构造混淆检查、AgenticOpsEval 的证据和传播标签、CTBench 的盲解可解性与难度元数据。不要一套标签或单一排行榜覆盖 AD、RCA 和 Agent troubleshooting。
 
-## 研究缺口与潜在论文方向
+目前本地缺少挑战赛样本、数据字典、注入脚本、标签规范、切分及 evaluator。因此 inode/process count/fd、时间边界、类别—角色关联、长尾、传播及公开程度仍是待验证问题；本轮没有修改数据或实验。应先固定这些材料及版本，再讨论和六篇论文相比有哪些事实性差异。
 
-- **统一事件本体**：记录注入/真实触发、根因、传播节点、症状、影响、边界和证据，并允许多根因、Unknown 与置信范围。
-- **传播感知且抗 Shortcut 的切分**：跨故障族/节点/拓扑/时间，并附公开的特征泄漏和简单基线审计。
-- **Agent 过程可比评价**：允许等价调查路径，分别度量证据充分性、工具效率、资源成本和安全性。
-- **跨基准外部效度**：同一模型/方法在仿真、回放、注入测试床和真实事件上的迁移误差。
-- **可复现数据版本链**：数据、脚本、标签、工具接口和 scorer 固定到可追溯版本。
+## 与现有 Concepts 的关系
 
-这些是可研究方向，不是已经证明的新颖性。对本地数据的实际创新主张需等数据字典、样本、标签、评估器和现有基线资料补齐后再立项。具体问题见[Research Gaps](../research-gaps.md)；数据集对照边界见[设计启发](../dataset-design-insights.md)。
+- [Evidence Provenance](../../../concepts/aiops/evidence-provenance.md)：把观测来源/实体/时间与论文所评 evidence coverage、gold action 区分开；本轮提出了一个待审批的跨论文补充。
+- [Verification](../../../concepts/aiops/verification.md)：注入是否成功、是否产生影响、标签是否可追溯，是不同验证层。
+- [Candidate Space](../../../concepts/aiops/candidate-space.md)：OpenRCA 的候选组件/原因和 Oracle Sampling 会改变开放/闭集难度。
+- [Topology-aware RCA](../../../concepts/aiops/topology-aware-rca.md)：RCABench/NIKA/CTBench 对服务图、网络拓扑与运维参考路径使用不同语义。
+- [Production Evaluation](../../../concepts/aiops/production-evaluation.md)：历史遥测、受控注入、仿真和回放分别支持不同外部效度。
+- [AgentOps](../../../concepts/agentops/README.md) 与 [OpsAgent](../../../concepts/opsagent/README.md)：前者关注轨迹与执行证据，后者关注诊断对象/运维动作；Benchmark 的过程分不能替代实际运行可靠性。
 
-## Skill Evolution 结论
+## 研究缺口与潜在投稿方向
 
-本轮六篇对 Benchmark 维度有明显价值，但 Engine 发生超预算，独立 Judge 和跨轮反馈未完成。现有 paper-reading、AIOps reading、paper-code-discovery 与 code-reading 的工作流并未出现足以支持修改 Skill 的、经独立确认的重复缺陷。**No Skill Update Needed**；若后续多篇任务持续漏掉 Ground Truth/Shortcut 或 Agent 过程指标，再依据复现记录提出最小候选。
+值得进一步研究的问题是：(1) 如何统一根因—传播—影响—证据并保留不确定标签；(2) 如何用跨模板/节点/拓扑切分验证对故障机制的泛化；(3) 怎样让 Agent 的证据路径可比且允许等价查询；(4) 如何在同一事件集分轨比较传统方法、LLM 与 Agent 的质量、成本和安全；(5) 公开数据/代码是否真正涵盖生成、标注和评分全链条。
+
+这些属于论文阅读后形成的研究假设，不是已验证创新声明。可能的贡献方向只有在本地数据完整性、基线和分组实验支持后才能确定。具体可测试假设见[Research Gaps](../research-gaps.md)。
+
+## 本轮 Skill Evolution 反思
+
+历史反馈指出上一轮 Benchmark 笔记不够深入。本次逐篇笔记补充了执行过程、真实论文案例、指标解释、实验差异、章节定位和源码—论文版本边界。这是对现有方法的实践性加强，不是受控旧版/候选版对照实验；不能据此声称 Skill 已被证明提升。待审批候选针对 `paper-reading` 的“完整精读深度契约”提出最小补充，状态与评估见对应 Proposal。正式 Skill 未被自动修改。
