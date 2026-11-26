@@ -26,4 +26,12 @@ This was an independent new-paper task, not a controlled comparison between the 
 
 The direct-reference exception was not needed for this paper, so that clause was not exercised. The source PDF was available and its full text was extracted, but local PDF-rendering utilities/libraries were unavailable and were not installed; ambiguous visual details in Table 1 and Figure 5 remain explicitly unresolved. Repository analysis is static and does not prove reproduction of the paper’s experimental environment.
 
-The built-in Skill Evolution static/retrospective evaluation found no recorded issues and returned `Inconclusive`; no blind model execution or old/new controlled experiment was performed. Recommendation: keep this candidate for human review; do not apply it automatically.
+The built-in Skill Evolution static/retrospective evaluation found no recorded issues and returned `Inconclusive`; no blind model execution or old/new controlled experiment was performed. At that time the recommendation was to await human review rather than auto-apply; the subsequent user decision is recorded below.
+
+## Human review and GALA independent validation
+
+- Human review approved candidate `skill-paper-reading-20261126t110225z-ed765d` for application on 2026-11-26.
+- Reported subjective note-quality ratings: prior six Benchmark papers average 7.82/10; NetArena 8.5/10; GALA 8.7/10. These tasks differ in paper type and execution conditions and are not a controlled old/new Skill comparison.
+- GALA feedback is recorded in `evolution/feedback/gala-paper-reading-2026-11-26.md`. The GALA note was revised in Chinese, with targeted primary-source follow-up on BARO, Phase III ablation, Table 3 human scores and correlation-unit reporting, Flow-of-Action's missing recommendations, Figure 6 branch stopping versus final arbitration, and the single-organization checklist limitation.
+- The existing static/retrospective evaluation remains **Inconclusive** and the scientific performance claim remains `not established`. Human approval authorizes operational application; it does not convert evaluation into an experimental PASS or establish causal Skill improvement.
+- Application completed through `scripts/evolution/skill_evolution.py apply`. The formal target hash equals candidate v2 hash `ed765d3f6606289a4baba24f72d31f6877c1fb634203a7cd4c9d157df8f69a1b`; the proposal records the base hash, applied hash, approval note, and pre-application commit for rollback.

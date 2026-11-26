@@ -23,7 +23,7 @@ Locate source
 → Commit and push the completed knowledge task when all checks pass
 ```
 
-Work inside the current knowledge-base root. Do not read a second paper, download unrelated material, install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
+Work inside the current knowledge-base root. Do not process another paper as a task output or expand into unrelated material. Check local sources first. A directly cited reference may be read or, only if unavailable locally, retrieved when necessary to explain a core mechanism; record why and the exact scope, use only relevant evidence, and do not create a second paper note. For `aiops-paper-reading`, this is a narrow exception to its default restriction on additional material, not permission to browse or survey adjacent work. Do not install dependencies, build RAG/vector infrastructure, or implement an Agent/Skill unless the user separately requests it.
 
 ## Input and source location
 
@@ -69,11 +69,9 @@ Do not use a broad `*.pdf` rule. Do not stage, commit, or push the original PDF.
 
 ## Full-paper reading
 
-Read as much of the complete PDF as the available local tools allow. Do not generate the note from only the Abstract, Introduction, or Conclusion. Inspect, when present:
+Read the paper end to end. Full-paper coverage and importance-driven depth are complementary: cover all sections, then spend the most explanation on the core contributions, methods, and strongest evidence. Inspect appendices, discussion, limitations, and negative results when they change the interpretation. Reuse earlier reading, follow important claims to their mechanisms and evidence, and mark source gaps.
 
-- Method, architecture, algorithms, and workflow.
-- Experiments, benchmarks, baselines, metrics, tables, and figures.
-- Appendix details, prompts, examples, trajectories, ablations, and implementation settings that materially affect understanding.
+Choose emphasis by contribution. For algorithms, trace the mathematical mechanism, architecture, training objective, and experimental comparisons. For benchmarks, trace provenance, construction, labels, quality gates, difficulty, and scoring. For agents, trace workflow, tools, state, memory, planning, recovery, and cost where applicable. For systems, trace interfaces, interactions, runtime behavior, and trade-offs.
 
 Use available local PDF text extraction or rendering tools. If a preferred utility is unavailable, use another available local method; do not install packages just to complete the ordinary workflow. Do not print the full extracted paper or the completed note to the terminal.
 
@@ -118,7 +116,9 @@ Explain the role of each step, especially how observations or external feedback 
 
 ## Evidence and interpretation boundaries
 
-Ground key facts directly in the paper. Add source markers near important methods, numbers, conclusions, and limitations:
+Use the paper’s figures, examples, data, or pseudocode to explain how the mechanism runs, why it was designed that way, and where it fails. Explain how central scores are computed and what their incentives and denominators imply. Interpret the decisive baselines, ablations and failures under their actual assumptions. Label teaching examples and relate the findings to complementary or conflicting work when that changes the research understanding.
+
+Bind key facts, numbers, and locators to the exact version read. Confirm the cited section, figure, table, or appendix and identify discrepancies with other releases. Add source markers near important methods, numbers, conclusions, and limitations:
 
 ```text
 Source: Sec. 3
