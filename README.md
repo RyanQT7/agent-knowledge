@@ -36,15 +36,17 @@ Sources
 - `notes/`：保存自己的问题、想法和学习记录。
 - `frameworks/`：用于未来整理和比较不同 Agent / LLM 框架。
 - `templates/`：保存固定的阅读和概念记录模板。
-- `skills/`：用于未来沉淀辅助阅读、整理和更新知识库的 Skill。
+- `skills/`：保存用于论文阅读、源码分析、知识综合与维护的现有 Skills。
 
 源码学习入口：[Agent Framework Learning Skill](skills/agent-framework-learning/SKILL.md)；知识导航见 [INDEX.md](INDEX.md)。
 
 ## 建议工作流
 
+日常研究默认采用轻量流程：由当前 Codex 主会话选择并读取相关 `SKILL.md`，检索少量 Experience Memory，复用知识库中的笔记、PDF 和源码，再直接完成研究成果。完整 Evolution Engine 保留为需要多轮状态管理时显式启动的可选实验模式，不是默认入口。详见[轻量研究约定](notes/guides/lightweight-research-workflow.md)。
+
 ```text
 原始资料
-→ Codex 阅读
+→ Codex 主会话按需调用已有 Skills
 → 论文 / 代码 / 资料笔记
 → 提取核心概念
 → 更新 Concept 知识

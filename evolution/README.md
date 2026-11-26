@@ -1,29 +1,34 @@
-# Self-Evolving Knowledge Base — Phases 1–2
+# Self-Evolving Knowledge Base — Lightweight Default and Optional Engine
 
 This directory stores discovery metadata, Claim/Evidence relations, audit reports, reviewable proposals, run manifests, compact Experience Memory, feedback schemas, and incremental state. Full paper text remains in the existing `sources/papers/` (ignored PDFs) and `papers/` note locations. Do not copy a paper body into `evolution/`.
 
-## One-line Codex entrypoints
+The default research path is the current Codex main session plus the existing Skills and knowledge files. The full multi-role Evolution Engine remains available as an opt-in experiment; it is not the normal entrypoint. See the [lightweight research agreement](../notes/guides/lightweight-research-workflow.md).
 
-Start a complete, bounded run around the highest-ranked open question/gap:
+## Default lightweight entrypoints
+
+Start ordinary research in the current Codex session:
 
 ```text
-使用 knowledge-evolution，围绕当前最高优先级知识缺口执行一轮迭代。
+按知识库的轻量研究约定完成这个任务：先读取最相关的已有 SKILL.md，检索最多五条相关 Experience Memory，复用已有论文、源码和知识笔记；由当前主会话规划并直接完成研究，不启动完整 Evolution Engine。任务结束时总结新增知识、未解决问题和值得保存的经验。主题/任务：<填写任务>
 ```
 
-Start a scoped AgentOps run:
+Select task Skills explicitly when useful:
 
 ```text
-使用 knowledge-evolution，围绕 AgentOps 最新研究执行一轮知识迭代。
+使用 paper-reading 精读这篇论文，并复用本地来源与已有相关笔记：<论文>
+使用 aiops-paper-reading 分析这篇 AIOps 论文：<论文>
+使用 paper-code-discovery 和 code-reading 核对论文官方源码并静态追踪核心调用路径：<论文或仓库>
+使用 knowledge-review 综合这些已完成的论文笔记：<专题>
 ```
 
-Read-only checks:
+Discovery and read-only audit remain available on demand:
 
 ```text
-使用 knowledge-audit，检查 Multi-Agent 和 Agent Memory 知识是否存在冲突或过时内容。
 使用 research-discovery，检索最近 30 天与 OpsAgent 相关的新论文。
+使用 knowledge-audit，检查 Multi-Agent 和 Agent Memory 知识是否存在冲突或过时内容。
 ```
 
-The Codex Skill controls semantic reading and invokes the existing reading Skills. Scripts do deterministic retrieval, state management, structural audit, candidate normalization, and proposal checks.
+Use `experience-memory` at task start to retrieve a few applicable lessons, and at task end only when there is durable feedback or a reusable execution lesson. History guides the process; it is not evidence for a current research claim. For commands and feedback scope, see [Experience Memory](experience/README.md) and the Skill instructions.
 
 ## Layout
 
@@ -37,7 +42,7 @@ The Codex Skill controls semantic reading and invokes the existing reading Skill
 - `feedback/`: a redacted, minimal schema for future reproducible execution failures; raw chat histories are not collected.
 - `state/discovery.json`: per-topic/source/query cursors, repository version checks, and last successful query timestamps. Failure does not move a cursor.
 
-## Run, inspect, approve, reject, resume, roll back
+## Optional Phase 1 scripts: discovery, audit, and proposals
 
 ```bash
 python3 -m scripts.evolution.run start --mode audit-only --auto
@@ -69,9 +74,9 @@ Enabled connectors: arXiv, OpenAlex, Crossref, Semantic Scholar, GitHub public A
 
 `audit-only` is read-only outside `evolution/audits`, `evolution/inbox`, `evolution/state`, and the run manifest. `proposal` can add Claim records, reports, and proposal files; it does not change `papers/`, `concepts/`, Questions, Reviews, Lessons, Skills, or INDEX without user approval. Candidate paper notes stay on an isolated local worktree/branch because existing reading Skills normally sync to `main`. Do not stage ignored PDFs or user files. No scheduler is enabled.
 
-## Phase 1.5: independent Self-Evolution Engine
+## Optional experimental mode: full Evolution Engine
 
-The Python controller now runs a bounded research loop as its own Linux process. It uses the existing discovery queue, Claim records, audit code, Proposal validator, and local Skills as source instructions. Codex CLI is the current replaceable model backend; it uses the already configured login, `codex exec --ephemeral --json`, strict output schemas, separate Planner / Executor / Evaluator / Reflector calls, and role-specific sandbox settings. No API key is copied or required by the engine.
+Use this mode only when a task explicitly benefits from resumable multi-round autonomous research, state checkpoints, and separate Planner / Executor / Evaluator / Reflector calls. It is not the default path. The Python controller reuses discovery, Claim, audit, and Proposal code. Its model prompts refer to existing Skill protocols and include selected rules, but the Engine does not automatically load or dispatch the repository's `SKILL.md` workflows; for direct reuse of paper-reading and code-reading Skills, use the lightweight main-session path above. Codex CLI is the current replaceable backend; it uses the already configured login, `codex exec --ephemeral --json`, strict output schemas, and role-specific sandbox settings. No API key is copied or required by the engine.
 
 Start a run from the repository root. An explicit focus is resolved against watchlist titles, groups, and keywords; unmatched themes become a temporary query with their own discovery cursor. With no focus, the engine selects a watchlist topic from current Questions, Research Gaps, Roadmaps, and Reviews:
 
@@ -104,9 +109,9 @@ The Executor is instructed to use a local PDF or parsed-text file first and reco
 
 The latest MemFolder continuation remains review-only: the Judge accepted candidate Finding `r01-f04` as a scoped interpretation, while `r01-f01`, `r01-f02`, `r01-f03`, and `r01-a02-f01` remain unverified because their saved excerpts were insufficient. Proposal `phase15-phase15-memfolder-cont-20261125-a3a68a8` remains a draft. The next Planner chose a saved-record evidence check with zero full reads, but that task has not been executed. No formal knowledge or Skill was changed.
 
-### Daily bounded run
+### Opt-in full Engine run
 
-From the repository root, start the current configured research theme with:
+From the repository root, explicitly start the experimental multi-round mode with:
 
 ```bash
 python3 scripts/evolution/evolve.py run --focus "Agent Memory and Self-Evolving Agents" --max-rounds 3 --max-model-calls 12
@@ -136,7 +141,7 @@ python3 scripts/evolution/experience.py add --type user_feedback --task-type tea
 python3 scripts/evolution/experience.py add --type user_feedback --task-type general --message "默认减少无实际收益的重复验证" --persistent
 ```
 
-Use `--persistent` only for a preference the user explicitly wants to carry across future tasks. Add `--source-ref` for a report/run/feedback reference. Set stale items to `needs_review`, `superseded`, or `rejected`; similar records merge and preserve evidence references. For ordinary Codex tasks, call `experience-memory` at task start/end; there is no global chat interception.
+Use `--persistent` only for a preference the user explicitly wants to carry across future tasks. Add `--source-ref` for a report/run/feedback reference. Set stale items to `needs_review`, `superseded`, or `rejected`; similar records merge and preserve evidence references. For ordinary Codex tasks, retrieve a few relevant records at task start; record only durable feedback or a reusable lesson at task end. There is no global chat interception.
 
 Skill Evolution does not edit a formal Skill while drafting or evaluating. The `skill-evolution` Skill reviews one experience-backed issue and produces a focused candidate under `evolution/skill-proposals/`. Evaluation is static and retrospective by default; it does not claim measured improvements without comparable execution. Review and operate a candidate with:
 

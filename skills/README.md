@@ -2,6 +2,12 @@
 
 这里逐渐加入用于辅助知识库维护的 Skill：
 
+## 默认研究方式
+
+日常研究由当前 Codex 主会话负责规划和组织：先选读任务所需的已有 `SKILL.md`，用 Experience Memory 检索最多 3–5 条相关经验，再直接调用论文阅读、源码分析、Review 或知识查询 Skills 产出成果。以同一套 `papers/`、`concepts/`、`sources/` 和 `notes/` 为事实来源，避免在普通研究之外再启动 Engine 重做一遍。
+
+`learning-batch` / `aiops-learning-batch` 是用户需要多篇论文批次组织时的可选入口；完整 Evolution Engine 自己管理轮次、预算、重试和检查点，不要把批次 Skill 再嵌套进 Engine。Engine 保留为显式启动的实验模式；默认研究方式及 Independent Judge / Skill Evolution 的按需入口见[轻量研究约定](../notes/guides/lightweight-research-workflow.md)。
+
 Skill 层次：
 
 - paper-reading — single-paper workflow

@@ -197,10 +197,12 @@
 - [Agent Framework Source Notes](code/agent-frameworks/README.md)
 - [Agent Framework Source Code Comparison](code/agent-frameworks/comparison.md)
 
-## Self-Evolving Knowledge Base — Phase 1
+## Self-Evolving Knowledge Base — Lightweight Default and Optional Engine
 
+- [日常轻量研究约定](notes/guides/lightweight-research-workflow.md) — Codex 主会话复用已有 Skills、知识与 Experience Memory；按需使用独立评估和 Skill Evolution。
+- [Skills 清单与职责](skills/README.md)
 - [Phase 1 design and prior project research](notes/guides/self-evolving-knowledge-base-design.md)
-- [Evolution workflow, state, budgets, and approval boundary](evolution/README.md)
+- [Optional Evolution Engine: workflow, state, budgets, and approval boundary](evolution/README.md)
 - [Research Discovery Skill](skills/research-discovery/SKILL.md)
 - [Knowledge Audit Skill](skills/knowledge-audit/SKILL.md)
 - [Knowledge Evolution Skill](skills/knowledge-evolution/SKILL.md)
