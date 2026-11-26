@@ -1,4 +1,4 @@
-# OpsAgent 论文清单（截至 2026-11-17）
+# OpsAgent 论文清单（截至 2026-11-26）
 
 “OpsAgent”在此处通常表示 **Agents for IT Operations** 研究分类；表内标成“系统专名”的论文指 NKU 的具体 OpsAgent 论文。状态区分 peer-reviewed venue、预印本、阅读全文与仅筛查。我们没有把 arXiv 自动视为会议发表。
 
@@ -6,6 +6,7 @@
 
 | Paper | 年份 / 状态 | 对应问题 | 阅读和源码状态 | 笔记 |
 |---|---|---|---|---|
+| GALA: Graph-Augmented LLM Agents for Root Cause Analysis and Incident Response in Microservices (GALA+) | ASE 2026 Research Track；arXiv:2608.08968v1；related earlier preprint arXiv:2508.12472 under a different title | 双信号候选排序、STRIX、图约束调查、SURE-Score | 全文及关键图表视觉核验；官方仓库 SHA 24d1329 只有论文/评测 artifacts 和第三方基线，核心实现未公开 | [笔记](../../papers/opsagent/gala.md) |
 | OpsAgent: An Evolving Multi-agent System for Incident Management in Microservices | ASE 2026 Companion Industry Showcase；arXiv v3 | M/L/T 标准化、AD/FT/RCL、交叉评阅、自演化 | 全文；官方 `Johnn13/OpsAgent` 静态阅读，SHA `6d61b8b`，无 LICENSE | [笔记](../../papers/opsagent/opsagent-system.md) |
 | KRCA: An Efficient Root Cause Analysis System in Hyper-scale Microservice Systems via Agentic AI | ASE 2026；arXiv v3 | API/拓扑候选缩减、因果骨架、子 Agent 验边 | 全文；官方源码未找到 | [笔记](../../papers/opsagent/krca.md) |
 | OpsMem: Dual-Memory Reasoning with Cross-Memory Resonance for Failure Diagnosis | ISSRE 2026 Industry Track；arXiv v1 | 事件 STM + 经验 LTM + 记忆共振 | 全文；官方 `gaorch85/OpsMem` 静态阅读，SHA `a225802`，Apache-2.0 | [笔记](../../papers/opsagent/opsmem.md) |
@@ -34,4 +35,4 @@
 
 ## 发现数量口径
 
-本库存有 8 篇全读笔记；其中首要指定论文 5 篇全部全文阅读，另外全文阅读 FlowXpert、KnowLution 和 ToolRCA。补充表另列 4 组正式核验但未进入全读的论文/方向。论文笔记均有 Section/Figure/Table 级依据；仅筛查条目明确标出未全文阅读。
+本库存有 9 篇全读笔记；其中首要指定论文 5 篇全部全文阅读，另外全文阅读 FlowXpert、KnowLution、ToolRCA 和 GALA。补充表另列 4 组正式核验但未进入全读的论文/方向。论文笔记均有 Section/Figure/Table 级依据；仅筛查条目明确标出未全文阅读。

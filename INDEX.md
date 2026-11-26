@@ -238,7 +238,7 @@
 
 - [Open Questions](notes/questions.md)
 
-## AgentOps and OpsAgent Research (cutoff: 2026-11-17)
+## AgentOps and OpsAgent Research (cutoff: 2026-11-26)
 
 The labels AgentOps and OpsAgent below are this knowledge base's organizing categories, not a universal taxonomy. The title *OpsAgent* also names one specific NKU system; see the topic guide for the distinction.
 
@@ -268,6 +268,7 @@ The labels AgentOps and OpsAgent below are this knowledge base's organizing cate
 - [Research gaps](notes/opsagent/research-gaps.md)
 - [OpsAgent Knowledge Review v1](notes/opsagent/reviews/opsagent-review-v1.md)
 - Formal paper notes:
+  - [GALA / GALA+: Graph-Augmented LLM Agents for Microservice RCA](papers/opsagent/gala.md) — ASE 2026 Research Track; arXiv v1, related earlier preprint cross-referenced
   - [NKU OpsAgent: Evolving Multi-agent Incident Management](papers/opsagent/opsagent-system.md) — ASE 2026 Companion Industry Showcase; distinguish system name from topic
   - [KRCA](papers/opsagent/krca.md) — ASE 2026
   - [OpsMem](papers/opsagent/opsmem.md) — ISSRE 2026 Industry Track

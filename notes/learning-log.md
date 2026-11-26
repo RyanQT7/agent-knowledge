@@ -686,3 +686,17 @@
 - New concepts: Dynamic executable Agent benchmark with constructive/reactive state-transition tasks.
 - Open questions: 生成器外泛化、query 独立性、跨应用 latency 口径及 sim-to-real transfer。
 - Next step: 将生成模板/拓扑分组留出与安全、成本指标对照纳入动态 Benchmark 研究。
+
+## 2026-11-26 — GALA (ASE 2026)
+
+- Paper: [GALA: Graph-Augmented LLM Agents for Root Cause Analysis and Incident Response in Microservices](../papers/opsagent/gala.md)
+- Version: Full read of arXiv:2608.08968v1, the ASE ’26 paper describing GALA+; cross-identified the earlier arXiv:2508.12472 under its distinct title.
+- Core takeaway: BARO metric ranking and STRIX trace/dependency ranking seed a confidence-aware, bounded LLM investigation; this improves localized diagnosis and response text but does not execute remediation or verify recovery.
+- Important boundary: STRIX graph is service-call dependency, not an identified causal graph. Ranking metrics match pod only, not fault type. The author repository at 24d1329 exposes annotations and sample artifacts, but withholds core implementation and SURE-Score scorer.
+- Visual reading: Codex opened original PDF pages 3, 4, 5, 8, 9, and 10, plus technical-report page 1. This includes the architecture, STRIX/RRF formulas, algorithm, ranking/evaluation tables, ablations, parameter plots, CPU-hog case, and AegisLab table. Renders remain in the user cache.
+- Paper-reading validation: used frozen candidate skill-paper-reading-20261126t110225z-ed765d with aiops-paper-reading and knowledge-review. This independent paper is not a controlled old/new comparison; no conclusion about Skill improvement is claimed.
+- Experience Memory process guidance reused: exp-311316848c9f, exp-4018148873bb, exp-77ed5c77884f, exp-8da9d9cb732b.
+- Model and input/output token totals: unavailable from the current runtime; no estimate made. No child model calls, code execution, or dataset download.
+- Runtime: Research completed 2026-11-26 12:38:22–13:05:14 UTC (26m52s; Git wrap-up excluded).
+- Open issues: confidence calibration and prompt details, exact SURE checklist/scorer, AegisLab result labeled GALA vs GALA+, and a limited public annotation row with inconsistent system name.
+- Next step: await human review; keep the frozen Skill candidate unchanged.

@@ -92,6 +92,14 @@ LLM-as-a-Judge 可能偏爱措辞相似、详细解释和自洽叙述，而忽�
 
 要修正的不是“传统 RCA 不够聪明”，而是可解释排序与调查状态需要闭环。若固定机制已能在足够精度下给出结果，动态多 Agent 可能增加噪音和成本。ToolRCA 进一步挑战“开放工具越多越强”这一常见假设：对服务定位与故障类型识别，最佳工具集可能不同。
 
+## 16. GALA+：图约束调查与建议生成，不是恢复执行闭环
+
+GALA+ 将 BARO 的指标因果排序与 STRIX 的 trace/service-dependency 排序作为互补初始假设，再让 Investigator 围绕高排名候选读取局部指标、日志和一跳邻居；Evidence Synthesis 使用初始信号锚定与跨候选链条一致性收敛。这补足了静态 RCA 排名与开放式 Agent 调查之间的一个中间设计：用拓扑限制搜索范围，同时保留证据支持和反证。
+
+需要保持三个边界：STRIX graph 是调用依赖结构而非已识别的因果图；论文公开的算法以起始候选的一跳邻居为界，核心实现未公开；incident response 输出是三阶段建议，不是工具执行与恢复验证。GALA+ 的 SURE-Score 将证据、诊断精度、可操作性和分诊逻辑分开评分，但公开材料缺少完整 checklist/scorer，且两个 grader 对 Evidence Groundedness 的绝对评分差异较大。详见 [GALA 论文笔记](../../../papers/opsagent/gala.md)。
+
+因此，它强化了“候选受约束、调查有证据、响应有分层”的研究方向，却没有消除恢复闭环、可信 ground truth、未知/多根因和独立复现缺口。
+
 ## 综合结论
 
 当前证据最支持的是 **结构化候选和证据先行、LLM 做受约束的调查与解释、敏感行动由确定性检查和人类权限门控制、恢复由外部状态验证**。研究前沿转向显式状态、跨事件记忆、动态工具组合与安全执行；生产可复现性、未知/多根因处理、trajectory-grounded verification 和 Agent 自身错误仍是主要空白。详见 [研究方向](../research-directions.md)、[研究缺口](../research-gaps.md) 与 [Hybrid RCA Architecture](../../aiops/reviews/network-aiops-architecture-synthesis-v1.md)。
