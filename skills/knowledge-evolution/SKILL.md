@@ -78,4 +78,4 @@ Write the final run report to `evolution/runs/first-evolution-report.md` for the
 
 ## Git boundary
 
-Stage only this capability work or separately approved knowledge paths. Never use `git add .`; never stage raw PDFs, credentials, user files, temporary caches, or external checkout contents. No force push, reset, or history rewrite. The existing commit/push convention applies after approval and review; the candidate branch is not merged automatically.
+Stage only exact capability-work or separately approved knowledge paths changed by this task with `git add -- <path> [<path> ...]`. Never use `git add .` or `git add -A`; never stage raw PDFs, credentials, user files, temporary caches, or external checkout contents. No force push, reset, or history rewrite. The existing commit/push convention applies after approval and review; the candidate branch is not merged automatically.

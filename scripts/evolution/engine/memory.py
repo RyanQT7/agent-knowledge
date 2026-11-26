@@ -112,6 +112,7 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
         stage="planning and evidence review",
         limit=int(context_limits.get("experience_memories", 5)),
         mark_used=True,
+        include_engine=True,
     )
     if focus_resolution:
         relevant_proposals = []

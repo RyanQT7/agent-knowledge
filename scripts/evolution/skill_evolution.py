@@ -36,6 +36,71 @@ def _git_head(root: Path) -> str:
     return result.stdout.strip() if result.returncode == 0 else "unavailable"
 
 
+def _proposal_diff(skill_name: str, original: str, candidate: str) -> str:
+    return "".join(difflib.unified_diff(
+        original.splitlines(keepends=True), candidate.splitlines(keepends=True),
+        fromfile=f"a/skills/{skill_name}/SKILL.md", tofile=f"b/skills/{skill_name}/SKILL.md",
+    ))
+
+
+def _artifact_state(root: Path, directory: Path, proposal: dict[str, Any]) -> tuple[str, str, str, dict[str, str], list[str]]:
+    issues: list[str] = []
+    paths = {"base_hash": directory / "original.md", "candidate_hash": directory / "candidate.md", "diff_hash": directory / "changes.diff"}
+    contents: dict[str, str] = {}
+    for name, path in paths.items():
+        try:
+            contents[name] = path.read_bytes().decode("utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            issues.append(f"Cannot read {path.name}: {type(exc).__name__}.")
+            contents[name] = ""
+    original, candidate, diff = contents["base_hash"], contents["candidate_hash"], contents["diff_hash"]
+    snapshot = {key: sha256_bytes(value.encode("utf-8")) for key, value in contents.items()}
+    if snapshot["base_hash"] != proposal.get("base_hash"):
+        issues.append("Saved original Skill does not match the Proposal base hash.")
+    if snapshot["candidate_hash"] != proposal.get("candidate_hash"):
+        issues.append("Candidate Skill changed since the Proposal was created.")
+    if snapshot["diff_hash"] != proposal.get("diff_hash"):
+        issues.append("Review diff changed since the Proposal was created.")
+    expected_diff = _proposal_diff(str(proposal.get("target_skill", "")), original, candidate)
+    if diff != expected_diff:
+        issues.append("Review diff does not represent the saved original and candidate Skill files.")
+    try:
+        target = _skill_file(root, str(proposal.get("target_skill", "")))
+        if str(target.relative_to(root)) != proposal.get("target_path"):
+            issues.append("Proposal target path does not match the Skill directory.")
+        if sha256_file(target) != proposal.get("base_hash"):
+            issues.append("Target Skill changed since the Proposal was created.")
+    except (ValueError, FileNotFoundError, OSError):
+        issues.append("Target Skill is missing or its path is invalid.")
+    return original, candidate, diff, snapshot, issues
+
+
+def _evaluation_digest(evaluation: dict[str, Any]) -> str:
+    payload = {key: value for key, value in evaluation.items() if key != "record_sha256"}
+    return sha256_bytes(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+
+
+def _validate_evaluated_proposal(root: Path, directory: Path, proposal: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    _, _, _, snapshot, artifact_issues = _artifact_state(root, directory, proposal)
+    issues.extend(artifact_issues)
+    evaluation = proposal.get("evaluation")
+    if not isinstance(evaluation, dict):
+        return issues + ["Proposal has no structured evaluation; evaluate it again before approval."]
+    if evaluation.get("artifact_hashes") != snapshot:
+        issues.append("Evaluation does not match the current baseline, candidate, and diff files.")
+    if evaluation.get("record_sha256") != _evaluation_digest(evaluation):
+        issues.append("Evaluation content changed after it was recorded.")
+    try:
+        report = (directory / "evaluation.md").read_bytes()
+    except OSError:
+        issues.append("Evaluation report is missing.")
+    else:
+        if sha256_bytes(report) != evaluation.get("report_sha256"):
+            issues.append("Evaluation report changed after it was recorded.")
+    return issues
+
+
 def _proposal_dir(root: Path, proposal_id: str) -> Path:
     if not re.fullmatch(r"skill-[a-z0-9-]{3,100}", proposal_id):
         raise ValueError("invalid Skill Proposal ID")
@@ -52,7 +117,7 @@ def create_proposal(root: Path, skill_name: str, experience_ids: list[str], cand
     missing = sorted(set(experience_ids) - experiences.keys())
     if missing:
         raise ValueError("unknown Experience IDs: " + ", ".join(missing))
-    original = target.read_text(encoding="utf-8")
+    original = target.read_bytes().decode("utf-8")
     if not candidate_text.strip():
         raise ValueError("candidate Skill content is empty")
     if candidate_text == original:
@@ -61,10 +126,7 @@ def create_proposal(root: Path, skill_name: str, experience_ids: list[str], cand
     proposal_id = f"skill-{skill_name}-{stamp}-{sha256_bytes(candidate_text.encode())[:6]}"
     directory = root / PROPOSAL_ROOT / proposal_id
     directory.mkdir(parents=True, exist_ok=False)
-    diff = "".join(difflib.unified_diff(
-        original.splitlines(keepends=True), candidate_text.splitlines(keepends=True),
-        fromfile=f"a/skills/{skill_name}/SKILL.md", tofile=f"b/skills/{skill_name}/SKILL.md",
-    ))
+    diff = _proposal_diff(skill_name, original, candidate_text)
     experience_summaries = [
         {"experience_id": item, "lesson": experiences[item].get("lesson", ""), "evidence_refs": experiences[item].get("evidence_refs", [])}
         for item in experience_ids
@@ -91,22 +153,15 @@ def create_proposal(root: Path, skill_name: str, experience_ids: list[str], cand
 def evaluate_proposal(root: Path, proposal_id: str) -> dict[str, Any]:
     directory = _proposal_dir(root.resolve(), proposal_id)
     proposal = read_json(directory / "proposal.json", {})
-    original = (directory / "original.md").read_text(encoding="utf-8")
-    candidate = (directory / "candidate.md").read_text(encoding="utf-8")
-    issues = []
+    if proposal.get("status") in {"approved", "applied", "rejected", "rolled_back"}:
+        raise ValueError("terminal or approved Proposals cannot be re-evaluated")
+    original, candidate, _, artifact_hashes, issues = _artifact_state(root.resolve(), directory, proposal)
     frontmatter = re.search(r"\A---\s*\n(.*?)\n---", candidate, re.S)
     declared_name = re.search(r"(?m)^name:\s*['\"]?([a-z0-9-]+)", frontmatter.group(1)) if frontmatter else None
     if not frontmatter or not declared_name:
         issues.append("Candidate lacks a parseable Skill frontmatter/name.")
     elif declared_name.group(1) != proposal.get("target_skill"):
         issues.append("Candidate Skill name does not match the target directory.")
-    try:
-        target = _skill_file(root, str(proposal.get("target_skill", "")))
-        target_matches = str(target.relative_to(root)) == proposal.get("target_path") and target.is_file() and sha256_file(target) == proposal.get("base_hash")
-    except (ValueError, FileNotFoundError):
-        target_matches = False
-    if not target_matches:
-        issues.append("Target Skill changed since this Proposal was created; regenerate the candidate against the current version.")
     baseline_bytes = len(original.encode("utf-8"))
     candidate_bytes = len(candidate.encode("utf-8"))
     if candidate_bytes > baseline_bytes + max(250, int(baseline_bytes * 0.4)):
@@ -123,6 +178,7 @@ def evaluate_proposal(root: Path, proposal_id: str) -> dict[str, Any]:
         "- Target Skill path and candidate frontmatter checked.",
         f"- Candidate size: {candidate_bytes} bytes; baseline: {baseline_bytes} bytes.",
         f"- Baseline list rules not found verbatim in candidate: {len(missing_rules)}.",
+        f"- Baseline/candidate/diff hashes: `{artifact_hashes['base_hash']}` / `{artifact_hashes['candidate_hash']}` / `{artifact_hashes['diff_hash']}`.",
         *([f"- Issue: {item}" for item in issues]),
         "",
         "Retrospective assessment:",
@@ -130,14 +186,19 @@ def evaluate_proposal(root: Path, proposal_id: str) -> dict[str, Any]:
         "- This check does not execute the original and candidate Skills on a new task; it is not evidence of measured performance improvement.",
         "- A separate reviewer should inspect `changes.diff`, the linked evidence, and any removed rules before approval.",
     ]
-    proposal["status"] = "evaluated"
-    proposal["evaluation"] = {
+    report_text = "\n".join(summary) + "\n"
+    evaluation = {
         "result": result, "type": "static_and_retrospective", "evaluated_at": utc_now(),
         "issues": issues, "baseline_rules_not_verbatim": missing_rules[:30],
         "performance_claim": "not established",
+        "artifact_hashes": artifact_hashes,
+        "report_sha256": sha256_bytes(report_text.encode("utf-8")),
     }
+    evaluation["record_sha256"] = _evaluation_digest(evaluation)
+    proposal["status"] = "evaluated"
+    proposal["evaluation"] = evaluation
     atomic_write_json(directory / "proposal.json", proposal)
-    atomic_write_text(directory / "evaluation.md", "\n".join(summary) + "\n")
+    atomic_write_text(directory / "evaluation.md", report_text)
     return proposal
 
 
@@ -150,6 +211,9 @@ def change_status(root: Path, proposal_id: str, status: str, note: str = "") -> 
             raise ValueError("evaluate the Proposal before approval")
         if proposal.get("evaluation", {}).get("result") == "Regressed":
             raise ValueError("a regressed Proposal cannot be approved")
+        issues = _validate_evaluated_proposal(root.resolve(), directory, proposal)
+        if issues:
+            raise RuntimeError("Proposal artifacts/evaluation are stale or inconsistent: " + "; ".join(issues[:5]))
         proposal["approved_at"] = utc_now()
         proposal["approval_note"] = note
     elif status == "rejected":
@@ -169,19 +233,13 @@ def apply_proposal(root: Path, proposal_id: str) -> dict[str, Any]:
     proposal = read_json(path, {})
     if proposal.get("status") != "approved":
         raise ValueError("apply requires an explicitly approved Proposal")
+    if proposal.get("evaluation", {}).get("result") == "Regressed":
+        raise ValueError("a regressed Proposal cannot be applied")
+    issues = _validate_evaluated_proposal(root, directory, proposal)
+    if issues:
+        raise RuntimeError("Proposal artifacts/evaluation are stale or inconsistent: " + "; ".join(issues[:5]))
+    _, candidate, _, _, _ = _artifact_state(root, directory, proposal)
     target = root / proposal["target_path"]
-    if proposal.get("target_path") != f"skills/{proposal.get('target_skill')}/SKILL.md":
-        raise ValueError("Proposal target path no longer matches its Skill name")
-    if not target.resolve().is_relative_to((root / "skills").resolve()):
-        raise ValueError("target path escapes skills/")
-    if sha256_file(target) != proposal.get("base_hash"):
-        raise RuntimeError("Skill changed since Proposal creation; approval is stale")
-    candidate = (directory / "candidate.md").read_text(encoding="utf-8")
-    if sha256_bytes(candidate.encode("utf-8")) != proposal.get("candidate_hash"):
-        raise RuntimeError("candidate changed since evaluation")
-    diff = (directory / "changes.diff").read_text(encoding="utf-8")
-    if sha256_bytes(diff.encode("utf-8")) != proposal.get("diff_hash"):
-        raise RuntimeError("review diff changed since evaluation")
     atomic_write_text(target, candidate, mode=target.stat().st_mode & 0o777)
     proposal["status"] = "applied"
     proposal["applied_at"] = utc_now()
@@ -201,7 +259,7 @@ def rollback_proposal(root: Path, proposal_id: str) -> dict[str, Any]:
     target = root / proposal["target_path"]
     if sha256_file(target) != proposal.get("applied_hash"):
         raise RuntimeError("Skill changed after application; refusing to overwrite later edits")
-    original = (directory / "original.md").read_text(encoding="utf-8")
+    original = (directory / "original.md").read_bytes().decode("utf-8")
     if sha256_bytes(original.encode("utf-8")) != proposal.get("base_hash"):
         raise RuntimeError("saved rollback copy does not match the original base hash")
     atomic_write_text(target, original, mode=target.stat().st_mode & 0o777)

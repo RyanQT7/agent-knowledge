@@ -44,7 +44,7 @@ Source Grounding、Concept integration、cross-links 和质量检查全部通过
 
 ~~~text
 git diff --check
-→ git add intended knowledge files
+→ git add -- <paper-note-and-index-paths-changed-by-this-task>
 → git commit
 → git push origin main
 ~~~

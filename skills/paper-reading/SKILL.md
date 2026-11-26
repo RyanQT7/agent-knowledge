@@ -241,8 +241,8 @@ The diff is for self-checking only; follow the Git commit behavior below after a
 After the paper note, Concept updates, cross-links, questions, learning log, INDEX, and source-grounding checks all pass, save and synchronize the completed knowledge task automatically:
 
 1. Run `git diff --check` before staging.
-2. Run `git add .`.
-3. Create a concise, paper-specific commit, for example:
+2. Review `git status --short` and stage only the exact note, index, log, and other knowledge paths changed by this paper task with `git add -- <path> [<path> ...]`. Never use `git add .` or `git add -A`, and leave unrelated pre-existing changes unstaged.
+3. A new paper note is an ordinary research artifact and may follow this Skill's commit/push workflow. A paper-note commit does not approve durable cross-paper Concept, Claim, Lesson, or Skill changes; route those through a reviewable Proposal and explicit user approval before applying them. Create a concise, paper-specific commit, for example:
 
    ```text
    Add Reflexion paper notes and memory concepts

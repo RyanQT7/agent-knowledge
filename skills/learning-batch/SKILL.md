@@ -105,13 +105,13 @@ This knowledge base defaults to automatic synchronization on the main branch:
 ~~~text
 Successful paper
 → git diff --check
-→ git add intended knowledge files
+→ git add -- <paper-note-and-index-paths-changed-by-this-task>
 → paper-specific commit
 → git push origin main
 
 Successful batch Review
 → git diff --check
-→ git add intended knowledge files
+→ git add -- <review-and-index-paths-changed-by-this-task>
 → one Review commit
 → git push origin main
 ~~~

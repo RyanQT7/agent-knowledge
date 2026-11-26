@@ -99,4 +99,4 @@ knowledge-evolution
 - [experience-memory](experience-memory/SKILL.md) — 记录、检索和维护简短可复用的任务经验及用户反馈；历史经验不是当前研究证据。
 - [skill-evolution](skill-evolution/SKILL.md) — 从有依据的经验生成、评估 Skill 候选，并在明确批准后应用或回滚。
 
-正式的知识库维护 Skill 默认在任务完成并通过自检后执行 `git add`、`git commit` 和 `git push origin main`。遇到失败、冲突、来源核对未通过、远程或认证异常，或用户明确禁用同步时，保留本地状态并停止 push。
+正式的知识库维护 Skill 默认在任务完成并通过自检后执行 `git commit` 和 `git push origin main`；暂存时只使用当前任务涉及文件的显式路径，不纳入无关预存改动。遇到失败、冲突、来源核对未通过、远程或认证异常，或用户明确禁用同步时，保留本地状态并停止 push。

@@ -33,6 +33,8 @@ python3 scripts/evolution/experience.py search \
 
 Use only the few returned lessons that match the task. Past outcomes can guide workflow choices, but do not reuse old findings as evidence. At task end, record only durable feedback or lessons; repeated submissions are merged.
 
+Normal searches match Chinese and English keywords, keep a global persistent user preference near the top, and exclude Controller-specific / Evolution Engine runtime failures. Add `--include-engine` only when explicitly searching Engine execution history; do not inject those failures into ordinary paper-reading tasks.
+
 View and maintain records:
 
 ```bash

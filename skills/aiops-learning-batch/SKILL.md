@@ -183,13 +183,13 @@ The normal successful sequence is:
 ~~~text
 paper quality PASS
 → git diff --check
-→ git add intended knowledge files
+→ git add -- <paper-note-and-index-paths-changed-by-this-task>
 → paper-specific git commit
 → git push origin main
 
 Review quality PASS
 → git diff --check
-→ git add intended knowledge files
+→ git add -- <review-and-index-paths-changed-by-this-task>
 → Review git commit
 → git push origin main
 ~~~

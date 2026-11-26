@@ -226,4 +226,4 @@ git diff --stat
 git diff
 ~~~
 
-Stage only knowledge files, never sources/code/, PDFs, secrets, or unrelated changes. Run git diff --cached --check. A complete, passing code-reading task may use one concise commit per paper or a clearly scoped Agent/AIOps code-analysis batch, followed by git push origin main. Never force-push, rewrite history, create empty commits, or commit external source. If the analysis is incomplete or the repository identity is unresolved, do not commit it as final.
+Stage only exact knowledge-file paths changed by this task with `git add -- <path> [<path> ...]`; never stage `sources/code/`, PDFs, secrets, or unrelated changes. Run `git diff --cached --check`. A complete, passing code-reading task may use one concise commit per paper or a clearly scoped Agent/AIOps code-analysis batch, followed by `git push origin main`. Never use `git add .` or `git add -A`, force-push, rewrite history, create empty commits, or commit external source. If the analysis is incomplete or the repository identity is unresolved, do not commit it as final.

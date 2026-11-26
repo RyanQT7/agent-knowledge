@@ -175,7 +175,7 @@ After all quality checks pass and there are actual intended changes:
 
 1. Run `git diff --check`.
 2. Confirm the current branch is `main` and `origin` is the configured knowledge-base repository.
-3. If the worktree contains unrelated pre-existing changes, do not include them in this task. If it contains only this Review’s changes, `git add .` is acceptable; otherwise stage the intended paths explicitly.
+3. Stage only the exact Review, index, or learning-log paths changed by this Review with `git add -- <path> [<path> ...]`. Never use `git add .` or `git add -A`; leave unrelated pre-existing changes unstaged.
 4. Confirm the staged set contains no source PDFs, `.env` files, credentials, tokens, or keys, then run `git diff --cached --check`.
 5. Create one concise, non-empty commit, for example `Add second cross-paper knowledge review` or `Consolidate memory concepts after knowledge review`.
 6. Push normally with `git push origin main`.

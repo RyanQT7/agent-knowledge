@@ -165,7 +165,7 @@ scoped commit and push it to `origin main`:
 
 ```bash
 git diff --check
-git add <knowledge files only>
+git add -- <exact knowledge paths changed by this task>
 git commit -m "Add agent framework source learning notes"
 git push origin main
 git status

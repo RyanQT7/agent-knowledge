@@ -48,17 +48,51 @@ class ExperienceMemoryTests(unittest.TestCase):
             self.assertEqual(1, len(results), "teaching-only feedback should not leak into a different research task")
             self.assertEqual(2, len(list_experiences(root)))
 
+    def test_retrieval_matches_chinese_prioritizes_global_preference_and_scopes_engine_failures(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            preference, _ = add_experience(root, {
+                "experience_type": ["user_feedback"], "task_type": "general", "persistent": True,
+                "applicability": "all tasks", "lesson": "Keep validation proportional across tasks.",
+            })
+            tsad = _experience(root, "时间序列异常检测应覆盖非平稳正常模式。", topic="时间序列异常检测", skill="paper-reading")
+            agentops = _experience(root, "Review AgentOps trajectory evidence before making reliability claims.", topic="AgentOps", skill="paper-reading")
+            controller = _experience(root, "Keep Executor attempts separate and merge in the Controller.", topic="Agent Memory", skill="knowledge-evolution", types=["controller_issue"])
+            engine_runtime, _ = add_experience(root, {
+                "task_type": "research", "research_topic": "Agent Memory", "skill_name": "knowledge-evolution",
+                "experience_type": ["environment_issue"], "applicability": "Evolution Engine runs",
+                "lesson": "Check Engine runtime configuration before retrying a failed run.",
+                "evidence_refs": ["test:engine-runtime"],
+            })
+
+            chinese_results = retrieve_experiences(root, task_type="research", topic="时间序列异常检测", skill_names=["paper-reading"], limit=5)
+            chinese_ids = [item["experience_id"] for item in chinese_results]
+            self.assertEqual(chinese_ids[0], preference["experience_id"])
+            self.assertIn(tsad["experience_id"], chinese_ids)
+            self.assertNotIn(controller["experience_id"], chinese_ids)
+            self.assertNotIn(engine_runtime["experience_id"], chinese_ids)
+
+            agentops_results = retrieve_experiences(root, task_type="research", topic="AgentOps", skill_names=["paper-reading"], limit=5)
+            self.assertIn(agentops["experience_id"], [item["experience_id"] for item in agentops_results])
+
+            engine_results = retrieve_experiences(root, task_type="research", topic="Agent Memory Controller retries", skill_names=["knowledge-evolution"], limit=5, include_engine=True)
+            engine_ids = [item["experience_id"] for item in engine_results]
+            self.assertIn(controller["experience_id"], engine_ids)
+            self.assertIn(engine_runtime["experience_id"], engine_ids)
+
     def test_engine_memory_passes_bounded_experience_to_roles(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             _experience(root, "Judge should check pinpoint source locators, not trust summaries.", types=["evidence_gap"])
+            engine_issue = _experience(root, "Keep retry artifacts separate and merge them in the Controller.", topic="Agent Memory", skill="knowledge-evolution", types=["controller_issue"])
             base = memory.initial_memory(root, {})
-            self.assertEqual(1, len(base["relevant_experiences"]))
+            self.assertEqual(2, len(base["relevant_experiences"]))
+            self.assertIn(engine_issue["experience_id"], [item["experience_id"] for item in base["relevant_experiences"]])
             self.assertEqual(1, list_experiences(root)[0]["use_count"])
             current = memory.planner_memory(base, {"rounds": {}, "remaining_calls": 4}, 1, None)
-            self.assertEqual(1, len(current["relevant_experiences"]))
+            self.assertEqual(2, len(current["relevant_experiences"]))
             executor_context = memory.executor_memory(current, {}, {})
-            self.assertEqual(1, len(executor_context["relevant_experiences"]))
+            self.assertEqual(2, len(executor_context["relevant_experiences"]))
             prompt = evaluator.build_judge_prompt({}, {}, {"findings": []}, {}, [], current)
             self.assertIn("Judge should check pinpoint source locators", prompt)
             self.assertIn("process guidance only", prompt)
@@ -125,10 +159,42 @@ class SkillProposalTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 apply_proposal(root, proposal_id)
             change_status(root, proposal_id, "approved", "test approval")
-            apply_proposal(root, proposal_id)
+            applied = apply_proposal(root, proposal_id)
             self.assertEqual(candidate, target.read_text(encoding="utf-8"))
+            self.assertEqual(applied["applied_hash"], evaluated["evaluation"]["artifact_hashes"]["candidate_hash"])
             rollback_proposal(root, proposal_id)
             self.assertEqual(original, target.read_text(encoding="utf-8"))
+
+    def test_skill_proposal_evaluation_stays_bound_to_its_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            skill_dir = root / "skills/demo-skill"
+            skill_dir.mkdir(parents=True)
+            target = skill_dir / "SKILL.md"
+            original = "---\nname: demo-skill\ndescription: A test.\n---\n\n# Demo\n\n- Keep this rule.\n"
+            target.write_text(original, encoding="utf-8")
+            experience = _experience(root, "A focused proposal integrity test.", skill="demo-skill")
+
+            proposal = create_proposal(root, "demo-skill", [experience["experience_id"]], original + "\nA candidate rule.\n")
+            evaluate_proposal(root, proposal["proposal_id"])
+            candidate_path = root / "evolution/skill-proposals" / proposal["proposal_id"] / "candidate.md"
+            candidate_path.write_text(candidate_path.read_text(encoding="utf-8") + "\nTampered after evaluation.\n", encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                change_status(root, proposal["proposal_id"], "approved")
+            self.assertEqual(original, target.read_text(encoding="utf-8"))
+
+            mismatched = create_proposal(root, "demo-skill", [experience["experience_id"]], original + "\nAnother candidate rule.\n")
+            diff_path = root / "evolution/skill-proposals" / mismatched["proposal_id"] / "changes.diff"
+            diff_path.write_text(diff_path.read_text(encoding="utf-8") + "tampered\n", encoding="utf-8")
+            evaluated = evaluate_proposal(root, mismatched["proposal_id"])
+            self.assertEqual("Regressed", evaluated["evaluation"]["result"])
+
+            report_tamper = create_proposal(root, "demo-skill", [experience["experience_id"]], original + "\nA third candidate rule.\n")
+            evaluate_proposal(root, report_tamper["proposal_id"])
+            report_path = root / "evolution/skill-proposals" / report_tamper["proposal_id"] / "evaluation.md"
+            report_path.write_text(report_path.read_text(encoding="utf-8") + "edited\n", encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                change_status(root, report_tamper["proposal_id"], "approved")
 
     def test_stale_skill_hash_blocks_apply(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

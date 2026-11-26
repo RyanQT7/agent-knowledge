@@ -493,7 +493,7 @@ For a complete, passing single-paper task:
 
 1. Run git diff --check.
 2. Confirm the branch is main and origin is the configured RyanQT7/agent-knowledge repository.
-3. Stage only intended knowledge files; never stage sources/papers/AIOps_papers/*.pdf, secrets, credentials, or unrelated changes.
+3. Stage only exact paper-note and index paths changed by this task with `git add -- <path> [<path> ...]`; never use `git add .` or `git add -A`, and never stage sources/papers/AIOps_papers/*.pdf, secrets, credentials, or unrelated changes.
 4. Run git diff --cached --check.
 5. Create one non-empty, paper-specific commit, for example:
 

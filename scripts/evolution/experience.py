@@ -24,7 +24,40 @@ STATUSES = {"active", "needs_review", "superseded", "rejected"}
 
 
 def _plain_tokens(value: str) -> set[str]:
-    return {token for token in re.findall(r"[a-z0-9][a-z0-9_-]{1,}", value.lower())}
+    text = value.lower()
+    tokens = set(re.findall(r"[a-z0-9][a-z0-9_-]{1,}", text))
+    for span in re.findall(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]+", text):
+        if len(span) == 1:
+            tokens.add(span)
+        else:
+            tokens.update(span[index:index + 2] for index in range(len(span) - 1))
+    return tokens
+
+
+def _engine_specific(record: dict[str, Any]) -> bool:
+    types = record.get("experience_type", [])
+    if isinstance(types, str):
+        types = [types]
+    if "controller_issue" in types:
+        return True
+    scope = str(record.get("applicability", "")).casefold()
+    return "evolution engine" in scope or scope.startswith("engine controller")
+
+
+def _global_preference(record: dict[str, Any]) -> bool:
+    types = record.get("experience_type", [])
+    if isinstance(types, str):
+        types = [types]
+    applicability = str(record.get("applicability", "")).strip().casefold()
+    return bool(
+        record.get("persistent")
+        and "user_feedback" in types
+        and (applicability in {"all tasks", "all", "global"} or (
+            str(record.get("task_type", "general")) == "general"
+            and not record.get("research_topic")
+            and not record.get("skill_name")
+        ))
+    )
 
 
 def _fingerprint(record: dict[str, Any]) -> str:
@@ -139,14 +172,16 @@ def set_experience_status(root: Path, experience_id: str, status: str) -> dict[s
 
 def retrieve_experiences(
     root: Path, *, task_type: str = "", topic: str = "", skill_names: list[str] | None = None,
-    stage: str = "", limit: int = 5, mark_used: bool = False,
+    stage: str = "", limit: int = 5, mark_used: bool = False, include_engine: bool = False,
 ) -> list[dict[str, Any]]:
     root = root.resolve()
     records = list_experiences(root, "active")
     skills = {name.lower() for name in (skill_names or []) if name}
     query_tokens = _plain_tokens(" ".join([task_type, topic, stage, *skills]))
-    ranked: list[tuple[float, dict[str, Any]]] = []
+    ranked: list[tuple[bool, float, int, str, dict[str, Any]]] = []
     for row in records:
+        if not include_engine and _engine_specific(row):
+            continue
         score = 0.0
         row_skills = {str(row.get("skill_name", "")).lower()} - {""}
         if skills & row_skills:
@@ -162,12 +197,13 @@ def retrieve_experiences(
         ))
         overlap = len(query_tokens & _plain_tokens(searchable))
         score += min(overlap, 8) * 0.6
-        if score > 0:
-            ranked.append((score, row))
-    ranked.sort(key=lambda item: (item[0], item[1].get("occurrences", 1), item[1].get("created_at", "")), reverse=True)
+        preference = _global_preference(row)
+        if score > 0 or preference:
+            ranked.append((preference, score, int(row.get("occurrences", 1)), str(row.get("created_at", "")), row))
+    ranked.sort(key=lambda item: item[:4], reverse=True)
     selected = []
     now = utc_now()
-    for score, row in ranked[:max(1, limit)]:
+    for _, score, _, _, row in ranked[:max(0, limit)]:
         compact = {key: row.get(key) for key in (
             "experience_id", "task_type", "research_topic", "skill_name", "experience_type", "lesson",
             "recommended_action", "applicability", "status", "persistent", "evidence_refs"
@@ -349,6 +385,7 @@ def main(argv: list[str] | None = None) -> int:
     search.add_argument("--skill", action="append", default=[])
     search.add_argument("--stage", default="")
     search.add_argument("--limit", type=int, default=5)
+    search.add_argument("--include-engine", action="store_true", help="include Evolution Engine/controller execution experiences")
     status = commands.add_parser("status")
     status.add_argument("experience_id")
     status.add_argument("value", choices=sorted(STATUSES))
@@ -370,7 +407,7 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "list":
         print(json.dumps(list_experiences(root, args.status), ensure_ascii=False, indent=2))
     elif args.command == "search":
-        print(json.dumps(retrieve_experiences(root, task_type=args.task_type, topic=args.topic, skill_names=args.skill, stage=args.stage, limit=max(1, min(args.limit, 20)), mark_used=True), ensure_ascii=False, indent=2))
+        print(json.dumps(retrieve_experiences(root, task_type=args.task_type, topic=args.topic, skill_names=args.skill, stage=args.stage, limit=max(0, min(args.limit, 20)), mark_used=True, include_engine=args.include_engine), ensure_ascii=False, indent=2))
     elif args.command == "status":
         print(json.dumps(set_experience_status(root, args.experience_id, args.value), ensure_ascii=False, indent=2))
     else:
