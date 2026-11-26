@@ -352,7 +352,11 @@ class EvolutionController:
                     return self._terminate(run_dir, state, "BLOCKED", f"Codex CLI backend unavailable: {exc.kind}")
             try:
                 self._ensure_workspace(run_dir, state)
-                self._ensure_baseline(run_dir, state)
+                if self.config.get("audit", {}).get("enabled", True):
+                    self._ensure_baseline(run_dir, state)
+                elif state.get("baseline_audit", {}).get("status") == "pending":
+                    state["baseline_audit"] = {"status": "skipped", "reason": "user-scoped research run; full-worktree audit disabled"}
+                    save_state(run_dir, state)
                 self._ensure_discovery(run_dir, state, goal)
                 if state["status"] in {"PENDING", "INTERRUPTED"}:
                     transition(run_dir, state, "PLANNING", "Python Controller starts dynamic planning.")
@@ -578,7 +582,11 @@ class EvolutionController:
         return references
 
     def _run_rounds(self, run_dir: Path, state: dict[str, Any], goal: dict[str, Any]) -> None:
-        experience_config = {**self.config, "experience_skill_names": [*goal.get("existing_skill_protocols", {}).keys(), "experience-memory"]}
+        experience_config = {
+            **self.config,
+            "experience_skill_names": [*goal.get("existing_skill_protocols", {}).keys(), "experience-memory"],
+            "fixed_candidate_queue": goal.get("fixed_candidate_queue"),
+        }
         base_memory = memory.initial_memory(self.root, experience_config)
         self._active_experiences = base_memory.get("relevant_experiences", [])[:5]
         max_rounds = int(goal["budgets"]["max_rounds"])
@@ -992,6 +1000,12 @@ class EvolutionController:
         return path
 
     def _run_round_audit(self, run_dir: Path, state: dict[str, Any], round_number: int) -> None:
+        if not self.config.get("audit", {}).get("enabled", True):
+            round_data = state["rounds"].setdefault(str(round_number), {})
+            round_data["audit_delta"] = {"status": "skipped", "reason": "full-worktree audit disabled for this research task"}
+            save_state(run_dir, state)
+            append_event(run_dir, "round_audit_skipped", {"round": round_number, "reason": "disabled_by_run_scope"})
+            return
         workspace = Path(state["candidate_workspace"])
         audit_id = f"{state['run_id']}-r{round_number:02d}"
         result = self.audit_fn(root=workspace, run_id=audit_id)
@@ -1119,6 +1133,9 @@ class EvolutionController:
             if item.get("evaluation"):
                 lines.extend(["Evaluator rationale: " + item["evaluation"].get("rationale", ""), ""])
             if item.get("audit_delta"):
-                lines.extend([f"Audit delta: {item['audit_delta'].get('new_findings', 0)} new findings from historical baseline ({item['audit_delta'].get('current_findings', 'n/a')} total current).", ""])
+                if item["audit_delta"].get("status") == "skipped":
+                    lines.extend(["Audit status: skipped by scoped-run configuration; no full-worktree audit result is claimed.", ""])
+                else:
+                    lines.extend([f"Audit delta: {item['audit_delta'].get('new_findings', 0)} new findings from historical baseline ({item['audit_delta'].get('current_findings', 'n/a')} total current).", ""])
         lines.extend(["## Proposal boundary", "", "Every generated Proposal is a draft and requires explicit review. The controller does not apply, commit, or push knowledge updates.", ""])
         atomic_write_text(run_dir / "final-report.md", "\n".join(lines))

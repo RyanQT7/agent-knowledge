@@ -54,6 +54,34 @@ def _print_summary(state: dict[str, Any], run_dir: Path) -> None:
     }, ensure_ascii=False, indent=2))
 
 
+def _load_fixed_candidates(path: Path, allowed_topic_ids: list[str]) -> list[dict[str, Any]]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(value, dict):
+        value = value.get("candidates")
+    if not isinstance(value, list) or not value or len(value) > 8:
+        raise ValueError("fixed candidate input must be a JSON list containing 1–8 candidates")
+    result = []
+    seen = set()
+    for raw in value:
+        if not isinstance(raw, dict):
+            raise ValueError("every fixed candidate must be a JSON object")
+        candidate_id = str(raw.get("candidate_id", "")).strip()
+        title = str(raw.get("title", "")).strip()
+        source_url = str(raw.get("source_url", "")).strip()
+        if not candidate_id or not title or not source_url or candidate_id in seen:
+            raise ValueError("each fixed candidate needs unique candidate_id, title, and source_url")
+        seen.add(candidate_id)
+        row = {key: raw.get(key) for key in (
+            "candidate_id", "title", "authors", "publication_date", "publication_status", "doi", "arxiv_id",
+            "source_url", "source_version", "official_repository", "novelty_reason", "relevance_reason", "priority", "local_aliases",
+        ) if raw.get(key) is not None}
+        row["status"] = "queued"
+        row["research_topic"] = allowed_topic_ids[0]
+        row["related_topics"] = list(allowed_topic_ids)
+        result.append(row)
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run a bounded, checkpointed Self-Evolution Engine as an independent Python process.")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2], help="knowledge base root (defaults to this checkout)")
@@ -68,6 +96,8 @@ def main(argv: list[str] | None = None) -> int:
     run.add_argument("--reasoning-effort", choices=("low", "medium", "high", "xhigh"))
     run.add_argument("--run-id")
     run.add_argument("--no-discovery", action="store_true", help="disable fresh provider discovery; useful for isolated tests")
+    run.add_argument("--fixed-candidates", type=Path, help="use exactly this JSON candidate list; discovery is disabled")
+    run.add_argument("--skip-audit", action="store_true", help="skip full-worktree baseline and round audits for a narrowly scoped research run")
     resume = commands.add_parser("resume", help="resume an interrupted run or explicitly retry a failed stage from completed checkpoints")
     resume.add_argument("run_id")
     resume.add_argument("--backend", choices=("codex-cli", "mock"), default=None)
@@ -108,9 +138,31 @@ def main(argv: list[str] | None = None) -> int:
                 config["backend"]["reasoning_effort"] = args.reasoning_effort
             if args.no_discovery:
                 config["discovery"]["enabled"] = False
+            if args.fixed_candidates:
+                config["discovery"]["enabled"] = False
+            if args.skip_audit:
+                config["audit"] = {"enabled": False}
             if args.scenario and config["backend"]["type"] != "mock":
                 raise ValueError("--scenario is only valid with --backend mock")
             goal = build_goal(config, args.max_rounds, args.max_model_calls, args.focus, root=root)
+            if args.fixed_candidates:
+                fixed_queue = _load_fixed_candidates(args.fixed_candidates, goal["allowed_topic_ids"])
+                required_rounds = (len(fixed_queue) + 1) // 2
+                if int(goal["budgets"]["max_rounds"]) < required_rounds:
+                    raise ValueError(f"fixed queue needs at least {required_rounds} rounds at two full reads per round")
+                goal["fixed_candidate_queue"] = fixed_queue
+                goal["research_scope"].append("Fixed user-selected paper queue: analyze exactly the supplied candidates; do not substitute or expand the paper set.")
+                goal["research_questions"] = list(dict.fromkeys(goal["research_questions"] + [
+                    "What benchmark-design evidence and limitations do the fixed papers report, and how do their evaluation protocols differ?",
+                    "What ground-truth, fault-coverage, telemetry, and shortcut risks recur across the fixed papers?",
+                    "Which evidence-backed design lessons transfer to the user's AIOps dataset, and what remains unknown?",
+                ]))
+                goal["budgets"]["max_full_reads"] = min(len(fixed_queue), 2 * int(goal["budgets"]["max_rounds"]))
+                goal["acceptance_criteria"]["min_feedback_driven_rounds"] = 1
+            if args.skip_audit:
+                goal["acceptance_criteria"]["require_no_new_deterministic_audit_regression"] = False
+                goal["hard_constraints"].append("A full-worktree deterministic audit was intentionally skipped to keep this paper-scoped research task bounded; do not claim an audit pass.")
+                goal["historical_audit_baseline"]["interpretation"] = "Informational only; this run skipped current-base and round audit execution by explicit task scope."
             backend = _backend(config, scenario=args.scenario)
             controller = EvolutionController(backend, root=root, config=config)
             run_dir = controller.create_run(goal, run_id=args.run_id)

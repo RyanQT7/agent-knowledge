@@ -26,6 +26,8 @@
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
+- **AIOps Benchmark 专题（6 篇）**：[清单与身份核验](notes/benchmark/paper-inventory.md) · [横向比较](notes/benchmark/benchmark-comparison.md) · [数据集设计启发](notes/benchmark/dataset-design-insights.md) · [Research Gaps](notes/benchmark/research-gaps.md) · [Review v1](notes/benchmark/reviews/benchmark-review-v1.md)
+- 单篇归档：[RCABench](papers/benchmark/rcabench/notes.md) · [NIKA](papers/benchmark/nika/notes.md) · [OpenRCA](papers/benchmark/openrca/notes.md) · [Constructing Large-Scale](papers/benchmark/constructing-aiops-benchmark/notes.md) · [AgenticOpsEval](papers/benchmark/agenticopseval/notes.md) · [CTBench](papers/benchmark/ctbench/notes.md)
 - [TSAD papers (2024–2026): inventory and PDF report](sources/papers/tsad-2024-2026/download_report.md)
 - **TSAD 精读进度：33/33**；33 篇 PDF 均已完成实际精读，并有单篇笔记与知识卡片。批次进度见 [learning log](notes/learning-log.md)，跨论文评审见 [Knowledge Review v13](notes/reviews/knowledge-review-v13.md)，总览与检索入口见 [TSAD final synthesis](notes/reviews/tsad-final-synthesis.md) 和 [TSAD knowledge query guide](notes/guides/tsad-knowledge-query-guide.md)。
 

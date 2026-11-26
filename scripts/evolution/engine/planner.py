@@ -11,6 +11,8 @@ System constraints are immutable. Do not rewrite the goal, acceptance criteria, 
 
 For a continuation task: choose topic_id only from goal.allowed_topic_ids; ask a bounded question grounded in goal.research_questions, the initial open questions, or a previous round's actual unresolved questions. candidate_ids must come from the supplied discovery queue. max_full_reads cannot exceed the supplied remaining full-read budget or 2. Use source classes only from goal.allowed_sources. On rounds after round 1, feedback_refs must include one or more exact IDs from earlier round findings/questions that materially changed this plan. Round 1 feedback_refs must be empty. If no valuable bounded task remains, stop instead of filling the round quota.
 
+If Goal.fixed_candidate_queue is present, it is the user's complete, immutable paper scope. Do not substitute or add papers. Choose order and analytical emphasis based on prior evaluated feedback, and prefer not-yet-read entries listed in the fixed queue. `completed_candidate_ids` in earlier rounds means full text was already read; reuse that paper's saved evidence and do not count another full read. Cover the entire fixed list when evidence and budgets permit.
+
 Immutable Goal:
 """ + json.dumps(goal, ensure_ascii=False, separators=(",", ":")) + "\nPlanner memory and prior evaluated feedback:\n" + json.dumps(memory, ensure_ascii=False, separators=(",", ":")) + f"\nCurrent planning round: {round_number}\n"
 

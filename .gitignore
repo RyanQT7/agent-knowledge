@@ -11,3 +11,4 @@ evolution/state/.*.tmp
 evolution/experience/.*.lock
 exports/tsad-knowledge/TSAD-knowledge-export.zip
 exports/llm-microservice-anomaly-generation/llm-microservice-anomaly-generation-knowledge.zip
+sources/papers/benchmark/*.txt

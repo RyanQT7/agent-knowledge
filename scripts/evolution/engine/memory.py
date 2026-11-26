@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from scripts.evolution.common import read_jsonl
+from scripts.evolution.common import normalize_arxiv, normalize_doi, normalize_title, read_jsonl
 from scripts.evolution.experience import retrieve_experiences
 from scripts.evolution.engine.focus import terms_for_text
 from scripts.evolution.engine.local_sources import find_local_paper_material
@@ -41,7 +41,8 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
     abstract_limit = max(100, int(context_limits.get("candidate_abstract_chars", 400)))
     report_path = root / "evolution" / "runs" / "first-evolution-report.md"
     report = report_path.read_text(encoding="utf-8", errors="replace") if report_path.exists() and not focus_resolution else ""
-    candidate_rows = read_jsonl(root / "evolution" / "inbox" / "candidates.jsonl")
+    fixed_queue = config.get("fixed_candidate_queue")
+    candidate_rows = list(fixed_queue) if isinstance(fixed_queue, list) else read_jsonl(root / "evolution" / "inbox" / "candidates.jsonl")
     allowed_topics = set(config.get("allowed_topic_ids", focus_resolution.get("topic_ids", [])))
     relevant = [
         row for row in candidate_rows
@@ -146,12 +147,34 @@ def initial_memory(root: Path, config: dict[str, Any] | None = None) -> dict[str
 
 def planner_memory(base: dict[str, Any], state: dict[str, Any], round_number: int, discovery: dict[str, Any] | None) -> dict[str, Any]:
     previous = []
+    queue = base.get("candidate_queue", [])
+
+    def matches_candidate(candidate: dict[str, Any], paper: dict[str, Any]) -> bool:
+        candidate_doi = normalize_doi(candidate.get("doi"))
+        paper_doi = normalize_doi(paper.get("source_id")) or normalize_doi(paper.get("source_uri"))
+        if candidate_doi and paper_doi and candidate_doi == paper_doi:
+            return True
+        candidate_arxiv = normalize_arxiv(candidate.get("arxiv_id"))[0]
+        paper_arxiv = normalize_arxiv(paper.get("source_id"))[0] or normalize_arxiv(paper.get("source_uri"))[0]
+        if candidate_arxiv and paper_arxiv and candidate_arxiv == paper_arxiv:
+            return True
+        candidate_uri = str(candidate.get("source_url", "")).rstrip("/")
+        return bool(candidate_uri and candidate_uri == str(paper.get("source_uri", "")).rstrip("/"))
+
     for key in sorted(state.get("rounds", {}), key=lambda value: int(value)):
         item = state["rounds"][key]
         if int(key) >= round_number:
             continue
         evaluation = item.get("evaluation", {})
         reflection = item.get("reflection", {})
+        full_read_papers = [
+            paper for paper in item.get("normalized_execution", {}).get("papers", [])
+            if paper.get("reading_extent") == "full_text"
+        ]
+        completed_candidate_ids = [
+            candidate.get("candidate_id") for candidate in queue
+            if any(matches_candidate(candidate, paper) for paper in full_read_papers)
+        ]
         previous.append({
             "round": int(key),
             "plan": {field: item.get("plan", {}).get(field) for field in ("decision", "topic_id", "research_question", "candidate_ids", "feedback_refs")},
@@ -177,6 +200,8 @@ def planner_memory(base: dict[str, Any], state: dict[str, Any], round_number: in
             },
             "unresolved_questions": item.get("unresolved_questions", [])[:10],
             "unresolved_question_ids": item.get("unresolved_question_ids", []),
+            "completed_candidate_ids": completed_candidate_ids,
+            "papers_read": [{"source_id": paper.get("source_id"), "source_version": paper.get("source_version"), "title": paper.get("title")} for paper in full_read_papers],
         })
     discovery_summary = {
         key: (discovery or {}).get(key)

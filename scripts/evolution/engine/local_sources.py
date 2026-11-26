@@ -25,8 +25,13 @@ def _identity_keys(identity: dict[str, Any]) -> tuple[list[str], list[str]]:
         doi = re.search(r"10\.\d{4,9}/[^\s?#]+", value)
         if doi:
             exact.append(doi.group(0).rstrip(".,;)]}"))
-    title = re.sub(r"[^a-z0-9]+", " ", str(identity.get("title") or "").lower())
-    words = [word for word in title.split() if len(word) >= 3 and word not in _STOPWORDS]
+    exact.extend(str(alias).strip().lower() for alias in identity.get("local_aliases", []) if str(alias).strip())
+    titles = [str(identity.get("title") or ""), *(str(value) for value in identity.get("local_aliases", []))]
+    words = []
+    for value in titles:
+        title = re.sub(r"[^a-z0-9]+", " ", value.lower())
+        words.extend(word for word in title.split() if len(word) >= 3 and word not in _STOPWORDS)
+    words = list(dict.fromkeys(words))
     return list(dict.fromkeys(exact)), list(dict.fromkeys(words))
 
 
