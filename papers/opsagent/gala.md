@@ -19,7 +19,7 @@
 - **模型：** 当前运行环境没有提供主会话模型标识，故记为不可得。
 - **研究耗时：** 2026-11-26 12:38:22–13:05:14 UTC，26 分 52 秒（不含 Git 收尾）。
 - **Token：** 当前运行环境不公开输入、输出 Token 统计；不可得，未估算。
-- **原图核验：** 本地图像查看器实际查看主论文 PDF 物理页 3、4、5、8、9、10，以及技术报告物理页 1。涵盖 Figure 2、STRIX/RRF 公式和上下文构造、Algorithm 1/Figure 3、Tables 1–3、Figure 4/Table 4、Table 5、Figure 5、Figure 6 和 AegisLab 表。渲染文件留在 `/home/xieqitong/.cache/agent-knowledge/paper-pdf/gala-ase26/` 与 `.../gala-tech-report/`，不纳入仓库。
+- **原图核验：** 本地图像查看器实际查看主论文 PDF 物理页 3、4、5、8、9、10，以及技术报告物理页 1。主论文原图可由本地 `sources/papers/opsagent/gala-ase26.pdf` 重新渲染；该 PDF 页码按物理页从 1 开始。技术报告原 PDF 未保存在知识库，已核验的物理页 1 保留在 `/home/xieqitong/.cache/agent-knowledge/paper-pdf/gala-tech-report/page-001.png`，作为当前唯一无法从本地原始材料重建的缓存证据。主论文渲染图和其他可由本地 PDF 重建的临时页面已清理。
 - **材料限制：** 未取得可供版本差异比较的出版商 PDF；精确提示词、SURE-Score 最终 checklist 与 scorer、工业遥测数据均未公开。
 
 ## 一句话概括

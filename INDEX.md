@@ -23,6 +23,8 @@
 - [ReAct: Synergizing Reasoning and Acting in Language Models](papers/react/notes.md)
 - [Toolformer: Language Models Can Teach Themselves to Use Tools](papers/toolformer/notes.md)
 - [Reflexion: Language Agents with Verbal Reinforcement Learning](papers/reflexion/notes.md)
+- [Leto: Utility-Centric Agent Memory](papers/leto/notes.md)
+- [EvoDisco: Strategy Discovery for Evolving Agent Memory](papers/evodisco/notes.md)
 - [LLM+P: Empowering Large Language Models with Optimal Planning Proficiency](papers/llm-p/notes.md)
 - [RAP: Reasoning with Language Model is Planning with World Model](papers/rap/notes.md)
 - [ReWOO: Decoupling Reasoning from Observations for Efficient Augmented Language Models](papers/rewoo/notes.md)
